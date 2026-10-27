@@ -1,0 +1,9 @@
+{
+  "header": "╭─── ⋆｡˚ ☁︎ *{botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯",
+  "menuTopBorder": "╭─ ",
+  "bottomBorder": "╰─────── ⋆｡˚ ✧ ───────",
+  "menuTitleIcon": "✦",
+  "menuItemIcon": " ♡ ",
+  "separatorIcon": "✦",
+  "middleBorder": "│"
+}
