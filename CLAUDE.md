@@ -12,6 +12,8 @@ Bot de WhatsApp do Ruan. Os projetos dele têm nomes de pedras e gemas (Onix = l
 - Oracle e Google Cloud não deram certo: o único cartão do usuário é do Mercado Pago (pré-pago, recusado), e a conta antiga do Google Cloud foi encerrada.
 - Hospedagem escolhida: **Waifly** (plano grátis, painel Pterodactyl em panel.waifly.com, servidor "Opala" id `961d5625`, 400 MB RAM, Node 22, Paris). Servidor desligado por 3 dias é suspenso.
 - Nazuna 10.3.1 enviada ao servidor. Comando de início: `node dados/src/.scripts/start.js`.
+- Bot **no ar** desde 27/10/2026: nome "A+ 3.0", prefixo `!`, dono Ruan ((numero do dono)), número do bot (numero do bot) (secundário, pareado por código). Sessão em `dados/database/qr-code` no servidor; ao reiniciar, conecta sozinho. Uso de memória: ~125 MB de 400.
+- Vex API (downloads) ainda sem chave (`apikey_vex: SUA_KEY`). Figurinhas dependem de ffmpeg no servidor: ainda não testado.
 - Chave de API e senha do painel ficam em `~/.config/opala/waifly.env` (fora do repositório). Acesso pela API do Pterodactyl (`/api/client`).
 
 ## Cuidados
