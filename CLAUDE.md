@@ -17,6 +17,8 @@ Bot de WhatsApp do Ruan. Os projetos dele têm nomes de pedras e gemas (Onix = l
 - Bot **no ar** desde 27/10/2026: nome "A+ 3.0", prefixo `!`, dono Ruan ((numero do dono)), número do bot (numero do bot) (secundário, pareado por código). Sessão em `dados/database/qr-code` no servidor; ao reiniciar, conecta sozinho. Uso de memória: ~125 MB de 400.
 - Vex API: chave gravada em `config.json` no servidor (cópia em `~/.config/opala/waifly.env`).
 - Visual: banner pixel art e design do menu ficam em `arte/` (o banner vai para `dados/midias/menu.jpg`; o original da Nazuna ficou como `menu-nazuna-original.jpg`).
+- Código do bot (Nazuna modificada) fica em `bot/` neste repositório; GitHub privado: https://github.com/ruan2311/opala. `config.json`, `database/` e `bin/` ficam só no servidor (ver `config.exemplo.json`).
+- Textos na estética fofa do A+ (27/10/2026): `arte/fofo.py` refaz as trocas se a Nazuna for atualizada. Para publicar mudanças: empacotar só os arquivos alterados de `bot/` em .tar.gz, enviar pela API, descompactar em `/` e reiniciar (kill + start). Os arquivos `dados/src` usam quebra de linha CRLF: preservar ao editar.
 - Chave de API e senha do painel ficam em `~/.config/opala/waifly.env` (fora do repositório). Acesso pela API do Pterodactyl (`/api/client`).
 
 ## Cuidados
