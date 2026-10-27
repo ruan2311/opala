@@ -1,16 +1,16 @@
 export default async function menuMembros(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ 🌸 『 *${botName}* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗💜⭟",
-    separatorIcon = "❁",
-    middleBorder = "┊",
-    perfilMenuTitle = "👤 PERFIL & ESTATÍSTICAS",
-    botStatusMenuTitle = "🤖 STATUS DO BOT",
-    personalMenuTitle = "⚙️ CONFIGURAÇÕES PESSOAIS",
-    rankMenuTitle = "🏆 RANKINGS & GAMIFICAÇÃO",
-    gamingMenuTitle = "🎮 CONTEÚDO GAMER"
+    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│",
+    perfilMenuTitle = "👤 Perfil & Estatísticas",
+    botStatusMenuTitle = "🤖 Status do Bot",
+    personalMenuTitle = "⚙️ Configurações Pessoais",
+    rankMenuTitle = "🏆 Rankings & Gamificação",
+    gamingMenuTitle = "🎮 Conteúdo Gamer"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}
@@ -38,7 +38,7 @@ ${middleBorder}${menuItemIcon}${prefix}afk
 ${middleBorder}${menuItemIcon}${prefix}voltei
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *👬 INTERAÇÃO SOCIAL*
+${menuTopBorder}${separatorIcon} *👬 Interação Social*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}roles
 ${middleBorder}${menuItemIcon}${prefix}transcrever
@@ -58,7 +58,7 @@ ${middleBorder}${menuItemIcon}${prefix}totalcmd
 ${middleBorder}${menuItemIcon}${prefix}topcmd
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} * CONQUISTAS & PRESENTES*
+${menuTopBorder}${separatorIcon} *Conquistas & Presentes*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}conquistas
 ${middleBorder}${menuItemIcon}${prefix}caixa diaria
@@ -68,7 +68,7 @@ ${middleBorder}${menuItemIcon}${prefix}presente @user <tipo>
 ${middleBorder}${menuItemIcon}${prefix}inv
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *⭐ REPUTAÇÃO & DENÚNCIAS*
+${menuTopBorder}${separatorIcon} *⭐ Reputação & Denúncias*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}rep + @user
 ${middleBorder}${menuItemIcon}${prefix}rep - @user

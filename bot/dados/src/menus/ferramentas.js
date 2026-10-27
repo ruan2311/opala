@@ -1,18 +1,18 @@
 export default async function menuFerramentas(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ 🌸 『 *${botName}* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗💜⭟",
-    separatorIcon = "❁",
-    middleBorder = "┊",
-    nicknameMenuTitle = "📱 GERADOR DE NOMES & IDENTIDADE",
-    captureMenuTitle = "🖼️ CAPTURAS & VISUALIZAÇÃO",
-    linkMenuTitle = "🌐 LINKS & UPLOADS",
-    securityMenuTitle = "🔒 SEGURANÇA",
-    timeMenuTitle = "🕐 TEMPO & CLIMA",
-    languageMenuTitle = "📚 DICIONÁRIO & TRADUÇÃO",
-    reminderMenuTitle = "⏰ LEMBRETES & LISTAS"
+    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│",
+    nicknameMenuTitle = "📱 Gerador de Nomes & Identidade",
+    captureMenuTitle = "🖼️ Capturas & Visualização",
+    linkMenuTitle = "🌐 Links & Uploads",
+    securityMenuTitle = "🔒 Segurança",
+    timeMenuTitle = "🕐 Tempo & Clima",
+    languageMenuTitle = "📚 Dicionário & Tradução",
+    reminderMenuTitle = "⏰ Lembretes & Listas"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}
@@ -32,19 +32,19 @@ ${middleBorder}${menuItemIcon}${prefix}transcrever (responda áudio)
 ${middleBorder}${menuItemIcon}${prefix}tts <texto>
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🧮 CALCULADORA*
+${menuTopBorder}${separatorIcon} *🧮 Calculadora*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}calc <expressão>
 ${middleBorder}${menuItemIcon}${prefix}calc converter <valor> <de> <para>
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🔮 HORÓSCOPO & MISTICISMO*
+${menuTopBorder}${separatorIcon} *🔮 Horóscopo & Misticismo*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}horoscopo <signo>
 ${middleBorder}${menuItemIcon}${prefix}signos
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *📝 NOTAS PESSOAIS*
+${menuTopBorder}${separatorIcon} *📝 Notas Pessoais*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}nota add <texto>
 ${middleBorder}${menuItemIcon}${prefix}notas
@@ -82,7 +82,7 @@ ${middleBorder}${menuItemIcon}${prefix}lembrete
 ${middleBorder}${menuItemIcon}${prefix}meuslembretes
 ${middleBorder}${menuItemIcon}${prefix}apagalembrete
 ${middleBorder}
-${middleBorder}${menuTitleIcon} *OUTROS* ${menuTitleIcon}
+${middleBorder}${menuTitleIcon} *Outros* ${menuTitleIcon}
 ${middleBorder}${menuItemIcon}${prefix}aniversario
 ${middleBorder}${menuItemIcon}${prefix}estatisticas
 ${bottomBorder}

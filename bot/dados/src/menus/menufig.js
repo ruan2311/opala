@@ -1,13 +1,13 @@
 async function menuSticker(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ 🌸 『 *${botName}* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗💜⭟",
-    separatorIcon = "❁",
-    middleBorder = "┊",
-    createStickerMenuTitle = "🎨 CRIAÇÃO DE FIGURINHAS",
-    managementMenuTitle = "⚙️ GERENCIAMENTO DE FIGURINHAS"
+    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│",
+    createStickerMenuTitle = "🎨 Criação de Figurinhas",
+    managementMenuTitle = "⚙️ Gerenciamento de Figurinhas"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}

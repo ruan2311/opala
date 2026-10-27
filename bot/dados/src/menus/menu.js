@@ -1,16 +1,16 @@
 export default async function menu(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ 🌸 『 *${botName}* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗💜⭟",
-    separatorIcon = "❁",
-    middleBorder = "┊"
+    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}
 
-${menuTopBorder}${separatorIcon} *MENU PRINCIPAL*
+${menuTopBorder}${separatorIcon} *Menu Principal*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}menudown
 ${middleBorder}${menuItemIcon}${prefix}menulogos

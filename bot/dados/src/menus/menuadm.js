@@ -1,18 +1,18 @@
 export default async function menuadm(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ 🌸 『 *${botName}* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗💜⭟",
-    separatorIcon = "❁",
-    middleBorder = "┊",
-    adminMenuTitle = "🛡️ GESTÃO DE USUÁRIOS",
-    managementMenuTitle = "💬 GESTÃO DO GRUPO",
-    securityMenuTitle = "🔒 SEGURANÇA",
-    moderatorsMenuTitle = "👥 MODERADORES",
-    partnershipsMenuTitle = "🤝 PARCERIAS",
-    activationsMenuTitle = "⚡ ATIVAÇÕES",
-    settingsMenuTitle = "🎨 CONFIGURAÇÕES"
+    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│",
+    adminMenuTitle = "🛡️ Gestão de Usuários",
+    managementMenuTitle = "💬 Gestão do Grupo",
+    securityMenuTitle = "🔒 Segurança",
+    moderatorsMenuTitle = "👥 Moderadores",
+    partnershipsMenuTitle = "🤝 Parcerias",
+    activationsMenuTitle = "⚡ Ativações",
+    settingsMenuTitle = "🎨 Configurações"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}
@@ -41,7 +41,7 @@ ${middleBorder}${menuItemIcon}${prefix}atividade
 ${middleBorder}${menuItemIcon}${prefix}checkativo
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🔒 CONTROLE DE ACESSO*
+${menuTopBorder}${separatorIcon} *🔒 Controle de Acesso*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}blockuser
 ${middleBorder}${menuItemIcon}${prefix}unblockuser
@@ -70,7 +70,7 @@ ${middleBorder}${menuItemIcon}${prefix}role.alterar
 ${middleBorder}${menuItemIcon}${prefix}role.excluir
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *⚙️ GRUPO & PERMISSÕES*
+${menuTopBorder}${separatorIcon} *⚙️ Grupo & Permissões*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}linkgp
 ${middleBorder}${menuItemIcon}${prefix}grupo A/F
@@ -81,7 +81,7 @@ ${middleBorder}${menuItemIcon}${prefix}banghost
 ${middleBorder}${menuItemIcon}${prefix}limitmessage
 ${middleBorder}${menuItemIcon}${prefix}dellimitmessage
 ${middleBorder}
-${middleBorder}${menuTitleIcon} *SOLICITAÇÕES* ${menuTitleIcon}
+${middleBorder}${menuTitleIcon} *Solicitações* ${menuTitleIcon}
 ${middleBorder}${menuItemIcon}${prefix}solicitacoes
 ${middleBorder}${menuItemIcon}${prefix}aprovar
 ${middleBorder}${menuItemIcon}${prefix}aprovar all
@@ -98,7 +98,7 @@ ${middleBorder}${menuItemIcon}${prefix}revokemodcmd
 ${middleBorder}${menuItemIcon}${prefix}listmodcmds
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🛡️ WHITELIST DE ANTIS*
+${menuTopBorder}${separatorIcon} *🛡️ Whitelist de Antis*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}wladd
 ${middleBorder}${menuItemIcon}${prefix}wl.remove
@@ -112,7 +112,7 @@ ${middleBorder}${menuItemIcon}${prefix}addparceria
 ${middleBorder}${menuItemIcon}${prefix}delparceria
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🔒 SEGURANÇA & PROTEÇÃO*
+${menuTopBorder}${separatorIcon} *🔒 Segurança & Proteção*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}anticategoria [categoria]
 ${middleBorder}${menuItemIcon}${prefix}antiflood
@@ -147,7 +147,7 @@ ${middleBorder}${menuItemIcon}${prefix}rmfotosaiu
 ${middleBorder}${menuItemIcon}${prefix}setprefix
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *💬 AUTO-RESPOSTAS*
+${menuTopBorder}${separatorIcon} *💬 Auto-respostas*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}addautoadm
 ${middleBorder}${menuItemIcon}${prefix}addautoadmidia
@@ -157,7 +157,7 @@ ${middleBorder}${menuItemIcon}${prefix}autorespostas
 ${middleBorder}${menuItemIcon}${prefix}autorepo
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *⚡ MODO & ATIVAÇÕES*
+${menuTopBorder}${separatorIcon} *⚡ Modo & Ativações*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}autodl
 ${middleBorder}${menuItemIcon}${prefix}minmessage

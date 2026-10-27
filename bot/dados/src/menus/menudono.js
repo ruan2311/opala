@@ -1,29 +1,29 @@
 async function menuDono(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ 🌸 『 *${botName}* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗💜⭟",
-    separatorIcon = "❁",
-    middleBorder = "┊",
-    botConfigMenuTitle = "🤖 CONFIGURAÇÕES DO BOT",
-    menuDesignMenuTitle = "🎨 DESIGN & APARÊNCIA",
-    automationMenuTitle = "⚙️ SISTEMA & AUTOMAÇÃO",
-   menuAssistenteMenuTitle = "🤡⚙️PERSONALIDADE DA ASSISTENTE",
-    commandCustomMenuTitle = "🛠️ PERSONALIZAÇÃO DE COMANDOS",
-    commandLimitingMenuTitle = "🚫 LIMITAÇÃO DE COMANDOS",
-    userManagementMenuTitle = "👥 GERENCIAMENTO DE USUÁRIOS",
-    rentalSystemMenuTitle = "💰 SISTEMA DE ALUGUEL",
-    subBotsMenuTitle = "🤖 GERENCIAMENTO DE SUB-BOTS",
-    vipSystemMenuTitle = "💎 SISTEMA VIP/PREMIUM",
-    botControlMenuTitle = "⚡ CONTROLE & MANUTENÇÃO",
-    monitoringMenuTitle = "📊 MONITORAMENTO & ANÁLISE",
-    broadcastMenuTitle = "📡 TRANSMISSÕES"
+    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│",
+    botConfigMenuTitle = "🤖 Configurações do Bot",
+    menuDesignMenuTitle = "🎨 Design & Aparência",
+    automationMenuTitle = "⚙️ Sistema & Automação",
+   menuAssistenteMenuTitle = "🤡⚙️Personalidade da Assistente",
+    commandCustomMenuTitle = "🛠️ Personalização de Comandos",
+    commandLimitingMenuTitle = "🚫 Limitação de Comandos",
+    userManagementMenuTitle = "👥 Gerenciamento de Usuários",
+    rentalSystemMenuTitle = "💰 Sistema de Aluguel",
+    subBotsMenuTitle = "🤖 Gerenciamento de Sub-bots",
+    vipSystemMenuTitle = "💎 Sistema VIP/Premium",
+    botControlMenuTitle = "⚡ Controle & Manutenção",
+    monitoringMenuTitle = "📊 Monitoramento & Análise",
+    broadcastMenuTitle = "📡 Transmissões"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}
 
-${menuTopBorder}${separatorIcon} *📚 INÍCIO*
+${menuTopBorder}${separatorIcon} *📚 Início*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}tutorial
 ${bottomBorder}
@@ -115,7 +115,7 @@ ${middleBorder}${menuItemIcon}${prefix}delpremium
 ${middleBorder}${menuItemIcon}${prefix}listprem
 ${middleBorder}${menuItemIcon}${prefix}resetgold
 ${middleBorder}
-${middleBorder}${menuTitleIcon} *INDICAÇÕES* ${menuTitleIcon}
+${middleBorder}${menuTitleIcon} *Indicações* ${menuTitleIcon}
 ${middleBorder}${menuItemIcon}${prefix}addindicacao
 ${middleBorder}${menuItemIcon}${prefix}topindica
 ${middleBorder}${menuItemIcon}${prefix}delindicacao

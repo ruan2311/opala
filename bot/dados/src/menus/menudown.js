@@ -1,17 +1,17 @@
 export default async function menudown(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ 🌸 『 *${botName}* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗💜⭟",
-    separatorIcon = "❁",
-    middleBorder = "┊",
-    searchMenuTitle = "🔍 PESQUISAS & CONSULTAS",
-    audioMenuTitle = "🎵 MÚSICA & ÁUDIO",
-    videoMenuTitle = "🎬 VÍDEOS & STREAMING",
-    downloadMenuTitle = "📥 DOWNLOADS",
-    mediaMenuTitle = "📱 MÍDIAS SOCIAIS",
-    gamesMenuTitle = "🎮 GAMING & APPS"
+    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│",
+    searchMenuTitle = "🔍 Pesquisas & Consultas",
+    audioMenuTitle = "🎵 Música & Áudio",
+    videoMenuTitle = "🎬 Vídeos & Streaming",
+    downloadMenuTitle = "📥 Downloads",
+    mediaMenuTitle = "📱 Mídias Sociais",
+    gamesMenuTitle = "🎮 Gaming & Apps"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}

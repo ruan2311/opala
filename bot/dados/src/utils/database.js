@@ -133,13 +133,13 @@ ensureJsonFileExists(DONO_DIVULGACAO_FILE, {
   createdAt: new Date().toISOString()
 });
 ensureJsonFileExists(MENU_DESIGN_FILE, {
-  header: `╭┈⊰ 🌸 『 *{botName}* 』\n┊Olá, {userName}!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-  menuTopBorder: "╭┈",
-  bottomBorder: "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-  menuTitleIcon: "🍧ฺꕸ▸",
-  menuItemIcon: "•.̇𖥨֗💜⭟",
-  separatorIcon: "❁",
-  middleBorder: "┊"
+  header: `╭─── ⋆｡˚ ☁︎ *{botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
+  menuTopBorder: "╭─ ",
+  bottomBorder: "╰─────── ⋆｡˚ ✧ ───────",
+  menuTitleIcon: "✧",
+  menuItemIcon: " ♡ ",
+  separatorIcon: "✦",
+  middleBorder: "│"
 });
 ensureJsonFileExists(ECONOMY_FILE, {
   users: {},
@@ -341,24 +341,22 @@ const defaultMsgBotOnEnabled = configForMsgBotOn.numerodono === '553285076326' ?
 
 ensureJsonFileExists(MSGBOTON_FILE, {
   enabled: defaultMsgBotOnEnabled,
-  message: `✨ *Oiiiii!* ✨
+  message: `╭─── ⋆｡˚ ☁︎ *A+ 3.0* ☁︎ ˚｡⋆ ───╮
+│ Oiii, cheguei! ♡
+╰──────────────────────╯
 
-Estou online e pronta para uso! 🤗💖
+✿ Tô online e prontinha pra usar (๑˃ᴗ˂)ﻭ
+✿ Manda *!menu* pra ver tudo que eu sei fazer
 
-Muito obrigada por ter me escolhido! Sou a nova versão desenvolvida pelo *Dev Tokyo* e são vocês usuários da bot que me motivam a seguir evoluindo! 🌸💕
+_Feita com carinho a partir da Nazuna, do Dev Tokyo ♡_
 
-Espero que você goste da bot! ✨
-
-💬 *Considere entrar no meu canal para ficar por dentro das novidades:*
-https://whatsapp.com/channel/0029Vb7bjAK7j6gEdyp6g13D
-
-_Para desativar esta mensagem de inicialização, use o comando *msgboton*_`
+_Pra desligar este aviso, usa o comando *msgboton*_`
 });
 ensureJsonFileExists(CUSTOM_REACTS_FILE, { reacts: [] });
 ensureJsonFileExists(REMINDERS_FILE, { reminders: [] });
 ensureJsonFileExists(CMD_NOT_FOUND_FILE, {
   enabled: true,
-  message: '❌ Comando não encontrado! Tente {prefix}menu para ver todos os comandos disponíveis.',
+  message: '✿ Hmm, não conheço esse comando... (・・ ) ? Manda {prefix}menu pra ver tudo que eu sei fazer ♡',
   style: 'friendly',
   variables: {
     command: '{command}',
@@ -556,7 +554,7 @@ const saveMsgBotOn = (enabled, message = null) => {
 const loadCmdNotFoundConfig = () => {
   return loadJsonFile(CMD_NOT_FOUND_FILE, {
     enabled: true,
-    message: '❌ Comando não encontrado! Tente {prefix}menu para ver todos os comandos disponíveis.',
+    message: '✿ Hmm, não conheço esse comando... (・・ ) ? Manda {prefix}menu pra ver tudo que eu sei fazer ♡',
     style: 'friendly',
     variables: {
       command: '{command}',
@@ -2801,25 +2799,25 @@ const loadMenuDesign = () => {
       return JSON.parse(fs.readFileSync(MENU_DESIGN_FILE, 'utf-8'));
     } else {
       return {
-        header: `╭┈⊰ 🌸 『 *{botName}* 』\n┊Olá, {userName}!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-        menuTopBorder: "╭┈",
-        bottomBorder: "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-        menuTitleIcon: "🍧ฺꕸ▸",
-        menuItemIcon: "•.̇𖥨֗💜⭟",
-        separatorIcon: "❁",
-        middleBorder: "┊"
+        header: `╭─── ⋆｡˚ ☁︎ *{botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
+        menuTopBorder: "╭─ ",
+        bottomBorder: "╰─────── ⋆｡˚ ✧ ───────",
+        menuTitleIcon: "✧",
+        menuItemIcon: " ♡ ",
+        separatorIcon: "✦",
+        middleBorder: "│"
       };
     }
   } catch (error) {
     console.error(`❌ Erro ao carregar design do menu: ${error.message}`);
     return {
-      header: `╭┈⊰ 🌸 『 *{botName}* 』\n┊Olá, {userName}!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
-      menuTopBorder: "╭┈",
-      bottomBorder: "╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯",
-      menuTitleIcon: "🍧ฺꕸ▸",
-      menuItemIcon: "•.̇𖥨֗💜⭟",
-      separatorIcon: "❁",
-      middleBorder: "┊"
+      header: `╭─── ⋆｡˚ ☁︎ *{botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
+      menuTopBorder: "╭─ ",
+      bottomBorder: "╰─────── ⋆｡˚ ✧ ───────",
+      menuTitleIcon: "✧",
+      menuItemIcon: " ♡ ",
+      separatorIcon: "✦",
+      middleBorder: "│"
     };
   }
 };

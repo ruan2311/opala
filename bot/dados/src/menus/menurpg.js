@@ -1,29 +1,29 @@
 export default async function menurpg(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭┈⊰ ⚔️ 『 *MODO RPG* 』\n┊Olá, #user#!\n╰─┈┈┈┈┈◜⚔️◞┈┈┈┈┈─╯`,
-    menuTopBorder = "╭┈",
-    bottomBorder = "╰─┈┈┈┈┈◜⚔️◞┈┈┈┈┈─╯",
-    menuTitleIcon = "⚔️ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗✨⭟",
-    separatorIcon = "⚔️",
-    middleBorder = "┊",
-    profileMenuTitle = "👤 PERFIL & STATUS",
-    economyMenuTitle = "💰 ECONOMIA & FINANÇAS",
-    activitiesMenuTitle = "🎯 ATIVIDADES DIÁRIAS",
-    adventureMenuTitle = "🗺️ AVENTURA & EXPLORAÇÃO",
-    combatMenuTitle = "⚔️ COMBATE & BATALHAS",
-    craftingMenuTitle = "🔨 CRAFTING & EQUIPAMENTOS",
-    socialMenuTitle = "💝 SOCIAL & INTERAÇÕES",
-    familyMenuTitle = "👨‍👩‍👧‍👦 FAMÍLIA & ADOÇÃO",
-    guildMenuTitle = "🏰 CLÃ & COMUNIDADE",
-    questMenuTitle = "📜 MISSÕES & CONQUISTAS",
-    petsMenuTitle = "🐾 PETS & COMPANHEIROS",
-    reputationMenuTitle = "⭐ REPUTAÇÃO & FAMA",
-    investmentMenuTitle = "📈 INVESTIMENTOS & BOLSA",
-    gamblingMenuTitle = "🎰 CASSINO & APOSTAS",
-    evolutionMenuTitle = "🌟 EVOLUÇÃO & PRESTIGE",
-    eventsMenuTitle = "🎉 EVENTOS",
-    premiumMenuTitle = "💎 LOJA PREMIUM",
-    adminMenuTitle = "🔧 ADMIN RPG (DONO)"
+    header = `╭─── ⋆｡˚ ⚔︎ *Modo RPG* ⚔︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
+    menuTopBorder = "╭─ ",
+    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
+    menuTitleIcon = "✧",
+    menuItemIcon = " ♡ ",
+    separatorIcon = "✦",
+    middleBorder = "│",
+    profileMenuTitle = "👤 Perfil & Status",
+    economyMenuTitle = "💰 Economia & Finanças",
+    activitiesMenuTitle = "🎯 Atividades Diárias",
+    adventureMenuTitle = "🗺️ Aventura & Exploração",
+    combatMenuTitle = "⚔️ Combate & Batalhas",
+    craftingMenuTitle = "🔨 Crafting & Equipamentos",
+    socialMenuTitle = "💝 Social & Interações",
+    familyMenuTitle = "👨‍👩‍👧‍👦 Família & Adoção",
+    guildMenuTitle = "🏰 Clã & Comunidade",
+    questMenuTitle = "📜 Missões & Conquistas",
+    petsMenuTitle = "🐾 Pets & Companheiros",
+    reputationMenuTitle = "⭐ Reputação & Fama",
+    investmentMenuTitle = "📈 Investimentos & Bolsa",
+    gamblingMenuTitle = "🎰 Cassino & Apostas",
+    evolutionMenuTitle = "🌟 Evolução & Prestige",
+    eventsMenuTitle = "🎉 Eventos",
+    premiumMenuTitle = "💎 Loja Premium",
+    adminMenuTitle = "🔧 Admin RPG (Dono)"
 } = {}) {
   const h = header.replace(/#user#/g, userName);
     return `${h} 
@@ -116,7 +116,7 @@ ${middleBorder}${menuItemIcon}${prefix}bossrpg
 ${middleBorder}${menuItemIcon}${prefix}eventos
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🏰 DUNGEONS & RAIDS*
+${menuTopBorder}${separatorIcon} *🏰 Dungeons & Raids*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}dungeon - Listar dungeons
 ${middleBorder}${menuItemIcon}${prefix}dungeon criar <tipo>
@@ -125,13 +125,13 @@ ${middleBorder}${menuItemIcon}${prefix}dungeon iniciar
 ${middleBorder}${menuItemIcon}${prefix}dungeon sair
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *⚔️ CLASSES & PROFISSÕES*
+${menuTopBorder}${separatorIcon} *⚔️ Classes & Profissões*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}class - Ver classes
 ${middleBorder}${menuItemIcon}${prefix}class <nome> - Escolher
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🏠 HOUSING*
+${menuTopBorder}${separatorIcon} *🏠 Housing*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}casa - Ver sua casa
 ${middleBorder}${menuItemIcon}${prefix}casa comprar <tipo>
@@ -139,7 +139,7 @@ ${middleBorder}${menuItemIcon}${prefix}casa coletar
 ${middleBorder}${menuItemIcon}${prefix}casa decorar <item>
 ${bottomBorder}
 
-${menuTopBorder}${separatorIcon} *🛒 MERCADO DE JOGADORES*
+${menuTopBorder}${separatorIcon} *🛒 Mercado de Jogadores*
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}auction - Ver itens
 ${middleBorder}${menuItemIcon}${prefix}auction vender <item> <preço>
@@ -147,7 +147,7 @@ ${middleBorder}${menuItemIcon}${prefix}auction comprar <nº>
 ${middleBorder}${menuItemIcon}${prefix}auction meus
 ${middleBorder}${menuItemIcon}${prefix}auction cancelar <nº>
 ${middleBorder}
-${middleBorder}${menuTitleIcon} *MERCADO GERAL* ${menuTitleIcon}
+${middleBorder}${menuTitleIcon} *Mercado Geral* ${menuTitleIcon}
 ${middleBorder}${menuItemIcon}${prefix}mercado
 ${middleBorder}${menuItemIcon}${prefix}listar <item> <preço>
 ${middleBorder}${menuItemIcon}${prefix}cmerc <nº>
