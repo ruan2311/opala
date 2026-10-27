@@ -4,3 +4,7 @@ node_modules/
 **/qr-code/
 **/auth*/
 **/session*/
+# config com a chave da Vex fica só no servidor
+bot/dados/src/config.json
+bot/dados/database/
+bot/bin/
