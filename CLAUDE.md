@@ -6,7 +6,13 @@ Bot de WhatsApp do Ruan. Os projetos dele têm nomes de pedras e gemas (Onix = l
 - Base: a Nazuna Bot (https://github.com/DevTokyoVx/nazuna), em Node.js com a biblioteca Baileys. É gratuita e de código aberto. Os comandos de download (play, TikTok, Instagram) dependem da Vex API, que é paga.
 - Objetivo: rodar 24h sozinho em uma máquina na nuvem. Opção preferida: Oracle Cloud "Always Free". Se não der, Google Cloud e2-micro ou uma hospedagem paga de bot.
 - O usuário não sabe configurar servidor: guie passo a passo, com prints, e faça o máximo possível por SSH.
-- Nada foi instalado ainda (pasta criada em 27/10/2026).
+- Pasta criada em 27/10/2026.
+
+## Situação (27/10/2026)
+- Oracle e Google Cloud não deram certo: o único cartão do usuário é do Mercado Pago (pré-pago, recusado), e a conta antiga do Google Cloud foi encerrada.
+- Hospedagem escolhida: **Waifly** (plano grátis, painel Pterodactyl em panel.waifly.com, servidor "Opala" id `961d5625`, 400 MB RAM, Node 22, Paris). Servidor desligado por 3 dias é suspenso.
+- Nazuna 10.3.1 enviada ao servidor. Comando de início: `node dados/src/.scripts/start.js`.
+- Chave de API e senha do painel ficam em `~/.config/opala/waifly.env` (fora do repositório). Acesso pela API do Pterodactyl (`/api/client`).
 
 ## Cuidados
 - Usar um número **secundário** no bot, nunca o principal (risco de banimento).
