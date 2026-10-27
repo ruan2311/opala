@@ -30838,7 +30838,7 @@ ${prefix}calc converter 100 km mi`);
       // ═══════════════════════════════════════════════════════════════
       case 'horoscopo':
       case 'signo':
-        if (!q) return reply("❌ Você precisa informar um signo para buscar a previsão.");
+        if (!q) return reply(`✿ Me fala o signo! Ex: ${prefix}horoscopo gêmeos ♡`);
 
         // Lista completa de signos
         const signos = ["aries", "touro", "gemeos", "cancer", "leao", "virgem", "libra", "escorpiao", "sagitario", "capricornio", "aquario", "peixes"];
@@ -30846,47 +30846,53 @@ ${prefix}calc converter 100 km mi`);
 
         // Verifica se o signo é válido
         if (!signos.includes(queryNormalizada)) {
-          return reply('❌ Signo inválido! Os signos disponíveis são:\n' +
+          return reply('✿ Hmm, não conheço esse signo... (・・ ) ? Os signos são:\n' +
             '♈ Áries\n♉ Touro\n♊ Gêmeos\n♋ Câncer\n♌ Leão\n♍ Virgem\n♎ Libra\n♏ Escorpião\n♐ Sagitário\n♑ Capricórnio\n♒ Aquário\n♓ Peixes');
         }
 
-        const resSignos = await axios.get(`https://apisnodz.com.br/api/pesquisas/horoscopo?query=${queryNormalizada}`)
-          .catch(err => {
-            reply('❌ Erro ao gerar horóscopo. Tente novamente!');
-            return null;
+        // A API antiga (apisnodz.com.br) saiu do ar; lemos direto do Horóscopo Virtual
+        let resultado;
+        try {
+          const urlSigno = `https://www.horoscopovirtual.com.br/horoscopo/${queryNormalizada}`;
+          const { data: html } = await axios.get(urlSigno, {
+            timeout: 15000,
+            headers: { 'User-Agent': 'Mozilla/5.0' }
           });
-
-        if (!resSignos || !resSignos.data || !resSignos.data.resultado) {
-          return;
+          const cheerio = await import('cheerio');
+          const $ = cheerio.load(html);
+          resultado = {
+            signo: $('h2.name-sign').first().text().trim(),
+            periodo: $('p.date-sign').first().text().trim(),
+            dia: $('.days-wrapper span').first().text().trim(),
+            previsao: $('article[aria-labelledby="forecast-title"] p').first().text().trim(),
+            imagem: $('meta[property="og:image"]').attr('content'),
+            url: urlSigno
+          };
+        } catch (err) {
+          console.error('Erro ao buscar horóscopo:', err.message);
         }
 
-        const resultado = resSignos.data.resultado;
+        if (!resultado || !resultado.previsao) {
+          return reply('✿ Não consegui ler as estrelas agora... tenta de novo daqui a pouquinho? (╥﹏╥)');
+        }
 
-        // Personaliza a mensagem de acordo com o signo
         const emojis = {
           "aries": "♈", "touro": "♉", "gemeos": "♊", "cancer": "♋",
           "leao": "♌", "virgem": "♍", "libra": "♎", "escorpiao": "♏",
           "sagitario": "♐", "capricornio": "♑", "aquario": "♒", "peixes": "♓"
         };
-
         const emojiSigno = emojis[queryNormalizada] || "🔮";
-        const nomeSigno = resultado.signo.charAt(0).toUpperCase() + resultado.signo.slice(1);
 
-        // Cria a legenda personalizada
-        const legenda = `🔮 *HORÓSCOPO* 🔮\n\n` +
-          `${emojiSigno} *Signo:* ${nomeSigno}\n` +
-          `📅 *Data:* ${resultado.dia}\n` +
-          `✨ *Previsão do Dia:*\n${resultado.previsao}\n\n` +
-          `🔗 Fonte: Horóscopo Virtual\n` +
-          `🌐 ${resultado.url}`;
+        const legenda = `╭─── ⋆｡˚ ☾ *Horóscopo* ☽ ˚｡⋆ ───╮\n` +
+          `│ ${emojiSigno} *${resultado.signo}* ${resultado.periodo ? `(${resultado.periodo})` : ''}\n` +
+          `│ 📅 ${resultado.dia || 'Hoje'}\n` +
+          `╰──────────────────────╯\n\n` +
+          `✧ ${resultado.previsao}\n\n` +
+          `_fonte: Horóscopo Virtual ♡_`;
 
-        // Envia a imagem com a legenda
-        await nazu.sendMessage(from, {
-          image: { url: resultado.imagem },
-          caption: legenda
-        }, { quoted: info }).catch(err => {
-          reply('❌ Erro ao enviar imagem do horóscopo. Tente novamente!');
-        });
+        await nazu.sendMessage(from, resultado.imagem
+          ? { image: { url: resultado.imagem }, caption: legenda }
+          : { text: legenda }, { quoted: info }).catch(() => reply(legenda));
         break;
 
       case 'signos':
