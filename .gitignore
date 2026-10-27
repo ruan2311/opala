@@ -1,0 +1,6 @@
+node_modules/
+.env
+# sessão do WhatsApp (dá acesso total ao número do bot)
+**/qr-code/
+**/auth*/
+**/session*/
