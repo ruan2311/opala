@@ -42,6 +42,7 @@ ${middleBorder}${menuItemIcon}${prefix}videomenu
 ${middleBorder}${menuItemIcon}${prefix}audiomenu
 ${middleBorder}${menuItemIcon}${prefix}lermais
 ${middleBorder}${menuItemIcon}${prefix}personalizargrupo
+${middleBorder}${menuItemIcon}${prefix}setletraaura
 ${bottomBorder}
 
 ${menuTopBorder}${separatorIcon} *${menuAssistenteMenuTitle}*

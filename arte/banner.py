@@ -198,7 +198,7 @@ EYE = [
 ]
 
 
-def girl(img, cx, top, hair, eye, dress, style):
+def girl(img, cx, top, hair, eye, dress, style, mood='normal'):
     hd, hl = shade(hair, 0.72), tuple(min(255, v + 45) for v in hair)
     skin, skin_d = (255, 228, 214), (240, 186, 176)
     sprite = layer()
@@ -280,8 +280,30 @@ def girl(img, cx, top, hair, eye, dress, style):
         bx = cx - 15 if s < 0 else cx + 11
         for i in range(4):
             sprite.putpixel((bx + i, top + 25), (255, 160, 180, 255))
-    for dx, dy in ((-2, 0), (-1, 1), (0, 0), (1, 1), (2, 0)):
-        sprite.putpixel((cx + dx, top + 26 + dy), (170, 60, 90, 255))
+    if mood == 'triste':
+        # Sobrancelhas caídas, lágrimas e boquinha triste
+        for s_ in (-1, 1):
+            for i in range(4):
+                sprite.putpixel((cx + s_ * (7 + i), top + 14 - (3 - i) // 2), INK + (255,))
+            tx = cx - 11 if s_ < 0 else cx + 11
+            for i in range(3):
+                sprite.putpixel((tx, top + 24 + i), (150, 210, 255, 255))
+        for dx, dy in ((-2, 1), (-1, 0), (0, 0), (1, 0), (2, 1)):
+            sprite.putpixel((cx + dx, top + 26 + dy), (170, 60, 90, 255))
+    elif mood == 'aura':
+        # Estrelas nos olhos e sorrisão aberto
+        for ex in (cx - 11, cx + 6):
+            stamp(sprite, ["..W..", ".WWW.", "..W.."], ex + 1, top + 18, {'W': (255, 246, 170)})
+        for dx in range(-3, 4):
+            sprite.putpixel((cx + dx, top + 25), (150, 40, 70, 255))
+        for dx in range(-2, 3):
+            sprite.putpixel((cx + dx, top + 26), (255, 120, 150, 255))
+        sprite.putpixel((cx - 1, top + 27), (150, 40, 70, 255))
+        sprite.putpixel((cx, top + 27), (150, 40, 70, 255))
+        sprite.putpixel((cx + 1, top + 27), (150, 40, 70, 255))
+    else:
+        for dx, dy in ((-2, 0), (-1, 1), (0, 0), (1, 1), (2, 0)):
+            sprite.putpixel((cx + dx, top + 26 + dy), (170, 60, 90, 255))
 
     # Acessórios
     if style == 'long':  # Orelhinhas de gato
@@ -297,6 +319,7 @@ def girl(img, cx, top, hair, eye, dress, style):
 
     outline_outside(sprite, INK)
     img.alpha_composite(sprite)
+    return sprite
 
 
 def frame(img):
@@ -307,13 +330,14 @@ def frame(img):
         stamp(img, ["..X..", ".XXX.", "XXXXX", ".XXX.", "..X.."], x - 1, y - 1, {'X': (255, 214, 120)})
 
 
-canvas = background().convert('RGBA')
-hearts(canvas)
-clouds(canvas)
-logo(canvas)
-girl(canvas, 34, 46, (196, 168, 240), (80, 196, 214), (118, 108, 210), 'long')
-girl(canvas, 157, 46, (255, 150, 194), (164, 104, 230), (126, 206, 236), 'twin')
-frame(canvas)
+if __name__ == '__main__':
+    canvas = background().convert('RGBA')
+    hearts(canvas)
+    clouds(canvas)
+    logo(canvas)
+    girl(canvas, 34, 46, (196, 168, 240), (80, 196, 214), (118, 108, 210), 'long')
+    girl(canvas, 157, 46, (255, 150, 194), (164, 104, 230), (126, 206, 236), 'twin')
+    frame(canvas)
 
-canvas.convert('RGB').resize((W * SCALE, H * SCALE), Image.NEAREST).save(OUT, quality=95, subsampling=0)
-print('ok', OUT)
+    canvas.convert('RGB').resize((W * SCALE, H * SCALE), Image.NEAREST).save(OUT, quality=95, subsampling=0)
+    print('ok', OUT)

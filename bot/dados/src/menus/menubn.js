@@ -41,6 +41,7 @@ ${middleBorder}${menuItemIcon}${prefix}cacapalavras [dificuldade]
 ${middleBorder}${menuItemIcon}${prefix}jogodavelha
 ${middleBorder}${menuItemIcon}${prefix}eununca
 ${middleBorder}${menuItemIcon}${prefix}vab
+${middleBorder}${menuItemIcon}${prefix}aura
 ${middleBorder}${menuItemIcon}${prefix}chance
 ${middleBorder}${menuItemIcon}${prefix}quando
 ${middleBorder}${menuItemIcon}${prefix}sorte

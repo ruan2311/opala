@@ -31164,6 +31164,107 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
 💡 *Dica:* O sistema ignora acentos e maiúsculas/minúsculas na detecção.`);
         break;
 
+      // ═══════════════════════════════════════════════════════════════
+      // AURA - mede a aura de alguém (feito para o A+ 3.0)
+      // ═══════════════════════════════════════════════════════════════
+      case 'aura':
+      case 'farmaraura':
+        try {
+          const alvoAura = menc_os2 || sender;
+          const nomeAura = getUserName(alvoAura);
+          const aura = Math.floor(Math.random() * 101);
+          const pastaAura = __dirname + '/../midias/aura/';
+          const sorteia = (lista) => lista[Math.floor(Math.random() * lista.length)];
+          const topoAura = (icone) => `╭─── ⋆｡˚ ${icone} *Aura* ${icone} ˚｡⋆ ───╮\n│ ✧ @${nomeAura}\n│ ✧ *${aura}%* de aura\n╰──────────────────────╯\n\n`;
+          const enviarAura = (arquivo, legenda) => nazu.sendMessage(from, {
+            image: fs.readFileSync(pastaAura + arquivo),
+            caption: legenda,
+            mentions: [alvoAura]
+          }, { quoted: info });
+
+          if (aura < 30) {
+            await enviarAura('aura-beta.jpg', topoAura('🥀') + `*sobrou nada pro beta* (╥﹏╥)\n\n✿ ${sorteia([
+              'o beta tentou farmar aura e só farmou vergonha',
+              'até o NPC do fundo do jogo tem mais aura',
+              'a aura saiu pra comprar pão e não voltou mais',
+              'aura tão baixa que tá devendo pro banco',
+              'nem o modo avião salva uma aura dessas'
+            ])}`);
+          } else if (aura < 50) {
+            await enviarAura('aura-boa.jpg', topoAura('☁︎') + `*aura na média, nem beta nem lenda* (・・ ) ?\n\n✿ ${sorteia([
+              'dá pra farmar mais um pouquinho, hein',
+              'a aura tá carregando... 47% ▰▰▰▱▱▱',
+              'meio termo: não envergonha, mas também não brilha',
+              'tá no aquecimento, continua farmando'
+            ])}`);
+          } else if (aura < 80) {
+            await enviarAura('aura-boa.jpg', topoAura('✨') + `*aura de respeito!* (๑˃ᴗ˂)ﻭ\n\n✿ ${sorteia([
+              'entrou no grupo e o clima mudou',
+              'anda em câmera lenta sem querer',
+              'a aura tá brilhando, os betas tão olhando',
+              'farmou aura e nem suou'
+            ])}`);
+          } else {
+            await enviarAura('aura-max.jpg', topoAura('👑') + `*AURA MÁXIMA DETECTADA* 🔥\n\n✿ segura que vai começar o show...`);
+
+            // Canta a música editando a mesma mensagem a cada 2,5s, por 15s
+            const letraPadrao = [
+              'a aura chegou, abre a roda',
+              'brilho no olhar, passinho na moda',
+              'farmando aura sem fazer esforço',
+              'o beta olhando, coitado, que desgosto',
+              'luz no salão, todo mundo de pé',
+              'aura no máximo, é isso que é'
+            ];
+            let letra = letraPadrao;
+            try {
+              const salva = JSON.parse(fs.readFileSync(__dirname + '/../database/dono/auraLetra.json', 'utf-8'));
+              if (Array.isArray(salva.linhas) && salva.linhas.length) letra = salva.linhas.slice(0, 6);
+            } catch { }
+            const emojisShow = ['🪩', '✨', '🔥', '💃', '🕺', '👑', '🎶', '⚡'];
+            const verso = (i) => `🎤 *${letra[i]}* ${emojisShow[i % emojisShow.length]}${emojisShow[(i + 3) % emojisShow.length]}`;
+            const intervalo = 15000 / letra.length;
+
+            (async () => {
+              const msgShow = await nazu.sendMessage(from, { text: verso(0) });
+              for (let i = 1; i < letra.length; i++) {
+                await new Promise(r => setTimeout(r, intervalo));
+                await nazu.sendMessage(from, { text: verso(i), edit: msgShow.key });
+              }
+              await new Promise(r => setTimeout(r, intervalo));
+              await nazu.sendMessage(from, {
+                text: `🎤 *fim do show* ✧\n👑 @${nomeAura} farmou *${aura}%* de aura 🪩✨`,
+                edit: msgShow.key,
+                mentions: [alvoAura]
+              });
+            })().catch(err => console.error('Erro no show da aura:', err.message));
+          }
+        } catch (e) {
+          console.error('Erro no comando aura:', e);
+          await reply('✿ Ops, a aura bugou... tenta de novo daqui a pouquinho? (╥﹏╥)');
+        }
+        break;
+
+      case 'setletraaura':
+        try {
+          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          const arquivoLetra = __dirname + '/../database/dono/auraLetra.json';
+          if (q && q.trim().toLowerCase() === 'reset') {
+            if (fs.existsSync(arquivoLetra)) fs.unlinkSync(arquivoLetra);
+            return reply('✿ Prontinho! Voltei a cantar o hino da aura padrão ♡');
+          }
+          const linhas = (q || '').split('|').map(l => l.trim()).filter(Boolean);
+          if (linhas.length < 1 || linhas.length > 6) {
+            return reply(`✿ Me manda de 1 a 6 frases separadas por | ♡\n\nEx: ${prefix}setletraaura primeira frase | segunda frase | terceira frase\n\nPra voltar ao padrão: ${prefix}setletraaura reset`);
+          }
+          fs.writeFileSync(arquivoLetra, JSON.stringify({ linhas }, null, 2));
+          await reply(`✿ Letra salva! Quando alguém tirar 80% ou mais, eu canto:\n\n${linhas.map((l, i) => `${i + 1}. ${l}`).join('\n')}`);
+        } catch (e) {
+          console.error('Erro no setletraaura:', e);
+          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+        }
+        break;
+
       case 'chance':
         try {
           if (!isGroup) return reply("🎮 Ops! Esse comando só funciona em grupos! Chama a galera! 👥 ");
