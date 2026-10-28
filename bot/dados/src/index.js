@@ -31221,9 +31221,21 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
               const salva = JSON.parse(fs.readFileSync(__dirname + '/../database/dono/auraLetra.json', 'utf-8'));
               if (Array.isArray(salva.linhas) && salva.linhas.length) letra = salva.linhas.slice(0, 6);
             } catch { }
-            const emojisShow = ['🪩', '✨', '🔥', '💃', '🕺', '👑', '🎶', '⚡'];
-            const verso = (i) => `🎤 *${letra[i]}* ${emojisShow[i % emojisShow.length]}${emojisShow[(i + 3) % emojisShow.length]}`;
-            const intervalo = 15000 / letra.length;
+            // Emojis escolhidos pelo clima de cada frase
+            const climas = [
+              [/tun|tum|bate|grave|batida/i, '🔊🥁'],
+              [/festa|fim de semana|balada|baile/i, '🎉🪩'],
+              [/rol[eê]|bom|vibe/i, '😎🔥'],
+              [/chega|desencana|passo|solt|dan[cç]a|rebola/i, '💃✨'],
+              [/aura|brilho|luz/i, '✨👑'],
+              [/beta|desgosto|coitado/i, '🥀😔']
+            ];
+            const emojisShow = ['🪩✨', '🔥💃', '🕺🎶', '👑⚡'];
+            const verso = (i) => {
+              const clima = climas.find(([rx]) => rx.test(letra[i]));
+              return `🎤 *${letra[i]}* ${clima ? clima[1] : emojisShow[i % emojisShow.length]}`;
+            };
+            const intervalo = 2500;
 
             (async () => {
               const msgShow = await nazu.sendMessage(from, { text: verso(0) });
@@ -31231,7 +31243,8 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
                 await new Promise(r => setTimeout(r, intervalo));
                 await nazu.sendMessage(from, { text: verso(i), edit: msgShow.key });
               }
-              await new Promise(r => setTimeout(r, intervalo));
+              // O show sempre termina em 15s
+              await new Promise(r => setTimeout(r, Math.max(intervalo, 15000 - (letra.length - 1) * intervalo)));
               await nazu.sendMessage(from, {
                 text: `🎤 *fim do show* ✧\n👑 @${nomeAura} farmou *${aura}%* de aura 🪩✨`,
                 edit: msgShow.key,
