@@ -24770,43 +24770,38 @@ ${prefix}togglecmdvip premium_ia off`);
 
       case 'ping':
         try {
-          const timestamp = Date.now();
-          const speedConverted = (timestamp - info.messageTimestamp * 1000) / 1000;
+          const latencia = (Date.now() - info.messageTimestamp * 1000) / 1000;
           const uptimeBot = formatUptime(process.uptime());
+          const memoriaMB = Math.round(process.memoryUsage().rss / 1048576);
 
-          let statusEmoji = '🟢';
-          let statusTexto = 'Excelente';
-          let statusCor = '🟩';
-          if (speedConverted > 2) {
-            statusEmoji = '🟡';
-            statusTexto = 'Bom';
-            statusCor = '🟨';
-          }
-          if (speedConverted > 5) {
-            statusEmoji = '🟠';
-            statusTexto = 'Médio';
-            statusCor = '🟧';
-          }
-          if (speedConverted > 8) {
-            statusEmoji = '🔴';
-            statusTexto = 'Ruim';
-            statusCor = '🟥';
-          }
+          const [humor, frase] =
+            latencia <= 1 ? ['⚡ Voando', 'Respondo rapidinho, tô ótima! ♡'] :
+            latencia <= 3 ? ['🌸 Tranquila', 'Tudo certinho por aqui ♡'] :
+            latencia <= 6 ? ['🐢 Devagarinho', 'Tô um pouquinho lenta, mas tô aqui ♡'] :
+            ['🥱 Cansadinha', 'Tô bem lenta agora... tenta de novo daqui a pouco? (｡•́︿•̀｡)'];
+          const barras = latencia <= 1 ? '▰▰▰▰▰' : latencia <= 3 ? '▰▰▰▰▱' : latencia <= 6 ? '▰▰▱▱▱' : '▰▱▱▱▱';
 
           await nazu.sendMessage(from, {
-            text: `╭⊱ ⚡ *STATUS DA CONEXÃO* ⚡ ⊱╮
+            text: `╭─── ⋆｡˚ 💎 *${nomebot}* 💎 ˚｡⋆ ───╮
+│ Pong! Tô acordadinha ♡
+╰──────────────────────╯
+
+╭─ ✦ *Como eu tô*
 │
-│ 📡 *Informações de Latência*
-│ ├─ ${statusEmoji} Velocidade: *${speedConverted.toFixed(3)}s*
-│ ├─ ${statusCor} Qualidade: *${statusTexto}*
-│ └─ 📊 Status: *${speedConverted <= 2 ? 'Ótima' : speedConverted <= 5 ? 'Boa' : speedConverted <= 8 ? 'Regular' : 'Precisa Melhorar'}*
+│ ♡ Velocidade: *${latencia.toFixed(2)}s*
+│ ♡ Sinal: ${barras}
+│ ♡ Humor: *${humor}*
 │
-│ ⏱️ *Informações do Sistema*
-│ ├─ 🟢 Tempo Online: *${uptimeBot}*
-│ ├─ 📈 Resposta: *${speedConverted <= 1 ? 'Instantânea' : speedConverted <= 3 ? 'Rápida' : 'Lenta'}*
-│ └─ 🌐 Servidor: *Online*
+╰─────── ⋆｡˚ ✧ ───────
+
+╭─ ✦ *Por dentro*
 │
-╰━━━━━━━━━━━━━━━━━━━━━━━━╯`
+│ ♡ Acordada há: *${uptimeBot}*
+│ ♡ Memória: *${memoriaMB} MB*
+│
+╰─────── ⋆｡˚ ✧ ───────
+
+✧ ${frase}`
           }, { quoted: info });
         } catch (e) {
           console.error("Erro no comando ping:", e);
