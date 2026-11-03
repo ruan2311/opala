@@ -371,7 +371,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = pathz.dirname(__filename);
 
 // Mídias dos jogos ficam em dados/midias/jogos; links da internet continuam funcionando
-const midiaJogo = (m) => (m?.url && !/^https?:\/\//.test(m.url)) ? { url: pathz.join(__dirname, '..', 'midias', m.url) } : m;
+// Uma lista de mídias sorteia uma delas a cada vez
+const midiaJogo = (m) => {
+  if (Array.isArray(m)) m = m[Math.floor(Math.random() * m.length)];
+  return (m?.url && !/^https?:\/\//.test(m.url)) ? { url: pathz.join(__dirname, '..', 'midias', m.url) } : m;
+};
 
 // Só os dígitos de um número ou JID ("+55 91 9..." ou "559...@s.whatsapp.net" → "559...")
 const soDigitos = (v) => String(v || '').split('@')[0].split(':')[0].replace(/\D/g, '');

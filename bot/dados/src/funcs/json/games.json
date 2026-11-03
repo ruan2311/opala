@@ -310,14 +310,34 @@
             }
         },
         "beijo": {
-            "video": {
-                "url": "jogos/d15b5db8f0938f18f211.mp4"
-            }
+            "video": [
+                { "url": "jogos/d15b5db8f0938f18f211.mp4" },
+                { "url": "jogos/beijo-01.mp4" },
+                { "url": "jogos/beijo-02.mp4" },
+                { "url": "jogos/beijo-03.mp4" },
+                { "url": "jogos/beijo-04.mp4" },
+                { "url": "jogos/beijo-05.mp4" },
+                { "url": "jogos/beijo-06.mp4" },
+                { "url": "jogos/beijo-07.mp4" },
+                { "url": "jogos/beijo-08.mp4" },
+                { "url": "jogos/beijo-09.mp4" },
+                { "url": "jogos/beijo-10.mp4" }
+            ]
         },
         "beijar": {
-            "video": {
-                "url": "jogos/d15b5db8f0938f18f211.mp4"
-            }
+            "video": [
+                { "url": "jogos/d15b5db8f0938f18f211.mp4" },
+                { "url": "jogos/beijo-01.mp4" },
+                { "url": "jogos/beijo-02.mp4" },
+                { "url": "jogos/beijo-03.mp4" },
+                { "url": "jogos/beijo-04.mp4" },
+                { "url": "jogos/beijo-05.mp4" },
+                { "url": "jogos/beijo-06.mp4" },
+                { "url": "jogos/beijo-07.mp4" },
+                { "url": "jogos/beijo-08.mp4" },
+                { "url": "jogos/beijo-09.mp4" },
+                { "url": "jogos/beijo-10.mp4" }
+            ]
         },
         "beijob": {
             "video": {
