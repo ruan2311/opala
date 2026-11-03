@@ -258,10 +258,22 @@ Na primeira vez, o bot pergunta tudo isso e salva em `dados/src/config.json`. Se
 | Campo | O que é | Exemplo |
 |---|---|---|
 | `nomedono` | Seu nome | `Ana` |
-| `numerodono` | **Seu** número (o do dono, não o do bot), só dígitos | `5511999998888` |
+| `numerodono` | **Seu** número (o do dono, não o do bot), com código do país e DDD | `5511999998888` |
 | `nomebot` | Nome do bot | `Opala` |
 | `prefixo` | Símbolo antes dos comandos | `!` |
 | `apikey_vex` | Chave da Vex API (só para downloads) | `SUA_KEY` |
+
+### 👑 Como o bot reconhece o dono
+
+O WhatsApp não mostra mais o telefone de quem manda mensagem: cada pessoa aparece com um código interno, o **LID**. O Opala resolve isso sozinho:
+
+1. Você coloca o seu número em `numerodono`. Pode ser com ou sem o 9 extra, e até com `+` e espaços: o bot limpa.
+2. Você manda **qualquer mensagem** para o bot, no privado ou em grupo.
+3. O bot vê que o número bate, guarda o seu LID no campo `lidowner` do `config.json` e passa a te reconhecer sempre.
+
+Para conferir, mande `!verificardono`. Ele responde se você é o dono e, se não for, mostra o número que ele viu e o número configurado. Assim fica fácil achar o erro.
+
+> Trocou de dono? Use `!numerodono 5511999998888` (do número do dono atual). O LID antigo é apagado e o novo dono é reconhecido na primeira mensagem.
 
 Depois de ligado, dá para mudar quase tudo pelo próprio WhatsApp, usando o número do dono:
 `!nomebot`, `!prefixo`, `!fotomenu`, `!designmenu` (visual do menu), `!setpersonalidade` (jeito da IA) e outros (veja `!menudono`).
@@ -364,6 +376,15 @@ Esses comandos usam a Vex API, que é paga. Confira se a chave está no `config.
 <summary><b>A hospedagem reclama que o bot está gastando demais</b></summary>
 
 Use o `iniciar.sh` como comando de início: ele limita a memória do bot. No painel, troque o `npm install` do início por `echo ok` (veja o [passo 6 do Pterodactyl](#-pterodactyl-waifly-e-outras-hospedagens-com-painel)).
+</details>
+
+<details>
+<summary><b>O bot não me reconhece como dono</b></summary>
+
+- Mande `!verificardono` e compare o número que ele mostra com o `numerodono` do `config.json`.
+- O `numerodono` é o **seu** número, não o do bot.
+- Mensagens enviadas **pelo próprio número do bot** sempre contam como dono.
+- Se mudou o `config.json` à mão, reinicie o bot.
 </details>
 
 <details>

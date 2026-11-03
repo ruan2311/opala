@@ -1235,7 +1235,7 @@ async function fetchLidsInBatches(NazunaSock, uniqueJids, batchSize = 5) {
 }
 
 async function updateOwnerLid(NazunaSock) {
-    const ownerJid = `${numerodono}@s.whatsapp.net`;
+    const ownerJid = `${String(numerodono).replace(/\D/g, '')}@s.whatsapp.net`;
     try {
         const result = await fetchLidWithRetry(NazunaSock, ownerJid);
         if (result) {

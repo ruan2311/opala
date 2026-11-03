@@ -427,7 +427,7 @@ const getLidFromJid = async (nazu, jid) => {
 
 // Função para construir ID do usuário (LID ou JID como fallback)
 const buildUserId = (numberString, config) => {
-  if (config.lidowner && numberString === config.numerodono) {
+  if (config.lidowner && String(numberString).replace(/\D/g, '') === String(config.numerodono).replace(/\D/g, '')) {
     return config.lidowner;
   }
 return String(numberString).replace(/[^\d]/g, '') + '@s.whatsapp.net';

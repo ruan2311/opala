@@ -372,6 +372,17 @@ const __dirname = pathz.dirname(__filename);
 
 // Mídias dos jogos ficam em dados/midias/jogos; links da internet continuam funcionando
 const midiaJogo = (m) => (m?.url && !/^https?:\/\//.test(m.url)) ? { url: pathz.join(__dirname, '..', 'midias', m.url) } : m;
+
+// Só os dígitos de um número ou JID ("+55 91 9..." ou "559...@s.whatsapp.net" → "559...")
+const soDigitos = (v) => String(v || '').split('@')[0].split(':')[0].replace(/\D/g, '');
+// Celular do Brasil pode aparecer com ou sem o 9 extra: aceita as duas formas
+const variantesNumero = (n) => {
+  const d = soDigitos(n);
+  if (!d) return [];
+  if (d.startsWith('55') && d.length === 13 && d[4] === '9') return [d, d.slice(0, 4) + d.slice(5)];
+  if (d.startsWith('55') && d.length === 12) return [d, d.slice(0, 4) + '9' + d.slice(4)];
+  return [d];
+};
 const OWNER_ONLY_MESSAGE = '🚫 Este comando é apenas para o dono do bot!';
 
 // Função para formatar respostas de IA para WhatsApp (converte ** para *)
@@ -996,7 +1007,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     writeJsonFile(CONFIG_FILE, config);
 
     // Notifica o dono sobre a mudança automática
-    const ownerJid = `${config.numerodono}@s.whatsapp.net`;
+    const ownerJid = `${String(config.numerodono).replace(/\D/g, '')}@s.whatsapp.net`;
     try {
       await nazu.sendMessage(ownerJid, {
         text: `💎 *PREFIXO AUTOMÁTICO CORRIGIDO*\n\n❌ O símbolo "$" é reservado e não pode ser usado como prefixo.\n\n✅ O prefixo foi alterado automaticamente pra "/" ao iniciar o bot.\n\n💡 Usa ${config.prefixo}prefix pra alterar pra outro símbolo válido.`
@@ -1665,7 +1676,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     const nmrdn = buildUserId(numerodono, config);
     const subDonoList = loadSubdonos();
     const isSubOwner = isSubdono(sender);
-    const ownerJid = `${numerodono}@s.whatsapp.net`;
+    const ownerJid = `${String(numerodono).replace(/\D/g, '')}@s.whatsapp.net`;
     const botId = getBotId(nazu);
     const isBotSender = sender === botId || sender === nazu.user?.id?.split(':')[0] + '@s.whatsapp.net' || sender === nazu.user?.id?.split(':')[0] + '@lid';
 
@@ -1673,7 +1684,27 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     const ownerBase = String(numerodono);
     const lidOwnerBase = lidowner ? lidowner.split('@')[0] : null;
 
-    const isOwner = senderBase === ownerBase ||
+    // Dono: o WhatsApp identifica as pessoas pelo LID (um código), não pelo telefone. Mas cada
+    // mensagem traz também o número real (participantAlt no grupo, remoteJidAlt no privado).
+    // Comparamos por ele e, quando bate, guardamos o LID do dono no config.json sozinhos.
+    // Assim basta preencher "numerodono" (só dígitos, com 55 e DDD) e mandar qualquer mensagem.
+    const numerosDono = variantesNumero(numerodono);
+    const numeroRealSender = [info.key.participantAlt, isGroup ? null : info.key.remoteJidAlt, info.key.participant, isGroup ? null : info.key.remoteJid]
+      .find(j => typeof j === 'string' && j.endsWith('@s.whatsapp.net'));
+    const ehDonoPeloNumero = !info.key.fromMe && !!numeroRealSender && numerosDono.includes(soDigitos(numeroRealSender));
+    if (ehDonoPeloNumero && sender.endsWith('@lid') && config.lidowner !== sender) {
+      try {
+        const cfg = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'));
+        cfg.lidowner = sender;
+        writeJsonFile(CONFIG_FILE, cfg);
+        console.log(`💎 Dono reconhecido pelo número; LID guardado no config.json (${sender})`);
+      } catch (e) {
+        console.error('💎 Não consegui guardar o LID do dono:', e.message);
+      }
+    }
+
+    const isOwner = ehDonoPeloNumero ||
+      senderBase === ownerBase ||
       sender === nmrdn ||
       sender === ownerJid ||
       (lidowner && sender === lidowner) ||
@@ -22096,10 +22127,13 @@ Precisa de ajuda? Entre em contato:
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`💎 digite o novo número do dono.\nExemplo: ${prefix}${command} +553285076326`);
+          const novoDono = soDigitos(q);
+          if (novoDono.length < 10 || novoDono.length > 15) return reply(`💎 Esse número não parece certo. Manda com o código do país e o DDD, só números.\nEx.: ${prefix}${command} 5511999999999`);
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
-          config.numerodono = q;
+          config.numerodono = novoDono;
+          config.lidowner = '';
           writeJsonFile(CONFIG_FILE, config);
-          await reply(`✿ Número do dono guardado!\n\nAgora, *do número do novo dono*:\n- manda ${prefix}verificardono\n- pra eu pegar o LID e terminar a configuração ♡`);
+          await reply(`✿ Número do dono guardado: ${novoDono}\n\nÉ só o novo dono me mandar qualquer mensagem que eu reconheço ele sozinha ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -22111,43 +22145,12 @@ Precisa de ajuda? Entre em contato:
 
 
       case 'verificardono': {
-        const configPath = './dados/src/config.json'
-
         try {
-          const config = JSON.parse(fs.readFileSync(configPath))
-          const numeroDono = config.numerodono + '@s.whatsapp.net'
-
-
-          const user = info.key.participantAlt || info.key.participant || info.key.remoteJid
-
-
-          if (user !== numeroDono) {
-            return reply(`💎 Hmm, você não é meu dono ( ˘ ³˘)`)
+          const cfg = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'));
+          if (!ehDonoPeloNumero && !(cfg.lidowner && sender === cfg.lidowner)) {
+            return reply(`💎 Hmm, você não é meu dono ( ˘ ³˘)\n\n📱 Seu número: ${soDigitos(numeroRealSender) || 'não veio na mensagem'}\n👑 Dono configurado: ${soDigitos(cfg.numerodono) || 'nenhum'}\n\nSe o dono é você, ajusta o "numerodono" no config.json (só números, com 55 e DDD) e reinicia ♡`);
           }
-
-
-          let lid
-          if (isGroup) {
-            lid = info.key.participant
-          } else {
-            lid = info.key.remoteJid
-          }
-
-          if (!lid) {
-            return reply(`💎 Não consegui pegar o seu LID... (｡•́︿•̀｡)`)
-          }
-
-
-          if (config.lidowner === lid) {
-            return reply(`💎 Seu LID já tá configurado ♡`)
-          }
-
-          config.lidowner = lid
-
-          fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
-
-          reply(`✿ LID atualizado :\n${lid}`)
-
+          return reply(`✿ Você é meu dono, sim ♡\n\n📱 Número: ${soDigitos(cfg.numerodono)}\n🆔 LID: ${cfg.lidowner || sender}`);
         } catch (err) {
           console.error(err)
           reply(`💎 Eita, não consegui rodar o comando... (╥﹏╥)`)
