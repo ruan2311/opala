@@ -498,7 +498,7 @@ async function createGroupMessage(NazunaSock, groupMetadata, participants, setti
 
   } else if (settings.photoType === 'api') {
 
-    let profilePicUrl = 'https://raw.githubusercontent.com/nazuninha/uploads/main/outros/1747053564257_bzswae.bin';
+    let profilePicUrl = 'https://projectgems.github.io/img/avatar-padrao.jpg'; // vai para a API do cartão, precisa ser link público
 
     if (participants.length === 1) {
       profilePicUrl = await NazunaSock.profilePictureUrl(participants[0], 'image')

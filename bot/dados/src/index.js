@@ -369,6 +369,9 @@ import {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = pathz.dirname(__filename);
+
+// Mídias dos jogos ficam em dados/midias/jogos; links da internet continuam funcionando
+const midiaJogo = (m) => (m?.url && !/^https?:\/\//.test(m.url)) ? { url: pathz.join(__dirname, '..', 'midias', m.url) } : m;
 const OWNER_ONLY_MESSAGE = '🚫 Este comando é apenas para o dono do bot!';
 
 // Função para formatar respostas de IA para WhatsApp (converte ** para *)
@@ -608,7 +611,7 @@ async function createGroupMessage(NazunaSock, groupMetadata, participants, setti
   if (settings.photo === false) {
     // Foto de boas-vindas desativada explicitamente: não envia imagem em nenhuma hipótese.
   } else if (settings.photoType === 'api' && isWelcome) {
-    let profilePicUrl = 'https://raw.githubusercontent.com/nazuninha/uploads/main/outros/1747053564257_bzswae.bin';
+    let profilePicUrl = 'https://projectgems.github.io/img/avatar-padrao.jpg'; // vai para a API do cartão, precisa ser link público
 
     if (participants.length === 1) {
       profilePicUrl = await NazunaSock.profilePictureUrl(participants[0], 'image')
@@ -31458,7 +31461,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           const pacoteValue = `R$ ${(Math.random() * 10000 + 1).toFixed(2).replace('.', ',')}`;
           const humors = ['😎 Tranquilão', '🔥 No fogo', '😴 Sonolento', '🤓 Nerd mode', '😜 Loucura total', '🧘 Zen'];
           const randomHumor = humors[Math.floor(Math.random() * humors.length)];
-          let profilePic = 'https://raw.githubusercontent.com/nazuninha/uploads/main/outros/1747053564257_bzswae.bin';
+          let profilePic = pathz.join(__dirname, '..', 'midias', 'avatar-padrao.jpg');
           try {
             profilePic = await nazu.profilePictureUrl(target, 'image');
           } catch (error) {
@@ -31738,7 +31741,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }
           await nazu.sendMessage(from, {
             image: {
-              url: 'https://raw.githubusercontent.com/nazuninha/uploads/main/outros/1747545773146_rrv7of.bin'
+              url: pathz.join(__dirname, '..', 'midias', 'jogos', 'beijo.jpg')
             },
             caption: ABC,
             mentions: mencts
@@ -31924,13 +31927,13 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           const media = gamesData.games[command];
           if (media?.image) {
             await nazu.sendMessage(from, {
-              image: media.image,
+              image: midiaJogo(media.image),
               caption: responseText,
               mentions: [target]
             });
           } else if (media?.video) {
             await nazu.sendMessage(from, {
-              video: media.video,
+              video: midiaJogo(media.video),
               caption: responseText,
               mentions: [target],
               gifPlayback: true
@@ -32048,13 +32051,13 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           const media = gamesData.games[command];
           if (media?.image) {
             await nazu.sendMessage(from, {
-              image: media.image,
+              image: midiaJogo(media.image),
               caption: responseText,
               mentions: [target]
             });
           } else if (media?.video) {
             await nazu.sendMessage(from, {
-              video: media.video,
+              video: midiaJogo(media.video),
               caption: responseText,
               mentions: [target],
               gifPlayback: true
@@ -32146,13 +32149,13 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           let media = gamesData.ranks[cleanedCommand];
           if (media?.image) {
             await nazu.sendMessage(from, {
-              image: media.image,
+              image: midiaJogo(media.image),
               caption: responseText,
               mentions: top5
             });
           } else if (media?.video) {
             await nazu.sendMessage(from, {
-              video: media.video,
+              video: midiaJogo(media.video),
               caption: responseText,
               mentions: top5,
               gifPlayback: true
@@ -32228,13 +32231,13 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           let media = gamesData.ranks[cleanedCommand];
           if (media?.image) {
             await nazu.sendMessage(from, {
-              image: media.image,
+              image: midiaJogo(media.image),
               caption: responseText,
               mentions: top5
             });
           } else if (media?.video) {
             await nazu.sendMessage(from, {
-              video: media.video,
+              video: midiaJogo(media.video),
               caption: responseText,
               mentions: top5,
               gifPlayback: true
@@ -32294,13 +32297,13 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           let media = gamesData.games2[command];
           if (media?.image) {
             await nazu.sendMessage(from, {
-              image: media.image,
+              image: midiaJogo(media.image),
               caption: responseText,
               mentions: [menc_os2]
             });
           } else if (media?.video) {
             await nazu.sendMessage(from, {
-              video: media.video,
+              video: midiaJogo(media.video),
               caption: responseText,
               mentions: [menc_os2],
               gifPlayback: true
