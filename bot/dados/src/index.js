@@ -6286,7 +6286,7 @@ Entre em contato com o dono do bot:
       case 'lembrete':
       case 'lembrar': {
         try {
-          if (!q) return reply(`📅 *Como usar o comando lembrete:*\n\n💡 *Ex.:*\n• ${prefix}lembrete em 30m beber água\n• ${prefix}lembrete 15/09 18:30 reunião\n• ${prefix}lembrete amanhã 08:00 acordar`);
+          if (!q) return reply(`📅 *Lembretes* ♡\n\n💡 *Ex.:*\n• ${prefix}lembrete em 30m beber água\n• ${prefix}lembrete 15/09 18:30 reunião\n• ${prefix}lembrete amanhã 08:00 acordar`);
           const parsed = parseReminderInput(q);
           if (!parsed) return reply('💎 Não consegui entender a data/hora. Exemplos:\n- em 10m tomar remédio\n- 25/12 09:00 ligar pra a família\n- hoje 21:15 estudar');
           const { at, message } = parsed;
@@ -6341,7 +6341,7 @@ Entre em contato com o dono do bot:
           const lines = list
             .sort((a, b) => a.at - b.at)
             .map((r, i) => `${i + 1}. [${r.id.slice(0, 6)}] ${tzFormat(r.at)} — ${r.message}`);
-          await reply(`🗓️ Seus lembretes pendentes:\n\n${lines.join('\n')}`);
+          await reply(`🗓️ Seus lembretes esperando a hora ♡\n\n${lines.join('\n')}`);
         } catch (e) {
           console.error('Erro ao listar lembretes:', e);
           await reply(`💎 Eita, não consegui ver seus lembretes... (╥﹏╥)`);
@@ -6702,22 +6702,22 @@ Entre em contato com o dono do bot:
 
           if (sub === 'carteira') {
             const total = (me.wallet || 0) + (me.bank || 0);
-            return reply(`╭━━━⊱ 👤 *PERFIL FINANCEIRO* 👤 ⊱━━━╮
+            return reply(`╭━━━⊱ 💰 *SUA CARTEIRINHA* 💰 ⊱━━━╮
 │
-│   *Carteira:* ${fmt(me.wallet)}
+│ 👛 *Carteira:* ${fmt(me.wallet)}
 │ 🏦 *Banco:* ${fmt(me.bank)}
-│   *Total:* ${fmt(total)}
+│ ✨ *Tudo junto:* ${fmt(total)}
 │
-│ 💼 *Emprego:* ${me.job ? econ.jobCatalog[me.job]?.name || me.job : 'Desempregado(a)'}
+│ 💼 *Trabalho:* ${me.job ? econ.jobCatalog[me.job]?.name || me.job : 'Sem emprego por enquanto'}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
           }
           if (sub === 'banco') {
             const cap = isFinite(bankCapacity) ? bankCapacity : '∞';
-            return reply(`╭━━━⊱ 🏦 *BANCO* 🏦 ⊱━━━╮
+            return reply(`╭━━━⊱ 🏦 *SEU BANCO* 🏦 ⊱━━━╮
 │
-│ 💰 *Saldo:* ${fmt(me.bank)}
-│ 📦 *Capacidade:* ${cap === '∞' ? 'Ilimitada' : fmt(cap)}
+│ 💰 *Guardado:* ${fmt(me.bank)}
+│ 📦 *Cabe até:* ${cap === '∞' ? 'sem limite ♡' : fmt(cap)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
           }
@@ -6732,12 +6732,12 @@ Entre em contato com o dono do bot:
             const toDep = Math.min(amount, space);
             me.wallet -= toDep; me.bank += toDep;
             saveEconomy(econ);
-            return reply(`╭━━━⊱ 💰 *DEPÓSITO* 💰 ⊱━━━╮
+            return reply(`╭━━━⊱ 🏦 *GUARDADINHO!* 🏦 ⊱━━━╮
 │
-│ ✅ Depositado: ${fmt(toDep)}
+│ ✿ Guardou: ${fmt(toDep)}
 │
 │ 🏦 Banco: ${fmt(me.bank)}
-│ 💼 Carteira: ${fmt(me.wallet)}
+│ 👛 Carteira: ${fmt(me.wallet)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
           }
@@ -6751,27 +6751,27 @@ Entre em contato com o dono do bot:
             me.bank -= amount;
             me.wallet += received;
             saveEconomy(econ);
-            return reply(`╭━━━⊱ 💳 *SAQUE* 💳 ⊱━━━╮
+            return reply(`╭━━━⊱ 💳 *SAQUE FEITO* 💳 ⊱━━━╮
 │
-│ 💰 Valor sacado: ${fmt(amount)}
-│ 💸 Taxa (5%): ${fmt(taxa)}
-│ ✅ Recebido: ${fmt(received)}
+│ 💰 Tirou: ${fmt(amount)}
+│ 💸 Taxinha (5%): ${fmt(taxa)}
+│ ✿ Chegou na mão: ${fmt(received)}
 │
 │ 🏦 Banco: ${fmt(me.bank)}
-│ 💼 Carteira: ${fmt(me.wallet)}
+│ 👛 Carteira: ${fmt(me.wallet)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
           }
 
           if (sub === 'transferir' || sub === 'pix') {
-            if (!mentioned) return reply(`╭━━━⊱ 💸 *TRANSFERÊNCIA* 💸 ⊱━━━╮
+            if (!mentioned) return reply(`╭━━━⊱ 💸 *PIX* 💸 ⊱━━━╮
 │
-│ 👥 Marque um usuário e informe
-│    o valor a transferir
+│ 👥 Marca alguém e diz
+│    quanto quer mandar ♡
 │
-│ ⚠️ *Taxa de transferência: 15%*
+│ 💡 *Taxinha: 15%*
 │
-│ 📝 *Exemplo:*
+│ 📝 *Ex.:*
 │ ${prefix}${sub} @user 100
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -6786,12 +6786,12 @@ Entre em contato com o dono do bot:
             me.wallet -= totalNeeded; // Desconta valor + taxa
             other.wallet += amount; // Destinatário recebe valor sem taxa
             saveEconomy(econ);
-            return reply(`╭━━━⊱ ✅ *TRANSFERÊNCIA* ✅ ⊱━━━╮
+            return reply(`╭━━━⊱ 💸 *PIX ENVIADO!* 💸 ⊱━━━╮
 │
-│ 💸 Transferido: ${fmt(amount)}
-│ 💰 Taxa (15%): ${fmt(taxa)}
-│ 📊 Total debitado: ${fmt(totalNeeded)}
-│ 👤 Para: @${getUserName(mentioned)}
+│ 💸 Mandou: ${fmt(amount)}
+│ 💰 Taxinha (15%): ${fmt(taxa)}
+│ 📊 Saiu da carteira: ${fmt(totalNeeded)}
+│ 💌 Pra: @${getUserName(mentioned)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [mentioned] });
           }
@@ -6810,12 +6810,12 @@ Entre em contato com o dono do bot:
             const rawKey = (args[0] || '');
             if (!rawKey) return reply(`╭━━━⊱ 🛒 *COMPRAR* 🛒 ⊱━━━╮
 │
-│ ❌ Informe o item desejado
+│ 💎 Me fala o que você quer
 │
-│ 📝 *Exemplo:*
+│ 📝 *Ex.:*
 │ ${prefix}comprar pickaxe_bronze
 │
-│ 🛍️ Ver loja: ${prefix}loja
+│ 🛍️ Olha a loja: ${prefix}loja
 │
 ╰━━━━━━━━━━━━━━━━━━━━╯`);
             // Normaliza a busca do item ignorando acentos e underscores
@@ -6829,9 +6829,9 @@ Entre em contato com o dono do bot:
               me.tools = me.tools || {};
               me.tools.pickaxe = { tier: it.tier, dur: it.durability, max: it.durability, key };
               saveEconomy(econ);
-              return reply(`╭━━━⊱ ✅ *COMPRA* ✅ ⊱━━━╮
+              return reply(`╭━━━⊱ 🛍️ *COMPRINHA!* 🛍️ ⊱━━━╮
 │
-│ 🛠️ Você comprou e equipou:
+│ 🛠️ Comprou e já equipou:
 │ ${it.name}
 │
 │ ⚙️ Durabilidade: ${it.durability}
@@ -6841,12 +6841,12 @@ Entre em contato com o dono do bot:
             // Caso contrário, vai para o inventário
             me.inventory[key] = (me.inventory[key] || 0) + 1;
             saveEconomy(econ);
-            return reply(`╭━━━⊱ ✅ *COMPRA* ✅ ⊱━━━╮
+            return reply(`╭━━━⊱ 🛍️ *COMPRINHA!* 🛍️ ⊱━━━╮
 │
-│ 🎒 Você comprou:
+│ 🎒 Foi pra mochila:
 │ ${it.name}
 │
-│ 💰 Preço: ${fmt(it.price)}
+│ 💰 Custou: ${fmt(it.price)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━╯`);
           }
@@ -6909,14 +6909,14 @@ Entre em contato com o dono do bot:
             const matKey = (args[0] || '').toLowerCase();
             if (!matKey) return reply(`╭━━━⊱ 💰 *VENDER MATERIAIS* 💰 ⊱━━━╮
 │
-│ 📝 *Uso:*
+│ 📝 *Usa assim:*
 │ ${prefix}vender <material> <qtd|all>
 │
-│ 💡 *Exemplo:*
+│ 💡 *Ex.:*
 │ ${prefix}vender ferro 10
 │ ${prefix}vender ouro all
 │
-│ 💱 Ver preços: ${prefix}precos
+│ 💱 Preços: ${prefix}precos
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
             const price = (econ.materialsPrices || {})[matKey];
@@ -6930,28 +6930,28 @@ Entre em contato com o dono do bot:
             me.materials[matKey] = have - qty;
             me.wallet += gain;
             saveEconomy(econ);
-            return reply(`╭━━━⊱ ✅ *VENDA* ✅ ⊱━━━╮
+            return reply(`╭━━━⊱ 💰 *VENDIDO!* 💰 ⊱━━━╮
 │
-│   Vendeu: ${qty}x ${matKey}
+│ 📦 Vendeu: ${qty}x ${matKey}
 │ 💰 Ganhou: ${fmt(gain)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
           }
           if (sub === 'reparar') {
             const pk = getActivePickaxe(me) || me.tools?.pickaxe;
-            if (!pk) return reply(`╭━━━⊱ 🛠️ *REPARAR* 🛠️ ⊱━━━╮
+            if (!pk) return reply(`╭━━━⊱ 🛠️ *CONSERTAR* 🛠️ ⊱━━━╮
 │
-│ ❌ Você não tem picareta equipada
+│ 💎 Você não tá com picareta
 │
-│ 🛍️ Compre uma: ${prefix}loja
+│ 🛍️ Compra uma: ${prefix}loja
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━╯`);
             const kits = me.inventory?.repairkit || 0;
             if (kits <= 0) return reply(`╭━━━⊱ 🔧 *KIT DE REPAROS* 🔧 ⊱━━━╮
 │
-│ ❌ Você não tem Kit de Reparos
+│ 💎 Você não tem kit de reparos
 │
-│ 🛒 Compre com:
+│ 🛒 Compra com:
 │ ${prefix}comprar repairkit
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -6962,12 +6962,12 @@ Entre em contato com o dono do bot:
             me.inventory.repairkit = kits - 1;
             me.tools.pickaxe = { ...pk, max };
             saveEconomy(econ);
-            return reply(`╭━━━⊱ 🛠️ *REPARADO!* 🛠️ ⊱━━━╮
+            return reply(`╭━━━⊱ 🛠️ *NOVINHA!* 🛠️ ⊱━━━╮
 │
-│ ⛏️ Picareta reparada
+│ ⛏️ Picareta consertada
 │ 📊 ${before} ➜ ${pk.dur}/${max}
 │
-│ 🔧 Kits restantes: ${kits - 1}
+│ 🔧 Kits que sobraram: ${kits - 1}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━╯`);
           }
@@ -6980,10 +6980,10 @@ Entre em contato com o dono do bot:
               me.wallet += ch.reward;
               ch.claimed = true;
               saveEconomy(econ);
-              return reply(`╭━━━⊱ 🎉 *RECOMPENSA!* 🎉 ⊱━━━╮
+              return reply(`╭━━━⊱ 🎉 *MANDOU BEM!* 🎉 ⊱━━━╮
 │
-│ ✅ Desafio diário concluído!
-│ 💰 Recompensa: ${fmt(ch.reward)}
+│ ✿ Desafio do dia completo!
+│ 💰 Prêmio: ${fmt(ch.reward)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯`);
             }
@@ -7013,12 +7013,12 @@ Entre em contato com o dono do bot:
               me.wallet += Math.floor(amount * 0.8); // ganha apenas 80% do apostado
               me.cooldowns.bet = Date.now() + 10 * 60 * 1000; // 10 minutos (era 3)
               saveEconomy(econ);
-              return reply(`╭───⊃⊱ 🍀 *VITÓRIA RARA!* 🍀 ⊃⊱───╮\n│\n│ 💰 Ganhou: *+${fmt(Math.floor(amount * 0.8))}*\n│ 🎰 Sorte incrível!\n│\n╰─────────────────────╯`);
+              return reply(`╭───⊃⊱ 🍀 *SORTE GRANDE!* 🍀 ⊃⊱───╮\n│\n│ 💰 Ganhou: *+${fmt(Math.floor(amount * 0.8))}*\n│ 🎰 Hoje a sorte tá com você ♡\n│\n╰─────────────────────╯`);
             }
             me.wallet -= amount;
             me.cooldowns.bet = Date.now() + 10 * 60 * 1000; // 10 minutos (era 3)
             saveEconomy(econ);
-            return reply(`╭───⊃⊱ 💥 *PERDEU!* 💥 ⊃⊱───╮\n│\n│ 💸 Perdeu: *-${fmt(amount)}*\n│ 🎰 A casa sempre ganha...\n│\n╰─────────────────────╯`);
+            return reply(`╭───⊃⊱ 💥 *NÃO FOI DESSA VEZ* 💥 ⊃⊱───╮\n│\n│ 💸 Perdeu: *-${fmt(amount)}*\n│ 🎰 A casa sempre ganha... (｡•́︿•̀｡)\n│\n╰─────────────────────╯`);
           }
           if (sub === 'slots') {
             const cdSlots = me.cooldowns?.slots || 0;
@@ -7097,11 +7097,11 @@ Entre em contato com o dono do bot:
             const rawKey = (args[0] || '');
             if (!rawKey) return reply(`╭━━━⊱ 💼 *EMPREGO* 💼 ⊱━━━╮
 │
-│ ❌ Informe a vaga desejada
+│ 💎 Me fala qual vaga você quer
 │
-│ 📋 Ver vagas: ${prefix}vagas
+│ 📋 Vagas: ${prefix}vagas
 │
-│ 💡 Exemplo:
+│ 💡 Ex.:
 │ ${prefix}emprego vendedor
 │
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -7126,24 +7126,24 @@ Entre em contato com o dono do bot:
 
             me.job = key;
             saveEconomy(econ);
-            return reply(`╭━━━⊱ ✅ *CONTRATADO!* ✅ ⊱━━━╮
+            return reply(`╭━━━⊱ 🎉 *CONTRATADO(A)!* 🎉 ⊱━━━╮
 │
-│ 💼 Emprego: ${job.name}
-│ 💰 Ganhos: ${fmt(job.min)}-${fmt(job.max)}
+│ 💼 Trabalho: ${job.name}
+│ 💰 Salário: ${fmt(job.min)}-${fmt(job.max)}
 │
-│ 🏢 Use ${prefix}trabalhar
-│    para receber seu salário!
+│ 🏢 Manda ${prefix}trabalhar
+│    pra receber ♡
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━╯`);
           }
           if (sub === 'demitir') {
             me.job = null;
             saveEconomy(econ);
-            return reply(`╭━━━⊱ 👋 *DEMISSÃO* 👋 ⊱━━━╮
+            return reply(`╭━━━⊱ 👋 *TCHAU, CHEFE* 👋 ⊱━━━╮
 │
-│ ✅ Você pediu demissão
+│ ✿ Você pediu as contas
 │
-│ 💼 Veja novas vagas: ${prefix}vagas
+│ 💼 Vagas novas: ${prefix}vagas
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━╯`);
           }
@@ -7355,12 +7355,12 @@ Entre em contato com o dono do bot:
               if (!me.stats) me.stats = {};
               me.stats.totalCrimes = (me.stats.totalCrimes || 0) + 1;
               saveEconomy(econ);
-              return reply(`╭━━━⊱ 🕵️ *CRIME* 🕵️ ⊱━━━╮
+              return reply(`╭━━━⊱ 🕵️ *DEU CERTO...* 🕵️ ⊱━━━╮
 │
-│ ✅ Crime bem-sucedido!
-│ 💰 Lucrou: ${fmt(gain)}
+│ 🤫 Ninguém viu nada!
+│ 💰 Faturou: ${fmt(gain)}
 │
-│ ⚠️ Cuidado para não ser pego!
+│ 👀 Cuidado pra não ser pego(a)!
 │
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
             } else {
@@ -7369,9 +7369,9 @@ Entre em contato com o dono do bot:
               me.wallet -= pay;
               me.cooldowns.crime = Date.now() + 30 * 60 * 1000; // 30 min (era 10 min)
               saveEconomy(econ);
-              return reply(`╭━━━⊱ 🚔 *PEGO!* 🚔 ⊱━━━╮
+              return reply(`╭━━━⊱ 🚔 *TE PEGARAM!* 🚔 ⊱━━━╮
 │
-│ ❌ Você foi pego pela polícia!
+│ 🚨 A polícia chegou na hora!
 │ 💸 Multa: ${fmt(pay)}
 │
 ╰━━━━━━━━━━━━━━━━━━━━╯`);
@@ -7427,7 +7427,7 @@ Entre em contato com o dono do bot:
             }
 
             if (!recipeKey) {
-              return reply(`👨‍🍳 *SISTEMA DE COZINHA*\n\n📖 Olha as receitas disponíveis: ${prefix}receitas\n🍳 Cozinhar: ${prefix}cozinhar <receita>\n\n💡 Ex.: ${prefix}cozinhar pao`);
+              return reply(`👨‍🍳 *COZINHA* ♡\n\n📖 Receitas: ${prefix}receitas\n🍳 Cozinhar: ${prefix}cozinhar <receita>\n\n💡 Ex.: ${prefix}cozinhar pao`);
             }
 
             const recipe = econ.cookingRecipes[recipeKey];
@@ -7477,7 +7477,7 @@ Entre em contato com o dono do bot:
 
             saveEconomy(econ);
 
-            return reply(`👨‍🍳 *COZINHA CONCLUÍDA!*\n\n${recipe.name} preparado !\n⚡ Energia: +${recipe.energy}\n💵 Valor de venda: ${fmt(recipe.sellPrice)}\n\n🍴 Usa ${prefix}comer ${recipeKey} pra consumir\n💰 Usa ${prefix}vendercomida ${recipeKey} pra vender`);
+            return reply(`👨‍🍳 *SAIU DO FORNO!*\n\n${recipe.name} prontinho ♡\n⚡ Energia: +${recipe.energy}\n💵 Vale: ${fmt(recipe.sellPrice)}\n\n🍴 ${prefix}comer ${recipeKey} pra comer\n💰 ${prefix}vendercomida ${recipeKey} pra vender`);
           }
 
           // ===== SISTEMA DE PLANTAÇÃO =====
@@ -7562,7 +7562,7 @@ Entre em contato com o dono do bot:
 
             // Verifica se tem espaço
             if (me.farm.plots.length >= me.farm.maxPlots) {
-              return reply(`🌾 Todos os seus terrenos estão ocupados! Espera a colheita ou expanda sua fazenda.\n\n🌾 Usa ${prefix}colher pra colher plantas prontas`);
+              return reply(`🌾 Todos os terrenos tão ocupados! Espera a colheita ou aumenta sua fazenda ♡\n\n🌾 ${prefix}colher colhe o que já tá pronto`);
             }
 
             // Verifica gold
@@ -7594,7 +7594,7 @@ Entre em contato com o dono do bot:
             me.farm = me.farm || { plots: [], maxPlots: 4, lastExpansion: 0 };
 
             if (me.farm.plots.length === 0) {
-              return reply(`🌾 Você não tem nada plantado!\n\n🌱 Usa ${prefix}plantar <semente> pra começar a cultivar.`);
+              return reply(`🌾 Sua horta tá vazinha!\n\n🌱 Manda ${prefix}plantar <semente> pra começar ♡`);
             }
 
             const now = Date.now();
@@ -7637,7 +7637,7 @@ Entre em contato com o dono do bot:
 
             harvestedText = harvestedText.slice(0, -2); // Remove última vírgula
 
-            return reply(`🌾 *COLHEITA CONCLUÍDA!*\n\n✅ Plantas colhidas: ${readyPlots.length}\n📦 Ingredientes obtidos:\n${harvestedText}\n\n💵 Valor estimado: ${fmt(totalValue)}\n🌱 Terrenos livres: ${me.farm.maxPlots - me.farm.plots.length}/${me.farm.maxPlots}\n\n👨‍🍳 Usa ${prefix}receitas pra ver o que pode cozinhar!`);
+            return reply(`🌾 *COLHEITA FEITA!* ♡\n\n✿ Plantas colhidas: ${readyPlots.length}\n📦 Ingredientes:\n${harvestedText}\n\n💵 Vale mais ou menos: ${fmt(totalValue)}\n🌱 Terrenos livres: ${me.farm.maxPlots - me.farm.plots.length}/${me.farm.maxPlots}\n\n👨‍🍳 Olha o que dá pra cozinhar em ${prefix}receitas`);
           }
 
           // ===== COMANDOS COMPLEMENTARES DE COZINHA =====
@@ -7665,7 +7665,7 @@ Entre em contato com o dono do bot:
             if (!foodKey) {
               const entries = Object.entries(me.cookedFood).filter(([, qty]) => qty > 0);
               if (entries.length === 0) {
-                return reply(`🍽️ Você não tem comida preparada.\n\n👨‍🍳 Cozinhe algo com ${prefix}cozinhar`);
+                return reply(`🍽️ Você ainda não tem comida pronta.\n\n👨‍🍳 Cozinha algo com ${prefix}cozinhar ♡`);
               }
 
               let text = '🍽️ *COMIDAS PREPARADAS*\n\n';
@@ -7702,7 +7702,7 @@ Entre em contato com o dono do bot:
 
             saveEconomy(econ);
 
-            return reply(`😋 *DELICIOSO!*\n\nVocê comeu ${recipe.name}!\n⚡ Energia: +${recipe.energy}\n💪 Energia total: ${me.energy}\n\n💡 Quanto mais energia, mais bônus você recebe!`);
+            return reply(`😋 *HUMMM, QUE DELÍCIA!*\n\nVocê comeu ${recipe.name}!\n⚡ Energia: +${recipe.energy}\n💪 Energia total: ${me.energy}\n\n💡 Mais energia, mais bônus ♡`);
           }
 
           if (sub === 'vendercomida') {
@@ -7768,7 +7768,7 @@ Entre em contato com o dono do bot:
             const cd = me.cooldowns?.mine || 0;
             if (Date.now() < cd) return reply(`⏳ A picareta tá cansada! Volta a minerar daqui a ${timeLeft(cd)} ♡`);
             const pk = getActivePickaxe(me);
-            if (!pk) return reply(`⛏️ Você precisa de uma picareta pra minerar. Compre na ${prefix}loja (ex: ${prefix}comprar pickaxe_bronze) ou repare com ${prefix}reparar.`);
+            if (!pk) return reply(`⛏️ Pra minerar precisa de picareta! Compra na ${prefix}loja (ex.: ${prefix}comprar pickaxe_bronze) ou conserta com ${prefix}reparar ♡`);
             // Cálculo de ouro com base na picareta e bônus (BALANCEADO)
             const tierMult = PICKAXE_TIER_MULT[pk.tier] || 1.0;
             const base = 100 + Math.floor(Math.random() * 101); // 100-200 (AUMENTADO)
@@ -8685,7 +8685,7 @@ Entre em contato com o dono do bot:
         pet.name = newName.substring(0, 20);
 
         saveEconomy(econ);
-        return reply(`✏️ ${pet.emoji} *${oldName}* agora se chama *${pet.name}*!\n\n💸 Custo: -${cost} moedas`);
+        return reply(`✏️ ${pet.emoji} *${oldName}* agora se chama *${pet.name}* ♡\n\n💸 Custou: -${cost} moedas`);
         break;
       }
 
@@ -9776,7 +9776,7 @@ Entre em contato com o dono do bot:
           if (enchantLevel >= 5 && Math.random() < 0.3) {
             delete me.equipment.weapon;
             saveEconomy(econ);
-            return reply(`💥 *FALHA CRÍTICA!*\n\n😱 Sua arma foi destruída no processo...\n\n⚠️ Você perdeu: ${weapon.emoji} ${weapon.name} +${enchantLevel}`);
+            return reply(`💥 *AI, NÃO!*\n\n😱 Sua arma quebrou no encantamento...\n\n💔 Perdeu: ${weapon.emoji} ${weapon.name} +${enchantLevel}`);
           } else {
             saveEconomy(econ);
             return reply(`💎 *FALHA!*\n\n😔 O encantamento falhou, mas sua arma permaneceu intacta.\n\n💰 Perdeu: ${cost.toLocaleString()}\n💎 Perdeu: ${crystals}x cristais`);
@@ -9908,7 +9908,7 @@ Entre em contato com o dono do bot:
         const classData = classes[classeEscolhida];
 
         saveEconomy(econ);
-        return reply(`╭━━━⊱ ✨ *CLASSE ESCOLHIDA* ⊱━━━╮\n\n${classData.emoji} Você agora é um *${classData.name}*!\n\n📊 *Bônus:*\n⚔️ ATK +${classData.bonus.attack || 0}\n🛡️ DEF +${classData.bonus.defense || 0}\n\n✨ *Habilidade:* ${classData.skill}\n${classData.skillDesc}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ ✨ *CLASSE NOVA* ✨ ⊱━━━╮\n\n${classData.emoji} Agora você é *${classData.name}*!\n\n📊 *Bônus:*\n⚔️ ATK +${classData.bonus.attack || 0}\n🛡️ DEF +${classData.bonus.defense || 0}\n\n✨ *Habilidade:* ${classData.skill}\n${classData.skillDesc}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -9998,7 +9998,7 @@ Entre em contato com o dono do bot:
           me.house.lastCollect = Date.now();
 
           saveEconomy(econ);
-          return reply(`╭━━━⊱ 🎉 *CASA COMPRADA* ⊱━━━╮\n\n${casa.emoji} Você comprou uma *${casa.name}*!\n\n📦 Armazenamento: +${casa.bonus.storage}\n💰 Renda: ${casa.renda}/dia\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+          return reply(`╭━━━⊱ 🏡 *CASA NOVA!* 🏡 ⊱━━━╮\n\n${casa.emoji} Agora você tem uma *${casa.name}* ♡\n\n📦 Espaço: +${casa.bonus.storage}\n💰 Rende: ${casa.renda}/dia\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
         // Coletar renda
@@ -10136,7 +10136,7 @@ Entre em contato com o dono do bot:
           };
 
           saveEconomy(econ);
-          return reply(`╭━━━⊱ 🎉 *PARTY CRIADA* ⊱━━━╮\n\n${dg.emoji} *${dg.name}*\n\n🆔 ID: \`${partyId.slice(-8)}\`\n👥 Membros: 1/${dg.players}\n👹 Boss: ${dg.boss}\n\n💡 Outros jogadores podem usar:\n${prefix}dungeon entrar ${partyId.slice(-8)}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+          return reply(`╭━━━⊱ ⚔️ *GRUPO MONTADO!* ⚔️ ⊱━━━╮\n\n${dg.emoji} *${dg.name}*\n\n🆔 Código: \`${partyId.slice(-8)}\`\n👥 Gente: 1/${dg.players}\n👹 Chefão: ${dg.boss}\n\n💡 Quem quiser vir manda:\n${prefix}dungeon entrar ${partyId.slice(-8)}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
         // Entrar em party
@@ -10315,7 +10315,7 @@ Entre em contato com o dono do bot:
           const preco = parseInt(args[2]);
 
           if (!itemName || !preco || preco < 100) {
-            return reply(`💡 Usa assim: ${prefix}mercadoplayer vender <item> <preço>\n\n⚠️ Preço mínimo: 100`);
+            return reply(`💡 Usa assim: ${prefix}mercadoplayer vender <item> <preço>\n\n💰 Preço mínimo: 100`);
           }
 
           if (!me.inventory || !me.inventory[itemName] || me.inventory[itemName] <= 0) {
@@ -10639,8 +10639,8 @@ Entre em contato com o dono do bot:
         saveEconomy(econ);
 
         // Notificar no grupo com menção se possível
-        await reply(`📨 Convite enviado para @${target.split('@')[0]}!
-  Use ${prefix}aceitarconvite ${clan.id} para aceitar.`, { mentions: [target] });
+        await reply(`💌 Convite mandado pra @${target.split('@')[0]}!
+  Pra aceitar: ${prefix}aceitarconvite ${clan.id}`, { mentions: [target] });
         break;
       }
 
@@ -11142,7 +11142,7 @@ Entre em contato com o dono do bot:
             tournament.prize = 50000;
 
             saveEconomy(econ);
-            return reply(`╭━━━⊱ 🏆 *TORNEIO ABERTO!* ⊱━━━╮\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n⚔️ Um torneio foi iniciado!\n\n💰 Prêmio: ${tournament.prize.toLocaleString()}\n⏰ Inscrições abertas!\n\n💡 Usa ${prefix}torneio entrar`);
+            return reply(`╭━━━⊱ 🏆 *TORNEIO ABERTO!* 🏆 ⊱━━━╮\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n⚔️ Vai começar um torneio!\n\n💰 Prêmio: ${tournament.prize.toLocaleString()}\n⏰ Inscrições abertas ♡\n\n💡 Entra com ${prefix}torneio entrar`);
           }
 
           return reply(`💎 Não tem torneio ativo!\n\n💡 Admins: Usa ${prefix}torneio criar`);
@@ -11491,7 +11491,7 @@ Entre em contato com o dono do bot:
         targetData.wallet = (targetData.wallet || 0) + amount;
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *DINHEIRO ADICIONADO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 💰 +${amount.toLocaleString()} moedas\n│ 💼 Carteira atual: ${targetData.wallet.toLocaleString()}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ 💰 *MOEDAS DADAS* 💰 ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 💰 +${amount.toLocaleString()} moedas\n│ 👛 Carteira agora: ${targetData.wallet.toLocaleString()}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Remover dinheiro de jogador
@@ -11513,7 +11513,7 @@ Entre em contato com o dono do bot:
         targetData.bank = Math.max(0, (targetData.bank || 0));
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *DINHEIRO REMOVIDO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 💸 -${amount.toLocaleString()} moedas\n│ 💼 Carteira atual: ${targetData.wallet.toLocaleString()}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ 💸 *MOEDAS TIRADAS* 💸 ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 💸 -${amount.toLocaleString()} moedas\n│ 👛 Carteira agora: ${targetData.wallet.toLocaleString()}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Definir level de jogador
@@ -11542,7 +11542,7 @@ Entre em contato com o dono do bot:
         userDataSet.patent = getPatent(newLevel);
         saveLevelingSafe(levelingDataSet);
 
-        return reply(`╭━━━⊱ ✅ *NÍVEL DEFINIDO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📊 Nível: ${newLevel}\n│ ⚔️ Poder: ${targetData.power}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ 📊 *NÍVEL AJUSTADO* 📊 ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📊 Nível: ${newLevel}\n│ ⚔️ Poder: ${targetData.power}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Adicionar item ao jogador
@@ -11565,7 +11565,7 @@ Entre em contato com o dono do bot:
         targetData.inventory[itemArgs] = (targetData.inventory[itemArgs] || 0) + qty;
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *ITEM ADICIONADO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📦 Item: ${itemArgs}\n│ 🔢 Quantidade: +${qty}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ 🎁 *ITEM DADO* 🎁 ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📦 Item: ${itemArgs}\n│ 🔢 Quantidade: +${qty}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Remover item do jogador
@@ -11588,7 +11588,7 @@ Entre em contato com o dono do bot:
         targetData.inventory[itemArgs] = Math.max(0, (targetData.inventory[itemArgs] || 0) - qty);
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *ITEM REMOVIDO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📦 Item: ${itemArgs}\n│ 🔢 Quantidade: -${qty}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ 📦 *ITEM TIRADO* 📦 ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📦 Item: ${itemArgs}\n│ 🔢 Quantidade: -${qty}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Reset total do jogador
@@ -11604,7 +11604,7 @@ Entre em contato com o dono do bot:
         if (econ.users[target]) {
           delete econ.users[target];
           saveEconomy(econ);
-          return reply(`╭━━━⊱ ✅ *JOGADOR RESETADO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 🗑️ Todos os dados RPG removidos\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+          return reply(`╭━━━⊱ 🔄 *COMEÇOU DO ZERO* 🔄 ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 🗑️ Todo o RPG dessa pessoa foi apagado\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
         } else {
           return reply(`💎 Essa pessoa ainda não começou o RPG (・・ ) ?`);
         }
@@ -11624,7 +11624,7 @@ Entre em contato com o dono do bot:
         econ.users = {};
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ⚠️ *RESET GLOBAL* ⊱━━━╮\n│\n│ 🗑️ Sistema RPG resetado!\n│ 👥 Todos os jogadores zerados\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ ⚠️ *RPG ZERADO* ⚠️ ⊱━━━╮\n│\n│ 🗑️ O RPG começou do zero!\n│ 👥 Todo mundo voltou pro início\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Estatísticas do sistema RPG
@@ -11757,7 +11757,7 @@ Entre em contato com o dono do bot:
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *COMPRA PREMIUM* ⊱━━━╮\n│\n│ 🛒 ${item.name}\n│ 💰 -${item.price.toLocaleString()}\n│\n│ ✨ Item adicionado !\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ 💎 *COMPRA PREMIUM* 💎 ⊱━━━╮\n│\n│ 🛒 ${item.name}\n│ 💰 -${item.price.toLocaleString()}\n│\n│ ✨ Já tá no seu inventário ♡\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Cassino Roleta - NERFADO
@@ -11776,7 +11776,7 @@ Entre em contato com o dono do bot:
         const bet = parseInt(args[0]) || 0;
         const rawChoice = (args[1] || '');
 
-        if (bet <= 0) return reply(`🎰 *ROLETA*\n\n💡 Usa assim: ${prefix}roleta <valor> <cor>\n\nCores: vermelho, preto, verde\n\n🔴 Vermelho: 1.5x\n⚫ Preto: 1.5x\n🟢 Verde (0): 5x`);
+        if (bet <= 0) return reply(`🎰 *ROLETA*\n\n💡 Usa assim: ${prefix}roleta <valor> <cor>\n\n🔴 Vermelho: paga 1.5x\n⚫ Preto: paga 1.5x\n🟢 Verde (0): paga 5x\n\nBoa sorte ♡`);
 
         // Normaliza a cor escolhida
         const colorMap = {
@@ -11948,7 +11948,7 @@ Entre em contato com o dono do bot:
         if (Date.now() < cdSlots2) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdSlots2)} você joga slots de novo ♡`);
 
         const bet = parseInt(args[0]) || 0;
-        if (bet <= 0) return reply(`🎰 *CAÇA-NÍQUEIS*\n\n💡 Usa assim: ${prefix}slots <valor>\n\n🎲 Alinhe 3 símbolos iguais pra ganhar!`);
+        if (bet <= 0) return reply(`🎰 *CAÇA-NÍQUEIS*\n\n💡 Usa assim: ${prefix}slots <valor>\n\n🎲 Três símbolos iguais e o prêmio é seu ♡`);
         if (bet > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // SLOTS NERFADO: Cada posição tem preferência por símbolos diferentes
@@ -12066,7 +12066,7 @@ Entre em contato com o dono do bot:
 
           saveEconomy(econ);
 
-          return reply(`╭━━━⊱ 🎫 *BILHETES COMPRADOS* ⊱━━━╮\n\n🎟️ Quantidade: ${qty}\n💰 Total: -${totalCost.toLocaleString()}\n\n🎫 Seus bilhetes: ${econ.lottery.tickets[sender]}\n💰 Jackpot atual: ${econ.lottery.jackpot.toLocaleString()}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+          return reply(`╭━━━⊱ 🎫 *BILHETES NA MÃO* 🎫 ⊱━━━╮\n\n🎟️ Quantidade: ${qty}\n💰 Custou: -${totalCost.toLocaleString()}\n\n🎫 Seus bilhetes: ${econ.lottery.tickets[sender]}\n💰 Prêmio acumulado: ${econ.lottery.jackpot.toLocaleString()}\n\nBoa sorte ♡\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
         return reply(`💎 Hmm, não conheço essa opção!\n\n💡 Use:\n${prefix}loteria - Ver informações\n${prefix}loteria comprar <qtd> - Comprar bilhetes`);
@@ -12155,7 +12155,7 @@ Entre em contato com o dono do bot:
 
         if (!sub || sub === 'ver') {
           if (econ.auctions.length === 0) {
-            return reply(`🏛️ Nenhum leilão ativo!\n\n💡 Usa ${prefix}leilao criar <item> <preço> pra criar um leilão`);
+            return reply(`🏛️ Nenhum leilão rolando agora!\n\n💡 Abre um com ${prefix}leilao criar <item> <preço> ♡`);
           }
 
           let text = `╭━━━⊱ 🏛️ *LEILÕES ATIVOS* ⊱━━━╮\n\n`;
@@ -12200,7 +12200,7 @@ Entre em contato com o dono do bot:
 
           saveEconomy(econ);
 
-          return reply(`╭━━━⊱ 🏛️ *LEILÃO CRIADO* ⊱━━━╮\n\n📦 Item: ${item}\n💰 Preço inicial: ${price.toLocaleString()}\n⏰ Duração: 1 hora\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+          return reply(`╭━━━⊱ 🏛️ *LEILÃO ABERTO* 🏛️ ⊱━━━╮\n\n📦 Item: ${item}\n💰 Lance inicial: ${price.toLocaleString()}\n⏰ Dura: 1 hora\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
         if (sub === 'dar' || sub === 'bid') {
@@ -12237,7 +12237,7 @@ Entre em contato com o dono do bot:
 
           saveEconomy(econ);
 
-          return reply(`╭━━━⊱ 🏛️ *LANCE DADO* ⊱━━━╮\n\n📦 Item: ${auction.item}\n💰 Seu lance: ${bidAmount.toLocaleString()}\n🏆 Você é o maior lance!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+          return reply(`╭━━━⊱ 🔨 *LANCE DADO!* 🔨 ⊱━━━╮\n\n📦 Item: ${auction.item}\n💰 Seu lance: ${bidAmount.toLocaleString()}\n🏆 Por enquanto você tá na frente ♡\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
         return reply(`💎 Hmm, não conheço essa opção!\n\n💡 Use:\n${prefix}leilao - Ver leilões\n${prefix}leilao criar <item> <preço>\n${prefix}leilao dar <nº> <valor>`);
@@ -12338,7 +12338,7 @@ Entre em contato com o dono do bot:
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ⚡ *BOOST LIGADO* ⊱━━━╮\n\n${boost.name}\n⏰ Duração: ${boost.duration / 60000} minutos\n💰 Custo: -${boost.price.toLocaleString()}\n\n🔥 Aproveite os bônus!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ ⚡ *BOOST LIGADO* ⚡ ⊱━━━╮\n\n${boost.name}\n⏰ Dura: ${boost.duration / 60000} minutos\n💰 Custou: -${boost.price.toLocaleString()}\n\n🔥 Aproveita os bônus ♡\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Sistema de Tributos/Impostos
@@ -12433,7 +12433,7 @@ Entre em contato com o dono do bot:
 
           saveEconomy(econ);
 
-          return reply(`╭━━━⊱ ✅ *TRIBUTOS PAGOS* ⊱━━━╮\n\n💸 Valor: -${dueAmount.toLocaleString()}\n📅 Próximo: Em 1 dia\n\n✅ Você tá em dia!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+          return reply(`╭━━━⊱ 🧾 *TRIBUTOS PAGOS* 🧾 ⊱━━━╮\n\n💸 Pagou: -${dueAmount.toLocaleString()}\n📅 Próximo: daqui a 1 dia\n\n✿ Tudo em dia ♡\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
         return reply(`💎 Hmm, não conheço essa opção!\n\n💡 Use:\n${prefix}tributos - Ver situação\n${prefix}tributos pagar - Pagar tributos`);
@@ -12450,7 +12450,7 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const amount = parseInt(args[0]) || 0;
-        if (amount < 1000) return reply(`💝 *DOAÇÃO*\n\n💡 Usa assim: ${prefix}doar <valor>\n\n📌 Mínimo: 1.000 moedas\n✨ Ganhe karma e reputação por doar!`);
+        if (amount < 1000) return reply(`💝 *DOAR*\n\n💡 Usa assim: ${prefix}doar <valor>\n\n📌 Mínimo: 1.000 moedas\n✨ Quem doa ganha karma e reputação ♡`);
 
         if (me.wallet < amount) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
@@ -12473,7 +12473,7 @@ Entre em contato com o dono do bot:
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ 💝 *DOAÇÃO* ⊱━━━╮\n\n💰 Valor: ${amount.toLocaleString()}\n☯️ Karma: +${karmaGain}\n⭐ Reputação: +${Math.floor(karmaGain / 2)}\n\n📊 Total doado: ${me.donations.total.toLocaleString()}\n🏦 Tesouro: ${econ.treasury.toLocaleString()}\n\n✨ Obrigado pela generosidade!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ 💝 *QUE CORAÇÃO!* 💝 ⊱━━━╮\n\n💰 Doou: ${amount.toLocaleString()}\n☯️ Karma: +${karmaGain}\n⭐ Reputação: +${Math.floor(karmaGain / 2)}\n\n📊 Já doou: ${me.donations.total.toLocaleString()}\n🏦 Cofre do grupo: ${econ.treasury.toLocaleString()}\n\n✨ Obrigada pela generosidade ♡\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Sistema de Presente
@@ -12507,7 +12507,7 @@ Entre em contato com o dono do bot:
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ 🎁 *PRESENTE ENVIADO* ⊱━━━╮\n\n📦 Item: ${item}\n🔢 Quantidade: ${qty}\n👤 Para: @${target.split('@')[0]}\n\n✨ Presente entregue!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ 🎁 *PRESENTE ENTREGUE* 🎁 ⊱━━━╮\n\n📦 Item: ${item}\n🔢 Quantidade: ${qty}\n💌 Pra: @${target.split('@')[0]}\n\n✨ Que fofura ♡\n\n╰━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Estatísticas pessoais detalhadas
@@ -12669,7 +12669,7 @@ Entre em contato com o dono do bot:
         }
 
         if (currentWorkTimes < requiredWorkTimes) {
-          return reply(`💼 Você precisa trabalhar ${requiredWorkTimes} vezes!\n📊 Atual: ${currentWorkTimes}`);
+          return reply(`💼 Falta trabalhar mais um pouco! Precisa de ${requiredWorkTimes} vezes\n📊 Até agora: ${currentWorkTimes}`);
         }
 
         // Resetar com penalidades maiores (preservando estatísticas de batalha e trabalho)
@@ -12942,7 +12942,7 @@ Entre em contato com o dono do bot:
         const bet = parseInt(args[1]) || 0;
 
         if (!choice) {
-          return reply(`💡 Usa ${prefix}coinflip <cara|coroa> <valor>\n\n📝 Aceita: cara, coroa, heads, tails`);
+          return reply(`💡 Usa assim: ${prefix}coinflip <cara|coroa> <valor>\n\n📝 Também vale: heads, tails`);
         }
 
         if (bet < 100) return reply(`💰 A aposta mínima é 100 moedas ♡`);
@@ -13740,7 +13740,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           if (game.tentativas >= 6) {
             delete global.wordleGames[gameKey];
-            return reply(`😢 *GAME OVER!*\n\n${game.historico.join('\n')}\n\n❌ Suas tentativas acabaram!\n\nA palavra era: *${game.palavra.toUpperCase()}*`);
+            return reply(`😢 *ACABOU!*\n\n${game.historico.join('\n')}\n\n💔 As tentativas acabaram...\n\nA palavra era: *${game.palavra.toUpperCase()}*`);
           }
 
           return reply(`🎯 *WORDLE* (${game.tentativas}/6)\n\n${game.historico.join('\n')}\n\n💡 Continue chutando com: ${prefix}wordle [palavra de ${tamanhoEsperado} letras]`);
@@ -13750,13 +13750,13 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         if (global.wordleGames[gameKey]) {
           const game = global.wordleGames[gameKey];
           const tamanho = game.palavra.length;
-          return reply(`🎮 *Jogo em andamento!*\n\n${game.historico.length > 0 ? game.historico.join('\n') + '\n\n' : ''}Tentativas: ${game.tentativas}/6\n📏 Tamanho: ${tamanho} letras\n\n💡 Chute uma palavra de ${tamanho} letras:\n${prefix}wordle [palavra]\n\n🔄 Para desistir: ${prefix}wordle desistir`);
+          return reply(`🎮 *Partida rolando!*\n\n${game.historico.length > 0 ? game.historico.join('\n') + '\n\n' : ''}Tentativas: ${game.tentativas}/6\n📏 A palavra tem ${tamanho} letras\n\n💡 Chuta uma palavra de ${tamanho} letras:\n${prefix}wordle [palavra]\n\n🏳️ Pra desistir: ${prefix}wordle desistir`);
         }
 
         if (args[0] === 'desistir' && global.wordleGames[gameKey]) {
           const palavra = global.wordleGames[gameKey].palavra;
           delete global.wordleGames[gameKey];
-          return reply(`🏳️ Você desistiu!\n\nA palavra era: *${palavra.toUpperCase()}*`);
+          return reply(`🏳️ Desistiu! Tudo bem ♡\n\nA palavra era: *${palavra.toUpperCase()}*`);
         }
 
         // Iniciar novo jogo - escolher tamanho aleatório
@@ -13776,7 +13776,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           iniciado: Date.now()
         };
 
-        await reply(`🎮 *WORDLE - Adivinhe a Palavra!*\n\n📝 Tente adivinhar a palavra de ${tamanhoEscolhido} letras!\n\n🟩 = Letra certa no lugar certo\n🟨 = Letra certa no lugar errado\n⬛ = Letra não existe\n\n💡 Você tem 6 tentativas!\n\n*Chute com:* ${prefix}wordle [palavra de ${tamanhoEscolhido} letras]`);
+        await reply(`🎮 *WORDLE* ♡\n\n📝 Adivinha a palavra de ${tamanhoEscolhido} letras!\n\n🟩 = letra certa no lugar certo\n🟨 = letra certa no lugar errado\n⬛ = essa letra não tem\n\n💡 São 6 tentativas!\n\n*Chuta com:* ${prefix}wordle [palavra de ${tamanhoEscolhido} letras]`);
         break;
       }
 
@@ -13830,20 +13830,20 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         // Quiz ativo - mostrar pergunta atual
         if (global.quizGames[quizKey] && args.length === 0) {
           const game = global.quizGames[quizKey];
-          return reply(`❓ *QUIZ* (${game.categoria})\n\n${game.pergunta}\n\n💡 Responda com: ${prefix}quiz [resposta]\n🔄 Pular: ${prefix}quiz pular`);
+          return reply(`❓ *QUIZ* (${game.categoria})\n\n${game.pergunta}\n\n💡 Responde com: ${prefix}quiz [resposta]\n⏭️ Pular: ${prefix}quiz pular`);
         }
 
         // Pular pergunta
         if (args[0] === 'pular' && global.quizGames[quizKey]) {
           const resposta = global.quizGames[quizKey].display;
           delete global.quizGames[quizKey];
-          return reply(`⏭️ Pergunta pulada!\n\nA resposta era: *${resposta}*`);
+          return reply(`⏭️ Pulou!\n\nA resposta era: *${resposta}* ♡`);
         }
 
         // Mostrar categorias
         if (!args[0]) {
           const categoriasList = Object.keys(quizDB).map(cat => `• ${prefix}quiz ${cat}`).join('\n');
-          return reply(`❓ *QUIZ - Teste seus conhecimentos!*\n\n📚 *Categorias disponíveis:*\n${categoriasList}\n\n💡 Responda rápido pra ganhar mais pontos!`);
+          return reply(`❓ *QUIZ* ♡\n\n📚 *Temas:*\n${categoriasList}\n\n💡 Quem responde rápido ganha mais pontos!`);
         }
 
         // Nova pergunta
@@ -13864,7 +13864,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           iniciado: Date.now()
         };
 
-        await reply(`❓ *QUIZ* (${categoria})\n\n${perguntaEscolhida.p}\n\n💡 Responda com: ${prefix}quiz [resposta]\n⏱️ Responda rápido pra mais pontos!`);
+        await reply(`❓ *QUIZ* (${categoria})\n\n${perguntaEscolhida.p}\n\n💡 Responde com: ${prefix}quiz [resposta]\n⏱️ Rapidinho vale mais pontos ♡`);
         break;
       }
 
@@ -13970,7 +13970,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         if (args[0] === 'desistir' && global.forcaGames[forcaKey]) {
           const palavra = global.forcaGames[forcaKey].palavra;
           delete global.forcaGames[forcaKey];
-          return reply(`🏳️ Vocês desistiram!\n\nA palavra era: *${palavra.toUpperCase()}*`);
+          return reply(`🏳️ Vocês desistiram! Tudo bem ♡\n\nA palavra era: *${palavra.toUpperCase()}*`);
         }
 
         // Jogo ativo
@@ -14108,7 +14108,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
               const tempoMinimo = 3000; // 3 segundos
 
               if (tempoDecorrido < tempoMinimo) {
-                return reply(`⏱️ Muito rápido! Espera pelo menos ${(tempoMinimo - tempoDecorrido) / 1000} segundos antes de responder.\n\n⚠️ Isso previne cópia e cola!`);
+                return reply(`⏱️ Calma, rapidinho demais! Espera ${(tempoMinimo - tempoDecorrido) / 1000} segundinhos antes de responder.\n\n🙈 É pra ninguém copiar e colar, tá?`);
               }
 
               // Verificar se já respondeu
@@ -14837,7 +14837,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             game.tentativas++;
             if (game.tentativas >= 5) {
               delete global.anagramaGames[gameKey];
-              return reply(`😢 *GAME OVER!*\n\n❌ Você esgotou suas tentativas!\n\n📝 A palavra era: *${game.palavra.toUpperCase()}*\n💡 Dica: ${game.dica}`);
+              return reply(`😢 *ACABOU!*\n\n💔 As tentativas acabaram...\n\n📝 A palavra era: *${game.palavra.toUpperCase()}*\n💡 A dica era: ${game.dica}`);
             }
             return reply(`💎 Resposta incorreta!\n\n🔀 Anagrama: ${game.embaralhada}\n💡 Dica: ${game.dica}\n📊 Tentativas: ${game.tentativas}/5\n\n💡 Tenta de novo: ${prefix}anagrama [palavra]`);
           }
@@ -14846,7 +14846,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         // Verificar se há jogo ativo
         if (global.anagramaGames[gameKey]) {
           const game = global.anagramaGames[gameKey];
-          return reply(`🔀 *ANAGRAMA*\n\n📝 Anagrama: *${game.embaralhada.toUpperCase()}*\n💡 Dica: ${game.dica}\n📊 Tentativas: ${game.tentativas}/5\n\n💡 Descubra a palavra: ${prefix}anagrama [palavra]`);
+          return reply(`🔀 *ANAGRAMA*\n\n📝 Letras embaralhadas: *${game.embaralhada.toUpperCase()}*\n💡 Dica: ${game.dica}\n📊 Tentativas: ${game.tentativas}/5\n\n💡 Responde com: ${prefix}anagrama [palavra]`);
         }
 
         // Iniciar novo jogo
@@ -14861,7 +14861,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           iniciado: Date.now()
         };
 
-        await reply(`🔀 *ANAGRAMA - Novo Jogo!*\n\n📝 Anagrama: *${palavraEmbaralhada.toUpperCase()}*\n💡 Dica: ${palavraEscolhida.dica}\n\n🎯 Descubra a palavra original!\n💡 Use: ${prefix}anagrama [palavra]\n📊 Você tem 5 tentativas`);
+        await reply(`🔀 *ANAGRAMA* ♡\n\n📝 Letras embaralhadas: *${palavraEmbaralhada.toUpperCase()}*\n💡 Dica: ${palavraEscolhida.dica}\n\n🎯 Descobre a palavra!\n💡 Responde com: ${prefix}anagrama [palavra]\n📊 São 5 tentativas`);
         break;
       }
 
@@ -14904,7 +14904,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const numPerguntas = parseInt(args.find(arg => !isNaN(parseInt(arg)))) || 5;
 
           if (numPerguntas < 3 || numPerguntas > 20) {
-            return reply('❌ Número de perguntas inválido! Use entre 3 e 20 perguntas.\n\n💡 Exemplo: ${prefix}dueloquiz @usuario 10');
+            return reply(`💎 Escolhe de 3 a 20 perguntas ♡\n\n💡 Ex.: ${prefix}dueloquiz @usuario 10`);
           }
 
           if (global.dueloQuizChallenges[gameKey] || global.dueloQuizGames[gameKey]) {
@@ -15475,7 +15475,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const horaBrasil = agora.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit' });
           const dataBrasil = agora.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo', weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
 
-          return reply(`🕐 *Horário Atual*\n\n🇧🇷 *Brasil (Brasília):*\n⏰ ${horaBrasil}\n📅 ${dataBrasil}\n\n💡 *Ver outro fuso:*\n${prefix}hora <local>\n\n📍 *Locais disponíveis:*\nbrasil, eua, japao, china, coreia, londres, paris, portugal, dubai, australia, argentina...`);
+          return reply(`🕐 *Que horas são?*\n\n🇧🇷 *Brasil (Brasília):*\n⏰ ${horaBrasil}\n📅 ${dataBrasil}\n\n💡 *Outro lugar:*\n${prefix}hora <local>\n\n📍 *Dá pra pedir:*\nbrasil, eua, japao, china, coreia, londres, paris, portugal, dubai, australia, argentina...`);
         }
 
         const local = normalizar(q.toLowerCase().replace(/\s+/g, ''));
@@ -15496,7 +15496,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const diffHours = Math.round((localTime - brTime) / (1000 * 60 * 60));
           const diffStr = diffHours >= 0 ? `+${diffHours}h` : `${diffHours}h`;
 
-          await reply(`🕐 *Horário em ${q}*\n\n⏰ *Hora:* ${hora}\n📅 *Data:* ${data}\n\n🇧🇷 *Diferença do Brasil:* ${diffStr}`);
+          await reply(`🕐 *Agora em ${q}*\n\n⏰ *Hora:* ${hora}\n📅 *Data:* ${data}\n\n🇧🇷 *Diferença pro Brasil:* ${diffStr}`);
         } catch (e) {
           console.error('Erro ao converter fuso:', e);
           await reply(`💎 Não consegui ver a hora agora... tenta de novo? (╥﹏╥)`);
@@ -15656,21 +15656,21 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
       case 'tradutor':
       case 'translator':
-        if (!q) return reply(`🌍 Quer traduzir algo? Me diga o idioma e o texto assim: ${prefix}${command} idioma | texto
-Exemplo: ${prefix}tradutor inglês | Bom dia! 😊`);
+        if (!q) return reply(`🌍 Quer traduzir? Me fala o idioma e o texto assim: ${prefix}${command} idioma | texto
+Ex.: ${prefix}tradutor inglês | Bom dia! ♡`);
 
         {
           const partes = q.split('|');
           if (partes.length < 2) {
-            return reply(`Formato incorreto! 😅 Use: ${prefix}tradutor idioma | texto
-Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
+            return reply(`💎 Hmm, faltou algo! Usa: ${prefix}tradutor idioma | texto
+Ex.: ${prefix}tradutor espanhol | Olá mundo! ♡`);
           }
           const idioma = partes[0].trim();
           const texto = partes.slice(1).join('|').trim();
           reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`).then(() => {
             const prompt = `Traduza o seguinte texto para ${idioma}:\n\n${texto}\n\nForneça apenas a tradução, sem explicações adicionais.`;
             ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null).then((bahz) => {
-              reply(`🌐✨ *Prontinho! Sua tradução pra ${idioma.toUpperCase()} está aqui:*\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
+              reply(`🌐 *Prontinho! Em ${idioma.toUpperCase()} fica assim:* ♡\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
             }).catch((e) => {
               console.error("Erro ao traduzir texto:", e);
               reply(`💎 Não consegui traduzir agora... tenta mais tarde? (╥﹏╥)`);
@@ -15680,7 +15680,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         }
         break;
       case 'qrcode':
-        if (!q) return reply(`📲 *Gerador de QR Code*\n\n💡 *Como usar:*\n• Envie o texto ou link após o comando\n• Ex: ${prefix}qrcode https://exemplo.com\n• Ex: ${prefix}qrcode Seu texto aqui\n\n✨ O QR Code será gerado instantaneamente!`);
+        if (!q) return reply(`📲 *QR Code* ♡\n\n💡 *Como usar:*\n• Manda o texto ou link depois do comando\n• Ex.: ${prefix}qrcode https://exemplo.com\n• Ex.: ${prefix}qrcode Seu texto aqui\n\n✨ Sai na hora!`);
         reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`).then(() => {
           const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(q)}`;
           return nazu.sendMessage(from, {
@@ -16514,7 +16514,7 @@ ${prefix}addsubbot @152656307871952`
             }
           } else {
             const currentStatus = isRentalModeActive() ? 'ATIVADO' : 'DESATIVADO';
-            await reply(`🤔 Uso: ${prefix}modoaluguel on|off\nStatus atual: ${currentStatus}`);
+            await reply(`💎 Usa assim: ${prefix}modoaluguel on|off\nAgora tá: ${currentStatus}`);
           }
         } catch (e) {
           console.error("Erro no comando modoaluguel:", e);
@@ -16768,7 +16768,7 @@ ${prefix}addsubbot @152656307871952`
             console.log('📅 Aluguel por dias:', durationDays);
           } else {
             console.log('❌ Duração inválida:', durationArg);
-            return reply(`🤔 Duração inválida. Use um número de dias (ex: 30) ou a palavra "permanente".\nExemplo: ${prefix}addaluguel 30`);
+            return reply(`💎 Essa duração não deu certo! Usa um número de dias (ex.: 30) ou "permanente".\nEx.: ${prefix}addaluguel 30`);
           }
 
           console.log('📤 Enviando para setGroupRental...');
@@ -16892,11 +16892,11 @@ ${prefix}addsubbot @152656307871952`
           if (!targetGroupId && isGroup) {
             targetGroupId = from;
           } else if (!targetGroupId) {
-            return reply(`💡 Usa assim: ${prefix}removeraluguel [id_do_grupo]\n\n📝 Use dentro de um grupo ou informe o ID.\n💡 Usa ${prefix}listaraluguel pra ver os IDs.`);
+            return reply(`💡 Usa assim: ${prefix}removeraluguel [id do grupo]\n\n📝 Manda dentro do grupo ou diz o ID.\n💡 Os IDs aparecem em ${prefix}listaraluguel`);
           }
 
           if (!targetGroupId.trim()) {
-            return reply(`💡 Usa assim: ${prefix}removeraluguel [id_do_grupo]\n\n📝 Use dentro de um grupo ou informe o ID.`);
+            return reply(`💡 Usa assim: ${prefix}removeraluguel [id do grupo]\n\n📝 Manda dentro do grupo ou diz o ID.`);
           }
 
           // Normaliza o ID do grupo
@@ -16971,7 +16971,7 @@ ${prefix}addsubbot @152656307871952`
           }
           // Nenhum argumento válido
           else {
-            return reply(`💡 Usa assim: ${prefix}estenderaluguel <dias> (no grupo)\nou\n${prefix}estenderaluguel <id_do_grupo> <dias>\n\n📝 *Exemplo:*\n${prefix}estenderaluguel 7 (no grupo)\n${prefix}estenderaluguel 5511999999999 7\n\n💡 Usa ${prefix}listaraluguel pra ver os IDs.`);
+            return reply(`💡 Usa assim: ${prefix}estenderaluguel <dias> (dentro do grupo)\nou\n${prefix}estenderaluguel <id do grupo> <dias>\n\n📝 *Ex.:*\n${prefix}estenderaluguel 7 (dentro do grupo)\n${prefix}estenderaluguel 5511999999999 7\n\n💡 Os IDs aparecem em ${prefix}listaraluguel`);
           }
 
           if (isNaN(daysToAdd) || daysToAdd <= 0) {
@@ -17038,7 +17038,7 @@ ${prefix}addsubbot @152656307871952`
           // Se não passou ID, usa o grupo atual
           if (!targetGroupId || targetGroupId === '') {
             if (!isGroup) {
-              return reply(`💡 Usa assim: ${prefix}infoaluguel <id_do_grupo>\n\n📝 Ou use este comando dentro do grupo pra ver o status dele.`);
+              return reply(`💡 Usa assim: ${prefix}infoaluguel <id do grupo>\n\n📝 Ou manda dentro do grupo pra ver o dele ♡`);
             }
             targetGroupId = from;
           } else {
@@ -18313,7 +18313,7 @@ ${prefix}addsubbot @152656307871952`
             return reply(`💎 Comando "${q}" não encontrado.\n\nUsa ${groupPrefix}listcmd pra ver todos os comandos.`);
           }
 
-          await reply(`🧪 *Testando comando: ${cmd.trigger}*\n\n_Executando..._`);
+          await reply(`🧪 *Testando: ${cmd.trigger}*\n\n_Rodando..._`);
 
           // Simular execução
           const responseData = cmd.response;
@@ -18662,7 +18662,7 @@ ${prefix}addsubbot @152656307871952`
       case 'gerarnick':
       case 'nickgenerator':
         try {
-          if (!q) return reply(`🎮 *GERADOR DE NICK*\n\n📝 *Como usar:*\n• Digite o nick após o comando\n• Ex: ${prefix}nick opala`);
+          if (!q) return reply(`🎮 *NICKS ESTILOSOS* ♡\n\n📝 *Como usar:*\n• Escreve o nick depois do comando\n• Ex.: ${prefix}nick opala`);
           var datzn;
           datzn = await styleText(q);
           await reply(datzn.join('\n'));
@@ -18800,7 +18800,7 @@ ${prefix}addsubbot @152656307871952`
       case 'fusohorario':
       case 'horariomundial':
         try {
-          if (!q) return reply(`🕐 *Consulta de Horário Mundial*\n\n📝 *Usa assim:* ${prefix}${command} <cidade/país>\n\n📌 *Exemplos:*\n${prefix}${command} tokyo\n${prefix}${command} new york\n${prefix}${command} london\n${prefix}${command} são paulo\n\n💡 *Dica:* Use nomes em inglês pra melhores resultados!`);
+          if (!q) return reply(`🕐 *Hora pelo mundo* ♡\n\n📝 *Usa assim:* ${prefix}${command} <cidade/país>\n\n📌 *Ex.:*\n${prefix}${command} tokyo\n${prefix}${command} new york\n${prefix}${command} london\n${prefix}${command} são paulo\n\n💡 *Dica:* nomes em inglês funcionam melhor!`);
 
           const location = q.trim();
 
@@ -18884,7 +18884,7 @@ ${prefix}addsubbot @152656307871952`
             diffText = `${diffHours}h em relação ao Brasil`;
           }
 
-          await reply(`🕐 *Horário em ${location.charAt(0).toUpperCase() + location.slice(1)}*\n\n📅 ${formattedTime}\n\n🌍 *Fuso:* ${timezone}\n⏰ *Diferença:* ${diffText}`);
+          await reply(`🕐 *Agora em ${location.charAt(0).toUpperCase() + location.slice(1)}*\n\n📅 ${formattedTime}\n\n🌍 *Fuso:* ${timezone}\n⏰ *Diferença:* ${diffText}`);
         } catch (e) {
           console.error('Erro no comando hora:', e);
           reply(`💎 Não consegui ver a hora agora... tenta de novo? (╥﹏╥)`);
@@ -18965,12 +18965,12 @@ ${prefix}addsubbot @152656307871952`
       case 'ytmp3':
         try {
           if (!q) {
-            return reply(`╭━━━⊱ 🎵 *YOUTUBE MP3* 🎵 ⊱━━━╮
+            return reply(`╭━━━⊱ 🎵 *MÚSICA DO YOUTUBE* 🎵 ⊱━━━╮
 │
-│ 📝 Digite o nome da música ou
-│     um link do YouTube
+│ 📝 Manda o nome da música ou
+│     um link do YouTube ♡
 │
-│  *Exemplos:*
+│ 💡 *Ex.:*
 │  ${prefix + command} Back to Black
 │  ${prefix + command} https://youtube.com/...
 │
@@ -19109,11 +19109,12 @@ ${prefix}addsubbot @152656307871952`
       case 'spotify':
         try {
           if (!q) {
-            return reply(`╭━━━⊱ 🎵 *SPOTIFY DOWNLOAD* 🎵 ⊱━━━╮
+            return reply(`╭━━━⊱ 🎵 *SPOTIFY* 🎵 ⊱━━━╮
 │
-│ 📝 Digite o link da música do Spotify
+│ 📝 Manda o link da música
+│     do Spotify ♡
 │
-│  *Exemplo:*
+│ 💡 *Ex.:*
 │  ${prefix + command} https://open.spotify.com/track/...
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -19224,12 +19225,12 @@ ${prefix}addsubbot @152656307871952`
 
         try {
           if (!q) {
-            return reply(`╭━━━⊱ 🎵 *YOUTUBE MP3* 🎵 ⊱━━━╮
+            return reply(`╭━━━⊱ 🎵 *MÚSICA DO YOUTUBE* 🎵 ⊱━━━╮
 │
-│ 📝 Digite o nome da música ou
-│     um link do YouTube
+│ 📝 Manda o nome da música ou
+│     um link do YouTube ♡
 │
-│  *Exemplos:*
+│ 💡 *Ex.:*
 │  ${prefix + command} Back to Black
 │  ${prefix + command} https://youtube.com/...
 │
@@ -19360,11 +19361,12 @@ ${prefix}addsubbot @152656307871952`
       case 'soundcloud':
         try {
           if (!q) {
-            return reply(`╭━━━⊱ 🎵 *SOUNDCLOUD DOWNLOAD* 🎵 ⊱━━━╮
+            return reply(`╭━━━⊱ 🎵 *SOUNDCLOUD* 🎵 ⊱━━━╮
 │
-│ 📝 Digite o link da música do SoundCloud
+│ 📝 Manda o link da música
+│     do SoundCloud ♡
 │
-│  *Exemplo:*
+│ 💡 *Ex.:*
 │  ${prefix + command} https://soundcloud.com/...
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -19432,11 +19434,12 @@ ${prefix}addsubbot @152656307871952`
       case 'playsoundcloud':
         try {
           if (!q) {
-            return reply(`╭━━━⊱ 🎵 *SOUNDCLOUD PLAY* 🎵 ⊱━━━╮
+            return reply(`╭━━━⊱ 🎵 *SOUNDCLOUD* 🎵 ⊱━━━╮
 │
-│ 📝 Digite o nome da música ou artista
+│ 📝 Manda o nome da música
+│     ou do artista ♡
 │
-│  *Exemplos:*
+│ 💡 *Ex.:*
 │  ${prefix + command} Te vi de canto
 │  ${prefix + command} Rô Rosa
 │
@@ -19526,7 +19529,7 @@ ${prefix}addsubbot @152656307871952`
       case 'playvid':
       case 'ytmp4':
         try {
-          if (!q) return reply(`Digite o nome do vídeo ou um link do YouTube.\n> Ex: ${prefix + command} Back to Black`);
+          if (!q) return reply(`💎 Manda o nome do vídeo ou um link do YouTube ♡\n> Ex.: ${prefix + command} Back to Black`);
 
           let videoUrl;
 
@@ -19658,7 +19661,7 @@ ${prefix}addsubbot @152656307871952`
       case 'ttk':
       case 'tkk':
         try {
-          if (!q) return reply(`Digite um nome ou o link de um vídeo.\n> Ex: ${prefix}${command} Gato`);
+          if (!q) return reply(`💎 Manda um nome ou o link do vídeo ♡\n> Ex.: ${prefix}${command} Gato`);
 
           reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
           const isTikTokUrl = q.includes('tiktok.com');
@@ -19701,11 +19704,12 @@ ${prefix}addsubbot @152656307871952`
       case 'facebookdl':
         try {
           if (!q) {
-            return reply(`╭━━━⊱ 📹 *FACEBOOK DOWNLOAD HD* 📹 ⊱━━━╮
+            return reply(`╭━━━⊱ 📹 *FACEBOOK EM HD* 📹 ⊱━━━╮
 │
-│ 📝 Digite o link do vídeo do Facebook
+│ 📝 Manda o link do vídeo
+│     do Facebook ♡
 │
-│  *Exemplo:*
+│ 💡 *Ex.:*
 │  ${prefix + command} https://www.facebook.com/...
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -19778,7 +19782,7 @@ ${prefix}addsubbot @152656307871952`
       case 'instavideo':
       case 'igstory':
         try {
-          if (!q) return reply(`Digite um link do Instagram.\n> Ex: ${prefix}${command} https://www.instagram.com/reel/DFaq_X7uoiT/?igsh=M3Q3N2ZyMWU1M3Bo`);
+          if (!q) return reply(`💎 Manda um link do Instagram ♡\n> Ex.: ${prefix}${command} https://www.instagram.com/reel/DFaq_X7uoiT/?igsh=M3Q3N2ZyMWU1M3Bo`);
 
           reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
 
@@ -19820,7 +19824,7 @@ ${prefix}addsubbot @152656307871952`
         break;
       case 'kwai':
         try {
-          if (!q) return reply(`Digite um link do kwai.\n> Ex: ${prefix}${command} https://kwai-video.com/p/q0fr2CRm`);
+          if (!q) return reply(`💎 Manda um link do Kwai ♡\n> Ex.: ${prefix}${command} https://kwai-video.com/p/q0fr2CRm`);
 
 
           reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
@@ -19851,7 +19855,7 @@ ${prefix}addsubbot @152656307871952`
       case 'drive':
       case 'gd':
         try {
-          if (!q) return reply(`📁 *Google Drive Download*\n\n❌ Por favor, envie o link do arquivo do Google Drive.\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Formatos suportados:*\n• https://drive.google.com/file/d/ID/view\n• https://drive.google.com/open?id=ID\n• https://drive.google.com/uc?id=ID`);
+          if (!q) return reply(`📁 *Google Drive*\n\n💎 Manda o link do arquivo, tá? ♡\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Links que funcionam:*\n• https://drive.google.com/file/d/ID/view\n• https://drive.google.com/open?id=ID\n• https://drive.google.com/uc?id=ID`);
 
           // Validar se é um link do Google Drive
           const gdriveRegex = /(?:https?:\/\/)?(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)|docs\.google\.com\/(?:document|spreadsheets|presentation)\/d\/)([a-zA-Z0-9_-]+)/i;
@@ -19877,10 +19881,10 @@ ${prefix}addsubbot @152656307871952`
               long_url: downloadUrl,
               alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
             });
-            return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}\n\n⚠️ *Arquivo muito grande pra enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkGdrive.data.short_url}`);
+            return reply(`📁 *Achei o arquivo!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}\n\n💎 *Ficou grande demais pro WhatsApp* (o limite é 100 MB)\n\n🔗 *Baixa direto por aqui:*\n${shortLinkGdrive.data.short_url}`);
           }
 
-          await reply(`📁 *Baixando arquivo...*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}`);
+          await reply(`📁 *Baixando pra você...* ⋆｡˚\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}`);
 
           // Baixar o arquivo
           const fileResponse = await axios.get(downloadUrl, {
@@ -19937,7 +19941,7 @@ ${prefix}addsubbot @152656307871952`
       case 'mediafire':
       case 'mf':
         try {
-          if (!q) return reply(`📁 *MediaFire Download*\n\n❌ Por favor, envie o link do arquivo do MediaFire.\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Exemplo:*\n${prefix}${command} https://www.mediafire.com/file/abc123/arquivo.zip/file`);
+          if (!q) return reply(`📁 *MediaFire*\n\n💎 Manda o link do arquivo, tá? ♡\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Ex.:*\n${prefix}${command} https://www.mediafire.com/file/abc123/arquivo.zip/file`);
 
           // Validar se é um link do MediaFire
           const mediafireRegex = /(?:https?:\/\/)?(?:www\.)?mediafire\.com\/(?:file|view|download)\/([a-zA-Z0-9]+)/i;
@@ -19974,10 +19978,10 @@ ${prefix}addsubbot @152656307871952`
               long_url: downloadUrl,
               alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
             });
-            return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Upload:* ${uploadDate || 'N/A'}\n📋 *Tipo:* ${extension || mimetype}\n\n⚠️ *Arquivo muito grande pra enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkMf.data.short_url}`);
+            return reply(`📁 *Achei o arquivo!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Enviado em:* ${uploadDate || 'N/A'}\n📋 *Tipo:* ${extension || mimetype}\n\n💎 *Ficou grande demais pro WhatsApp* (o limite é 100 MB)\n\n🔗 *Baixa direto por aqui:*\n${shortLinkMf.data.short_url}`);
           }
 
-          await reply(`📁 *Baixando arquivo...*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Upload:* ${uploadDate || 'N/A'}`);
+          await reply(`📁 *Baixando pra você...* ⋆｡˚\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Enviado em:* ${uploadDate || 'N/A'}`);
 
           // Baixar o arquivo
           const fileResponse = await axios.get(downloadUrl, {
@@ -20038,7 +20042,7 @@ ${prefix}addsubbot @152656307871952`
       case 'x':
       case 'xdl':
         try {
-          if (!q) return reply(`🐦 *Twitter/X Download*\n\n❌ Por favor, envie o link do tweet.\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Formatos suportados:*\n• https://twitter.com/user/status/ID\n• https://x.com/user/status/ID`);
+          if (!q) return reply(`🐦 *X (Twitter)*\n\n💎 Manda o link do post, tá? ♡\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Links que funcionam:*\n• https://twitter.com/user/status/ID\n• https://x.com/user/status/ID`);
 
           // Validar se é um link do Twitter/X
           const twitterRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:\w+\/status|i\/status)\/(\d+)/i;
@@ -22003,7 +22007,7 @@ Precisa de ajuda? Entre em contato:
       case 'prefix':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`⚙️ *Configuração de Prefixo*\n\n📝 *Como usar:*\n• Digite o novo prefixo após o comando\n• Ex: ${prefix}${command} /\n• Ex: ${prefix}${command} !\n\n✅ O prefixo do bot será atualizado pra o valor especificado!`);
+          if (!q) return reply(`⚙️ *Meu prefixo* ♡\n\n📝 *Como usar:*\n• Manda o prefixo novo depois do comando\n• Ex.: ${prefix}${command} /\n• Ex.: ${prefix}${command} !\n\n✿ Eu passo a responder com ele na hora!`);
 
           let newPrefix = q.trim();
 
@@ -22092,7 +22096,7 @@ Precisa de ajuda? Entre em contato:
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
           config.numerodono = q;
           writeJsonFile(CONFIG_FILE, config);
-          await reply(`Número do dono salvo\n\nAgora pelo número do novo dono\n- utilize o comando ${prefix}verificardono\n- Para gerar o lid e terminar a configuração!`);
+          await reply(`✿ Número do dono guardado!\n\nAgora, *do número do novo dono*:\n- manda ${prefix}verificardono\n- pra eu pegar o LID e terminar a configuração ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -22157,13 +22161,13 @@ Precisa de ajuda? Entre em contato:
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!q) {
-            return reply(`Por favor, digite a nova apikey
+            return reply(`💎 Me manda a apikey nova
 
-Exemplo:
+Ex.:
 ${prefix}${command} 1a0b5879-bc22-4f4a
 
-⚠️ Você pega sua api-key no site ${site_vex}
-💸 Não esqueça de contratar um plano para ela funcionar!`);
+🔑 A apikey fica no site ${site_vex}
+💸 Ela só funciona com um plano contratado, tá?`);
           }
 
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
@@ -22172,9 +22176,9 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
 
           writeJsonFile(CONFIG_FILE, config);
 
-          await reply(`✅ Apikey alterada com sucesso para "${q}"!
+          await reply(`✿ Prontinho! Apikey trocada pra "${q}"
 
-🔄 Reiniciando o bot para aplicar as alterações...`);
+🔄 Vou reiniciar pra usar a chave nova ♡`);
 
           await restartBot(reply);
 
@@ -23134,14 +23138,14 @@ ${prefix}addcmdvip menudown all`);
                 }
               }
 
-              await reply(`✅ *Comandos do menu "${menuName}" adicionados!*
+              await reply(`✿ *Comandos do menu "${menuName}" viraram VIP!*
 
-📊 *Resultado:*
-• ✅ Adicionados: ${added}
-• ⏭️ Já existiam: ${skipped}
-• 📦 Total encontrados: ${commandsArray.length}
+📊 *Resumo:*
+• ✿ Novos: ${added}
+• ⏭️ Já eram: ${skipped}
+• 📦 Achados: ${commandsArray.length}
 
-💡 Use ${prefix}listcmdvip para ver todos os comandos VIP.`);
+💡 Todos os VIP: ${prefix}listcmdvip`);
             } catch (error) {
               console.error(`Erro ao processar menu ${menuName}:`, error);
               return reply(`💎 Não consegui abrir o menu "${menuName}": ${error.message}`);
@@ -24804,12 +24808,12 @@ ${prefix}togglecmdvip premium_ia off`);
         }
         break;
       case 'toimg':
-        if (!isQuotedSticker) return reply(`╭━━━⊱ 🖼️ *CONVERTER* 🖼️ ⊱━━━╮
+        if (!isQuotedSticker) return reply(`╭━━━⊱ 🖼️ *VIRAR IMAGEM* 🖼️ ⊱━━━╮
 │
-│ ❌ Marque uma figurinha para
-│    converter em imagem!
+│ 💎 Responde uma figurinha
+│    que eu viro imagem ♡
 │
-│ 💡 Responda uma figurinha com:
+│ 💡 Responde com:
 │ ${prefix}toimg
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -24829,12 +24833,12 @@ ${prefix}togglecmdvip premium_ia off`);
 
 
       case 'togif':
-        if (!isQuotedSticker) return reply(`╭━━━⊱ 🎞️ *CONVERTER* 🎞️ ⊱━━━╮
+        if (!isQuotedSticker) return reply(`╭━━━⊱ 🎞️ *VIRAR GIF* 🎞️ ⊱━━━╮
 │
-│ ❌ Marque uma figurinha animada
-│    para converter em GIF!
+│ 💎 Responde uma figurinha
+│    animada que eu viro GIF ♡
 │
-│ 💡 Responda uma figurinha com:
+│ 💡 Responde com:
 │ ${prefix}togif
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━╯`);
@@ -25187,7 +25191,7 @@ break;
           emoji1 = q.split(`/`)[0];
           var emoji2;
           emoji2 = q.split(`/`)[1];
-          if (!q || !emoji1 || !emoji2) return reply(`Formato errado, utilize:\n${prefix}${command} emoji1/emoji2\nEx: ${prefix}${command} 🤓/🙄`);
+          if (!q || !emoji1 || !emoji2) return reply(`💎 Usa assim: ${prefix}${command} emoji1/emoji2\nEx.: ${prefix}${command} 🤓/🙄`);
           var datzc;
           datzc = await emojiMix(emoji1, emoji2);
           await sendSticker(nazu, from, {
@@ -25365,7 +25369,7 @@ break;
           var RSM = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
           var boij2 = RSM?.imageMessage || info.message?.imageMessage || RSM?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessage?.message?.imageMessage || RSM?.viewOnceMessage?.message?.imageMessage;
           var boij = RSM?.videoMessage || info.message?.videoMessage || RSM?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessage?.message?.videoMessage || RSM?.viewOnceMessage?.message?.videoMessage;
-          if (!boij && !boij2) return reply(`Marque uma imagem ou um vídeo de até 9.9 segundos pra fazer figurinha, com o comando: ${prefix + command} (mencionando a mídia)`);
+          if (!boij && !boij2) return reply(`💎 Responde uma imagem ou vídeo de até 9,9 segundos com ${prefix + command} que eu faço a figurinha ♡`);
           var isVideo2 = !!boij;
           if (isVideo2 && boij.seconds > 9.9) return reply(`💎 O vídeo pode ter no máximo 9,9 segundos pra virar figurinha ♡`);
           var buffer = await getFileBuffer(isVideo2 ? boij : boij2, isVideo2 ? 'video' : 'image');
@@ -25391,7 +25395,7 @@ break;
           var RSM = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
           var boij2 = RSM?.imageMessage || info.message?.imageMessage || RSM?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessage?.message?.imageMessage || RSM?.viewOnceMessage?.message?.imageMessage;
           var boij = RSM?.videoMessage || info.message?.videoMessage || RSM?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessage?.message?.videoMessage || RSM?.viewOnceMessage?.message?.videoMessage;
-          if (!boij && !boij2) return reply(`Marque uma imagem ou um vídeo de até 9.9 segundos pra fazer figurinha, com o comando: ${prefix + command} (mencionando a mídia)`);
+          if (!boij && !boij2) return reply(`💎 Responde uma imagem ou vídeo de até 9,9 segundos com ${prefix + command} que eu faço a figurinha ♡`);
           var isVideo2 = !!boij;
           if (isVideo2 && boij.seconds > 9.9) return reply(`💎 O vídeo pode ter no máximo 9,9 segundos pra virar figurinha ♡`);
           var buffer = await getFileBuffer(isVideo2 ? boij : boij2, isVideo2 ? 'video' : 'image');
@@ -25480,7 +25484,7 @@ break;
           const dataTake = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf-8')) : {};
           dataTake[sender] = { author, pack };
           fs.writeFileSync(filePath, JSON.stringify(dataTake, null, 2), 'utf-8');
-          reply(`Autor e pacote salvos !\nAutor: ${author || "(vazio)"}\nPacote: ${pack}`);
+          reply(`✿ Guardei seu autor e pacote ♡\nAutor: ${author || "(vazio)"}\nPacote: ${pack}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -26551,14 +26555,13 @@ break;
           const subCommand = args[0]?.toLowerCase();
 
           if (!subCommand) {
-            return reply(`📨 *Auto Mensagens*
+            return reply(`📨 *Mensagens automáticas* ♡
 
-Use os subcomandos:
-• ${groupPrefix}automsg add - Adicionar mensagem
-• ${groupPrefix}automsg list - Listar mensagens
-• ${groupPrefix}automsg del [id] - Remover mensagem
-• ${groupPrefix}automsg on [id] - Ativar mensagem
-• ${groupPrefix}automsg off [id] - Desativar mensagem`);
+• ${groupPrefix}automsg add - cria uma
+• ${groupPrefix}automsg list - mostra todas
+• ${groupPrefix}automsg del [id] - apaga
+• ${groupPrefix}automsg on [id] - liga
+• ${groupPrefix}automsg off [id] - desliga`);
           }
 
           const groupFilePath = pathz.join(GRUPOS_DIR, `${from}.json`);
@@ -26568,17 +26571,17 @@ Use os subcomandos:
           switch (subCommand) {
             case 'add':
               if (!q.includes('|')) {
-                return reply(`📨 *Adicionar Auto Mensagem*
+                return reply(`📨 *Criar mensagem automática* ♡
 
-Para adicionar, responda a uma mensagem (texto, imagem, vídeo, documento, figurinha ou áudio) e use:
+Responde uma mensagem (texto, imagem, vídeo, documento, figurinha ou áudio) com:
 
 ${groupPrefix}automsg add HH:MM | descrição
 
-Exemplos:
+Ex.:
 • ${groupPrefix}automsg add 08:00 | Bom dia!
 • ${groupPrefix}automsg add 20:00 | Boa noite!
 
-A mensagem será enviada todos os dias no horário especificado.`);
+Eu mando todo dia nesse horário ♡`);
               }
 
               const [timeStr, ...descParts] = args.slice(1).join(' ').split('|').map(s => s.trim());
@@ -26702,14 +26705,14 @@ A mensagem será enviada todos os dias no horário especificado.`);
               // Agendar
               scheduleAutoMessage(from, msgConfig, nazu);
 
-              await reply(`✅ Mensagem automática adicionada!
+              await reply(`✿ Mensagem automática criada!
 
 🆔 ID: ${msgConfig.id}
 ⏰ Horário: ${normalizedTime}
 📝 Tipo: ${msgConfig.type}
 📋 Descrição: ${description}
 
-A mensagem será enviada todos os dias às ${normalizedTime} (horário de São Paulo).`);
+Eu mando todo dia às ${normalizedTime} (horário de Brasília) ♡`);
               break;
 
             case 'list':
@@ -26761,7 +26764,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
               data.autoMessages.splice(msgIndex, 1);
               writeJsonFile(groupFilePath, data);
 
-              await reply(`✅ Mensagem automática removida!
+              await reply(`🗑️ Mensagem automática apagada
 
 🆔 ID: ${msgId}
 ⏰ Horário: ${removedMsg.time}`);
@@ -26875,7 +26878,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           const [min, max] = q.split('-').map(n => parseInt(n.trim()));
           if (isNaN(min) || isNaN(max) || min >= max) return reply(`💎 Esse intervalo não deu certo! Usa mín-máx (ex.: 1-50) ♡`);
           const numeroSorteado = Math.floor(Math.random() * (max - min + 1)) + min;
-          await reply(`🎲 *Sorteio de Número* 🎲\n\nNúmero sorteado: *${numeroSorteado}*`);
+          await reply(`🎲 *Sorteio de número* 🎲\n\nE o número é... *${numeroSorteado}*! ♡`);
         } catch (e) {
           console.error('Erro no comando sorteionum:', e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27414,7 +27417,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
               30000 // 30 segundos
             );
             const currentMessage = config.savedMessage || "Nenhuma mensagem salva.";
-            return reply(`*Mensagem de divulgação atual:*\n${currentMessage}`);
+            return reply(`*Texto da divulgação agora:*\n${currentMessage}`);
           }
 
           if (saveDivulgacao({ savedMessage: q })) {
@@ -27744,8 +27747,8 @@ Exemplos:
             cfg.users = cfg.users || {};
             cfg.blocks = cfg.blocks || {};
             writeJsonFile(filePath, cfg);
-            return reply(`✅ AntiSpam Global ativado!
-• Limite: ${limit} cmds em ${interval}s
+            return reply(`✿ AntiSpam geral ligado!
+• Limite: ${limit} comandos em ${interval}s
 • Bloqueio: ${Math.floor(block / 60)} min`);
           }
           return reply('Opção inválida.\n' + usage);
@@ -27946,7 +27949,7 @@ Exemplos:
             } else {
 
               const status = groupData.welcome.photo ? 'ATIVADO' : 'DESATIVADO';
-              await reply(`🤔 Uso: ${prefix}fotobv on|off\nStatus atual: ${status}`);
+              await reply(`💎 Usa assim: ${prefix}fotobv on|off\nAgora tá: ${status}`);
 
             }
 
@@ -28134,7 +28137,7 @@ Exemplos:
             } else {
 
               const status = groupData.exit.photo ? 'ATIVADO' : 'DESATIVADO';
-              await reply(`🤔 Uso:\n${prefix}${command} on - Ativa a foto de saída (gerada automaticamente)\n${prefix}${command} off - Desativa a foto de saída\n${prefix}${command} + marque/envie uma imagem - Define uma foto personalizada\n\n📊 Status atual: ${status}`);
+              await reply(`💎 Usa assim:\n${prefix}${command} on - liga a foto de saída automática\n${prefix}${command} off - desliga a foto de saída\n${prefix}${command} + uma imagem - usa uma foto sua\n\n📊 Agora tá: ${status}`);
 
             }
 
@@ -28828,7 +28831,7 @@ Exemplos:
           }
           fs.writeFileSync(modoLiteFile, JSON.stringify(modoLiteGlobal, null, 2));
           if (modoLiteGlobal.status) {
-            await reply('👶 *Modo Lite ligado globalmente!* O conteúdo inapropriado pra crianças será filtrado em todos os grupos (a menos que seja explicitamente desligado em algum grupo).');
+            await reply(`👶 *Modo Lite ligado em todos os grupos!* Escondo o que não é pra criança, a não ser nos grupos que desligarem ♡`);
           } else {
             await reply('🔞 *Modo Lite desligado globalmente!* O conteúdo do menu de brincadeiras será exibido completamente (a menos que seja explicitamente ligado em algum grupo).');
           }
@@ -29464,7 +29467,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
-          if (!q) return reply(`*Esse bem vindo não tem foto!*\n\n📝 *Configuração da Mensagem de Boas-Vindas*\n\nPara definir uma mensagem personalizada, digite o comando seguido do texto desejado. Você pode usar as seguintes variáveis:\n\n- *#numerodele#* → Marca o novo membro.\n- *#nomedogp#* → Nome do grupo.\n- *#desc#* → Descrição do grupo.\n- *#membros#* → Número total de membros no grupo.\n\n📌 *Exemplo:*\n${prefixo}legendabv2 Bem-vindo(a) #numerodele# ao grupo *#nomedogp#*! Agora somos #membros# membros. Leia a descrição: #desc#`);
+          if (!q) return reply(`*Essa boas-vindas não tem foto!*\n\n📝 *Mensagem de boas-vindas* ♡\n\nEscreve o comando e depois o texto. Dá pra usar:\n\n- *#numerodele#* → marca quem chegou\n- *#nomedogp#* → nome do grupo\n- *#desc#* → descrição do grupo\n- *#membros#* → quantas pessoas tem no grupo\n\n📌 *Ex.:*\n${prefixo}legendabv2 Bem-vindo(a) #numerodele# ao *#nomedogp#*! Agora somos #membros#. Lê a descrição: #desc#`);
 
           groupData.textbv2 = q;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
@@ -29684,25 +29687,25 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
         const subCmdUno = normalizeCommand(args[0]);
 
         if (!subCmdUno || subCmdUno === 'help' || subCmdUno === 'ajuda') {
-          return reply(`🎴 *UNO - Comandos*
+          return reply(`🎴 *UNO* ♡
 
-${prefix}uno criar - Cria uma nova partida
-${prefix}uno entrar - Entra em uma partida
-${prefix}uno iniciar - Inicia a partida (criador)
-${prefix}uno jogar <n°> - Joga uma carta pelo número
-${prefix}uno jogar <n°> <cor> - Joga coringa com cor
-${prefix}uno comprar - Compra uma carta
-${prefix}uno mao - Ver sua mão (envia no PV)
-${prefix}uno uno - Grita UNO!
-${prefix}uno status - Ver status da partida
-${prefix}uno cancelar - Cancela a partida (host/admin)
-${prefix}uno sair - Sair da partida
+${prefix}uno criar - abre uma partida
+${prefix}uno entrar - entra na partida
+${prefix}uno iniciar - começa (quem criou)
+${prefix}uno jogar <n°> - joga a carta desse número
+${prefix}uno jogar <n°> <cor> - joga o coringa com cor
+${prefix}uno comprar - compra uma carta
+${prefix}uno mao - suas cartas (no privado)
+${prefix}uno uno - grita UNO!
+${prefix}uno status - como tá a partida
+${prefix}uno cancelar - cancela (quem criou ou admin)
+${prefix}uno sair - sai da partida
 
 *Cores:* vermelho/azul/verde/amarelo
 *Especiais:* +2, reverso, pular, coringa, +4
 
-⚠️ *Timeout:* 1 minuto por turno
-🚨 3 timeouts = expulsão!`);
+⏰ *Tempo:* 1 minuto por vez
+🚨 Demorou 3 vezes = tá fora!`);
         }
 
         // Verificação automática de timeout antes de processar comandos
@@ -29855,7 +29858,7 @@ ${prefix}uno sair - Sair da partida
             const result = memoria.makeMove(from, sender, pos);
             return reply(result.message);
           }
-          return reply(`🎮 Jogo em andamento! Use um número de 1-16 pra revelar uma carta.\nOu ${prefix}memoria sair pra desistir.`);
+          return reply(`🎮 Tem partida rolando! Manda um número de 1 a 16 pra virar uma carta.\nOu ${prefix}memoria sair pra desistir ♡`);
         }
 
         if (subCmdMemory === 'sair') {
@@ -30134,16 +30137,16 @@ ${prefix}nota buscar <termo> - Busca nas notas`);
         if (!calculator) return reply(`💎 A calculadora tá descansando agora... tenta daqui a pouco ♡`);
 
         if (!q) {
-          return reply(`🧮 *Calculadora Científica*
+          return reply(`🧮 *Calculadora* ♡
 
-${prefix}calc <expressão> - Calcula expressão
+${prefix}calc <conta> - faz a conta
 ${prefix}calc converter <valor> <de> <para>
 
-*Operadores:* + - * / ^ % !
+*Operações:* + - * / ^ % !
 *Funções:* sin, cos, tan, sqrt, log, abs, ceil, floor
 *Constantes:* pi, e, phi
 
-*Exemplos:*
+*Ex.:*
 ${prefix}calc 2+2*3
 ${prefix}calc sqrt(144)
 ${prefix}calc sin(45)
@@ -30602,14 +30605,14 @@ ${prefix}aventura sair - Abandona a história
           return reply(result.message);
         }
 
-        return reply(`⚠️ *Antitoxic - Configuração*
+        return reply(`🛡️ *Antitoxic* ♡
 
-${prefix}antitoxic on - Ativa
-${prefix}antitoxic off - Desativa
-${prefix}antitoxic config <ação> - Define ação (avisar/apagar/mute)
-${prefix}antitoxic sensibilidade <0-100> - Define sensibilidade
+${prefix}antitoxic on - liga
+${prefix}antitoxic off - desliga
+${prefix}antitoxic config <ação> - o que fazer (avisar/apagar/mute)
+${prefix}antitoxic sensibilidade <0-100> - o quanto eu sou rígida
 
-⚠️ Este sistema usa IA e pode cometer erros!`);
+💡 Uso IA pra isso, então posso errar às vezes!`);
         break;
 
       // ═══════════════════════════════════════════════════════════════
@@ -30837,11 +30840,11 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
-          if (!q) return reply(`🎲 Me conta algo para eu calcular as chances! 📊
+          if (!q) return reply(`🎲 Me conta o que você quer que eu calcule a chance ♡
 
-📝 *Exemplo:* ${prefix}chance chover pizza hoje
-🚀 *Exemplo:* ${prefix}chance eu virar milionário
-💖 *Exemplo:* ${prefix}chance encontrar o amor`);
+📝 *Ex.:* ${prefix}chance chover pizza hoje
+🚀 *Ex.:* ${prefix}chance eu virar milionário
+💖 *Ex.:* ${prefix}chance encontrar o amor`);
           const chance = Math.floor(Math.random() * 101);
           const emojis = ['🎯', '📊', '🎲', '✨', '🔮', '🍀', '🎆'];
           const emoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -31248,20 +31251,20 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
             shipLevel >= 60 ? '😍 Ship promissor!' :
               shipLevel >= 40 ? '😊 Rolou uma química!' :
                 shipLevel >= 20 ? '🤔 Meio forçado...' : '😅 Só na amizade!';
-          await reply(`╭━━━⊱ 💘 *CASAL* 💘 ⊱━━━╮
+          await reply(`╭━━━⊱ 💘 *CASAL DO DIA* 💘 ⊱━━━╮
 │
 │ 💫 *${comentario}*
 │
-│ 👑 *CASAL DO MOMENTO*
+│ 👑 *O CASAL É...*
 │ @${getUserName(membro1)} ❤️ @${getUserName(membro2)}
 │
-│ 📊 *Estatísticas*
+│ 📊 *Os números*
 │ └─ 💖 Ship: *${shipLevel}%*
 │ └─ 🎯 Chance: *${chance}%*
 │
 │ ${statusShip}
 │
-│ ${chance >= 70 ? '🎉 Já podem marcar o casamento!' : chance >= 50 ? '👀 Vale a pena investir!' : '😂 Melhor ficar só na amizade!'}
+│ ${chance >= 70 ? '💍 Já podem marcar o casamento!' : chance >= 50 ? '👀 Tem futuro, hein!' : '😂 Melhor ficar na amizade!'}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━╯`, {
             mentions: [membro1, membro2]
@@ -31277,10 +31280,10 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!menc_os2) return reply(`╭━━━⊱ 💘 *SHIPO* 💘 ⊱━━━╮
 │
-│ ❌ Marque alguém para
-│    encontrar um par!
+│ 💎 Marca alguém que eu
+│    acho o par perfeito ♡
 │
-│ 💡 *Exemplo:*
+│ 💡 *Ex.:*
 │ ${prefix}shipo @fulano
 │
 ╰━━━━━━━━━━━━━━━━━━━━╯`);
@@ -31311,18 +31314,18 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
 │
 │ 💫 *${comentario}*
 │
-│ 👑 *SHIP SELECIONADO*
+│ 👑 *O SHIP É...*
 │ @${getUserName(menc_os2)} ✨ @${getUserName(par)}
 │
-│ 💫 *Ship name:* ${nomeShip}
+│ 💫 *Nome do casal:* ${nomeShip}
 │
-│ 📊 *Estatísticas*
+│ 📊 *Os números*
 │ └─ 💖 Ship: *${shipLevel}%*
-│ └─ 🎯 Compatibilidade: *${chance}%*
+│ └─ 🎯 Combinação: *${chance}%*
 │
 │ ${statusShip}
 │
-│ ${chance >= 75 ? '🎉 Relacionamento dos sonhos!' : chance >= 50 ? '👀 Merece uma chance!' : '😂 Melhor só shippar mesmo!'}
+│ ${chance >= 75 ? '💍 Casal dos sonhos!' : chance >= 50 ? '👀 Merece uma chance!' : '😂 Melhor só shippar mesmo!'}
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━╯`, {
             mentions: [menc_os2, par]
@@ -31359,15 +31362,15 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
           const confianca = Math.floor(Math.random() * 30) + 70; // 70-100%
           const emoji = isPositive ? '🎆' : '💔';
 
-          await reply(`  **ORÁCULO RESPONDE** 🎱
+          await reply(`🎱 *A BOLA 8 RESPONDE* 🎱
 
 🤔 *Pergunta:* "${q}"
 
-${emoji} **Resposta:** *${resposta}*
+${emoji} *Resposta:* *${resposta}*
 
-📊 *Confiança:* ${confianca}%
+📊 *Certeza:* ${confianca}%
 
-${isPositive ? '🎉 O destino sorri para você!' : '😅 Mas não desista dos seus sonhos!'}`);
+${isPositive ? '🎉 O destino tá do seu lado ♡' : '😅 Mas não desiste dos seus sonhos, tá?'}`);
         } catch (e) {
           console.error(e);
           await reply(`🎱 A bola 8 rolou pra longe! Pergunta de novo? ♡`);
@@ -31487,7 +31490,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         break;
       case 'ppt':
         try {
-          if (!q) return reply(`🎮 *Pedra, Papel ou Tesoura*\n\n💡 *Como jogar:*\n• Escolha sua jogada após o comando\n• Ex: ${prefix}ppt pedra\n• Ex: ${prefix}ppt papel\n• Ex: ${prefix}ppt tesoura\n\n🎲 Vamos ver quem ganha!`);
+          if (!q) return reply(`🎮 *Pedra, papel ou tesoura* ♡\n\n💡 *Como jogar:*\n• Escolhe depois do comando\n• Ex.: ${prefix}ppt pedra\n• Ex.: ${prefix}ppt papel\n• Ex.: ${prefix}ppt tesoura\n\n🎲 Bora ver quem ganha!`);
           const escolhas = ['pedra', 'papel', 'tesoura'];
           if (!escolhas.includes(q.toLowerCase())) return reply(`💎 Escolhe pedra, papel ou tesoura ♡`);
           const botEscolha = escolhas[Math.floor(Math.random() * 3)];
@@ -31500,7 +31503,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           } else {
             resultado = 'Eu ganhei! 😎';
           }
-          await reply(`🖐️ *Pedra, Papel, Tesoura* 🖐️\n\nVocê: ${usuarioEscolha}\nEu: ${botEscolha}\n\n${resultado}`);
+          await reply(`✊✋✌️ *Pedra, papel, tesoura!*\n\nVocê: ${usuarioEscolha}\nEu: ${botEscolha}\n\n${resultado}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -31603,7 +31606,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
           const conselhos = toolsJson().Conselhos;
           const conselho = conselhos[Math.floor(Math.random() * conselhos.length)];
-          await reply(`💡 *Conselho do dia:*\n\n${conselho}`);
+          await reply(`💡 *Um conselho pra você* ♡\n\n${conselho}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Fiquei sem conselho agora... tenta de novo? (╥﹏╥)`);
@@ -31626,7 +31629,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
           const cantadas = toolsJson().Cantadas;
           const cantada = cantadas[Math.floor(Math.random() * cantadas.length)];
-          await reply(`💘 *Cantada:*\n\n${cantada}`);
+          await reply(`💘 *Lá vai uma cantada:*\n\n${cantada}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Fiquei sem cantada agora... tenta de novo? (╥﹏╥)`);
@@ -31637,7 +31640,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
           const piadas = toolsJson().Piadas;
           const piada = piadas[Math.floor(Math.random() * piadas.length)];
-          await reply(`😂 *Piada:*\n\n${piada}`);
+          await reply(`😂 *Lá vai uma piada:*\n\n${piada}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Fiquei sem piada agora... tenta de novo? (╥﹏╥)`);
@@ -31648,7 +31651,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
           const charadas = toolsJson().Charadas;
           const charada = charadas[Math.floor(Math.random() * charadas.length)];
-          await reply(`🧩 *Charada:*\n\n${charada}`);
+          await reply(`🧩 *Charada!*\n\n${charada}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Fiquei sem charada agora... tenta de novo? (╥﹏╥)`);
@@ -31660,7 +31663,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
           const motivacionais = toolsJson().FrasesMotivacionais;
           const motivacional = motivacionais[Math.floor(Math.random() * motivacionais.length)];
-          await reply(`🚀 *Frase Motivacional:*\n\n${motivacional}`);
+          await reply(`🚀 *Pra te dar força* ♡\n\n${motivacional}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Fiquei sem frase agora... tenta de novo? (╥﹏╥)`);
@@ -31682,7 +31685,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
           const reflexoes = toolsJson().Reflexoes;
           const reflexao = reflexoes[Math.floor(Math.random() * reflexoes.length)];
-          await reply(`🤔 *Reflexão:*\n\n${reflexao}`);
+          await reply(`🤔 *Pra pensar um pouquinho:*\n\n${reflexao}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Fiquei sem reflexão agora... tenta de novo? (╥﹏╥)`);
@@ -31694,7 +31697,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
           const fatos = toolsJson().curiousFacts;
           const fato = fatos[Math.floor(Math.random() * fatos.length)];
-          await reply(`🔬 *Fato Curioso:*\n\n${fato}`);
+          await reply(`🔬 *Você sabia?*\n\n${fato}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Fiquei sem curiosidade agora... tenta de novo? (╥﹏╥)`);
@@ -32380,7 +32383,7 @@ Motivo: ${reason}`;
           groupData.rules = groupData.rules || [];
           groupData.rules.push(q);
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Regra adicionada com sucesso!
+          await reply(`✿ Regra nova no grupo!
 ${groupData.rules.length}. ${q}`);
         } catch (e) {
           console.error('Erro no comando addregra:', e);
@@ -32550,9 +32553,9 @@ ${prefix}wl.add @usuario | antilink,antistatus,antiporn`);
           const antisString = wlArgs.length > 1 ? wlArgs[1] : wlArgs[0];
 
           if (!antisString || antisString.length === 0) {
-            return reply(`⚠️ Especifique os antis após o |
+            return reply(`💎 Escreve as proteções depois do |
 
-*Exemplo:*
+*Ex.:*
 ${prefix}wl.add @usuario | antilink,antistatus`);
           }
 
@@ -32719,7 +32722,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
           if (saveMsgBotOn(newStatus)) {
             const statusText = newStatus ? '✅ ativada' : '❌ desativada';
-            await reply(`🔔 *Mensagem de inicialização ${statusText}!*\n\nAgora, quando o bot ligar, ${newStatus ? 'você receberá' : 'NÃO receberá'} uma mensagem de boas-vindas no seu privado.`);
+            await reply(`🔔 *Aviso de ligada ${statusText}!*\n\nQuando eu ligar, ${newStatus ? 'você recebe' : 'você NÃO recebe'} um oi no seu privado ♡`);
           } else {
             await reply(`💎 Eita, não consegui guardar a configuração... (╥﹏╥)`);
           }
@@ -33002,7 +33005,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
             case 'off':
               autoSchedules[from].enabled = false;
               fs.writeFileSync(autoSchedulesPath, JSON.stringify(autoSchedules, null, 2));
-              await reply('🔴 *Auto horários desligado!*\n\n📴 Os envios automáticos foram interrompidos.');
+              await reply(`🔴 *Horários automáticos desligados!*\n\n📴 Parei os envios automáticos.`);
               break;
 
             case 'status':

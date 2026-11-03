@@ -19,6 +19,8 @@ Bot de WhatsApp do Ruan. Os projetos dele têm nomes de pedras e gemas (Onix = l
 - Visual: banner pixel art e design do menu ficam em `arte/` (o banner vai para `dados/midias/menu.jpg`; o original da Nazuna ficou como `menu-nazuna-original.jpg`).
 - Código do bot (Nazuna modificada) fica em `bot/` neste repositório; GitHub privado: https://github.com/ruan2311/opala. `config.json`, `database/` e `bin/` ficam só no servidor (ver `config.exemplo.json`).
 - Textos na estética fofa do A+ (27/10/2026): `arte/fofo.py` refaz as trocas se a Nazuna for atualizada. Para publicar mudanças: empacotar só os arquivos alterados de `bot/` em .tar.gz, enviar pela API, descompactar em `/` e reiniciar (kill + start). Os arquivos `dados/src` usam quebra de linha CRLF: preservar ao editar.
+- Menus e respostas autorais (03/11/2026): os menus saem de `bot/dados/src/menus/catalogo.js` (categorias → seções → comando e descrição; os arquivos de menu só chamam `desenhar()`). Respostas no jeito fofo do Opala com 💎 (ex.: "💎 Opa! Esse comando só funciona em grupo, tá? ♡"); comando novo deve seguir esse tom.
+- Consumo (03/11/2026): a Waifly avisou do uso no limite. O bot roda sem o start.js, com teto de memória, 6 mensagens por vez e no máximo 800 mensagens guardadas. No painel, `STARTUP_CMD` virou `echo Pacotes ja instalados` (antes `npm install --save --production` a cada início); se precisar de pacote novo, volte o valor antigo, ligue uma vez e troque de novo.
 - Chave de API e senha do painel ficam em `~/.config/opala/waifly.env` (fora do repositório). Acesso pela API do Pterodactyl (`/api/client`).
 
 ## Cuidados
