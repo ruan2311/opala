@@ -331,7 +331,7 @@ class UnoGame {
 
             case 'wild':
                 this.currentColor = CONFIG.COLOR_CODES[chosenColor.toLowerCase()];
-                message = `🌈 Cor alterada para ${CONFIG.COLOR_NAMES[this.currentColor]}!`;
+                message = `🌈 Cor alterada pra ${CONFIG.COLOR_NAMES[this.currentColor]}!`;
                 break;
 
             case 'wild4':
@@ -489,7 +489,7 @@ class UnoGame {
         msg += `🎨 Cor: ${status.currentColor} ${CONFIG.COLOR_NAMES[status.currentColor] || ''}\n`;
         msg += `${status.direction} Direção\n`;
         if (status.pendingDraw > 0) {
-            msg += `⚠️ Comprar: ${status.pendingDraw} cartas\n`;
+            msg += `💎 Comprar: ${status.pendingDraw} cartas\n`;
         }
         msg += `\n👥 Cartas:\n`;
         this.players.forEach(p => {
@@ -522,7 +522,7 @@ class UnoManager {
 
     createGame(groupId, hostId) {
         if (this.activeGames.has(groupId)) {
-            return this._formatResponse(false, '❌ Já existe um jogo de UNO neste grupo!');
+            return this._formatResponse(false, '💎 Já existe um jogo de UNO neste grupo!');
         }
         
         const game = new UnoGame(hostId);
@@ -543,31 +543,31 @@ class UnoManager {
 
     joinGame(groupId, playerId) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         const result = game.addPlayer(playerId);
         if (!result.success) {
             const errors = {
-                'game_started': '❌ O jogo já começou!',
-                'game_full': '❌ O jogo está cheio!',
-                'already_joined': '❌ Você já está no jogo!'
+                'game_started': '💎 O jogo já começou!',
+                'game_full': '💎 O jogo está cheio!',
+                'already_joined': '💎 Você já está no jogo!'
             };
             return this._formatResponse(false, errors[result.reason]);
         }
         
         const status = game.renderStatus();
-        return this._formatResponse(true, `✅ @${getUserName(playerId)} entrou!\n\n${status.text}`, { mentions: status.mentions });
+        return this._formatResponse(true, `✿ @${getUserName(playerId)} entrou!\n\n${status.text}`, { mentions: status.mentions });
     }
 
     leaveGame(groupId, playerId) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         const result = game.removePlayer(playerId);
         if (!result.success) {
             const errors = {
-                'not_in_game': '❌ Você não está no jogo!',
-                'host_cannot_leave': '❌ O host não pode sair antes de iniciar! Use "cancelar" para cancelar o jogo.'
+                'not_in_game': '💎 Você ainda não está no jogo!',
+                'host_cannot_leave': '💎 O host não pode sair antes de iniciar! Use "cancelar" pra cancelar o jogo.'
             };
             return this._formatResponse(false, errors[result.reason]);
         }
@@ -601,14 +601,14 @@ class UnoManager {
 
     startGame(groupId, playerId) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
-        if (game.host !== playerId) return this._formatResponse(false, '❌ Apenas o host pode iniciar o jogo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
+        if (game.host !== playerId) return this._formatResponse(false, '💎 Apenas o host pode iniciar o jogo!');
         
         const result = game.startGame();
         if (!result.success) {
             const errors = {
-                'already_started': '❌ O jogo já começou!',
-                'not_enough_players': `❌ Mínimo de ${CONFIG.MIN_PLAYERS} jogadores necessários!`
+                'already_started': '💎 O jogo já começou!',
+                'not_enough_players': `💎 Mínimo de ${CONFIG.MIN_PLAYERS} jogadores necessários!`
             };
             return this._formatResponse(false, errors[result.reason]);
         }
@@ -637,16 +637,16 @@ class UnoManager {
 
     playCard(groupId, playerId, cardIndex, chosenColor = null) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         const result = game.playCard(playerId, cardIndex - 1, chosenColor);
         if (!result.success) {
             const errors = {
-                'not_started': '❌ O jogo ainda não começou!',
-                'not_your_turn': '❌ Não é sua vez!',
-                'invalid_card': '❌ Carta inválida! Use o número da carta.',
-                'cannot_play_card': '❌ Você não pode jogar essa carta!',
-                'choose_color': '❌ Escolha uma cor! Ex: jogar 3 azul'
+                'not_started': '💎 O jogo ainda não começou!',
+                'not_your_turn': '💎 Não é sua vez!',
+                'invalid_card': '💎 Hmm, Carta não deu certo! Use o número da carta.',
+                'cannot_play_card': '💎 Você não pode jogar essa carta!',
+                'choose_color': '💎 Escolhe uma cor! Ex: jogar 3 azul'
             };
             return this._formatResponse(false, errors[result.reason]);
         }
@@ -673,13 +673,13 @@ class UnoManager {
 
     drawCard(groupId, playerId) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         const result = game.drawCard(playerId);
         if (!result.success) {
             const errors = {
-                'not_started': '❌ O jogo ainda não começou!',
-                'not_your_turn': '❌ Não é sua vez!'
+                'not_started': '💎 O jogo ainda não começou!',
+                'not_your_turn': '💎 Não é sua vez!'
             };
             return this._formatResponse(false, errors[result.reason]);
         }
@@ -713,18 +713,18 @@ class UnoManager {
 
     callUno(groupId, playerId) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         const result = game.callUno(playerId);
         if (result.success) {
             return this._formatResponse(true, `🎉 @${getUserName(playerId)} gritou *UNO!*`, { mentions: [playerId] });
         }
-        return this._formatResponse(false, '❌ Você não tem UNO para gritar!');
+        return this._formatResponse(false, '💎 Você ainda não tem UNO pra gritar!');
     }
 
     catchUno(groupId, catcherId, targetId) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         const result = game.catchUno(catcherId, targetId);
         if (result.success) {
@@ -734,7 +734,7 @@ class UnoManager {
                 { mentions: [catcherId, targetId] }
             );
         }
-        return this._formatResponse(false, '❌ Não há ninguém para pegar!');
+        return this._formatResponse(false, '💎 Não tem ninguém pra pegar!');
     }
 
     getPlayerHand(groupId, playerId) {
@@ -785,7 +785,7 @@ class UnoManager {
 
     getStatus(groupId) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         const status = game.renderStatus();
         return this._formatResponse(true, status.text, { mentions: status.mentions });
@@ -793,10 +793,10 @@ class UnoManager {
 
     cancelGame(groupId, playerId, isAdmin = false) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo de UNO neste grupo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo de UNO neste grupo!');
         
         if (game.host !== playerId && !isAdmin) {
-            return this._formatResponse(false, '❌ Apenas o host ou admins podem cancelar o jogo!');
+            return this._formatResponse(false, '💎 Apenas o host ou admins podem cancelar o jogo!');
         }
         
         const players = game.players;

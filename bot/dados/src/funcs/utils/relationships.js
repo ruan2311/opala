@@ -134,7 +134,7 @@ class RelationshipManager {
       const currentConfig = TYPE_CONFIG[requesterActivePair.pair.status];
       return {
         success: false,
-        message: `❌ Você já está em ${currentConfig.inviteLabel} com @${partnerName}. Termine esse relacionamento primeiro!`,
+        message: `💎 Você já está em ${currentConfig.inviteLabel} com @${partnerName}. Termine esse relacionamento primeiro!`,
         mentions: [requesterActivePair.partnerId]
       };
     }
@@ -147,7 +147,7 @@ class RelationshipManager {
       const currentConfig = TYPE_CONFIG[targetActivePair.pair.status];
       return {
         success: false,
-        message: `❌ @${targetName} já está em ${currentConfig.inviteLabel} com @${partnerName}!`,
+        message: `💎 @${targetName} já está em ${currentConfig.inviteLabel} com @${partnerName}!`,
         mentions: [targetId, targetActivePair.partnerId]
       };
     }
@@ -322,7 +322,7 @@ class RelationshipManager {
       return {
         success: false,
         reason: 'invalid_response',
-        message: '❌ Resposta inválida. Use "sim" para aceitar ou "não" para recusar.'
+        message: '💎 Resposta inválida. Use "sim" pra aceitar ou "não" pra recusar.'
       };
     }
 
@@ -363,7 +363,7 @@ class RelationshipManager {
     if (!key) {
       return {
         success: false,
-        message: '❌ Não consegui registrar o relacionamento. Tente novamente.'
+        message: '💎 Não consegui registrar o relacionamento. Tenta de novo.'
       };
     }
 
@@ -530,7 +530,7 @@ class RelationshipManager {
         lines.push(`🗓️ Desde: ${formatted || 'data desconhecida'}${duration ? ` (há ${duration})` : ''}`);
       }
     } else {
-      lines.push('⚠️ Status atual: sem registro válido.');
+      lines.push('💎 Status atual: sem registro válido.');
     }
 
     // Mostra histórico de estágios
@@ -556,9 +556,9 @@ class RelationshipManager {
         const elapsed = Date.now() - namoroSince;
         if (elapsed < MARRIAGE_REQUIRED_MS) {
           const remaining = MARRIAGE_REQUIRED_MS - elapsed;
-          lines.push('', `⏳ Tempo restante para liberar casamento: ${this._formatDuration(remaining)}`);
+          lines.push('', `⏳ Tempo restante pra liberar casamento: ${this._formatDuration(remaining)}`);
         } else {
-          lines.push('', `✅ Já podem se casar! Tempo de namoro: ${this._formatDuration(elapsed)}`);
+          lines.push('', `✿ Já podem se casar! Tempo de namoro: ${this._formatDuration(elapsed)}`);
         }
       }
     }
@@ -601,7 +601,7 @@ class RelationshipManager {
     if (!key) {
       return {
         success: false,
-        message: '❌ Não foi possível identificar essa dupla.'
+        message: '💎 Não consegui identificar essa dupla.'
       };
     }
 
@@ -610,7 +610,7 @@ class RelationshipManager {
     if (!pair || !pair.status || !TYPE_CONFIG[pair.status]) {
       return {
         success: false,
-        message: '❌ Não existe um relacionamento ativo entre essas pessoas.'
+        message: '💎 Não existe um relacionamento ativo entre essas pessoas.'
       };
     }
 
@@ -717,7 +717,7 @@ class RelationshipManager {
       return {
         success: false,
         reason: 'invalid_response',
-        message: '❌ Resposta inválida. Use "sim" para aceitar ou "não" para recusar.'
+        message: '💎 Resposta inválida. Use "sim" pra aceitar ou "não" pra recusar.'
       };
     }
 
@@ -746,7 +746,7 @@ class RelationshipManager {
     if (!userActivePair) {
       return {
         success: false,
-        message: '❌ Você não está em um relacionamento ativo!',
+        message: '💎 Você ainda não está em um relacionamento ativo!',
         mentions: []
       };
     }
@@ -757,7 +757,7 @@ class RelationshipManager {
     if (this._normalizeId(targetId) === this._normalizeId(partnerId)) {
       return {
         success: false,
-        message: '❌ Você não pode trair seu parceiro com ele mesmo!',
+        message: '💎 Você não pode trair seu parceiro com ele mesmo!',
         mentions: [partnerId]
       };
     }
@@ -766,7 +766,7 @@ class RelationshipManager {
     if (this._normalizeId(targetId) === this._normalizeId(userId)) {
       return {
         success: false,
-        message: '❌ Você não pode trair a si mesmo!',
+        message: '💎 Você não pode trair a si mesmo!',
         mentions: []
       };
     }
@@ -818,7 +818,7 @@ class RelationshipManager {
     if (!currentPair || !currentPair.status) {
       return {
         success: false,
-        message: '❌ Não foi possível encontrar seu relacionamento ativo!',
+        message: '💎 Não consegui encontrar seu relacionamento ativo!',
         mentions: []
       };
     }
@@ -883,14 +883,14 @@ class RelationshipManager {
     const mentions = [userId, partnerId, targetId];
 
     if (targetInRelationship && targetPartner) {
-      lines.push(`⚠️ @${accompliceName} também está em um relacionamento!`);
+      lines.push(`💎 @${accompliceName} também está em um relacionamento!`);
       lines.push(`💔 @${getUserName(targetPartner)} também foi traído(a)!`);
       lines.push('');
       mentions.push(targetPartner);
     }
 
     lines.push(`${config.emoji} Status atual: ${config.label}`);
-    lines.push(`⚠️ Traições registradas: ${currentPair.betrayals[userId]}`);
+    lines.push(`💎 Traições registradas: ${currentPair.betrayals[userId]}`);
     lines.push('');
     lines.push('💡 O relacionamento continua, mas a confiança foi abalada...');
     lines.push(`Use ${prefix}terminar para encerrar o relacionamento.`);
@@ -927,7 +927,7 @@ class RelationshipManager {
     if (betrayals.length === 0) {
       return {
         success: true,
-        message: '✨ Este relacionamento não possui histórico de traições!',
+        message: '✨ Este relacionamento não tem histórico de traições!',
         mentions: [userA, userB],
         betrayalCount: 0
       };

@@ -68,7 +68,7 @@ const getUserRepData = (data, userId) => {
 // Dar reputação
 const giveRep = (fromId, toId, isPositive = true) => {
     if (fromId === toId) {
-        return { success: false, message: '❌ Você não pode dar reputação para si mesmo!' };
+        return { success: false, message: '💎 Você não pode dar reputação pra si mesmo!' };
     }
     
     const data = loadReputation();
@@ -87,7 +87,7 @@ const giveRep = (fromId, toId, isPositive = true) => {
     if (giver.givenToday >= CONFIG.MAX_REP_PER_DAY) {
         return { 
             success: false, 
-            message: `❌ Você já deu ${CONFIG.MAX_REP_PER_DAY} reputações hoje!\n⏳ Tente novamente amanhã.`
+            message: `💎 Você já deu ${CONFIG.MAX_REP_PER_DAY} reputações hoje!\n⏳ Tenta de novo amanhã.`
         };
     }
     
@@ -100,7 +100,7 @@ const giveRep = (fromId, toId, isPositive = true) => {
             const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
             return {
                 success: false,
-                message: `❌ Você já deu rep para esta pessoa recentemente!\n⏳ Aguarde: ${hours}h ${minutes}min`
+                message: `💎 Você já deu rep pra esta pessoa recentemente!\n⏳ Espera: ${hours}h ${minutes}min`
             };
         }
     }
@@ -157,7 +157,7 @@ const getRep = (userId) => {
     else if (total >= 10) rank = '💫 Conhecido';
     else if (total >= 5) rank = '✨ Ativo';
     else if (total < -10) rank = '💀 Tóxico';
-    else if (total < -5) rank = '⚠️ Suspeito';
+    else if (total < -5) rank = '💎 Suspeito';
     
     return {
         success: true,
@@ -237,7 +237,7 @@ const saveReports = (data) => {
 // Criar denúncia
 const createReport = (reporterId, targetId, reason, description = '', groupId = null) => {
     if (reporterId === targetId) {
-        return { success: false, message: '❌ Você não pode denunciar a si mesmo!' };
+        return { success: false, message: '💎 Você não pode denunciar a si mesmo!' };
     }
     
     // Validar motivo
@@ -256,7 +256,7 @@ const createReport = (reporterId, targetId, reason, description = '', groupId = 
     );
     
     if (existingReport) {
-        return { success: false, message: '❌ Você já tem uma denúncia pendente contra este usuário!' };
+        return { success: false, message: '💎 Você já tem uma denúncia pendente contra este usuário!' };
     }
     
     const report = {
@@ -324,11 +324,11 @@ const resolveReport = (reportId, resolverId, resolution) => {
     const report = data.reports.find(r => r.id === reportId);
     
     if (!report) {
-        return { success: false, message: '❌ Denúncia não encontrada!' };
+        return { success: false, message: '💎 Denúncia não encontrada!' };
     }
     
     if (report.status !== 'pending') {
-        return { success: false, message: '❌ Esta denúncia já foi resolvida!' };
+        return { success: false, message: '💎 Esta denúncia já foi resolvida!' };
     }
     
     report.status = 'resolved';
@@ -340,7 +340,7 @@ const resolveReport = (reportId, resolverId, resolution) => {
     
     return {
         success: true,
-        message: `✅ *DENÚNCIA RESOLVIDA*\n\n` +
+        message: `✿ *DENÚNCIA RESOLVIDA*\n\n` +
                  `📋 ID: ${report.id}\n` +
                  `👤 Alvo: @${getUserName(report.target)}\n` +
                  `📝 Resolução: ${resolution}`,
@@ -361,7 +361,7 @@ const getUserReports = (userId) => {
         message: `🚨 *DENÚNCIAS - @${getUserName(userId)}*\n\n` +
                  `📊 Total: ${asTarget.length}\n` +
                  `⏳ Pendentes: ${pending}\n` +
-                 `✅ Resolvidas: ${resolved}`,
+                 `✿ Resolvidas: ${resolved}`,
         mentions: [userId],
         data: { total: asTarget.length, pending, resolved }
     };

@@ -102,7 +102,7 @@ const enableAntipalavra = (groupId) => {
     if (config.enabled) {
         return {
             success: false,
-            message: '⚠️ O sistema antipalavra já está ativo neste grupo!'
+            message: '💎 O sistema antipalavra já está ativo neste grupo!'
         };
     }
     
@@ -112,13 +112,13 @@ const enableAntipalavra = (groupId) => {
     if (saveGroupData(groupId, groupData)) {
         return {
             success: true,
-            message: '✅ Sistema antipalavra ativado! Use comandos para adicionar palavras à blacklist.'
+            message: '✿ Sistema antipalavra ligado! Use comandos pra adicionar palavras à blacklist.'
         };
     }
     
     return {
         success: false,
-        message: '❌ Erro ao ativar o sistema antipalavra.'
+        message: '💎 Não consegui ativar o sistema antipalavra.'
     };
 };
 
@@ -132,7 +132,7 @@ const disableAntipalavra = (groupId) => {
     if (!config.enabled) {
         return {
             success: false,
-            message: '⚠️ O sistema antipalavra já está desativado neste grupo!'
+            message: '💎 O sistema antipalavra já está desligado neste grupo!'
         };
     }
     
@@ -142,13 +142,13 @@ const disableAntipalavra = (groupId) => {
     if (saveGroupData(groupId, groupData)) {
         return {
             success: true,
-            message: '✅ Sistema antipalavra desativado! A blacklist foi mantida.'
+            message: '✿ Sistema antipalavra desligado! A blacklist foi mantida.'
         };
     }
     
     return {
         success: false,
-        message: '❌ Erro ao desativar o sistema antipalavra.'
+        message: '💎 Não consegui desativar o sistema antipalavra.'
     };
 };
 
@@ -159,7 +159,7 @@ const addPalavraBlacklist = (groupId, palavra) => {
     if (!palavra || typeof palavra !== 'string') {
         return {
             success: false,
-            message: '❌ Palavra inválida!'
+            message: '💎 Hmm, Palavra não deu certo!'
         };
     }
     
@@ -170,7 +170,7 @@ const addPalavraBlacklist = (groupId, palavra) => {
     if (!palavraNormalizada) {
         return {
             success: false,
-            message: '❌ A palavra não pode estar vazia!'
+            message: '💎 A palavra não pode estar vazia!'
         };
     }
     
@@ -182,7 +182,7 @@ const addPalavraBlacklist = (groupId, palavra) => {
     if (exists) {
         return {
             success: false,
-            message: '⚠️ Esta palavra já está na blacklist!'
+            message: '💎 Esta palavra já está na blacklist!'
         };
     }
     
@@ -199,13 +199,13 @@ const addPalavraBlacklist = (groupId, palavra) => {
     if (saveGroupData(groupId, groupData)) {
         return {
             success: true,
-            message: `✅ Palavra "${palavra}" adicionada à blacklist!\n📊 Total de palavras: ${config.blacklist.length}`
+            message: `✿ Palavra "${palavra}" adicionada à blacklist!\n📊 Total de palavras: ${config.blacklist.length}`
         };
     }
     
     return {
         success: false,
-        message: '❌ Erro ao adicionar palavra à blacklist.'
+        message: '💎 Não consegui adicionar palavra à blacklist.'
     };
 };
 
@@ -216,7 +216,7 @@ const removePalavraBlacklist = (groupId, palavra) => {
     if (!palavra || typeof palavra !== 'string') {
         return {
             success: false,
-            message: '❌ Palavra inválida!'
+            message: '💎 Hmm, Palavra não deu certo!'
         };
     }
     
@@ -232,7 +232,7 @@ const removePalavraBlacklist = (groupId, palavra) => {
     if (config.blacklist.length === initialLength) {
         return {
             success: false,
-            message: '⚠️ Esta palavra não está na blacklist!'
+            message: '💎 Esta palavra não está na blacklist!'
         };
     }
     
@@ -241,13 +241,13 @@ const removePalavraBlacklist = (groupId, palavra) => {
     if (saveGroupData(groupId, groupData)) {
         return {
             success: true,
-            message: `✅ Palavra "${palavra}" removida da blacklist!\n📊 Total de palavras: ${config.blacklist.length}`
+            message: `✿ Palavra "${palavra}" removida da blacklist!\n📊 Total de palavras: ${config.blacklist.length}`
         };
     }
     
     return {
         success: false,
-        message: '❌ Erro ao remover palavra da blacklist.'
+        message: '💎 Não consegui remover palavra da blacklist.'
     };
 };
 
@@ -261,7 +261,7 @@ const listPalavrasBlacklist = (groupId) => {
     if (config.blacklist.length === 0) {
         return {
             success: true,
-            message: '📋 A blacklist está vazia. Use o comando para adicionar palavras.',
+            message: '📋 A blacklist está vazia. Usa o comando pra adicionar palavras.',
             blacklist: []
         };
     }
@@ -300,7 +300,7 @@ const clearBlacklist = (groupId) => {
     if (config.blacklist.length === 0) {
         return {
             success: false,
-            message: '⚠️ A blacklist já está vazia!'
+            message: '💎 A blacklist já está vazia!'
         };
     }
     
@@ -311,13 +311,13 @@ const clearBlacklist = (groupId) => {
     if (saveGroupData(groupId, groupData)) {
         return {
             success: true,
-            message: `✅ Blacklist limpa! ${count} palavra(s) removida(s).`
+            message: `✿ Blacklist limpa! ${count} palavra(s) removida(s).`
         };
     }
     
     return {
         success: false,
-        message: '❌ Erro ao limpar blacklist.'
+        message: '💎 Não consegui limpar blacklist.'
     };
 };
 

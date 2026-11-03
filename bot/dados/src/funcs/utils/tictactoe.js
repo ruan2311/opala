@@ -88,17 +88,17 @@ class GameManager {
 
     invitePlayer(groupId, inviter, invitee) {
         if (!groupId || !inviter || !invitee || inviter === invitee) {
-            return this._formatResponse(false, '❌ Dados inválidos para o convite');
+            return this._formatResponse(false, '💎 Dados inválidos pra o convite');
         }
         if (this.activeGames.has(groupId) || this.pendingInvitations.has(groupId)) {
-            return this._formatResponse(false, '❌ Já existe um jogo ou convite em andamento!');
+            return this._formatResponse(false, '💎 Já existe um jogo ou convite em andamento!');
         }
         
         this.pendingInvitations.set(groupId, { inviter, invitee, timestamp: Date.now() });
         const message = `🎮 *CONVITE JOGO DA VELHA*\n\n` +
                         `@${getUserName(inviter)} convidou @${getUserName(invitee)}!\n\n` +
-                        `✅ Aceitar: "sim", "s"\n` +
-                        `❌ Recusar: "não", "n"\n\n` +
+                        `✿ Aceitar: "sim", "s"\n` +
+                        `💎 Recusar: "não", "n"\n\n` +
                         `⏳ Expira em 15 minutos.`;
         return this._formatResponse(true, message, { mentions: [inviter, invitee] });
     }
@@ -106,7 +106,7 @@ class GameManager {
     processInvitationResponse(groupId, invitee, response) {
         const invitation = this.pendingInvitations.get(groupId);
         if (!invitation || invitation.invitee !== invitee) {
-            return this._formatResponse(false, '❌ Nenhum convite pendente para você.');
+            return this._formatResponse(false, '💎 Nenhum convite pendente pra você.');
         }
 
         const normalizedResponse = response.toLowerCase().trim();
@@ -114,13 +114,13 @@ class GameManager {
         const isRejected = ['n', 'não', 'nao', 'no'].includes(normalizedResponse);
         
         if (!isAccepted && !isRejected) {
-            return this._formatResponse(false, '❌ Resposta inválida. Use "sim" ou "não".');
+            return this._formatResponse(false, '💎 Resposta inválida. Use "sim" ou "não".');
         }
 
         this.pendingInvitations.delete(groupId);
 
         if (isRejected) {
-            return this._formatResponse(true, '❌ Convite recusado. Jogo cancelado.', { mentions: [invitation.inviter, invitee] });
+            return this._formatResponse(true, '💎 Convite recusado. Jogo cancelado.', { mentions: [invitation.inviter, invitee] });
         }
 
         const game = new TicTacToe(invitation.inviter, invitation.invitee);
@@ -138,24 +138,24 @@ class GameManager {
     makeMove(groupId, player, position) {
         const game = this.activeGames.get(groupId);
         if (!game) {
-            return this._formatResponse(false, '❌ Nenhum jogo em andamento!');
+            return this._formatResponse(false, '💎 Nenhum jogo em andamento!');
         }
 
         // Verificação de timeout de inatividade
         if (Date.now() - game.lastMoveTime > CONFIG.MOVE_TIMEOUT_MS) {
             this.activeGames.delete(groupId);
-            return this._formatResponse(false, '❌ Jogo encerrado por inatividade (5 minutos sem jogada).', { mentions: Object.values(game.players) });
+            return this._formatResponse(false, '💎 Jogo encerrado por inatividade (5 minutos sem jogada).', { mentions: Object.values(game.players) });
         }
         
         const result = game.makeMove(player, position);
 
         if (!result.success) {
             const errorMessages = {
-                'not_your_turn': '❌ Não é sua vez!',
-                'invalid_position': '❌ Posição inválida! Use 1-9.',
-                'position_taken': '❌ Posição já ocupada!'
+                'not_your_turn': '💎 Não é sua vez!',
+                'invalid_position': '💎 Hmm, Posição não deu certo! Use 1-9.',
+                'position_taken': '💎 Posição já ocupada!'
             };
-            return this._formatResponse(false, errorMessages[result.reason] || '❌ Erro desconhecido.');
+            return this._formatResponse(false, errorMessages[result.reason] || '💎 Erro desconhecido.');
         }
 
         if (result.status === 'win') {
@@ -185,7 +185,7 @@ class GameManager {
 
     endGame(groupId) {
         if (!this.activeGames.has(groupId)) {
-            return this._formatResponse(false, '❌ Nenhum jogo em andamento!');
+            return this._formatResponse(false, '💎 Nenhum jogo em andamento!');
         }
         const players = Object.values(this.activeGames.get(groupId).players);
         this.activeGames.delete(groupId);

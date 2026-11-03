@@ -102,7 +102,7 @@ const cutAudio = async (audioBuffer, startTime, endTime, prefix = '/') => {
     if (start === null || end === null) {
         return {
             success: false,
-            message: `❌ Formato de tempo inválido!\n\n` +
+            message: `💎 Hmm, Formato de tempo não deu certo!\n\n` +
                      `💡 Formatos aceitos:\n` +
                      `• Segundos: 30\n` +
                      `• MM:SS: 1:30\n` +
@@ -113,20 +113,20 @@ const cutAudio = async (audioBuffer, startTime, endTime, prefix = '/') => {
     }
     
     if (start < 0 || end < 0) {
-        return { success: false, message: '❌ Os tempos não podem ser negativos!' };
+        return { success: false, message: '💎 Os tempos não podem ser negativos!' };
     }
     
     if (start >= end) {
-        return { success: false, message: '❌ O tempo inicial deve ser menor que o final!' };
+        return { success: false, message: '💎 O tempo inicial deve ser menor que o final!' };
     }
     
     const duration = end - start;
     if (duration > CONFIG.MAX_DURATION) {
-        return { success: false, message: `❌ O corte não pode ter mais de ${CONFIG.MAX_DURATION} segundos!` };
+        return { success: false, message: `💎 O corte não pode ter mais de ${CONFIG.MAX_DURATION} segundos!` };
     }
     
     if (duration < CONFIG.MIN_DURATION) {
-        return { success: false, message: `❌ O corte deve ter pelo menos ${CONFIG.MIN_DURATION} segundo!` };
+        return { success: false, message: `💎 O corte deve ter pelo menos ${CONFIG.MIN_DURATION} segundo!` };
     }
     
     const inputPath = generateTempPath('input');
@@ -142,7 +142,7 @@ const cutAudio = async (audioBuffer, startTime, endTime, prefix = '/') => {
             cleanupTemp(inputPath);
             return {
                 success: false,
-                message: `❌ O tempo final (${formatTime(end)}) excede a duração do áudio (${formatTime(originalDuration)})!`
+                message: `💎 O tempo final (${formatTime(end)}) excede a duração do áudio (${formatTime(originalDuration)})!`
             };
         }
         
@@ -172,7 +172,7 @@ const cutAudio = async (audioBuffer, startTime, endTime, prefix = '/') => {
         cleanupTemp(outputPath);
         return {
             success: false,
-            message: '❌ Erro ao cortar áudio. Verifique se o arquivo é válido!'
+            message: '💎 Não consegui cortar áudio. Confere se o arquivo é válido!'
         };
     }
 };
@@ -191,7 +191,7 @@ const changeSpeed = async (audioBuffer, speed) => {
     if (isNaN(speedValue)) {
         return {
             success: false,
-            message: `❌ Velocidade inválida!\n\n` +
+            message: `💎 Hmm, Velocidade não deu certo!\n\n` +
                      `💡 Use um valor entre ${CONFIG.MIN_SPEED} e ${CONFIG.MAX_SPEED}\n\n` +
                      `📌 Exemplos:\n` +
                      `• 0.5 = 50% (mais lento)\n` +
@@ -204,7 +204,7 @@ const changeSpeed = async (audioBuffer, speed) => {
     if (speedValue < CONFIG.MIN_SPEED || speedValue > CONFIG.MAX_SPEED) {
         return {
             success: false,
-            message: `❌ Velocidade deve estar entre ${CONFIG.MIN_SPEED} e ${CONFIG.MAX_SPEED}!`
+            message: `💎 Velocidade deve estar entre ${CONFIG.MIN_SPEED} e ${CONFIG.MAX_SPEED}!`
         };
     }
     
@@ -221,7 +221,7 @@ const changeSpeed = async (audioBuffer, speed) => {
             cleanupTemp(inputPath);
             return {
                 success: false,
-                message: `❌ O áudio resultante seria muito longo! Máximo: ${CONFIG.MAX_DURATION} segundos.`
+                message: `💎 O áudio resultante seria muito longo! Máximo: ${CONFIG.MAX_DURATION} segundos.`
             };
         }
         
@@ -271,7 +271,7 @@ const changeSpeed = async (audioBuffer, speed) => {
         cleanupTemp(outputPath);
         return {
             success: false,
-            message: '❌ Erro ao alterar velocidade. Verifique se o arquivo é válido!'
+            message: '💎 Não consegui alterar velocidade. Confere se o arquivo é válido!'
         };
     }
 };
@@ -295,7 +295,7 @@ const reverseAudio = async (audioBuffer) => {
             cleanupTemp(inputPath);
             return {
                 success: false,
-                message: `❌ Áudio muito longo! Máximo: ${CONFIG.MAX_DURATION} segundos.`
+                message: `💎 Áudio muito longo! Máximo: ${CONFIG.MAX_DURATION} segundos.`
             };
         }
         
@@ -320,7 +320,7 @@ const reverseAudio = async (audioBuffer) => {
         cleanupTemp(outputPath);
         return {
             success: false,
-            message: '❌ Erro ao reverter áudio!'
+            message: '💎 Não consegui reverter áudio!'
         };
     }
 };
@@ -363,7 +363,7 @@ const bassBoost = async (audioBuffer, gain = 10) => {
         cleanupTemp(outputPath);
         return {
             success: false,
-            message: '❌ Erro ao aplicar bass boost!'
+            message: '💎 Não consegui aplicar bass boost!'
         };
     }
 };
@@ -403,7 +403,7 @@ const normalizeAudio = async (audioBuffer) => {
         cleanupTemp(outputPath);
         return {
             success: false,
-            message: '❌ Erro ao normalizar volume!'
+            message: '💎 Não consegui normalizar volume!'
         };
     }
 };

@@ -82,7 +82,7 @@ function addVipCommand(command, description, category = 'outros', usage = '') {
   if (existingIndex !== -1) {
     return {
       success: false,
-      message: `❌ O comando "${normalizedCommand}" já existe na lista VIP!`
+      message: `💎 O comando "${normalizedCommand}" já existe na lista VIP!`
     };
   }
   
@@ -106,13 +106,13 @@ function addVipCommand(command, description, category = 'outros', usage = '') {
   if (saveVipCommands(data)) {
     return {
       success: true,
-      message: `✅ Comando VIP "${normalizedCommand}" adicionado com sucesso!`,
+      message: `✿ Comando VIP "${normalizedCommand}" adicionado !`,
       command: newCommand
     };
   } else {
     return {
       success: false,
-      message: '❌ Erro ao salvar o comando VIP.'
+      message: '💎 Não consegui salvar o comando VIP.'
     };
   }
 }
@@ -130,7 +130,7 @@ function removeVipCommand(command) {
   if (index === -1) {
     return {
       success: false,
-      message: `❌ O comando "${normalizedCommand}" não foi encontrado na lista VIP.`
+      message: `💎 O comando "${normalizedCommand}" não foi encontrado na lista VIP.`
     };
   }
   
@@ -140,13 +140,13 @@ function removeVipCommand(command) {
   if (saveVipCommands(data)) {
     return {
       success: true,
-      message: `✅ Comando VIP "${normalizedCommand}" removido com sucesso!`,
+      message: `✿ Comando VIP "${normalizedCommand}" removido !`,
       command: removedCommand
     };
   } else {
     return {
       success: false,
-      message: '❌ Erro ao remover o comando VIP.'
+      message: '💎 Não consegui remover o comando VIP.'
     };
   }
 }
@@ -234,7 +234,7 @@ function toggleVipCommand(command, enabled) {
   if (cmdIndex === -1) {
     return {
       success: false,
-      message: `❌ Comando "${normalizedCommand}" não encontrado.`
+      message: `💎 Comando "${normalizedCommand}" não encontrado.`
     };
   }
   
@@ -244,12 +244,12 @@ function toggleVipCommand(command, enabled) {
     const status = enabled ? 'ativado' : 'desativado';
     return {
       success: true,
-      message: `✅ Comando VIP "${normalizedCommand}" ${status} com sucesso!`
+      message: `✿ Comando VIP "${normalizedCommand}" ${status} !`
     };
   } else {
     return {
       success: false,
-      message: '❌ Erro ao atualizar o comando VIP.'
+      message: '💎 Não consegui atualizar o comando VIP.'
     };
   }
 }
@@ -271,7 +271,7 @@ function addCategory(key, label) {
   if (data.categories[key]) {
     return {
       success: false,
-      message: `❌ A categoria "${key}" já existe.`
+      message: `💎 A categoria "${key}" já existe.`
     };
   }
   
@@ -280,12 +280,12 @@ function addCategory(key, label) {
   if (saveVipCommands(data)) {
     return {
       success: true,
-      message: `✅ Categoria "${label}" adicionada com sucesso!`
+      message: `✿ Categoria "${label}" adicionada !`
     };
   } else {
     return {
       success: false,
-      message: '❌ Erro ao adicionar categoria.'
+      message: '💎 Não consegui adicionar categoria.'
     };
   }
 }

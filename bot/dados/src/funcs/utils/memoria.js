@@ -280,7 +280,7 @@ class MemoryManager {
 
     startGame(groupId, odIUserId) {
         if (this.activeGames.has(groupId)) {
-            return this._formatResponse(false, '❌ Já existe um jogo de memória em andamento neste chat!');
+            return this._formatResponse(false, '💎 Já existe um jogo de memória em andamento neste chat!');
         }
         
         const game = new MemoryGame(odIUserId);
@@ -290,24 +290,24 @@ class MemoryManager {
                         `👤 Jogador: @${getUserName(odIUserId)}\n` +
                         `🎯 Encontre os ${game.totalPairs} pares!\n\n` +
                         `${game.renderBoardWithNumbers()}\n` +
-                        `📝 Digite o número da posição para revelar.\n` +
-                        `💡 Exemplo: "1" ou "memoria 5"`;
+                        `📝 Digite o número da posição pra revelar.\n` +
+                        `💡 Ex.: "1" ou "memoria 5"`;
         
         return this._formatResponse(true, message, { mentions: [odIUserId] });
     }
 
     makeMove(groupId, odIUserId, position) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo em andamento!');
-        if (game.player !== odIUserId) return this._formatResponse(false, '❌ Este não é seu jogo!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo em andamento!');
+        if (game.player !== odIUserId) return this._formatResponse(false, '💎 Este não é seu jogo!');
         
         const result = game.revealCard(parseInt(position));
         
         if (!result.success) {
             const errors = {
-                'game_finished': '❌ O jogo já terminou!',
-                'invalid_position': '❌ Posição inválida! Use 1-16.',
-                'already_revealed': '❌ Esta carta já foi revelada!'
+                'game_finished': '💎 O jogo já terminou!',
+                'invalid_position': '💎 Hmm, Posição não deu certo! Use 1-16.',
+                'already_revealed': '💎 Esta carta já foi revelada!'
             };
             return this._formatResponse(false, errors[result.reason]);
         }
@@ -325,7 +325,7 @@ class MemoryManager {
         
         if (result.status === 'match') {
             const message = `🧠 *JOGO DA MEMÓRIA*\n\n` +
-                            `✅ *PAR ENCONTRADO!* ${result.emoji}${result.emoji}\n\n` +
+                            `✿ *PAR ENCONTRADO!* ${result.emoji}${result.emoji}\n\n` +
                             `${game.renderBoardWithNumbers()}\n` +
                             `📊 Tentativas: ${status.attempts} | Pares: ${status.pairsFound}/${status.totalPairs}`;
             return this._formatResponse(true, message);
@@ -333,7 +333,7 @@ class MemoryManager {
         
         if (result.status === 'no_match') {
             const message = `🧠 *JOGO DA MEMÓRIA*\n\n` +
-                            `❌ Não é par!\n` +
+                            `💎 Não é par!\n` +
                             `${result.firstPos}: ${result.firstEmoji} ≠ ${result.secondPos}: ${result.secondEmoji}\n\n` +
                             `${game.renderBoardWithNumbers()}\n` +
                             `📊 Tentativas: ${status.attempts} | Pares: ${status.pairsFound}/${status.totalPairs}`;
@@ -367,9 +367,9 @@ class MemoryManager {
 
     endGame(groupId, odIUserId, isAdmin = false) {
         const game = this.activeGames.get(groupId);
-        if (!game) return this._formatResponse(false, '❌ Nenhum jogo em andamento!');
+        if (!game) return this._formatResponse(false, '💎 Nenhum jogo em andamento!');
         if (game.player !== odIUserId && !isAdmin) {
-            return this._formatResponse(false, '❌ Apenas o jogador ou admins podem encerrar!');
+            return this._formatResponse(false, '💎 Apenas o jogador ou admins podem encerrar!');
         }
         
         this.activeGames.delete(groupId);

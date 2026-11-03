@@ -68,7 +68,7 @@ const subscribe = (userId, userName) => {
     if (alreadySubscribed) {
         return {
             success: false,
-            message: '⚠️ Você já está inscrito na lista de transmissão!'
+            message: '💎 Você já está inscrito na lista de transmissão!'
         };
     }
     
@@ -85,7 +85,7 @@ const subscribe = (userId, userName) => {
     if (saveSubscribers(data)) {
         return {
             success: true,
-            message: `✅ *Inscrição realizada com sucesso!*\n\n` +
+            message: `✿ *Inscrição realizada !*\n\n` +
                      `📱 Você agora receberá as transmissões do dono.\n` +
                      `👥 Total de inscritos: ${data.stats.totalSubscribers}\n\n` +
                      `💡 Para cancelar, use o mesmo comando novamente.`
@@ -94,7 +94,7 @@ const subscribe = (userId, userName) => {
     
     return {
         success: false,
-        message: '❌ Erro ao inscrever na lista de transmissão.'
+        message: '💎 Não consegui inscrever na lista de transmissão.'
     };
 };
 
@@ -110,7 +110,7 @@ const unsubscribe = (userId) => {
     if (data.subscribers.length === initialLength) {
         return {
             success: false,
-            message: '⚠️ Você não está inscrito na lista de transmissão!'
+            message: '💎 Você não está inscrito na lista de transmissão!'
         };
     }
     
@@ -119,7 +119,7 @@ const unsubscribe = (userId) => {
     if (saveSubscribers(data)) {
         return {
             success: true,
-            message: `✅ *Inscrição cancelada!*\n\n` +
+            message: `✿ *Inscrição cancelada!*\n\n` +
                      `📱 Você não receberá mais transmissões.\n` +
                      `👥 Total de inscritos: ${data.stats.totalSubscribers}`
         };
@@ -127,7 +127,7 @@ const unsubscribe = (userId) => {
     
     return {
         success: false,
-        message: '❌ Erro ao cancelar inscrição.'
+        message: '💎 Não consegui cancelar inscrição.'
     };
 };
 
@@ -186,7 +186,7 @@ const removeSubscriber = (userId) => {
     if (!subscriber) {
         return {
             success: false,
-            message: '⚠️ Usuário não encontrado na lista!'
+            message: '💎 Usuário não encontrado na lista!'
         };
     }
     
@@ -196,13 +196,13 @@ const removeSubscriber = (userId) => {
     if (saveSubscribers(data)) {
         return {
             success: true,
-            message: `✅ Usuário ${subscriber.name} removido da lista!\n👥 Total: ${data.stats.totalSubscribers}`
+            message: `✿ Usuário ${subscriber.name} removido da lista!\n👥 Total: ${data.stats.totalSubscribers}`
         };
     }
     
     return {
         success: false,
-        message: '❌ Erro ao remover usuário.'
+        message: '💎 Não consegui remover usuário.'
     };
 };
 
@@ -219,13 +219,13 @@ const clearAll = () => {
     if (saveSubscribers(data)) {
         return {
             success: true,
-            message: `✅ Lista limpa! ${count} inscrito(s) removido(s).`
+            message: `✿ Lista limpa! ${count} inscrito(s) removido(s).`
         };
     }
     
     return {
         success: false,
-        message: '❌ Erro ao limpar lista.'
+        message: '💎 Não consegui limpar lista.'
     };
 };
 

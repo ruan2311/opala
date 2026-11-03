@@ -64,14 +64,14 @@ const addNote = (userId, content, title = null, prefix = '/') => {
     if (!content || content.trim().length === 0) {
         return {
             success: false,
-            message: `❌ O conteúdo da nota não pode estar vazio!\n\n💡 Uso: ${prefix}nota <texto>\n📌 Exemplo: ${prefix}nota Lembrar de fazer algo`
+            message: `💎 O conteúdo da nota não pode estar vazio!\n\n💡 Usa assim: ${prefix}nota <texto>\n📌 Exemplo: ${prefix}nota Lembrar de fazer algo`
         };
     }
     
     if (content.length > CONFIG.MAX_NOTE_LENGTH) {
         return {
             success: false,
-            message: `❌ Nota muito longa! Máximo de ${CONFIG.MAX_NOTE_LENGTH} caracteres.`
+            message: `💎 Nota muito longa! Máximo de ${CONFIG.MAX_NOTE_LENGTH} caracteres.`
         };
     }
     
@@ -83,7 +83,7 @@ const addNote = (userId, content, title = null, prefix = '/') => {
     if (data.users[userId].length >= CONFIG.MAX_NOTES_PER_USER) {
         return {
             success: false,
-            message: `❌ Você atingiu o limite de ${CONFIG.MAX_NOTES_PER_USER} notas!\n\n💡 Use ${prefix}nota del <id> para remover notas antigas.`
+            message: `💎 Você atingiu o limite de ${CONFIG.MAX_NOTES_PER_USER} notas!\n\n💡 Usa ${prefix}nota del <id> pra remover notas antigas.`
         };
     }
     
@@ -117,7 +117,7 @@ const listNotes = (userId, page = 1, perPage = 10, prefix = '/') => {
     if (notes.length === 0) {
         return {
             success: true,
-            message: `📝 *MINHAS NOTAS*\n\n📭 Você não tem nenhuma nota!\n\n💡 Use ${prefix}nota <texto> para criar uma.`
+            message: `📝 *MINHAS NOTAS*\n\n📭 Você não tem nenhuma nota!\n\n💡 Usa ${prefix}nota <texto> pra criar uma.`
         };
     }
     
@@ -170,7 +170,7 @@ const getNote = (userId, noteId, prefix = '/') => {
     if (!note) {
         return {
             success: false,
-            message: `❌ Nota não encontrada!\n\n💡 Use ${prefix}notas para ver suas notas.`
+            message: `💎 Nota não encontrada!\n\n💡 Usa ${prefix}notas pra ver suas notas.`
         };
     }
     
@@ -195,14 +195,14 @@ const editNote = (userId, noteId, newContent) => {
     if (!newContent || newContent.trim().length === 0) {
         return {
             success: false,
-            message: '❌ O novo conteúdo não pode estar vazio!'
+            message: '💎 O novo conteúdo não pode estar vazio!'
         };
     }
     
     if (newContent.length > CONFIG.MAX_NOTE_LENGTH) {
         return {
             success: false,
-            message: `❌ Nota muito longa! Máximo de ${CONFIG.MAX_NOTE_LENGTH} caracteres.`
+            message: `💎 Nota muito longa! Máximo de ${CONFIG.MAX_NOTE_LENGTH} caracteres.`
         };
     }
     
@@ -213,7 +213,7 @@ const editNote = (userId, noteId, newContent) => {
     if (noteIndex === -1) {
         return {
             success: false,
-            message: '❌ Nota não encontrada!'
+            message: '💎 Nota não encontrada!'
         };
     }
     
@@ -223,7 +223,7 @@ const editNote = (userId, noteId, newContent) => {
     
     return {
         success: true,
-        message: `✅ *NOTA EDITADA*\n\n` +
+        message: `✿ *NOTA EDITADA*\n\n` +
                  `🆔 ID: \`${notes[noteIndex].id}\`\n` +
                  `📄 ${newContent.slice(0, 100)}${newContent.length > 100 ? '...' : ''}`
     };
@@ -238,7 +238,7 @@ const deleteNote = (userId, noteId) => {
     if (noteIndex === -1) {
         return {
             success: false,
-            message: '❌ Nota não encontrada!'
+            message: '💎 Nota não encontrada!'
         };
     }
     
@@ -262,7 +262,7 @@ const togglePinNote = (userId, noteId) => {
     if (!note) {
         return {
             success: false,
-            message: '❌ Nota não encontrada!'
+            message: '💎 Nota não encontrada!'
         };
     }
     
@@ -282,7 +282,7 @@ const searchNotes = (userId, query) => {
     if (!query || query.trim().length < 2) {
         return {
             success: false,
-            message: '❌ Digite pelo menos 2 caracteres para pesquisar!'
+            message: '💎 Escreve pelo menos 2 caracteres pra pesquisar!'
         };
     }
     
@@ -297,7 +297,7 @@ const searchNotes = (userId, query) => {
     if (results.length === 0) {
         return {
             success: true,
-            message: `🔍 *PESQUISA*\n\nNenhuma nota encontrada para "${query}".`
+            message: `🔍 *PESQUISA*\n\nNenhuma nota encontrada pra "${query}".`
         };
     }
     
@@ -330,7 +330,7 @@ const clearAllNotes = (userId) => {
     if (count === 0) {
         return {
             success: false,
-            message: '❌ Você não tem notas para apagar!'
+            message: '💎 Você ainda não tem notas pra apagar!'
         };
     }
     

@@ -78,14 +78,14 @@ const enableAntitoxic = (groupId, action = CONFIG.DEFAULT_ACTION) => {
     
     return {
         success: true,
-        message: `🛡️ *ANTITOXIC ATIVADO*\n\n` +
-                 `⚠️ *AVISO IMPORTANTE:*\n` +
+        message: `🛡️ *ANTITOXIC LIGADO*\n\n` +
+                 `💎 *AVISO IMPORTANTE:*\n` +
                  `Este sistema usa IA para detectar mensagens tóxicas e *pode cometer erros*. ` +
                  `Nem toda mensagem marcada é realmente ofensiva, e algumas ofensas podem passar despercebidas.\n\n` +
                  `📌 *Configuração:*\n` +
                  `• Ação: ${action}\n` +
                  `• Sensibilidade: ${CONFIG.THRESHOLD}%\n\n` +
-                 `💡 Use /antitoxic off para desativar.`
+                 `💡 Use /antitoxic off pra desativar.`
     };
 };
 
@@ -98,7 +98,7 @@ const disableAntitoxic = (groupId) => {
     
     return {
         success: true,
-        message: `🛡️ *ANTITOXIC DESATIVADO*\n\n` +
+        message: `🛡️ *ANTITOXIC DESLIGADO*\n\n` +
                  `O sistema de detecção de toxicidade foi desativado neste grupo.`
     };
 };
@@ -107,13 +107,13 @@ const setAntitoxicAction = (groupId, action) => {
     if (!CONFIG.ACTIONS.includes(action)) {
         return {
             success: false,
-            message: `❌ Ação inválida!\n\nAções disponíveis: ${CONFIG.ACTIONS.join(', ')}`
+            message: `💎 Hmm, Ação não deu certo!\n\nAções disponíveis: ${CONFIG.ACTIONS.join(', ')}`
         };
     }
     
     const data = loadAntitoxic();
     if (!data.groups[groupId] || !data.groups[groupId].enabled) {
-        return { success: false, message: '❌ O antitoxic não está ativado neste grupo!' };
+        return { success: false, message: '💎 O antitoxic não está ligado neste grupo!' };
     }
     
     data.groups[groupId].action = action;
@@ -121,19 +121,19 @@ const setAntitoxicAction = (groupId, action) => {
     
     return {
         success: true,
-        message: `🛡️ *ANTITOXIC*\n\nAção alterada para: *${action}*`
+        message: `🛡️ *ANTITOXIC*\n\nAção alterada pra: *${action}*`
     };
 };
 
 const setAntitoxicThreshold = (groupId, threshold) => {
     const value = parseInt(threshold);
     if (isNaN(value) || value < 1 || value > 100) {
-        return { success: false, message: '❌ Sensibilidade deve ser entre 1 e 100!' };
+        return { success: false, message: '💎 Sensibilidade deve ser entre 1 e 100!' };
     }
     
     const data = loadAntitoxic();
     if (!data.groups[groupId] || !data.groups[groupId].enabled) {
-        return { success: false, message: '❌ O antitoxic não está ativado neste grupo!' };
+        return { success: false, message: '💎 O antitoxic não está ligado neste grupo!' };
     }
     
     data.groups[groupId].threshold = value;
@@ -141,7 +141,7 @@ const setAntitoxicThreshold = (groupId, threshold) => {
     
     return {
         success: true,
-        message: `🛡️ *ANTITOXIC*\n\nSensibilidade alterada para: *${value}%*\n\n` +
+        message: `🛡️ *ANTITOXIC*\n\nSensibilidade alterada pra: *${value}%*\n\n` +
                  `💡 Quanto maior, menos mensagens serão marcadas.`
     };
 };
@@ -154,7 +154,7 @@ const getAntitoxicStatus = (groupId) => {
         return {
             success: true,
             enabled: false,
-            message: `🛡️ *ANTITOXIC*\n\n❌ Desativado neste grupo.\n\n💡 Use /antitoxic on para ativar.`
+            message: `🛡️ *ANTITOXIC*\n\n❌ Desativado neste grupo.\n\n💡 Use /antitoxic on pra ativar.`
         };
     }
     
@@ -162,7 +162,7 @@ const getAntitoxicStatus = (groupId) => {
         success: true,
         enabled: true,
         message: `🛡️ *ANTITOXIC*\n\n` +
-                 `✅ Status: Ativado\n` +
+                 `✿ Status: Ativado\n` +
                  `⚡ Ação: ${group.action}\n` +
                  `📊 Sensibilidade: ${group.threshold}%\n\n` +
                  `📈 *Estatísticas:*\n` +
@@ -304,7 +304,7 @@ const generateWarningMessage = (userId, result) => {
     if (result.action === 'avisar') {
         return {
             message: `🛡️ *ANTITOXIC*\n\n` +
-                     `⚠️ @${getUserName(userId)}, sua mensagem foi identificada como potencialmente ofensiva.\n\n` +
+                     `💎 @${getUserName(userId)}, sua mensagem foi identificada como potencialmente ofensiva.\n\n` +
                      `📊 Score: ${result.score}/100\n` +
                      `📌 Motivo: ${result.reason}\n` +
                      `⚡ Avisos: ${result.warningCount}/${result.maxWarnings}` +

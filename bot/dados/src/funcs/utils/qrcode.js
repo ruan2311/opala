@@ -20,14 +20,14 @@ const generateQRCode = async (text, size = CONFIG.GENERATE_SIZE, prefix = '/') =
     if (!text || text.trim().length === 0) {
         return {
             success: false,
-            message: `❌ Forneça um texto para gerar o QR Code!\n\n💡 Uso: ${prefix}qrcode <texto>\n📌 Exemplo: ${prefix}qrcode https://meusite.com`
+            message: `💎 Me manda um texto pra gerar o QR Code!\n\n💡 Usa assim: ${prefix}qrcode <texto>\n📌 Exemplo: ${prefix}qrcode https://meusite.com`
         };
     }
     
     if (text.length > 2000) {
         return {
             success: false,
-            message: '❌ Texto muito longo! Máximo de 2000 caracteres.'
+            message: '💎 Texto muito longo! Máximo de 2000 caracteres.'
         };
     }
     
@@ -42,13 +42,13 @@ const generateQRCode = async (text, size = CONFIG.GENERATE_SIZE, prefix = '/') =
         return {
             success: true,
             buffer: Buffer.from(response.data),
-            message: `✅ *QR CODE GERADO*\n\n📝 Conteúdo: ${text.slice(0, 100)}${text.length > 100 ? '...' : ''}`
+            message: `✿ *QR CODE GERADO*\n\n📝 Conteúdo: ${text.slice(0, 100)}${text.length > 100 ? '...' : ''}`
         };
     } catch (err) {
         console.error('[QRCODE] Erro ao gerar:', err.message);
         return {
             success: false,
-            message: '❌ Erro ao gerar QR Code. Tente novamente!'
+            message: '💎 Não consegui gerar QR Code. Tenta de novo!'
         };
     }
 };
@@ -95,7 +95,7 @@ const readQRCode = async (imageInput) => {
         } else {
             return {
                 success: false,
-                message: '❌ Formato de imagem inválido!'
+                message: '💎 Hmm, Formato de imagem não deu certo!'
             };
         }
         
@@ -108,7 +108,7 @@ const readQRCode = async (imageInput) => {
             if (symbol.error) {
                 return {
                     success: false,
-                    message: `❌ Não foi possível ler o QR Code!\n\n📌 Erro: ${symbol.error}`
+                    message: `💎 Não consegui ler o QR Code!\n\n📌 Erro: ${symbol.error}`
                 };
             }
             
@@ -118,20 +118,20 @@ const readQRCode = async (imageInput) => {
                 return {
                     success: true,
                     data,
-                    message: `✅ *QR CODE LIDO*\n\n📝 *Conteúdo:*\n${data}`
+                    message: `✿ *QR CODE LIDO*\n\n📝 *Conteúdo:*\n${data}`
                 };
             }
         }
         
         return {
             success: false,
-            message: '❌ Nenhum QR Code encontrado na imagem!'
+            message: '💎 Nenhum QR Code encontrado na imagem!'
         };
     } catch (err) {
         console.error('[QRCODE] Erro ao ler:', err.message);
         return {
             success: false,
-            message: '❌ Erro ao ler QR Code. Verifique se a imagem contém um QR Code válido!'
+            message: '💎 Não consegui ler QR Code. Confere se a imagem contém um QR Code válido!'
         };
     }
 };
@@ -194,7 +194,7 @@ const formatReadResult = (data) => {
         type = '📊 Código de Barras';
     }
     
-    return `✅ *QR CODE LIDO*\n\n🏷️ Tipo: ${type}\n\n📝 *Conteúdo:*\n${data}${extra}`;
+    return `✿ *QR CODE LIDO*\n\n🏷️ Tipo: ${type}\n\n📝 *Conteúdo:*\n${data}${extra}`;
 };
 
 export {

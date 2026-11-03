@@ -739,14 +739,14 @@ const handleCaptchaResponse = async (nazu, info, from, sender, text) => {
             await nazu.sendMessage(isCapUser.groupId, message);
           } else {
             await nazu.sendMessage(isCapUser.groupId, {
-              text: `✅ @${senderNormalized} liberado com sucesso!`,
+              text: `✿ @${senderNormalized} liberado !`,
               mentions: [isCapUser.idOrigin]
             });
           }
         } catch (e) {
           console.log('[ERRO WELCOME PÓS-CAPTCHA]:', e.message);
           await nazu.sendMessage(isCapUser.groupId, {
-            text: `✅ @${senderNormalized} liberado com sucesso!`,
+            text: `✿ @${senderNormalized} liberado !`,
             mentions: [isCapUser.idOrigin]
           });
         }
@@ -996,7 +996,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     const ownerJid = `${config.numerodono}@s.whatsapp.net`;
     try {
       await nazu.sendMessage(ownerJid, {
-        text: `⚠️ *PREFIXO AUTOMÁTICO CORRIGIDO*\n\n❌ O símbolo "$" é reservado e não pode ser usado como prefixo.\n\n✅ O prefixo foi alterado automaticamente para "/" ao iniciar o bot.\n\n💡 Use ${config.prefixo}prefix para alterar para outro símbolo válido.`
+        text: `💎 *PREFIXO AUTOMÁTICO CORRIGIDO*\n\n❌ O símbolo "$" é reservado e não pode ser usado como prefixo.\n\n✅ O prefixo foi alterado automaticamente pra "/" ao iniciar o bot.\n\n💡 Usa ${config.prefixo}prefix pra alterar pra outro símbolo válido.`
       });
     } catch (notifyError) {
       console.log('Aviso: Não foi possível notificar o dono sobre a mudança de prefixo:', notifyError.message);
@@ -1342,7 +1342,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'TikTok') {
 
         // Aviso antes de qualquer verificação/download
-        await nazu.sendMessage(from, { text: 'Aguarde um momentinho... ☀️' }, { quoted: info });
+        await nazu.sendMessage(from, { text: 'Espera um momentinho... ☀️' }, { quoted: info });
 
         const result = await tiktok.dl(url);
 
@@ -1364,7 +1364,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
           return true;
         }
 
-        await nazu.sendMessage(from, { text: '❌ Nenhum vídeo disponível para este TikTok.' }, { quoted: info });
+        await nazu.sendMessage(from, { text: '💎 Nenhum vídeo disponível pra este TikTok.' }, { quoted: info });
         return false;
       }
 
@@ -1372,7 +1372,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'Instagram') {
 
         // Aviso antes de qualquer verificação/download
-        await nazu.sendMessage(from, { text: 'Aguarde um momentinho... ☀️' }, { quoted: info });
+        await nazu.sendMessage(from, { text: 'Espera um momentinho... ☀️' }, { quoted: info });
 
         const result = await igdl.dl(url);
 
@@ -2133,7 +2133,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         }
 
         if (isNaN(userAnswer)) {
-          await reply('❌ Resposta inválida! Por favor, envie apenas o número da resposta.');
+          await reply(`💎 Hmm, me manda só o número da resposta, tá? ♡`);
           return;
         }
 
@@ -2146,7 +2146,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
               console.log('[DEBUG CAPTCHA] ✅ Resposta correta! Aprovando no grupo:', captchaData.groupId);
             }
             await nazu.groupRequestParticipantsUpdate(captchaData.groupId, [sender], 'approve');
-            await reply('✅ *Correto!* Você foi aprovado no grupo. Bem-vindo! 🎉');
+            await reply(`💎 *Acertou!* Pode entrar, o grupo é seu também ♡ Seja bem-vindo(a)! 🎉`);
 
             // Limpar captcha pendente do índice
             removeCaptcha(sender);
@@ -2161,14 +2161,14 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
               // Notificação X9
               if (groupDataCaptcha.x9) {
                 await nazu.sendMessage(captchaData.groupId, {
-                  text: `✅ *X9 Report:* @${sender.split('@')[0]} passou na verificação de captcha e foi aprovado automaticamente.`,
+                  text: `✿ *X9 Report:* @${sender.split('@')[0]} passou na verificação de captcha e foi aprovado automaticamente.`,
                   mentions: [sender],
                 }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
               }
             }).catch(err => console.error('Erro ao limpar captcha do arquivo:', err));
 
           } catch (err) {
-            await reply('❌ Erro ao aprovar sua solicitação. Tente novamente mais tarde.');
+            await reply(`💎 Eita, não consegui aprovar seu pedido agora... tenta de novo mais tarde? (╥﹏╥)`);
             console.error('Erro ao aprovar após captcha:', err);
           }
         } else {
@@ -2178,7 +2178,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
               console.log('[DEBUG CAPTCHA] ❌ Resposta incorreta! Recusando no grupo:', captchaData.groupId);
             }
             await nazu.groupRequestParticipantsUpdate(captchaData.groupId, [sender], 'reject');
-            await reply('❌ *Resposta incorreta!* Sua solicitação foi recusada. Você pode tentar solicitar novamente.');
+            await reply(`💎 *Ih, errou!* Dessa vez o pedido foi recusado, mas você pode pedir de novo ♡`);
 
             // Limpar captcha pendente do índice
             removeCaptcha(sender);
@@ -2192,7 +2192,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
             }).catch(err => console.error('Erro ao limpar captcha do arquivo:', err));
 
           } catch (err) {
-            await reply('❌ Resposta incorreta!');
+            await reply(`💎 Ih, resposta errada! (｡•́︿•̀｡)`);
             console.error('Erro ao recusar após captcha:', err);
           }
         }
@@ -2220,7 +2220,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       };
       if (antipvData.mode === 'antipv3' && isCmd && !isOwner && !isPremium && !isTm2Command) {
         await nazu.updateBlockStatus(sender, 'block');
-        await reply('🚫 Você foi bloqueado por usar comandos no privado!');
+        await reply(`💎 Puxa... você foi bloqueado por usar comandos no meu privado (｡•́︿•̀｡)`);
         return;
       };
       if (antipvData.mode === 'antipv4' && !isOwner && !isPremium && !isTm2Command) {
@@ -2389,10 +2389,10 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
               await nazu.groupParticipantsUpdate(from, [sender], 'remove');
               await reply(`🚫 Usuário removido por enviar mídia sem legenda suficiente (mínimo: ${groupData.minMessage.minDigits} caracteres).`);
             } else {
-              await reply(`⚠️ Mídia sem legenda suficiente detectada, mas não sou admin para remover o usuário.`);
+              await reply(`💎 Vi uma mídia sem legenda suficiente, mas sem ser admin não consigo remover ninguém (っ˘̩╭╮˘̩)っ`);
             }
           } else { // adv
-            await reply(`⚠️ Advertência: Envie mídias com pelo menos ${groupData.minMessage.minDigits} caracteres na legenda para evitar remoção.`);
+            await reply(`💎 Advertência: Envie mídias com pelo menos ${groupData.minMessage.minDigits} caracteres na legenda pra evitar remoção.`);
           }
         } catch (error) {
           console.error('Erro ao processar minMessage:', error);
@@ -2413,7 +2413,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
           });
           await nazu.groupParticipantsUpdate(from, [sender], 'remove');
         } else {
-          await reply("⚠️ Não posso remover o usuário porque não sou administrador.");
+          await reply(`💎 Queria remover, mas não sou admin do grupo (っ˘̩╭╮˘̩)っ`);
         }
       }
     }
@@ -2430,7 +2430,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
           });
           await nazu.groupParticipantsUpdate(from, [sender], 'remove');
         } else {
-          await reply("⚠️ Não posso remover o usuário porque não sou administrador.");
+          await reply(`💎 Queria remover, mas não sou admin do grupo (っ˘̩╭╮˘̩)っ`);
         }
       }
     }
@@ -2518,7 +2518,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       }
     }
     if (isGroup && isCmd && !isGroupAdmin && groupData.blockedCommands && groupData.blockedCommands[command]) {
-      await reply('⛔ Este comando foi bloqueado pelos administradores do grupo.');
+      await reply(`💎 Os admins bloquearam esse comando aqui no grupo, tá? ♡`);
       return;
     };
 
@@ -2591,7 +2591,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         if (isBotAdmin) {
           await nazu.groupParticipantsUpdate(from, [sender], 'remove');
         } else {
-          await reply("⚠️ Não posso remover o usuário porque não sou administrador.");
+          await reply(`💎 Queria remover, mas não sou admin do grupo (っ˘̩╭╮˘̩)っ`);
         }
         removeUserFromMap(groupData.mutedUsers, sender);
         writeJsonFile(groupFile, groupData);
@@ -3823,7 +3823,7 @@ Código: *${roleCode}*`,
               const isHentai = scores.Hentai >= hentaiThreshold;
               if (isPorn || isHentai) {
                 const reason = isPorn ? 'Pornografia' : 'Hentai';
-                await reply(`🚨 Conteúdo impróprio detectado! (${reason})`);
+                await reply(`🚨 Opa! Isso aqui não pode no grupo (${reason})`);
 
                 const pornGroupFilePath = buildGroupFilePath(from);
                 let pornGroupData = fs.existsSync(pornGroupFilePath) ? JSON.parse(fs.readFileSync(pornGroupFilePath)) : {};
@@ -3847,24 +3847,24 @@ Código: *${roleCode}*`,
                       await nazu.groupParticipantsUpdate(from, [sender], 'remove');
                       delete pornGroupData.warnings[sender];
                       fs.writeFileSync(pornGroupFilePath, JSON.stringify(pornGroupData, null, 2));
-                      await reply(`🚫 @${getUserName(sender)} atingiu *3/3 advertências* por enviar conteúdo impróprio e foi removido.`, { mentions: [sender] });
+                      await reply(`🚫 @${getUserName(sender)} juntou *3/3 advertências* por conteúdo impróprio e saiu do grupo.`, { mentions: [sender] });
                     } else {
-                      await reply(`⚠️ @${getUserName(sender)} atingiu *3/3 advertências*, porém preciso ser administrador para remover.`, { mentions: [sender] });
+                      await reply(`💎 @${getUserName(sender)} chegou a *3/3 advertências*, mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
                     }
                   } else {
-                    await reply(`⚠️ @${getUserName(sender)} recebeu uma advertência por enviar conteúdo impróprio (${reason}).\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
+                    await reply(`💎 @${getUserName(sender)} recebeu uma advertência por enviar conteúdo impróprio (${reason}).\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
                   }
                 } else {
                   if (isBotAdmin) {
                     try {
                       await nazu.groupParticipantsUpdate(from, [sender], 'remove');
-                      await reply(`🔞 @${getUserName(sender)}, conteúdo impróprio detectado. Você foi removido do grupo.`, { mentions: [sender] });
+                      await reply(`🔞 @${getUserName(sender)}, esse tipo de conteúdo não pode aqui. Tive que te remover do grupo.`, { mentions: [sender] });
                     } catch (adminError) {
                       console.error(`Erro ao remover usuário por anti-porn: ${adminError}`);
-                      await reply(`⚠️ Não consegui remover @${getUserName(sender)} automaticamente após detectar conteúdo impróprio. Admins, por favor, verifiquem!`, { mentions: [sender] });
+                      await reply(`💎 Não consegui remover @${getUserName(sender)} automaticamente após detectar conteúdo impróprio. Admins, por favor, verifiquem!`, { mentions: [sender] });
                     }
                   } else {
-                    await reply(`@${getUserName(sender)} enviou conteúdo impróprio (${reason}), mas não posso removê-lo sem ser admin.`, { mentions: [sender] });
+                    await reply(`💎 @${getUserName(sender)} mandou conteúdo impróprio (${reason}), mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
                   }
                 }
               }
@@ -3908,16 +3908,16 @@ Código: *${roleCode}*`,
               await nazu.groupParticipantsUpdate(from, [sender], 'remove');
               delete locGroupData.warnings[sender];
               fs.writeFileSync(locGroupFilePath, JSON.stringify(locGroupData, null, 2));
-              await reply(`🚫 @${getUserName(sender)} atingiu *3/3 advertências* por enviar localização e foi removido.`, { mentions: [sender] });
+              await reply(`🚫 @${getUserName(sender)} juntou *3/3 advertências* por mandar localização e saiu do grupo.`, { mentions: [sender] });
             } else {
-              await reply(`⚠️ @${getUserName(sender)} atingiu *3/3 advertências*, porém preciso ser administrador para remover.`, { mentions: [sender] });
+              await reply(`💎 @${getUserName(sender)} chegou a *3/3 advertências*, mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
             }
           } else {
-            await reply(`⚠️ @${getUserName(sender)} recebeu uma advertência por enviar localização.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
+            await reply(`💎 @${getUserName(sender)} recebeu uma advertência por enviar localização.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
           }
         } else {
           await nazu.groupParticipantsUpdate(from, [sender], 'remove');
-          await reply(`🗺️ @${getUserName(sender)}, localização não permitida. Você foi removido do grupo.`, { mentions: [sender] });
+          await reply(`🗺️ @${getUserName(sender)}, localização não pode aqui. Tive que te remover do grupo.`, { mentions: [sender] });
         }
       }
     }
@@ -3927,7 +3927,7 @@ Código: *${roleCode}*`,
       const lastCmd = antifloodData[from].users[sender]?.lastCmd || 0;
       const interval = antifloodData[from].interval * 1000;
       if (now - lastCmd < interval) {
-        return reply(`⏳ Aguarde ${Math.ceil((interval - (now - lastCmd)) / 1000)} segundos antes de usar outro comando.`);
+        return reply(`⏳ Calma, respira! Daqui a ${Math.ceil((interval - (now - lastCmd)) / 1000)} segundinhos você manda outro comando ♡`);
       }
       antifloodData[from].users[sender] = {
         lastCmd: now
@@ -3966,16 +3966,16 @@ Código: *${roleCode}*`,
               await nazu.groupParticipantsUpdate(from, [sender], 'remove');
               delete docGroupData.warnings[sender];
               fs.writeFileSync(docGroupFilePath, JSON.stringify(docGroupData, null, 2));
-              await reply(`🚫 @${getUserName(sender)} atingiu *3/3 advertências* por enviar documentos e foi removido.`, { mentions: [sender] });
+              await reply(`🚫 @${getUserName(sender)} juntou *3/3 advertências* por mandar documentos e saiu do grupo.`, { mentions: [sender] });
             } else {
-              await reply(`⚠️ @${getUserName(sender)} atingiu *3/3 advertências*, porém preciso ser administrador para remover.`, { mentions: [sender] });
+              await reply(`💎 @${getUserName(sender)} chegou a *3/3 advertências*, mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
             }
           } else {
-            await reply(`⚠️ @${getUserName(sender)} recebeu uma advertência por enviar documento.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
+            await reply(`💎 @${getUserName(sender)} recebeu uma advertência por enviar documento.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
           }
         } else {
           await nazu.groupParticipantsUpdate(from, [sender], 'remove');
-          await reply(`📄 @${getUserName(sender)}, documentos não são permitidos. Você foi removido do grupo.`, { mentions: [sender] });
+          await reply(`📄 @${getUserName(sender)}, documento não pode aqui. Tive que te remover do grupo.`, { mentions: [sender] });
         }
       }
     }
@@ -4033,7 +4033,7 @@ Código: *${roleCode}*`,
         if (isPTT && audioMessage) {
 
 
-          reply('📝 transcrevendo áudio, aguarde...');
+          reply(`💎 Ouvindo o áudio e escrevendo tudinho... ⋆｡˚`);
 
 
           const media =
@@ -4086,14 +4086,14 @@ Código: *${roleCode}*`,
       try {
         exec(q, (err, stdout) => {
           if (err) {
-            return reply(`❌ *Erro na execução*\n\n${err}`);
+            return reply(`💎 *Erro na execução*\n\n${err}`);
           }
           if (stdout) {
-            reply(`✅ *Resultado do comando*\n\n${stdout}`);
+            reply(`✿ *Resultado do comando*\n\n${stdout}`);
           }
         });
       } catch (error) {
-        reply(`❌ *Erro ao executar comando*\n\n${error}`);
+        reply(`💎 *Erro ao executar comando*\n\n${error}`);
       }
     }
     if (body.startsWith('>>')) {
@@ -4125,13 +4125,13 @@ Código: *${roleCode}*`,
 
               output = String(result);
             }
-            return reply(`✅ *Resultado da execução*\n\n${output}`).catch(e => reply(String(e)));
+            return reply(`✿ *Resultado da execução*\n\n${output}`).catch(e => reply(String(e)));
           } catch (e) {
-            return reply(`❌ *Erro na execução*\n\n${String(e)}`);
+            return reply(`💎 *Erro na execução*\n\n${String(e)}`);
           }
         })();
       } catch (e) {
-        reply(`❌ *Erro crítico*\n\n${String(e)}`);
+        reply(`💎 *Erro crítico*\n\n${String(e)}`);
       }
     }
 
@@ -4443,19 +4443,19 @@ Código: *${roleCode}*`,
                   await nazu.groupParticipantsUpdate(from, [sender], 'remove');
                   delete canalGroupData.warnings[sender];
                   fs.writeFileSync(canalGroupFilePath, JSON.stringify(canalGroupData, null, 2));
-                  await reply(`🚫 @${getUserName(sender)} atingiu *3/3 advertências* por enviar links de canais e foi removido.`, { mentions: [sender] });
+                  await reply(`🚫 @${getUserName(sender)} juntou *3/3 advertências* por mandar link de canal e saiu do grupo.`, { mentions: [sender] });
                 } else {
-                  await reply(`⚠️ @${getUserName(sender)} atingiu *3/3 advertências*, porém preciso ser administrador para remover.`, { mentions: [sender] });
+                  await reply(`💎 @${getUserName(sender)} chegou a *3/3 advertências*, mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
                 }
               } else {
-                await reply(`⚠️ @${getUserName(sender)} recebeu uma advertência por enviar link de canal.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
+                await reply(`💎 @${getUserName(sender)} recebeu uma advertência por enviar link de canal.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
               }
               return;
             }
 
             if (isBotAdmin) {
               await nazu.groupParticipantsUpdate(from, [sender], 'remove');
-              await reply(`📢 @${getUserName(sender)}, links de canais não são permitidos. Você foi removido do grupo.`, { mentions: [sender] });
+              await reply(`📢 @${getUserName(sender)}, link de canal não pode aqui. Tive que te remover do grupo.`, { mentions: [sender] });
             } else {
               await reply(`📢 Atenção, @${getUserName(sender)}! Links de canais não são permitidos. Não consigo remover você, mas evite compartilhar esses links.`, { mentions: [sender] });
             }
@@ -4494,12 +4494,12 @@ Código: *${roleCode}*`,
                 await nazu.groupParticipantsUpdate(from, [sender], 'remove');
                 delete groupData.warnings[sender];
                 fs.writeFileSync(softGroupFilePath, JSON.stringify(groupData, null, 2));
-                await reply(`🚫 @${getUserName(sender)} atingiu *3/3 advertências* por enviar links e foi removido.`, { mentions: [sender] });
+                await reply(`🚫 @${getUserName(sender)} juntou *3/3 advertências* por mandar links e saiu do grupo.`, { mentions: [sender] });
               } else {
-                await reply(`⚠️ @${getUserName(sender)} atingiu *3/3 advertências*, porém preciso ser administrador para remover.`, { mentions: [sender] });
+                await reply(`💎 @${getUserName(sender)} chegou a *3/3 advertências*, mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
               }
             } else {
-              await reply(`⚠️ @${getUserName(sender)} recebeu uma advertência por enviar link.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
+              await reply(`💎 @${getUserName(sender)} recebeu uma advertência por enviar link.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
             }
           }
 
@@ -4545,19 +4545,19 @@ Código: *${roleCode}*`,
                 await nazu.groupParticipantsUpdate(from, [sender], 'remove');
                 delete hardGroupData.warnings[sender];
                 fs.writeFileSync(hardGroupFilePath, JSON.stringify(hardGroupData, null, 2));
-                await reply(`🚫 @${getUserName(sender)} atingiu *3/3 advertências* por enviar links e foi removido.`, { mentions: [sender] });
+                await reply(`🚫 @${getUserName(sender)} juntou *3/3 advertências* por mandar links e saiu do grupo.`, { mentions: [sender] });
               } else {
-                await reply(`⚠️ @${getUserName(sender)} atingiu *3/3 advertências*, porém preciso ser administrador para remover.`, { mentions: [sender] });
+                await reply(`💎 @${getUserName(sender)} chegou a *3/3 advertências*, mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
               }
             } else {
-              await reply(`⚠️ @${getUserName(sender)} recebeu uma advertência por enviar link.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
+              await reply(`💎 @${getUserName(sender)} recebeu uma advertência por enviar link.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
             }
             return;
           }
 
           if (isBotAdmin) {
             await nazu.groupParticipantsUpdate(from, [sender], 'remove');
-            await reply(`🔗 @${getUserName(sender)}, links não são permitidos. Você foi removido do grupo.`, { mentions: [sender] });
+            await reply(`🔗 @${getUserName(sender)}, link não pode aqui. Tive que te remover do grupo.`, { mentions: [sender] });
           } else {
             await reply(`🔗 Atenção, @${getUserName(sender)}! Links não são permitidos. Não consigo remover você, mas evite enviar links.`, { mentions: [sender] });
           }
@@ -4615,12 +4615,12 @@ Código: *${roleCode}*`,
                   await nazu.groupParticipantsUpdate(from, [sender], 'remove');
                   delete spGroupData.warnings[sender];
                   fs.writeFileSync(spGroupFilePath, JSON.stringify(spGroupData, null, 2));
-                  await reply(`🚫 @${getUserName(sender)} atingiu *3/3 advertências* por enviar figurinhas plus e foi removido.`, { mentions: [sender] });
+                  await reply(`🚫 @${getUserName(sender)} juntou *3/3 advertências* por mandar figurinhas proibidas e saiu do grupo.`, { mentions: [sender] });
                 } else {
-                  await reply(`⚠️ @${getUserName(sender)} atingiu *3/3 advertências*, porém preciso ser administrador para remover.`, { mentions: [sender] });
+                  await reply(`💎 @${getUserName(sender)} chegou a *3/3 advertências*, mas sem ser admin eu não consigo remover (っ˘̩╭╮˘̩)っ`, { mentions: [sender] });
                 }
               } else {
-                await reply(`⚠️ @${getUserName(sender)} recebeu uma advertência por enviar figurinha plus.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
+                await reply(`💎 @${getUserName(sender)} recebeu uma advertência por enviar figurinha plus.\n\n📊 Advertências: *${warningCount}/3*\n🚫 Ao atingir *3/3* será removido automaticamente.`, { mentions: [sender] });
               }
             } else {
               await reply(
@@ -4719,7 +4719,7 @@ Código: *${roleCode}*`,
         if (tictactoe.hasActiveGame(from) && budy2) {
           if (['tttend', 'rv', 'fimjogo'].includes(budy2)) {
             if (!isGroupAdmin) {
-              await reply("⚠️ Apenas administradores podem encerrar um jogo da velha em andamento.");
+              await reply(`💎 Só os admins podem encerrar um jogo da velha no meio, tá? ♡`);
               return;
             }
             const result = tictactoe.endGame(from);
@@ -4754,7 +4754,7 @@ Código: *${roleCode}*`,
         if (connect4 && connect4.hasActiveGame && connect4.hasActiveGame(from) && budy2) {
           if (['c4end', 'fimc4'].includes(budy2.toLowerCase())) {
             if (!isGroupAdmin) {
-              await reply("⚠️ Apenas administradores podem encerrar um Connect4 em andamento.");
+              await reply(`💎 Só os admins podem encerrar um Connect4 no meio, tá? ♡`);
               return;
             }
             const result = connect4.endGame(from);
@@ -4787,13 +4787,13 @@ Código: *${roleCode}*`,
               if (action === 'apagar') {
                 nazu.sendMessage(from, { delete: info.key }).then(() => {
                   nazu.sendMessage(from, {
-                    text: `⚠️ @${sender.split('@')[0]}, sua mensagem foi removida por conteúdo tóxico.\n\n_Este sistema usa IA e pode cometer erros._`,
+                    text: `💎 @${sender.split('@')[0]}, sua mensagem foi removida por conteúdo tóxico.\n\n_Este sistema usa IA e pode cometer erros._`,
                     mentions: [sender]
                   });
                 });
               } else if (action === 'avisar') {
                 nazu.sendMessage(from, {
-                  text: `⚠️ @${sender.split('@')[0]}, evite mensagens tóxicas!\n\n_Este sistema usa IA e pode cometer erros._`,
+                  text: `💎 @${sender.split('@')[0]}, evite mensagens tóxicas!\n\n_Este sistema usa IA e pode cometer erros._`,
                   mentions: [sender]
                 });
               }
@@ -4816,7 +4816,7 @@ Código: *${roleCode}*`,
 
                 if (!isBotAdmin) {
                   await nazu.sendMessage(from, {
-                    text: `⚠️ *ANTIPALAVRA - DETECÇÃO*\n\n` +
+                    text: `💎 *ANTIPALAVRA - DETECÇÃO*\n\n` +
                       `👤 @${sender.split('@')[0]} usou uma palavra proibida!\n` +
                       `⚠️ Palavra: "${detectionResult.palavra}"\n\n` +
                       `❌ Não posso banir pois não sou administrador!`,
@@ -4856,24 +4856,24 @@ Código: *${roleCode}*`,
       }
     }
     if (isGroup && groupData.blockedUsers && (groupData.blockedUsers[sender] || groupData.blockedUsers[getUserName(sender)]) && isCmd) {
-      return reply(`🚫 Você não tem permissão para usar comandos neste grupo.\nMotivo: ${groupData.blockedUsers[sender] ? groupData.blockedUsers[sender].reason : groupData.blockedUsers[getUserName(sender)].reason}`);
+      return reply(`🚫 Você não tem permissão pra usar comandos neste grupo.\nMotivo: ${groupData.blockedUsers[sender] ? groupData.blockedUsers[sender].reason : groupData.blockedUsers[getUserName(sender)].reason}`);
     };
 
     const globalBlacklist = loadGlobalBlacklist();
     if (isCmd && sender && globalBlacklist.users && (globalBlacklist.users[sender] || globalBlacklist.users[getUserName(sender)])) {
       const blacklistEntry = globalBlacklist.users[sender] || globalBlacklist.users[getUserName(sender)];
-      return reply(`🚫 Você está na blacklist global e não pode usar comandos.\nMotivo: ${blacklistEntry.reason}\nAdicionado por: ${blacklistEntry.addedBy}\nData: ${new Date(blacklistEntry.addedAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
+      return reply(`🚫 Você tá na blacklist global e não pode usar comandos.\nMotivo: ${blacklistEntry.reason}\nAdicionado por: ${blacklistEntry.addedBy}\nData: ${new Date(blacklistEntry.addedAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
     };
 
     if (isGroup && isCmd && groupData.blacklist && (groupData.blacklist[sender] || groupData.blacklist[getUserName(sender)])) {
       const blacklistEntry = groupData.blacklist[sender] || groupData.blacklist[getUserName(sender)];
-      return reply(`🚫 Você está na blacklist deste grupo e não pode usar comandos.\nMotivo: ${blacklistEntry.reason}\nData: ${new Date(blacklistEntry.timestamp).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
+      return reply(`🚫 Você tá na blacklist deste grupo e não pode usar comandos.\nMotivo: ${blacklistEntry.reason}\nData: ${new Date(blacklistEntry.timestamp).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
     }
     if (sender && sender.includes('@') && globalBlocks.users && (globalBlocks.users[sender] || globalBlocks.users[getUserName(sender)]) && isCmd) {
       return reply(`🚫 Parece que você está bloqueado de usar meus comandos globalmente.\nMotivo: ${globalBlocks.users[sender] ? globalBlocks.users[sender].reason : globalBlocks.users[getUserName(sender)].reason}`);
     }
     if (isCmd && globalBlocks.commands && globalBlocks.commands[command]) {
-      return reply(`🚫 O comando *${command}* está temporariamente desativado globalmente.\nMotivo: ${globalBlocks.commands[command].reason}`);
+      return reply(`🚫 O comando *${command}* está temporariamente desligado globalmente.\nMotivo: ${globalBlocks.commands[command].reason}`);
     }
     if (isCmd && commandStats && commandStats.trackCommandUsage && command && command.length > 0) {
       commandStats.trackCommandUsage(command, sender);
@@ -4972,7 +4972,7 @@ Código: *${roleCode}*`,
         // Add null check for ia object
         if (!ia || typeof ia.makeAssistentRequest !== 'function') {
           console.warn('[IA] makeAssistentRequest not available');
-          reply('🤖 Sistema de IA temporariamente indisponível. Tente novamente em alguns minutos.');
+          reply(`🤖 Minha cabecinha de IA tá descansando agora... tenta de novo daqui a uns minutinhos ♡`);
           return;
         }
 
@@ -5005,7 +5005,7 @@ Código: *${roleCode}*`,
             if (respAssist.isCommand && respAssist.command) {
               // Se falta algo para executar o comando, avisa o usuário
               if (respAssist.falta) {
-                reply(`⚠️ Para executar *${prefix}${respAssist.command}*, preciso que você informe: ${respAssist.falta}`);
+                reply(`💎 Pra fazer *${prefix}${respAssist.command}* eu ainda preciso saber: ${respAssist.falta}`);
                 return;
               }
 
@@ -5248,7 +5248,7 @@ Código: *${roleCode}*`,
           }
         }).catch((assistentError) => {
           console.error('Erro no assistente virtual:', assistentError.message);
-          reply('🤖 Erro técnico no assistente virtual. Tente novamente em alguns minutos.');
+          reply(`🤖 Deu um nó na minha cabecinha de IA... tenta de novo daqui a uns minutinhos? (╥﹏╥)`);
         });
       }
     }
@@ -5289,7 +5289,7 @@ Código: *${roleCode}*`,
               delete groupData.messageLimit.warnings[sender];
               delete groupData.messageLimit.users[sender];
             } else {
-              await reply(`⚠️ @${getUserName(sender)}, você excedeu o limite de ${groupData.messageLimit.limit} mensagens em ${groupData.messageLimit.interval}s! Advertência ${warnings}/3.`, {
+              await reply(`💎 @${getUserName(sender)}, você excedeu o limite de ${groupData.messageLimit.limit} mensagens em ${groupData.messageLimit.interval}s! Advertência ${warnings}/3.`, {
                 mentions: [sender]
               });
             }
@@ -5315,7 +5315,7 @@ Código: *${roleCode}*`,
           await nazu.sendMessage(from, {
             delete: info.key
           });
-          await reply(`@${getUserName(sender)}, você atingiu o limite de ${partnerData.limit} links de grupos.`, {
+          await reply(`💎 @${getUserName(sender)}, você já usou seus ${partnerData.limit} links de grupo, tá? ♡`, {
             mentions: [sender]
           });
         }
@@ -5323,7 +5323,7 @@ Código: *${roleCode}*`,
         await nazu.sendMessage(from, {
           delete: info.key
         });
-        await reply(`@${getUserName(sender)}, você não é um parceiro e não pode enviar links de grupos.`, {
+        await reply(`💎 @${getUserName(sender)}, só parceiros podem mandar link de grupo aqui ♡`, {
           mentions: [sender]
         });
       }
@@ -5366,7 +5366,7 @@ Código: *${roleCode}*`,
           }
         } catch (error) {
           console.error("Erro no sistema antifig:", error);
-          await reply(`⚠️ Erro ao processar antifig para @${getUserName(sender)}. Administradores, verifiquem!`, {
+          await reply(`💎 Não consegui conferir a figurinha de @${getUserName(sender)}. Admins, dá uma olhadinha? ♡`, {
             mentions: [sender]
           });
         }
@@ -5420,19 +5420,19 @@ Código: *${roleCode}*`,
 
           // Verificações de permissão/contexto
           if (settings.ownerOnly && !isOwner) {
-            return reply('🚫 Este comando só pode ser usado pelo dono do bot.');
+            return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           }
           if (settings.adminOnly && !isGroup) {
-            return reply('🚫 Este comando só pode ser usado por admins do grupo (em grupos apenas).');
+            return reply(`💎 Esse aqui é só pros admins, e só dentro de grupo ♡`);
           }
           if (settings.adminOnly && isGroup && !isGroupAdmin) {
-            return reply('🚫 Este comando só pode ser usado por admins do grupo.');
+            return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           }
           if (settings.context === 'group' && !isGroup) {
-            return reply('⚠️ Este comando está restrito a grupos.');
+            return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           }
           if (settings.context === 'private' && isGroup) {
-            return reply('⚠️ Este comando está restrito ao privado.');
+            return reply(`💎 Esse aqui só funciona no meu privado, tá? ♡`);
           }
 
           // Verificar parâmetros obrigatórios e tipos (baseado na ordem)
@@ -5460,13 +5460,13 @@ Código: *${roleCode}*`,
               if (typeof val !== 'undefined' && val !== '') {
                 const check = validateParamValue(val, p);
                 if (!check.ok) {
-                  return reply(`❌ Parâmetro inválido: ${check.message}`);
+                  return reply(`💎 Hmm, algo não bateu: ${check.message}`);
                 }
               }
             }
             if (missing.length) {
               const usage = customCmd.usage || buildUsageFromParams(customCmd.trigger, settings.params);
-              return reply(`❌ Parâmetros obrigatórios ausentes: ${missing.join(', ')}\nUso: ${usage}`);
+              return reply(`💎 Parâmetros obrigatórios ausentes: ${missing.join(', ')}\nUso: ${usage}`);
             }
           }
 
@@ -5733,7 +5733,7 @@ Código: *${roleCode}*`,
           return; // Comando personalizado executado, não continuar
         } catch (error) {
           console.error('Erro ao executar comando personalizado:', error);
-          await reply('❌ Erro ao executar comando personalizado.');
+          await reply(`💎 Eita, não consegui rodar esse comando personalizado... (╥﹏╥)`);
         }
       }
     }
@@ -5778,7 +5778,7 @@ Entre em contato com o dono do bot:
         }
         if (subOwnerCommands.includes(command)) {
           if (!isSubOwner) {
-            return reply('🚫 Apenas donos e subdonos podem usar este comando!');
+            return reply(`💎 Esse é só pro meu dono e os subdonos, tá? ( ˘ ³˘)♡`);
           }
         }
       } catch (e) {
@@ -5803,7 +5803,7 @@ Entre em contato com o dono do bot:
 
           const roleEntries = Object.entries(groupData.roles || {});
           if (!roleEntries.length) {
-            await reply('🪩 Nenhum rolê ativo no momento.');
+            await reply(`🪩 Nenhum rolê marcado por enquanto... que tal criar um? ♡`);
             break;
           }
 
@@ -5816,15 +5816,15 @@ Entre em contato com o dono do bot:
           try {
             await nazu.sendMessage(sendTarget, { text: listText });
             if (sendInPv && sendTarget !== from) {
-              await reply('📬 Enviei a lista de rolês no seu privado!', { mentions: [sender] });
+              await reply(`📬 Mandei a lista de rolês no seu privado ♡`, { mentions: [sender] });
             }
           } catch (listError) {
             console.error('Erro ao enviar lista de rolês:', listError);
-            await reply('❌ Não consegui enviar a lista de rolês agora. Tente novamente mais tarde.');
+            await reply(`💎 Não consegui mandar a lista de rolês agora... tenta mais tarde? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro em listaroles:', e);
-          await reply('❌ Ocorreu um erro ao listar os rolês.');
+          await reply(`💎 Eita, não consegui listar os rolês... (╥﹏╥)`);
         }
         break;
       }
@@ -5836,7 +5836,7 @@ Entre em contato com o dono do bot:
             break;
           }
           if (!isGroupAdmin) {
-            await reply('🚫 Apenas administradores podem criar rolês.');
+            await reply(`💎 Só os admins podem marcar rolês, tá? ♡`);
             break;
           }
 
@@ -5848,11 +5848,11 @@ Entre em contato com o dono do bot:
 
           const code = sanitizeRoleCode(parts.shift());
           if (!code) {
-            await reply('❌ Informe um código alfanumérico para o rolê.');
+            await reply(`💎 Me dá um código pro rolê, só com letras e números ♡`);
             break;
           }
           if (groupData.roles[code]) {
-            await reply('❌ Já existe um rolê cadastrado com esse código.');
+            await reply(`💎 Já tem um rolê com esse código! Escolhe outro? ♡`);
             break;
           }
 
@@ -5947,7 +5947,7 @@ Entre em contato com o dono do bot:
           await reply(sentMessage ? `✅ Rolê *${code}* cadastrado e divulgado!` : `⚠️ Rolê *${code}* salvo, mas não consegui enviar a divulgação automaticamente. Use ${groupPrefix}roles para compartilhar.`);
         } catch (e) {
           console.error('Erro em role.criar:', e);
-          await reply('❌ Ocorreu um erro ao criar o rolê.');
+          await reply(`💎 Eita, não consegui criar o rolê... (╥﹏╥)`);
         }
         break;
       }
@@ -5959,7 +5959,7 @@ Entre em contato com o dono do bot:
             break;
           }
           if (!isGroupAdmin) {
-            await reply('🚫 Apenas administradores podem alterar rolês.');
+            await reply(`💎 Só os admins podem mudar rolês, tá? ♡`);
             break;
           }
 
@@ -5971,19 +5971,19 @@ Entre em contato com o dono do bot:
 
           const code = sanitizeRoleCode(parts.shift());
           if (!code) {
-            await reply('❌ Informe um código válido para o rolê.');
+            await reply(`💎 Me fala um código de rolê que exista, tá? ♡`);
             break;
           }
 
           const roleData = groupData.roles[code];
           if (!roleData) {
-            await reply('❌ Não encontrei nenhum rolê com esse código.');
+            await reply(`💎 Hmm, não achei nenhum rolê com esse código (・・ ) ?`);
             break;
           }
 
           const mediaInfo = getMediaInfo(info.message);
           if (!parts.length && !mediaInfo) {
-            await reply('ℹ️ Informe pelo menos um campo para atualização ou envie uma nova mídia.');
+            await reply(`💎 Me diz o que mudar no rolê ou manda uma mídia nova ♡`);
             break;
           }
 
@@ -6065,10 +6065,10 @@ Entre em contato com o dono do bot:
 
           groupData.roles[code] = roleData;
           persistGroupData();
-          await reply(`✅ Rolê *${code}* atualizado.`);
+          await reply(`✿ Prontinho! Rolê *${code}* atualizado ♡`);
         } catch (e) {
           console.error('Erro em role.alterar:', e);
-          await reply('❌ Ocorreu um erro ao alterar o rolê.');
+          await reply(`💎 Eita, não consegui mudar o rolê... (╥﹏╥)`);
         }
         break;
       }
@@ -6080,19 +6080,19 @@ Entre em contato com o dono do bot:
             break;
           }
           if (!isGroupAdmin) {
-            await reply('🚫 Apenas administradores podem excluir rolês.');
+            await reply(`💎 Só os admins podem cancelar rolês, tá? ♡`);
             break;
           }
 
           const code = sanitizeRoleCode(q || args[0] || '');
           if (!code) {
-            await reply(`📋 Informe o código do rolê. Exemplo: ${groupPrefix}role.excluir CODIGO`);
+            await reply(`💎 Qual rolê? Ex.: ${groupPrefix}role.excluir CODIGO ♡`);
             break;
           }
 
           const roleData = groupData.roles[code];
           if (!roleData) {
-            await reply('❌ Não encontrei nenhum rolê com esse código.');
+            await reply(`💎 Hmm, não achei nenhum rolê com esse código (・・ ) ?`);
             break;
           }
 
@@ -6114,10 +6114,10 @@ Entre em contato com o dono do bot:
 
           delete groupData.roles[code];
           persistGroupData();
-          await reply(`🗑️ Rolê *${code}* removido.`);
+          await reply(`🗑️ Rolê *${code}* cancelado ♡`);
         } catch (e) {
           console.error('Erro em role.excluir:', e);
-          await reply('❌ Ocorreu um erro ao excluir o rolê.');
+          await reply(`💎 Eita, não consegui cancelar o rolê... (╥﹏╥)`);
         }
         break;
       }
@@ -6131,19 +6131,19 @@ Entre em contato com o dono do bot:
 
           const code = sanitizeRoleCode(args[0] || '');
           if (!code) {
-            await reply(`📋 Informe o código do rolê. Exemplo: ${groupPrefix}role.vou CODIGO`);
+            await reply(`💎 Qual rolê? Ex.: ${groupPrefix}role.vou CODIGO ♡`);
             break;
           }
 
           const roleData = groupData.roles[code];
           if (!roleData) {
-            await reply('❌ Não encontrei nenhum rolê com esse código.');
+            await reply(`💎 Hmm, não achei nenhum rolê com esse código (・・ ) ?`);
             break;
           }
 
           const participants = ensureRoleParticipants(roleData);
           if (participants.going.includes(sender)) {
-            await reply(`🙋 Você já confirmou presença no rolê *${roleData.title || code}*.`);
+            await reply(`🙋 Você já tá na lista do rolê *${roleData.title || code}*, relaxa ♡`);
             break;
           }
 
@@ -6154,12 +6154,12 @@ Entre em contato com o dono do bot:
           groupData.roles[code] = roleData;
           persistGroupData();
 
-          await reply(`✅ Presença confirmada no rolê *${roleData.title || code}*.`);
+          await reply(`🎉 Eba! Presença confirmada no rolê *${roleData.title || code}* ♡`);
           // Atualiza anúncio principal
           await refreshRoleAnnouncement(code, roleData);
         } catch (e) {
           console.error('Erro em role.vou:', e);
-          await reply('❌ Ocorreu um erro ao confirmar sua presença.');
+          await reply(`💎 Eita, não consegui confirmar sua presença... (╥﹏╥)`);
         }
         break;
       }
@@ -6173,13 +6173,13 @@ Entre em contato com o dono do bot:
 
           const code = sanitizeRoleCode(args[0] || '');
           if (!code) {
-            await reply(`📋 Informe o código do rolê. Exemplo: ${groupPrefix}role.nvou CODIGO`);
+            await reply(`💎 Qual rolê? Ex.: ${groupPrefix}role.nvou CODIGO ♡`);
             break;
           }
 
           const roleData = groupData.roles[code];
           if (!roleData) {
-            await reply('❌ Não encontrei nenhum rolê com esse código.');
+            await reply(`💎 Hmm, não achei nenhum rolê com esse código (・・ ) ?`);
             break;
           }
 
@@ -6200,7 +6200,7 @@ Entre em contato com o dono do bot:
           await refreshRoleAnnouncement(code, roleData);
         } catch (e) {
           console.error('Erro em role.nvou:', e);
-          await reply('❌ Ocorreu um erro ao atualizar sua presença.');
+          await reply(`💎 Eita, não consegui mudar sua presença... (╥﹏╥)`);
         }
         break;
       }
@@ -6216,12 +6216,12 @@ Entre em contato com o dono do bot:
           }
           const code = sanitizeRoleCode(args[0] || '');
           if (!code) {
-            await reply(`📋 Informe o código do rolê. Exemplo: ${groupPrefix}role CODIGO`);
+            await reply(`💎 Qual rolê? Ex.: ${groupPrefix}role CODIGO ♡`);
             break;
           }
           const roleData = groupData.roles[code];
           if (!roleData) {
-            await reply('❌ Não encontrei nenhum rolê com esse código.');
+            await reply(`💎 Hmm, não achei nenhum rolê com esse código (・・ ) ?`);
             break;
           }
           const parts = ensureRoleParticipants(roleData);
@@ -6272,7 +6272,7 @@ Entre em contato com o dono do bot:
           }
         } catch (e) {
           console.error('Erro em role.info:', e);
-          await reply('❌ Ocorreu um erro ao buscar informações do rolê.');
+          await reply(`💎 Eita, não consegui ver esse rolê... (╥﹏╥)`);
         }
         break;
       }
@@ -6286,12 +6286,12 @@ Entre em contato com o dono do bot:
       case 'lembrete':
       case 'lembrar': {
         try {
-          if (!q) return reply(`📅 *Como usar o comando lembrete:*\n\n💡 *Exemplos:*\n• ${prefix}lembrete em 30m beber água\n• ${prefix}lembrete 15/09 18:30 reunião\n• ${prefix}lembrete amanhã 08:00 acordar`);
+          if (!q) return reply(`📅 *Como usar o comando lembrete:*\n\n💡 *Ex.:*\n• ${prefix}lembrete em 30m beber água\n• ${prefix}lembrete 15/09 18:30 reunião\n• ${prefix}lembrete amanhã 08:00 acordar`);
           const parsed = parseReminderInput(q);
-          if (!parsed) return reply('❌ Não consegui entender a data/hora. Exemplos:\n- em 10m tomar remédio\n- 25/12 09:00 ligar para a família\n- hoje 21:15 estudar');
+          if (!parsed) return reply('💎 Não consegui entender a data/hora. Exemplos:\n- em 10m tomar remédio\n- 25/12 09:00 ligar pra a família\n- hoje 21:15 estudar');
           const { at, message } = parsed;
           const minDelay = 10 * 1000;
-          if (at - Date.now() < minDelay) return reply('⏳ Escolha um horário pelo menos 10 segundos à frente.');
+          if (at - Date.now() < minDelay) return reply(`⏳ Escolhe um horário pelo menos 10 segundinhos pra frente ♡`);
           const newReminder = {
             id: (() => {
               try {
@@ -6320,10 +6320,10 @@ Entre em contato com o dono do bot:
           optimizer.clearStatic('reminders:all');
           // Invalida cache após salvar
           optimizer.clearStatic('reminders:all');
-          await reply(`✅ Lembrete agendado para ${tzFormat(at)}.\n📝 Mensagem: ${message}`);
+          await reply(`✿ Lembrete agendado pra ${tzFormat(at)}.\n📝 Mensagem: ${message}`);
         } catch (e) {
           console.error('Erro ao agendar lembrete:', e);
-          await reply('❌ Ocorreu um erro ao agendar seu lembrete.');
+          await reply(`💎 Eita, não consegui marcar seu lembrete... (╥﹏╥)`);
         }
         break;
       }
@@ -6337,14 +6337,14 @@ Entre em contato com o dono do bot:
             5000 // 5 segundos
           );
           const list = allReminders.filter(r => r.userId === sender && r.status !== 'sent');
-          if (!list.length) return reply('📭 Você não tem lembretes pendentes.');
+          if (!list.length) return reply(`📭 Você não tem nenhum lembrete esperando ♡`);
           const lines = list
             .sort((a, b) => a.at - b.at)
             .map((r, i) => `${i + 1}. [${r.id.slice(0, 6)}] ${tzFormat(r.at)} — ${r.message}`);
           await reply(`🗓️ Seus lembretes pendentes:\n\n${lines.join('\n')}`);
         } catch (e) {
           console.error('Erro ao listar lembretes:', e);
-          await reply('❌ Ocorreu um erro ao listar seus lembretes.');
+          await reply(`💎 Eita, não consegui ver seus lembretes... (╥﹏╥)`);
         }
         break;
       }
@@ -6352,7 +6352,7 @@ Entre em contato com o dono do bot:
       case 'removerlembrete': {
         try {
           const idArg = (q || '').trim();
-          if (!idArg) return reply(`🗑️ *Uso do comando apagalembrete:*\n\n📝 *Formato:* ${prefix}apagalembrete <id|tudo>\n\n💡 *Exemplos:*\n• ${prefix}apagalembrete 123456\n• ${prefix}apagalembrete tudo`);
+          if (!idArg) return reply(`🗑️ *Uso do comando apagalembrete:*\n\n📝 *Formato:* ${prefix}apagalembrete <id|tudo>\n\n💡 *Ex.:*\n• ${prefix}apagalembrete 123456\n• ${prefix}apagalembrete tudo`);
           // Otimização: Cache de reminders
           let list = await optimizer.memoize(
             'reminders:all',
@@ -6366,18 +6366,18 @@ Entre em contato com o dono do bot:
             saveReminders(list);
             // Invalida cache após salvar
             optimizer.clearStatic('reminders:all');
-            return reply(`🗑️ Removidos ${removed} lembrete(s) pendente(s).`);
+            return reply(`🗑️ Apaguei ${removed} lembrete(s) ♡`);
           }
           const idx = list.findIndex(r => r.id.startsWith(idArg) && r.userId === sender && r.status !== 'sent');
-          if (idx === -1) return reply('❌ Lembrete não encontrado ou já enviado. Dica: use o ID mostrado em "meuslembretes".');
+          if (idx === -1) return reply(`💎 Não achei esse lembrete (ou ele já foi enviado). Usa o ID que aparece em "meuslembretes" ♡`);
           const removed = list.splice(idx, 1)[0];
           saveReminders(list);
           // Invalida cache após salvar
           optimizer.clearStatic('reminders:all');
-          await reply(`🗑️ Lembrete removido: ${removed.message}`);
+          await reply(`🗑️ Lembrete apagado: ${removed.message}`);
         } catch (e) {
           console.error('Erro ao apagar lembrete:', e);
-          await reply('❌ Ocorreu um erro ao remover seu lembrete.');
+          await reply(`💎 Eita, não consegui apagar seu lembrete... (╥﹏╥)`);
         }
         break;
       }
@@ -6483,7 +6483,7 @@ Entre em contato com o dono do bot:
       case 'resetrpg':
         {
           if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
-          if (!groupData.modorpg) return reply(`⚔️ *Modo RPG desativado!*\n\n🔒 Este recurso está disponível apenas quando o Modo RPG está ativado.\n🔐 *Administradores* podem ativar com: ${prefix}modorpg\n\n💡 Use ${prefix}menurpg para ver todos os comandos!`);
+          if (!groupData.modorpg) return reply(`⚔️ *Modo RPG desligado!*\n\n🔒 Este recurso está disponível apenas quando o Modo RPG está ligado.\n🔐 *Administradores* podem ativar com: ${prefix}modorpg\n\n💡 Usa ${prefix}menurpg pra ver todos os comandos!`);
           const econ = loadEconomy();
           const changedEconomy = ensureEconomyDefaults(econ);
           const me = getEcoUser(econ, sender);
@@ -6501,7 +6501,7 @@ Entre em contato com o dono do bot:
               const levelingData = loadLevelingSafe();
               const userEntries = Object.entries(levelingData.users || {});
               const groupUsers = userEntries.filter(([id, data]) => AllgroupMembers.includes(id));
-              if (groupUsers.length === 0) return reply('📊 Nenhum usuário do grupo encontrado no sistema de levels.');
+              if (groupUsers.length === 0) return reply(`📊 Ninguém do grupo tem nível ainda ♡`);
 
               const sortedUsers = groupUsers
                 .map(([id, userData]) => ({ id, level: userData?.level || 1, xp: userData?.xp || 0, messages: userData?.messages || 0, commands: userData?.commands || 0, patent: userData?.patent || 'Iniciante' }))
@@ -6534,7 +6534,7 @@ Entre em contato com o dono do bot:
           const mentioned = (menc_jid2 && menc_jid2[0]) || (q.includes('@') ? q.split(' ')[0].replace('@', '') : null);
 
           if (sub === 'resetrpg') {
-            if (!(isOwner && !isSubOwner && (sender === nmrdn || isBotSender))) return reply('Apenas o Dono principal pode resetar usuários.');
+            if (!(isOwner && !isSubOwner && (sender === nmrdn || isBotSender))) return reply(`💎 Só o dono principal pode zerar os jogadores, tá? ♡`);
             const target = (menc_jid2 && menc_jid2[0]) || null;
             const scope = (q || '').toLowerCase();
             if (scope.includes('all') || scope.includes('todos')) {
@@ -6543,12 +6543,12 @@ Entre em contato com o dono do bot:
                 if (econ.users[p]) { delete econ.users[p]; count++; }
               }
               saveEconomy(econ);
-              return reply(`✅ Resetado os dados RPG de ${count} membros do grupo.`);
+              return reply(`✿ Prontinho! Zerei o RPG de ${count} membros do grupo.`);
             }
-            if (!target) return reply('Marque um usuário para resetar ou use "all".');
+            if (!target) return reply(`💎 Marca alguém pra zerar, ou usa "all" pra todo mundo ♡`);
             delete econ.users[target];
             saveEconomy(econ);
-            return reply(`✅ Dados RPG resetados para @${getUserName(target)}.`, { mentions: [target] });
+            return reply(`✿ Prontinho! O RPG de @${getUserName(target)} começou do zero.`, { mentions: [target] });
           }
 
           if (sub === 'perfilrpg') {
@@ -6724,11 +6724,11 @@ Entre em contato com o dono do bot:
 
           if (sub === 'depositar' || sub === 'dep') {
             const amount = parseAmount(q.split(' ')[0], me.wallet);
-            if (!isFinite(amount) || amount <= 0) return reply('❌ Informe um valor válido (ou "all").');
-            if (amount > me.wallet) return reply('❌ Você não tem tudo isso na carteira.');
+            if (!isFinite(amount) || amount <= 0) return reply(`💎 Me fala um valor certinho (ou "all") ♡`);
+            if (amount > me.wallet) return reply(`💰 Opa, sua carteira não tem tudo isso não (｡•́︿•̀｡)`);
             const cap = isFinite(bankCapacity) ? bankCapacity : Infinity;
             const space = cap - me.bank;
-            if (space <= 0) return reply('⚠️ Seu banco está cheio. Compre um Cofre na loja para aumentar a capacidade.');
+            if (space <= 0) return reply(`🏦 Seu banco lotou! Compra um Cofre na loja pra guardar mais ♡`);
             const toDep = Math.min(amount, space);
             me.wallet -= toDep; me.bank += toDep;
             saveEconomy(econ);
@@ -6743,8 +6743,8 @@ Entre em contato com o dono do bot:
           }
           if (sub === 'sacar' || sub === 'saque') {
             const amount = parseAmount(q.split(' ')[0], me.bank);
-            if (!isFinite(amount) || amount <= 0) return reply('❌ Informe um valor válido (ou "all").');
-            if (amount > me.bank) return reply('❌ Saldo insuficiente no banco.');
+            if (!isFinite(amount) || amount <= 0) return reply(`💎 Me fala um valor certinho (ou "all") ♡`);
+            if (amount > me.bank) return reply(`💰 Hmm, o banco não tem tudo isso (｡•́︿•̀｡)`);
             // TAXA DE SAQUE: 5%
             const taxa = Math.floor(amount * 0.05);
             const received = amount - taxa;
@@ -6776,13 +6776,13 @@ Entre em contato com o dono do bot:
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━╯`);
             const amount = parseAmount(args.slice(-1)[0], me.wallet);
-            if (!isFinite(amount) || amount <= 0) return reply('❌ Informe um valor válido.');
+            if (!isFinite(amount) || amount <= 0) return reply(`💎 Me fala um valor certinho ♡`);
             // TAXA DE TRANSFERÊNCIA: 15%
             const taxa = Math.floor(amount * 0.15);
             const totalNeeded = amount + taxa;
-            if (totalNeeded > me.wallet) return reply(`❌ Você não tem saldo suficiente.\n💰 Valor: ${fmt(amount)}\n💸 Taxa (15%): ${fmt(taxa)}\n📊 Total necessário: ${fmt(totalNeeded)}\n💼 Seu saldo: ${fmt(me.wallet)}`);
+            if (totalNeeded > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso...\n💰 Valor: ${fmt(amount)}\n💸 Taxa (15%): ${fmt(taxa)}\n📊 Total necessário: ${fmt(totalNeeded)}\n💼 Seu saldo: ${fmt(me.wallet)}`);
             const other = getEcoUser(econ, mentioned);
-            if (mentioned === sender) return reply('❌ Você não pode transferir para si mesmo.');
+            if (mentioned === sender) return reply(`💰 Mandar pix pra você mesmo? Não vale, né ( ˘ ³˘)`);
             me.wallet -= totalNeeded; // Desconta valor + taxa
             other.wallet += amount; // Destinatário recebe valor sem taxa
             saveEconomy(econ);
@@ -6798,7 +6798,7 @@ Entre em contato com o dono do bot:
 
           if (sub === 'loja' || sub === 'lojarps') {
             const items = Object.entries(econ.shop || {});
-            if (items.length === 0) return reply('❌ A loja está vazia no momento.');
+            if (items.length === 0) return reply(`🛒 A loja tá vazinha agora... volta daqui a pouco ♡`);
             let text = '╭━━━⊱ 🛍️ *LOJA DE ITENS* 🛍️ ⊱━━━╮\n│\n';
             for (const [k, it] of items) {
               text += `│ 🔹 *${k}*\n│   ${it.name} — ${fmt(it.price)}\n│\n`;
@@ -6821,8 +6821,8 @@ Entre em contato com o dono do bot:
             // Normaliza a busca do item ignorando acentos e underscores
             const key = findKeyIgnoringAccents(econ.shop || {}, rawKey) || normalizeParam(rawKey).replace(/\s+/g, '_');
             const it = (econ.shop || {})[key];
-            if (!it) return reply(`❌ Item não encontrado.\n\n🛍️ Veja a loja com ${prefix}loja`);
-            if (me.wallet < it.price) return reply('❌ Saldo insuficiente na carteira.');
+            if (!it) return reply(`💎 Não achei esse item (・・ ) ?\n\n🛍️ Olha a loja com ${prefix}loja`);
+            if (me.wallet < it.price) return reply(`💰 Hmm, falta moedinha na carteira pra isso... (｡•́︿•̀｡)`);
             me.wallet -= it.price;
             // Se for ferramenta (picareta), equipa automaticamente
             if (it.type === 'tool' && it.toolType === 'pickaxe') {
@@ -6920,12 +6920,12 @@ Entre em contato com o dono do bot:
 │
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
             const price = (econ.materialsPrices || {})[matKey];
-            if (!price) return reply(`❌ Material inválido.\n\n💱 Veja preços com ${prefix}precos`);
+            if (!price) return reply(`💎 Material inválido.\n\n💱 Olha preços com ${prefix}precos`);
             const have = me.materials?.[matKey] || 0;
-            if (have <= 0) return reply('❌ Você não possui esse material.');
+            if (have <= 0) return reply(`💎 Você não tem esse material (・・ ) ?`);
             const qtyArg = args[1] || 'all';
             const qty = ['all', 'tudo', 'max'].includes((qtyArg || '').toLowerCase()) ? have : parseAmount(qtyArg, have);
-            if (!isFinite(qty) || qty <= 0) return reply('❌ Quantidade inválida.');
+            if (!isFinite(qty) || qty <= 0) return reply(`💎 Hmm, essa quantidade não dá... confere pra mim? ♡`);
             const gain = qty * price;
             me.materials[matKey] = have - qty;
             me.wallet += gain;
@@ -6975,8 +6975,8 @@ Entre em contato com o dono do bot:
             ensureUserChallenge(me);
             const ch = me.challenge;
             if ((args[0] || '').toLowerCase() === 'coletar') {
-              if (ch.claimed) return reply('❌ Você já coletou a recompensa de hoje.');
-              if (!isChallengeCompleted(me)) return reply('❌ Complete todas as tarefas diárias para coletar.');
+              if (ch.claimed) return reply(`🎁 Você já pegou a recompensa de hoje! Volta amanhã ♡`);
+              if (!isChallengeCompleted(me)) return reply(`📋 Termina todas as tarefas do dia pra pegar a recompensa ♡`);
               me.wallet += ch.reward;
               ch.claimed = true;
               saveEconomy(econ);
@@ -7003,9 +7003,9 @@ Entre em contato com o dono do bot:
 
           if (sub === 'apostar' || sub === 'bet') {
             const cdBet = me.cooldowns?.bet || 0;
-            if (Date.now() < cdBet) return reply(`⏳ Aguarde ${timeLeft(cdBet)} para apostar novamente.`);
+            if (Date.now() < cdBet) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdBet)} você aposta de novo ♡`);
             const amount = parseAmount(args[0], me.wallet);
-            if (!isFinite(amount) || amount <= 0) return reply('Valor inválido.');
+            if (!isFinite(amount) || amount <= 0) return reply(`💎 Hmm, esse valor não dá... confere pra mim? ♡`);
             if (amount > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             // CASSINO NERFADO: 3% de chance de ganhar (era 47%)
             const win = Math.random() < 0.03;
@@ -7022,9 +7022,9 @@ Entre em contato com o dono do bot:
           }
           if (sub === 'slots') {
             const cdSlots = me.cooldowns?.slots || 0;
-            if (Date.now() < cdSlots) return reply(`⏳ Aguarde ${timeLeft(cdSlots)} para jogar slots novamente.`);
+            if (Date.now() < cdSlots) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdSlots)} você joga slots de novo ♡`);
             const amount = parseAmount(args[0] || '100', me.wallet);
-            if (!isFinite(amount) || amount <= 0) return reply('Valor inválido.');
+            if (!isFinite(amount) || amount <= 0) return reply(`💎 Hmm, esse valor não dá... confere pra mim? ♡`);
             if (amount > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             // SLOTS NERFADO: símbolos com pesos para quase nunca combinar
             const symbols = ['🍒', '🍋', '🍉', '⭐', '🔔', '🍇', '🍊', '🍓']; // mais símbolos = menos chance
@@ -7149,7 +7149,7 @@ Entre em contato com o dono do bot:
           }
 
           if (sub === 'pescar' || sub === 'fish') {
-            const cd = me.cooldowns?.fish || 0; if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para pescar novamente.`);
+            const cd = me.cooldowns?.fish || 0; if (Date.now() < cd) return reply(`⏳ Os peixinhos tão descansando! Volta a pescar daqui a ${timeLeft(cd)} ♡`);
             const base = 80 + Math.floor(Math.random() * 121); // 80-200 (BALANCEADO)
             const skillB = getSkillBonus(me, 'fishing');
             const bonus = Math.floor(base * ((fishBonus || 0) + skillB)); const total = base + bonus;
@@ -7183,7 +7183,7 @@ Entre em contato com o dono do bot:
 
           if (sub === 'explorar' || sub === 'explore') {
             const cd = me.cooldowns?.explore || 0;
-            if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para explorar novamente.`);
+            if (Date.now() < cd) return reply(`⏳ Descansa um pouco! Daqui a ${timeLeft(cd)} você explora de novo ♡`);
             const base = 100 + Math.floor(Math.random() * 151); // 100-250 (BALANCEADO)
             const skillB = getSkillBonus(me, 'exploring');
             const bonus = Math.floor(base * ((exploreBonus || 0) + skillB));
@@ -7225,7 +7225,7 @@ Entre em contato com o dono do bot:
           }
 
           if (sub === 'cacar' || sub === 'caçar' || sub === 'hunt') {
-            const cd = me.cooldowns?.hunt || 0; if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para caçar novamente.`);
+            const cd = me.cooldowns?.hunt || 0; if (Date.now() < cd) return reply(`⏳ Descansa um pouco! Daqui a ${timeLeft(cd)} você caça de novo ♡`);
             const base = 22 + Math.floor(Math.random() * 34); // 22-55 (era 45-120)
             const skillB = getSkillBonus(me, 'hunting');
             const bonus = Math.floor(base * ((huntBonus || 0) + skillB) * 0.4); const total = base + bonus; // bônus reduzido 60%
@@ -7303,11 +7303,11 @@ Entre em contato com o dono do bot:
               const reqs = rec.requires || {};
               // Verifica materiais
               for (const [mk, mq] of Object.entries(reqs)) {
-                if ((me.materials?.[mk] || 0) < mq) return reply(`Faltam materiais: ${mk} x${mq}. Veja ${prefix}materiais.`);
+                if ((me.materials?.[mk] || 0) < mq) return reply(`⚒️ Faltam materiais: ${mk} x${mq}. Dá uma olhada em ${prefix}materiais ♡`);
               }
               // Verifica gold
               const goldCost = rec.gold || 0;
-              if (me.wallet < goldCost) return reply(`Você precisa de ${fmt(goldCost)} para forjar.`);
+              if (me.wallet < goldCost) return reply(`💰 Pra forjar você precisa de ${fmt(goldCost)} ♡`);
               // Consome
               for (const [mk, mq] of Object.entries(reqs)) { me.materials[mk] -= mq; }
               me.wallet -= goldCost;
@@ -7315,16 +7315,16 @@ Entre em contato com o dono do bot:
               if (item?.type === 'tool' && item.toolType === 'pickaxe') {
                 me.tools.pickaxe = { tier: item.tier, dur: item.durability, max: item.durability, key: craftKey };
                 saveEconomy(econ);
-                return reply(`⚒️ Você forjou e equipou ${item.name}! Durabilidade ${item.durability}.`);
+                return reply(`⚒️ Tcharam! Você forjou e já equipou ${item.name}! Durabilidade: ${item.durability}.`);
               }
               // Senão, adiciona ao inventário
               me.inventory[craftKey] = (me.inventory[craftKey] || 0) + 1;
               saveEconomy(econ);
-              return reply(`⚒️ Você forjou ${item?.name || craftKey}!`);
+              return reply(`⚒️ Tcharam! Você forjou ${item?.name || craftKey}!`);
             }
             // Modo 2: minigame de forja (antigo) - NERFADO
-            const cd = me.cooldowns?.forge || 0; if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para forjar novamente.`);
-            const cost = 150; if (me.wallet < cost) return reply(`Você precisa de ${fmt(cost)} para materiais.`); // custo aumentado (era 100)
+            const cd = me.cooldowns?.forge || 0; if (Date.now() < cd) return reply(`⏳ A forja tá esfriando! Volta daqui a ${timeLeft(cd)} ♡`);
+            const cost = 150; if (me.wallet < cost) return reply(`💰 Pros materiais você precisa de ${fmt(cost)} ♡`); // custo aumentado (era 100)
             me.wallet -= cost;
             const success = Math.random() < 0.35; // 35% chance (era 60%)
             if (success) {
@@ -7334,13 +7334,13 @@ Entre em contato com o dono do bot:
               return reply(`⚒️ Forja bem-sucedida! Lucro ${fmt(total)} ${bonus > 0 ? `(bônus ${fmt(bonus)})` : ''}.`);
             } else {
               me.cooldowns.forge = Date.now() + 25 * 60 * 1000; saveEconomy(econ); // 25 min (era 6 min)
-              return reply(`🔥 A forja falhou e os materiais foram perdidos.`);
+              return reply(`🔥 Ai, a forja falhou e os materiais se foram... (╥﹏╥)`);
             }
           }
 
           if (sub === 'crime') {
             const cd = me.cooldowns?.crime || 0;
-            if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para tentar de novo.`);
+            if (Date.now() < cd) return reply(`⏳ Calminha! Tenta de novo daqui a ${timeLeft(cd)} ♡`);
             const success = Math.random() < 0.18; // 18% sucesso (era 35%)
             if (success) {
               const base = 40 + Math.floor(Math.random() * 61); // 40-100 (era 90-230)
@@ -7427,23 +7427,23 @@ Entre em contato com o dono do bot:
             }
 
             if (!recipeKey) {
-              return reply(`👨‍🍳 *SISTEMA DE COZINHA*\n\n📖 Veja as receitas disponíveis: ${prefix}receitas\n🍳 Cozinhar: ${prefix}cozinhar <receita>\n\n💡 Exemplo: ${prefix}cozinhar pao`);
+              return reply(`👨‍🍳 *SISTEMA DE COZINHA*\n\n📖 Olha as receitas disponíveis: ${prefix}receitas\n🍳 Cozinhar: ${prefix}cozinhar <receita>\n\n💡 Ex.: ${prefix}cozinhar pao`);
             }
 
             const recipe = econ.cookingRecipes[recipeKey];
             if (!recipe) {
-              return reply(`❌ Receita não encontrada! Use ${prefix}receitas para ver todas as receitas disponíveis.`);
+              return reply(`🍳 Não achei essa receita... dá uma olhada em ${prefix}receitas ♡`);
             }
 
             // Verifica cooldown
             const cd = me.cooldowns?.cook || 0;
             if (Date.now() < cd) {
-              return reply(`⏳ Você ainda está cozinhando! Aguarde ${timeLeft(cd)}.`);
+              return reply(`🍳 Ainda tem coisa no fogo! Espera ${timeLeft(cd)} ♡`);
             }
 
             // Verifica gold
             if (me.wallet < recipe.gold) {
-              return reply(`💰 Você precisa de ${fmt(recipe.gold)} para cozinhar ${recipe.name}. Saldo atual: ${fmt(me.wallet)}`);
+              return reply(`💰 Pra cozinhar ${recipe.name} você precisa de ${fmt(recipe.gold)}. Sua carteira: ${fmt(me.wallet)}`);
             }
 
             // Verifica ingredientes
@@ -7477,7 +7477,7 @@ Entre em contato com o dono do bot:
 
             saveEconomy(econ);
 
-            return reply(`👨‍🍳 *COZINHA CONCLUÍDA!*\n\n${recipe.name} preparado com sucesso!\n⚡ Energia: +${recipe.energy}\n💵 Valor de venda: ${fmt(recipe.sellPrice)}\n\n🍴 Use ${prefix}comer ${recipeKey} para consumir\n💰 Use ${prefix}vendercomida ${recipeKey} para vender`);
+            return reply(`👨‍🍳 *COZINHA CONCLUÍDA!*\n\n${recipe.name} preparado !\n⚡ Energia: +${recipe.energy}\n💵 Valor de venda: ${fmt(recipe.sellPrice)}\n\n🍴 Usa ${prefix}comer ${recipeKey} pra consumir\n💰 Usa ${prefix}vendercomida ${recipeKey} pra vender`);
           }
 
           // ===== SISTEMA DE PLANTAÇÃO =====
@@ -7554,7 +7554,7 @@ Entre em contato com o dono do bot:
 
             const seed = econ.seeds[seedKey];
             if (!seed) {
-              return reply(`❌ Semente não encontrada! Use ${prefix}plantar para ver as sementes disponíveis.`);
+              return reply(`🌱 Não achei essa semente... dá uma olhada em ${prefix}plantar ♡`);
             }
 
             // Inicializa fazenda do usuário
@@ -7562,12 +7562,12 @@ Entre em contato com o dono do bot:
 
             // Verifica se tem espaço
             if (me.farm.plots.length >= me.farm.maxPlots) {
-              return reply(`🌾 Todos os seus terrenos estão ocupados! Aguarde a colheita ou expanda sua fazenda.\n\n🌾 Use ${prefix}colher para colher plantas prontas`);
+              return reply(`🌾 Todos os seus terrenos estão ocupados! Espera a colheita ou expanda sua fazenda.\n\n🌾 Usa ${prefix}colher pra colher plantas prontas`);
             }
 
             // Verifica gold
             if (me.wallet < seed.cost) {
-              return reply(`💰 Você precisa de ${fmt(seed.cost)} para plantar ${seed.name}. Saldo: ${fmt(me.wallet)}`);
+              return reply(`💰 Pra plantar ${seed.name} você precisa de ${fmt(seed.cost)}. Sua carteira: ${fmt(me.wallet)}`);
             }
 
             // Planta
@@ -7587,14 +7587,14 @@ Entre em contato com o dono do bot:
             saveEconomy(econ);
 
             const mins = Math.floor(seed.growTime / 60000);
-            return reply(`🌱 ${seed.name} plantado com sucesso!\n\n⏱️ Estará pronto para colher em ${mins} minutos.\n🌾 Terrenos ocupados: ${me.farm.plots.length}/${me.farm.maxPlots}\n\n💡 Use ${prefix}horta para ver suas plantações`);
+            return reply(`🌱 ${seed.name} plantado !\n\n⏱️ Estará pronto pra colher em ${mins} minutos.\n🌾 Terrenos ocupados: ${me.farm.plots.length}/${me.farm.maxPlots}\n\n💡 Usa ${prefix}horta pra ver suas plantações`);
           }
 
           if (sub === 'colher' || sub === 'harvest') {
             me.farm = me.farm || { plots: [], maxPlots: 4, lastExpansion: 0 };
 
             if (me.farm.plots.length === 0) {
-              return reply(`🌾 Você não tem nada plantado!\n\n🌱 Use ${prefix}plantar <semente> para começar a cultivar.`);
+              return reply(`🌾 Você não tem nada plantado!\n\n🌱 Usa ${prefix}plantar <semente> pra começar a cultivar.`);
             }
 
             const now = Date.now();
@@ -7603,7 +7603,7 @@ Entre em contato com o dono do bot:
             if (readyPlots.length === 0) {
               const nextReady = Math.min(...me.farm.plots.map(p => p.readyAt));
               const timeLeft = Math.ceil((nextReady - now) / 60000);
-              return reply(`⏳ Nenhuma planta está pronta para colher ainda.\n\n🕐 Próxima colheita em: ${timeLeft} minuto(s)\n\n💡 Use ${prefix}horta para ver o status de todas as plantações`);
+              return reply(`⏳ Nenhuma planta está pronta pra colher ainda.\n\n🕐 Próxima colheita em: ${timeLeft} minuto(s)\n\n💡 Usa ${prefix}horta pra ver o status de todas as plantações`);
             }
 
             // Colhe todas as plantas prontas
@@ -7637,7 +7637,7 @@ Entre em contato com o dono do bot:
 
             harvestedText = harvestedText.slice(0, -2); // Remove última vírgula
 
-            return reply(`🌾 *COLHEITA CONCLUÍDA!*\n\n✅ Plantas colhidas: ${readyPlots.length}\n📦 Ingredientes obtidos:\n${harvestedText}\n\n💵 Valor estimado: ${fmt(totalValue)}\n🌱 Terrenos livres: ${me.farm.maxPlots - me.farm.plots.length}/${me.farm.maxPlots}\n\n👨‍🍳 Use ${prefix}receitas para ver o que pode cozinhar!`);
+            return reply(`🌾 *COLHEITA CONCLUÍDA!*\n\n✅ Plantas colhidas: ${readyPlots.length}\n📦 Ingredientes obtidos:\n${harvestedText}\n\n💵 Valor estimado: ${fmt(totalValue)}\n🌱 Terrenos livres: ${me.farm.maxPlots - me.farm.plots.length}/${me.farm.maxPlots}\n\n👨‍🍳 Usa ${prefix}receitas pra ver o que pode cozinhar!`);
           }
 
           // ===== COMANDOS COMPLEMENTARES DE COZINHA =====
@@ -7646,7 +7646,7 @@ Entre em contato com o dono do bot:
             const entries = Object.entries(me.ingredients).filter(([, qty]) => qty > 0);
 
             if (entries.length === 0) {
-              return reply(`📦 *INGREDIENTES*\n\nVocê não possui ingredientes.\n\n🌱 Plante com ${prefix}plantar para conseguir ingredientes!`);
+              return reply(`📦 *INGREDIENTES*\n\nVocê não tem ingredientes.\n\n🌱 Plante com ${prefix}plantar pra conseguir ingredientes!`);
             }
 
             let text = '📦 *MEUS INGREDIENTES*\n\n';
@@ -7683,12 +7683,12 @@ Entre em contato com o dono do bot:
             }
 
             if (!me.cookedFood[foodKey] || me.cookedFood[foodKey] <= 0) {
-              return reply(`❌ Você não tem ${foodKey} preparado.\n\n👨‍🍳 Cozinhe com ${prefix}cozinhar ${foodKey}`);
+              return reply(`💎 Você ainda não tem ${foodKey} preparado.\n\n👨‍🍳 Cozinhe com ${prefix}cozinhar ${foodKey}`);
             }
 
             const recipe = econ.cookingRecipes?.[foodKey];
             if (!recipe) {
-              return reply('❌ Receita não encontrada.');
+              return reply(`🍳 Não achei essa receita (・・ ) ?`);
             }
 
             // Consome a comida
@@ -7711,18 +7711,18 @@ Entre em contato com o dono do bot:
             me.cookedFood = me.cookedFood || {};
 
             if (!foodKey) {
-              return reply(`💰 *VENDER COMIDA*\n\nUse: ${prefix}vendercomida <comida>\n\n💡 Veja suas comidas com ${prefix}comer`);
+              return reply(`💰 *VENDER COMIDA*\n\nUse: ${prefix}vendercomida <comida>\n\n💡 Olha suas comidas com ${prefix}comer`);
             }
 
             const qty = parseInt(args[1]) || 1;
 
             if (!me.cookedFood[foodKey] || me.cookedFood[foodKey] < qty) {
-              return reply(`❌ Você não tem ${qty}x ${foodKey}.\n\n🍽️ Você tem: ${me.cookedFood[foodKey] || 0}`);
+              return reply(`💎 Você ainda não tem ${qty}x ${foodKey}.\n\n🍽️ Você tem: ${me.cookedFood[foodKey] || 0}`);
             }
 
             const recipe = econ.cookingRecipes?.[foodKey];
             if (!recipe) {
-              return reply('❌ Receita não encontrada.');
+              return reply(`🍳 Não achei essa receita (・・ ) ?`);
             }
 
             const totalValue = recipe.sellPrice * qty;
@@ -7766,9 +7766,9 @@ Entre em contato com o dono do bot:
 
           if (sub === 'minerar' || sub === 'mine') {
             const cd = me.cooldowns?.mine || 0;
-            if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para minerar novamente.`);
+            if (Date.now() < cd) return reply(`⏳ A picareta tá cansada! Volta a minerar daqui a ${timeLeft(cd)} ♡`);
             const pk = getActivePickaxe(me);
-            if (!pk) return reply(`⛏️ Você precisa de uma picareta para minerar. Compre na ${prefix}loja (ex: ${prefix}comprar pickaxe_bronze) ou repare com ${prefix}reparar.`);
+            if (!pk) return reply(`⛏️ Você precisa de uma picareta pra minerar. Compre na ${prefix}loja (ex: ${prefix}comprar pickaxe_bronze) ou repare com ${prefix}reparar.`);
             // Cálculo de ouro com base na picareta e bônus (BALANCEADO)
             const tierMult = PICKAXE_TIER_MULT[pk.tier] || 1.0;
             const base = 100 + Math.floor(Math.random() * 101); // 100-200 (AUMENTADO)
@@ -7807,7 +7807,7 @@ Entre em contato com o dono do bot:
 
           if (sub === 'trabalhar' || sub === 'work') {
             const cd = me.cooldowns?.work || 0;
-            if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para trabalhar novamente.`);
+            if (Date.now() < cd) return reply(`⏳ Hora do intervalo! Volta a trabalhar daqui a ${timeLeft(cd)} ♡`);
             const base = 150 + Math.floor(Math.random() * 151); // 150-300 (AUMENTADO para economia balanceada)
             const skillB = getSkillBonus(me, 'working');
             const bonus = Math.floor(base * (workBonus + skillB));
@@ -7826,7 +7826,7 @@ Entre em contato com o dono do bot:
           // ===== Mercado entre usuários =====
           if (sub === 'mercado') {
             const items = econ.market || [];
-            if (items.length === 0) return reply('🛒 O mercado está vazio. Use listar para anunciar algo.');
+            if (items.length === 0) return reply(`🛒 O mercado tá vazinho... anuncia algo com listar ♡`);
             let text = '🛒 Mercado (ofertas abertas)\n\n';
             for (const ofr of items) {
               text += `#${ofr.id} • ${ofr.type === 'item' ? `${ofr.key} x${ofr.qty}` : `${ofr.mat} x${ofr.qty}`} — ${fmt(ofr.price)} | Vendedor: @${ofr.seller.split('@')[0]}\n`;
@@ -7836,50 +7836,50 @@ Entre em contato com o dono do bot:
           if (sub === 'listar') {
             // listar item <key> <qtd> <preco> | listar mat <material> <qtd> <preco>
             const kind = (args[0] || '').toLowerCase();
-            if (!['item', 'mat', 'material'].includes(kind)) return reply(`Use: ${prefix}listar item <key> <qtd> <preco> | ${prefix}listar mat <material> <qtd> <preco>`);
+            if (!['item', 'mat', 'material'].includes(kind)) return reply(`💎 Usa assim: ${prefix}listar item <key> <qtd> <preço> | ${prefix}listar mat <material> <qtd> <preço>`);
             const qty = parseInt(args[2]); const price = parseInt(args[3]);
-            if (!isFinite(qty) || qty <= 0 || !isFinite(price) || price <= 0) return reply('Quantidade e preço inválidos.');
+            if (!isFinite(qty) || qty <= 0 || !isFinite(price) || price <= 0) return reply(`💎 Hmm, a quantidade ou o preço não deu certo... confere pra mim? ♡`);
             if (kind === 'item') {
               const key = (args[1] || '').toLowerCase();
-              if ((me.inventory?.[key] || 0) < qty) return reply('Você não possui itens suficientes.');
+              if ((me.inventory?.[key] || 0) < qty) return reply(`💎 Você não tem itens suficientes pra isso (｡•́︿•̀｡)`);
               me.inventory[key] -= qty;
               const id = econ.marketCounter++;
               econ.market.push({ id, type: 'item', key, qty, price, seller: sender });
               saveEconomy(econ);
-              return reply(`📢 Anúncio #${id} criado: ${key} x${qty} por ${fmt(price)}.`);
+              return reply(`📢 Anúncio #${id} no ar: ${key} x${qty} por ${fmt(price)} ♡`);
             } else {
               const mat = (args[1] || '').toLowerCase();
-              if ((me.materials?.[mat] || 0) < qty) return reply('Você não possui materiais suficientes.');
+              if ((me.materials?.[mat] || 0) < qty) return reply(`💎 Você não tem materiais suficientes pra isso (｡•́︿•̀｡)`);
               me.materials[mat] -= qty;
               const id = econ.marketCounter++;
               econ.market.push({ id, type: 'mat', mat, qty, price, seller: sender });
               saveEconomy(econ);
-              return reply(`📢 Anúncio #${id} criado: ${mat} x${qty} por ${fmt(price)}.`);
+              return reply(`📢 Anúncio #${id} no ar: ${mat} x${qty} por ${fmt(price)} ♡`);
             }
           }
           if (sub === 'meusanuncios' || sub === 'meusan') {
             const mine = (econ.market || []).filter(o => o.seller === sender);
-            if (mine.length === 0) return reply('Você não tem anúncios.');
+            if (mine.length === 0) return reply(`📭 Você não tem nenhum anúncio ♡`);
             let text = '📋 Seus anúncios\n\n';
             for (const ofr of mine) text += `#${ofr.id} • ${ofr.type === 'item' ? `${ofr.key} x${ofr.qty}` : `${ofr.mat} x${ofr.qty}`} — ${fmt(ofr.price)}\n`;
             return reply(text);
           }
           if (sub === 'cancelar') {
-            const id = parseInt(args[0]); if (!isFinite(id)) return reply('Informe o ID do anúncio.');
+            const id = parseInt(args[0]); if (!isFinite(id)) return reply(`💎 Me fala o ID do anúncio ♡`);
             const idx = (econ.market || []).findIndex(o => o.id === id);
-            if (idx < 0) return reply('Anúncio não encontrado.');
+            if (idx < 0) return reply(`💎 Não achei esse anúncio (・・ ) ?`);
             const ofr = econ.market[idx];
-            if (ofr.seller !== sender) return reply('Apenas o vendedor pode cancelar.');
+            if (ofr.seller !== sender) return reply(`💎 Só quem anunciou pode cancelar, tá? ♡`);
             // devolve ao vendedor
             if (ofr.type === 'item') me.inventory[ofr.key] = (me.inventory[ofr.key] || 0) + ofr.qty; else me.materials[ofr.mat] = (me.materials[ofr.mat] || 0) + ofr.qty;
             econ.market.splice(idx, 1); saveEconomy(econ);
-            return reply(`❌ Anúncio #${id} cancelado e itens devolvidos.`);
+            return reply(`🗑️ Anúncio #${id} cancelado, e os itens voltaram pra você ♡`);
           }
           if (sub === 'comprarmercado' || sub === 'cmerc') {
-            const id = parseInt(args[0]); if (!isFinite(id)) return reply('Informe o ID do anúncio.');
+            const id = parseInt(args[0]); if (!isFinite(id)) return reply(`💎 Me fala o ID do anúncio ♡`);
             const ofr = (econ.market || []).find(o => o.id === id);
-            if (!ofr) return reply('Anúncio não encontrado.');
-            if (ofr.seller === sender) return reply('Você não pode comprar seu próprio anúncio.');
+            if (!ofr) return reply(`💎 Não achei esse anúncio (・・ ) ?`);
+            if (ofr.seller === sender) return reply(`💎 Comprar seu próprio anúncio? Não vale, né ( ˘ ³˘)`);
             const tax = Math.floor(ofr.price * 0.05);
             if (me.wallet < ofr.price) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             const seller = getEcoUser(econ, ofr.seller);
@@ -7888,7 +7888,7 @@ Entre em contato com o dono do bot:
             if (ofr.type === 'item') me.inventory[ofr.key] = (me.inventory[ofr.key] || 0) + ofr.qty; else me.materials[ofr.mat] = (me.materials[ofr.mat] || 0) + ofr.qty;
             econ.market = (econ.market || []).filter(o => o.id !== id);
             saveEconomy(econ);
-            return reply(`🛒 Compra realizada! Taxa de ${fmt(tax)} aplicada. Vendedor recebeu ${fmt(ofr.price - tax)}.`);
+            return reply(`🛒 Comprado! A taxa foi ${fmt(tax)} e quem vendeu recebeu ${fmt(ofr.price - tax)} ♡`);
           }
 
           // ===== Propriedades =====
@@ -7914,23 +7914,23 @@ Entre em contato com o dono do bot:
             return reply(text);
           }
           if (sub === 'comprarpropriedade' || sub === 'cprop') {
-            const key = (args[0] || '').toLowerCase(); if (!key) return reply(`Use: ${prefix}comprarpropriedade <tipo>`);
-            const prop = (econ.propertiesCatalog || {})[key]; if (!prop) return reply('Propriedade inexistente.');
-            if (me.properties?.[key]?.owned) return reply('Você já possui essa propriedade.');
+            const key = (args[0] || '').toLowerCase(); if (!key) return reply(`💎 Usa assim: ${prefix}comprarpropriedade <tipo>`);
+            const prop = (econ.propertiesCatalog || {})[key]; if (!prop) return reply(`💎 Essa propriedade não existe (・・ ) ?`);
+            if (me.properties?.[key]?.owned) return reply(`🏠 Essa propriedade já é sua ♡`);
             if (me.wallet < prop.price) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             me.wallet -= prop.price;
             me.properties[key] = { owned: true, lastCollect: Date.now() };
             saveEconomy(econ);
-            return reply(`🏠 Você comprou ${prop.name}!`);
+            return reply(`🏠 Parabéns! ${prop.name} agora é sua ♡`);
           }
           if (sub === 'coletarpropriedades' || sub === 'cprops') {
             const props = me.properties || {}; const keys = Object.keys(props).filter(k => props[k].owned);
-            if (keys.length === 0) return reply('Você não possui propriedades.');
+            if (keys.length === 0) return reply(`🏠 Você ainda não tem propriedades ♡`);
             let totalGold = 0; const matsGain = {};
             for (const k of keys) {
               const meta = (econ.propertiesCatalog || {})[k]; if (!meta) continue;
               const days = Math.max(1, Math.ceil((Date.now() - (props[k].lastCollect || Date.now())) / (24 * 60 * 60 * 1000)));
-              const upkeep = (meta.upkeepPerDay || 0) * days; if (me.wallet < upkeep) return reply(`Saldo insuficiente para pagar manutenção de ${meta.name} (${fmt(upkeep)}).`);
+              const upkeep = (meta.upkeepPerDay || 0) * days; if (me.wallet < upkeep) return reply(`💰 Falta moedinha pra manutenção de ${meta.name} (${fmt(upkeep)}) (｡•́︿•̀｡)`);
               me.wallet -= upkeep;
               if (meta.incomeGoldPerDay) totalGold += meta.incomeGoldPerDay * days;
               if (meta.incomeMaterialsPerDay) {
@@ -7965,40 +7965,40 @@ Entre em contato com o dono do bot:
             text += `\nPrêmio: ${fmt(show.reward)} ${show.claimed ? '(coletado)' : ''}`;
             if (isPeriodCompleted(show) && !show.claimed) text += `\nUse: ${prefix}${sub} coletar`;
             if ((args[0] || '').toLowerCase() === 'coletar') {
-              if (show.claimed) return reply('Você já coletou este prêmio.');
-              if (!isPeriodCompleted(show)) return reply('Complete todas as tarefas para coletar.');
+              if (show.claimed) return reply(`🎁 Esse prêmio você já pegou ♡`);
+              if (!isPeriodCompleted(show)) return reply(`📋 Termina todas as tarefas pra pegar o prêmio ♡`);
               me.wallet += show.reward; show.claimed = true; saveEconomy(econ);
-              return reply(`🎉 Você coletou ${fmt(show.reward)} do ${sub === 'desafiosemanal' ? 'desafio semanal' : 'desafio mensal'}!`);
+              return reply(`🎉 Eba! Você ganhou ${fmt(show.reward)} do ${sub === 'desafiosemanal' ? 'desafio semanal' : 'desafio mensal'}!`);
             }
             return reply(text);
           }
 
           if (sub === 'assaltar' || sub === 'roubar') {
-            if (!mentioned) return reply('Marque alguém para assaltar.');
-            if (mentioned === sender) return reply('Você não pode assaltar a si mesmo.');
+            if (!mentioned) return reply(`🦹 Marca quem você quer assaltar ♡`);
+            if (mentioned === sender) return reply(`🦹 Assaltar você mesmo? Não dá, né ( ˘ ³˘)`);
             const cd = me.cooldowns?.rob || 0;
-            if (Date.now() < cd) return reply(`⏳ Aguarde ${timeLeft(cd)} para tentar novamente.`);
+            if (Date.now() < cd) return reply(`⏳ Calminha! Tenta de novo daqui a ${timeLeft(cd)} ♡`);
             const target = getEcoUser(econ, mentioned);
             const chance = Math.random();
             const maxSteal = Math.min(target.wallet, 300);
             if (maxSteal <= 0) {
               me.cooldowns.rob = Date.now() + 10 * 60 * 1000; // 10 min
               saveEconomy(econ);
-              return reply('A vítima está sem dinheiro na carteira. Roubo falhou.');
+              return reply(`🦹 A carteira da vítima tá vazia... o assalto não rendeu nada!`);
             }
             if (chance < 0.5) {
               const amt = 50 + Math.floor(Math.random() * Math.max(1, maxSteal - 49));
               target.wallet -= amt; me.wallet += amt;
               me.cooldowns.rob = Date.now() + 10 * 60 * 1000;
               saveEconomy(econ);
-              return reply(`🦹 Sucesso! Você roubou ${fmt(amt)} de @${getUserName(mentioned)}.`, { mentions: [mentioned] });
+              return reply(`🦹 Deu certo! Você levou ${fmt(amt)} de @${getUserName(mentioned)}.`, { mentions: [mentioned] });
             } else {
               const multa = 80 + Math.floor(Math.random() * 121); // 80-200
               const pay = Math.min(me.wallet, multa);
               me.wallet -= pay; target.wallet += pay;
               me.cooldowns.rob = Date.now() + 10 * 60 * 1000;
               saveEconomy(econ);
-              return reply(`🚨 Você foi pego! Pagou ${fmt(pay)} de multa para @${getUserName(mentioned)}.`, { mentions: [mentioned] });
+              return reply(`🚨 Te pegaram! Você pagou ${fmt(pay)} de multa pra @${getUserName(mentioned)}.`, { mentions: [mentioned] });
             }
           }
 
@@ -8106,7 +8106,7 @@ Entre em contato com o dono do bot:
 
           if (sub === 'toprpg') {
             const arr = Object.entries(econ.users).map(([id, u]) => [id, (u.wallet || 0) + (u.bank || 0)]).sort((a, b) => b[1] - a[1]).slice(0, 10);
-            if (arr.length === 0) return reply('Sem dados suficientes para ranking.');
+            if (arr.length === 0) return reply(`📊 Ainda não tem gente suficiente pro ranking ♡`);
             let text = '⚔️ 🏆 *RANKING RPG* 🏆 ⚔️\n\n';
             const mentions = [];
             arr.forEach(([id, total], i) => {
@@ -8326,7 +8326,7 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         if (!me.pets) me.pets = [];
-        if (me.pets.length >= 5) return reply('🐾 Você já tem o máximo de 5 pets!');
+        if (me.pets.length >= 5) return reply(`🐾 Você já tem 5 pets, o máximo! Cuida bem deles ♡`);
 
         const petTypes = {
           lobo: { emoji: '🐺', name: 'Lobo', type: 'lobo', hp: 100, attack: 15, defense: 10, speed: 18, cost: 5000, desc: 'Veloz e leal', element: 'normal' },
@@ -8404,21 +8404,21 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets para alimentar!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet pra alimentar ♡`);
 
         // Aplica degradação antes de alimentar
         applyPetDegradation(me.pets);
 
         const index = parseInt(q) - 1;
         if (isNaN(index) || index < 0 || index >= me.pets.length) {
-          return reply(`❌ Pet inválido! Use ${prefix}pets para ver seus pets e escolha um número.`);
+          return reply(`🐾 Não achei esse pet... confere o número em ${prefix}pets ♡`);
         }
 
         const pet = me.pets[index];
         const foodCost = 100;
 
-        if (me.wallet < foodCost) return reply(`💰 Você precisa de ${foodCost} moedas para comprar comida!`);
-        if (pet.hunger >= 100) return reply(`🍖 ${pet.emoji} *${pet.name}* já está satisfeito!`);
+        if (me.wallet < foodCost) return reply(`💰 A comidinha custa ${foodCost} moedas e falta pra você (｡•́︿•̀｡)`);
+        if (pet.hunger >= 100) return reply(`🍖 ${pet.emoji} *${pet.name}* tá de barriguinha cheia ♡`);
 
         me.wallet -= foodCost;
         const hungerGain = 30 + Math.floor(Math.random() * 20);
@@ -8456,7 +8456,7 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets para treinar!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet pra treinar ♡`);
 
         // Aplica degradação antes de treinar
         applyPetDegradation(me.pets);
@@ -8467,12 +8467,12 @@ Entre em contato com o dono do bot:
         }
 
         const pet = me.pets[index];
-        if (pet.hunger < 30) return reply(`🍖 ${pet.emoji} *${pet.name}* está com muita fome! Alimente-o primeiro.`);
+        if (pet.hunger < 30) return reply(`🍖 ${pet.emoji} *${pet.name}* tá morrendo de fome! Dá comida primeiro ♡`);
 
         const now = Date.now();
         if (pet.lastTrain && (now - pet.lastTrain) < 3600000) {
           const remaining = Math.ceil((3600000 - (now - pet.lastTrain)) / 60000);
-          return reply(`⏰ ${pet.emoji} *${pet.name}* está cansado!\n\n🕐 Aguarde *${remaining} minutos*`);
+          return reply(`⏰ ${pet.emoji} *${pet.name}* está cansado!\n\n🕐 Espera *${remaining} minutos*`);
         }
 
         const expGain = 50 + Math.floor(Math.random() * 30);
@@ -8534,7 +8534,7 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets para evoluir!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet pra evoluir ♡`);
         if (!me.items) me.items = {};
 
         const index = parseInt(q) - 1;
@@ -8576,14 +8576,14 @@ Entre em contato com o dono do bot:
 
         const petEvolutions = evolutionData[pet.type];
         if (!petEvolutions || pet.evolutions >= petEvolutions.length) {
-          return reply(`❌ ${pet.emoji} *${pet.name}* já atingiu sua forma máxima!`);
+          return reply(`✨ ${pet.emoji} *${pet.name}* já chegou na forma máxima!`);
         }
 
         const nextEvolution = petEvolutions[pet.evolutions];
 
         // Verifica requisitos
         if (pet.level < nextEvolution.reqLevel) {
-          return reply(`❌ ${pet.emoji} *${pet.name}* precisa estar no nível ${nextEvolution.reqLevel}!\n\n📊 Nível atual: ${pet.level}`);
+          return reply(`💎 ${pet.emoji} *${pet.name}* precisa estar no nível ${nextEvolution.reqLevel}!\n\n📊 Nível atual: ${pet.level}`);
         }
 
         // Verifica pedra da evolução (verifica em inventory e items)
@@ -8591,7 +8591,7 @@ Entre em contato com o dono do bot:
         const hasStoneInItems = me.items?.evolution_stone && me.items.evolution_stone >= 1;
 
         if (!hasStoneInInventory && !hasStoneInItems) {
-          return reply(`❌ Você precisa de uma *Pedra da Evolução* para evoluir seu pet!\n\n🛒 Compre na ${prefix}loja ou ganhe em batalhas de pets.`);
+          return reply(`💎 Você precisa de uma *Pedra da Evolução* pra evoluir seu pet!\n\n🛒 Compre na ${prefix}loja ou ganhe em batalhas de pets.`);
         }
 
         // Consome a pedra (verifica onde está)
@@ -8662,15 +8662,15 @@ Entre em contato com o dono do bot:
         const newName = args.slice(1).join(' ');
 
         if (isNaN(index) || index < 0 || index >= me.pets.length) {
-          return reply(`❌ Pet inválido!`);
+          return reply(`🐾 Não achei esse pet (・・ ) ?`);
         }
 
         if (!newName || newName.length < 2) {
-          return reply(`❌ Nome muito curto! Mínimo 2 caracteres.`);
+          return reply(`💎 Nome curtinho demais! Pelo menos 2 letras ♡`);
         }
 
         if (newName.length > 20) {
-          return reply(`❌ Nome muito longo! Máximo 20 caracteres.`);
+          return reply(`💎 Nome grande demais! No máximo 20 letras ♡`);
         }
 
         const pet = me.pets[index];
@@ -8678,7 +8678,7 @@ Entre em contato com o dono do bot:
         const cost = 500;
 
         if (me.wallet < cost) {
-          return reply(`💰 Renomear custa ${cost} moedas!`);
+          return reply(`💰 Mudar o nome custa ${cost} moedas ♡`);
         }
 
         me.wallet -= cost;
@@ -8702,24 +8702,24 @@ Entre em contato com o dono do bot:
         const PET_BATTLE_COOLDOWN = 10 * 60 * 1000;
         if (me.lastPetBattle && (now - me.lastPetBattle) < PET_BATTLE_COOLDOWN) {
           const remaining = Math.ceil((PET_BATTLE_COOLDOWN - (now - me.lastPetBattle)) / 60000);
-          return reply(`⏰ Você acabou de batalhar. Aguarde *${remaining} minutos*.`);
+          return reply(`⏰ Seu pet acabou de lutar! Deixa ele descansar *${remaining} minutos* ♡`);
         }
 
-        if (!target) return reply(`❌ Marque alguém para batalhar!\n\n💡 Uso: ${prefix}batalha <número> @user`);
-        if (target === sender) return reply('❌ Você não pode batalhar contra si mesmo!');
+        if (!target) return reply(`💎 Marca alguém pra batalhar ♡\n\n💡 Usa assim: ${prefix}batalha <número> @user`);
+        if (target === sender) return reply(`💎 Batalhar contra você mesmo? Não dá, né ( ˘ ³˘)`);
 
         const opponent = getEcoUser(econ, target);
 
         if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
         if (!opponent.pets || opponent.pets.length === 0) {
-          return reply('❌ Seu oponente não tem pets!');
+          return reply(`🐾 Seu oponente ainda não tem pet!`);
         }
 
         const args = q.split(' ');
         const myIndex = parseInt(args[0]) - 1;
 
         if (isNaN(myIndex) || myIndex < 0 || myIndex >= me.pets.length) {
-          return reply(`❌ Pet inválido! Use ${prefix}pets para ver.`);
+          return reply(`🐾 Não achei esse pet... confere em ${prefix}pets ♡`);
         }
 
         const myPet = me.pets[myIndex];
@@ -8917,21 +8917,21 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
         const target = (menc_jid2 && menc_jid2[0]) || null;
 
-        if (!target) return reply(`❌ Marque alguém para apostar!\n\n💡 Uso: ${prefix}apostarpet <valor> <nº pet> @user`);
-        if (target === sender) return reply('❌ Você não pode apostar contra si mesmo!');
+        if (!target) return reply(`💎 Marca alguém pra apostar ♡\n\n💡 Usa assim: ${prefix}apostarpet <valor> <nº pet> @user`);
+        if (target === sender) return reply(`💎 Apostar contra você mesmo? Não vale ( ˘ ³˘)`);
 
         const argsArr = q.split(' ');
         const betAmount = parseInt(argsArr[0]) || 0;
         const petIndex = parseInt(argsArr[1]) - 1;
 
-        if (betAmount <= 0) return reply('❌ Informe um valor válido para apostar!');
-        if (betAmount > me.wallet) return reply('❌ Você não tem dinheiro suficiente na carteira!');
+        if (betAmount <= 0) return reply(`💰 Me fala quanto quer apostar ♡`);
+        if (betAmount > me.wallet) return reply(`💰 Hmm, falta moedinha na carteira pra isso... (｡•́︿•̀｡)`);
 
         const opponent = getEcoUser(econ, target);
-        if (betAmount > opponent.wallet) return reply('❌ Seu oponente não tem dinheiro suficiente!');
+        if (betAmount > opponent.wallet) return reply(`💰 Seu oponente não tem moedas suficientes!`);
 
         if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
-        if (!opponent.pets || opponent.pets.length === 0) return reply('❌ Seu oponente não tem pets!');
+        if (!opponent.pets || opponent.pets.length === 0) return reply(`🐾 Seu oponente ainda não tem pet!`);
 
         if (isNaN(petIndex) || petIndex < 0 || petIndex >= me.pets.length) {
           return reply(`🐾 Não achei esse pet... confere em ${prefix}pets ♡`);
@@ -8992,9 +8992,9 @@ Entre em contato com o dono do bot:
 
         if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
         if (isNaN(petIndex) || petIndex < 0 || petIndex >= me.pets.length) {
-          return reply(`❌ Pet inválido!\n\n💡 Uso: ${prefix}equippet <nº pet> <item>`);
+          return reply(`🐾 Não achei esse pet!\n\n💡 Usa assim: ${prefix}equippet <nº pet> <item>`);
         }
-        if (!itemId) return reply(`❌ Informe o item!\n\n💡 Uso: ${prefix}equippet <nº pet> <item>`);
+        if (!itemId) return reply(`💎 Me fala o item ♡\n\n💡 Usa assim: ${prefix}equippet <nº pet> <item>`);
 
         const pet = me.pets[petIndex];
 
@@ -9003,10 +9003,10 @@ Entre em contato com o dono do bot:
           return key.toLowerCase().includes(itemId) && me.inventory[key] > 0;
         });
 
-        if (!foundItemId) return reply('❌ Você não tem esse item no inventário!');
+        if (!foundItemId) return reply(`🎒 Esse item não tá no seu inventário (・・ ) ?`);
 
         const item = SHOP_ITEMS[foundItemId];
-        if (!item) return reply('❌ Item inválido!');
+        if (!item) return reply(`💎 Esse item não existe (・・ ) ?`);
 
         // Determina o slot do equipamento
         let slot = 'weapon';
@@ -9060,12 +9060,12 @@ Entre em contato com o dono do bot:
 
         if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
         if (isNaN(petIndex) || petIndex < 0 || petIndex >= me.pets.length) {
-          return reply(`❌ Pet inválido!\n\n💡 Uso: ${prefix}unequippet <nº pet>`);
+          return reply(`🐾 Não achei esse pet!\n\n💡 Usa assim: ${prefix}unequippet <nº pet>`);
         }
 
         const pet = me.pets[petIndex];
         if (!pet.equipment || !pet.equipment.accessory) {
-          return reply(`❌ ${pet.emoji} *${pet.name}* não tem equipamentos!`);
+          return reply(`🐾 ${pet.emoji} *${pet.name}* não tá usando nada ♡`);
         }
 
         const item = pet.equipment.accessory;
@@ -9074,7 +9074,7 @@ Entre em contato com o dono do bot:
         delete pet.equipment.accessory;
 
         saveEconomy(econ);
-        return reply(`✅ *${item}* foi removido de ${pet.emoji} *${pet.name}* e devolvido ao inventário!`);
+        return reply(`✿ Tirei *${item}* de ${pet.emoji} *${pet.name}* e guardei no inventário ♡`);
       }
 
       // Equipar item para o Jogador
@@ -9091,7 +9091,7 @@ Entre em contato com o dono do bot:
 
         const itemId = q?.toLowerCase().trim();
         if (!itemId) {
-          return reply(`❌ Informe o item para equipar!\n\n💡 Uso: ${prefix}equipar <item>\n📦 Veja seus itens: ${prefix}inventario`);
+          return reply(`💎 Me fala o item pra equipar!\n\n💡 Usa assim: ${prefix}equipar <item>\n📦 Olha seus itens: ${prefix}inventario`);
         }
 
         // Procura o item no inventário
@@ -9104,17 +9104,17 @@ Entre em contato com o dono do bot:
         }
 
         if (!foundItemId) {
-          return reply(`❌ Item não encontrado no inventário!\n\n💡 Use ${prefix}inventario para ver seus itens`);
+          return reply(`💎 Não achei esse item no inventário (・・ ) ?\n\n💡 Usa ${prefix}inventario pra ver seus itens`);
         }
 
         const item = econ.shop[foundItemId];
         if (!item || item.type !== 'equipment') {
-          return reply('❌ Este item não pode ser equipado!');
+          return reply(`💎 Esse item não dá pra equipar (・・ ) ?`);
         }
 
         const slot = item.slot;
         if (!slot) {
-          return reply('❌ Item sem slot definido!');
+          return reply(`💎 Esse item não tem lugar pra equipar (・・ ) ?`);
         }
 
         // Se já tem item no slot, devolve ao inventário
@@ -9169,17 +9169,17 @@ Entre em contato com o dono do bot:
         else if (slotName.includes('acessório') || slotName.includes('accessory') || slotName.includes('anel')) slot = 'accessory';
 
         if (!slot) {
-          return reply(`❌ Slot inválido!\n\n💡 Use: arma, armadura, elmo, botas, escudo ou acessório`);
+          return reply(`💎 Hmm, Slot não deu certo!\n\n💡 Use: arma, armadura, elmo, botas, escudo ou acessório`);
         }
 
         if (!me.equipment[slot]) {
-          return reply(`❌ Você não tem nada equipado no slot ${slotName}!`);
+          return reply(`💎 Não tem nada equipado em ${slotName} ♡`);
         }
 
         const itemId = me.equipment[slot];
         const item = econ.shop[itemId];
         if (!item) {
-          return reply('❌ Item inválido!');
+          return reply(`💎 Esse item não existe (・・ ) ?`);
         }
 
         // Devolve ao inventário
@@ -9187,7 +9187,7 @@ Entre em contato com o dono do bot:
         me.equipment[slot] = null;
 
         saveEconomy(econ);
-        return reply(`✅ *${item.name}* foi removido e devolvido ao inventário!`);
+        return reply(`✿ Tirei *${item.name}* e guardei no inventário ♡`);
       }
 
       // Sistema de Dungeons/Masmorras Solo
@@ -9203,7 +9203,7 @@ Entre em contato com o dono do bot:
         const now = Date.now();
         if (me.lastDungeon && (now - me.lastDungeon) < 7200000) {
           const remaining = Math.ceil((7200000 - (now - me.lastDungeon)) / 60000);
-          return reply(`⏰ Você está cansado da última aventura!\n\n🕐 Aguarde *${remaining} minutos*`);
+          return reply(`⏰ Você tá cansadinho(a) da última aventura!\n\n🕐 Espera *${remaining} minutos*`);
         }
 
         const dungeons = [
@@ -9237,7 +9237,7 @@ Entre em contato com o dono do bot:
 
         const index = parseInt(q) - 1;
         if (isNaN(index) || index < 0 || index >= availableDungeons.length) {
-          return reply('❌ Masmorra inválida!');
+          return reply(`🗺️ Essa masmorra não existe (・・ ) ?`);
         }
 
         const dungeon = availableDungeons[index];
@@ -9338,7 +9338,7 @@ Entre em contato com o dono do bot:
           const remaining = Math.ceil((BOSS_COOLDOWN - (now - me.lastBoss)) / 60000);
           const hours = Math.floor(remaining / 60);
           const mins = remaining % 60;
-          return reply(`⏰ Você está exausto da última batalha!\n\n🕐 Aguarde *${hours}h ${mins}min*`);
+          return reply(`⏰ Você tá exausto da última batalha!\n\n🕐 Espera *${hours}h ${mins}min*`);
         }
 
         const bosses = [
@@ -9478,15 +9478,15 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para duelar!\n\n💡 Exemplo: ${prefix}duelarrpg @user`);
-        if (target === sender) return reply('❌ Você não pode duelar consigo mesmo!');
+        if (!target) return reply(`💎 Marca alguém pra duelar ♡\n\n💡 Ex.: ${prefix}duelarrpg @user`);
+        if (target === sender) return reply(`⚔️ Duelar com você mesmo? Não dá, né ( ˘ ³˘)`);
 
         const opponent = getEcoUser(econ, target);
 
         const now = Date.now();
         if (me.lastDuel && (now - me.lastDuel) < 600000) {
           const remaining = Math.ceil((600000 - (now - me.lastDuel)) / 60000);
-          return reply(`⏰ Você está cansado! Aguarde ${remaining} minutos para outro duelo.`);
+          return reply(`⏰ Você tá cansadinho! Descansa ${remaining} minutos antes do próximo duelo ♡`);
         }
 
         // Calcular stats
@@ -9612,7 +9612,7 @@ Entre em contato com o dono do bot:
         const now = Date.now();
         if (me.lastArena && (now - me.lastArena) < 1800000) {
           const remaining = Math.ceil((1800000 - (now - me.lastArena)) / 60000);
-          return reply(`⏰ A arena está fechada para você! Aguarde ${remaining} minutos.`);
+          return reply(`⏰ A arena fechou pra você por enquanto! Volta daqui a ${remaining} minutos ♡`);
         }
 
         const levels = [
@@ -9646,7 +9646,7 @@ Entre em contato com o dono do bot:
 
         const index = parseInt(q) - 1;
         if (isNaN(index) || index < 0 || index >= available.length) {
-          return reply('❌ Arena inválida!');
+          return reply(`🏟️ Essa arena não existe (・・ ) ?`);
         }
 
         const arena = available[index];
@@ -9717,13 +9717,13 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         if (!me.equipment || !me.equipment.weapon) {
-          return reply(`❌ Você não tem uma arma equipada!\n\n💡 Use ${prefix}equipar para equipar uma arma`);
+          return reply(`💎 Você ainda não tem uma arma equipada!\n\n💡 Usa ${prefix}equipar pra equipar uma arma`);
         }
 
         const weapon = me.equipment.weapon;
         const enchantLevel = weapon.enchant || 0;
 
-        if (enchantLevel >= 10) return reply('✨ Sua arma já está no encantamento máximo (+10)!');
+        if (enchantLevel >= 10) return reply(`✨ Sua arma já tá no encantamento máximo (+10)!`);
 
         const cost = (enchantLevel + 1) * 5000;
         const crystals = (enchantLevel + 1) * 3;
@@ -9745,9 +9745,9 @@ Entre em contato com o dono do bot:
           return reply(text);
         }
 
-        if (q.toLowerCase() !== 'confirmar') return reply('❌ Use "confirmar" para prosseguir');
+        if (q.toLowerCase() !== 'confirmar') return reply(`💎 Manda "confirmar" pra seguir ♡`);
 
-        if (me.wallet < cost) return reply(`💰 Você precisa de ${cost.toLocaleString()} moedas!`);
+        if (me.wallet < cost) return reply(`💰 Pra isso você precisa de ${cost.toLocaleString()} moedas ♡`);
         if (!me.materials || (me.materials.cristal || 0) < crystals) {
           return reply(`💎 Você precisa de ${crystals}x cristais!`);
         }
@@ -9779,7 +9779,7 @@ Entre em contato com o dono do bot:
             return reply(`💥 *FALHA CRÍTICA!*\n\n😱 Sua arma foi destruída no processo...\n\n⚠️ Você perdeu: ${weapon.emoji} ${weapon.name} +${enchantLevel}`);
           } else {
             saveEconomy(econ);
-            return reply(`❌ *FALHA!*\n\n😔 O encantamento falhou, mas sua arma permaneceu intacta.\n\n💰 Perdeu: ${cost.toLocaleString()}\n💎 Perdeu: ${crystals}x cristais`);
+            return reply(`💎 *FALHA!*\n\n😔 O encantamento falhou, mas sua arma permaneceu intacta.\n\n💰 Perdeu: ${cost.toLocaleString()}\n💎 Perdeu: ${crystals}x cristais`);
           }
         }
         break;
@@ -9795,7 +9795,7 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         if (!me.inventory || Object.keys(me.inventory).length === 0) {
-          return reply(`❌ Seu inventário está vazio!\n\n💡 Consiga equipamentos em masmorras`);
+          return reply(`💎 Seu inventário está vazio!\n\n💡 Consiga equipamentos em masmorras`);
         }
 
         if (!q) {
@@ -9818,7 +9818,7 @@ Entre em contato com o dono do bot:
 
         const itemName = q.toLowerCase();
         if (!me.inventory[itemName] || me.inventory[itemName] <= 0) {
-          return reply('❌ Você não tem este item!');
+          return reply(`🎒 Você não tem esse item (・・ ) ?`);
         }
 
         me.inventory[itemName]--;
@@ -9892,13 +9892,13 @@ Entre em contato com o dono do bot:
         const classeEscolhida = q.toLowerCase().trim();
 
         if (!classes[classeEscolhida]) {
-          return reply(`❌ Classe "${q}" não existe!\n\n📜 Classes: guerreiro, mago, arqueiro, curandeiro, ladino, paladino`);
+          return reply(`💎 Classe "${q}" não existe!\n\n📜 Classes: guerreiro, mago, arqueiro, curandeiro, ladino, paladino`);
         }
 
         // Custo para trocar classe (grátis se não tiver nenhuma)
         const custo = me.classe ? 50000 : 0;
         if (me.wallet < custo) {
-          return reply(`💰 Você precisa de ${custo.toLocaleString()} para trocar de classe!`);
+          return reply(`💰 Trocar de classe custa ${custo.toLocaleString()} moedas ♡`);
         }
 
         me.wallet -= custo;
@@ -9985,12 +9985,12 @@ Entre em contato com o dono do bot:
         if (sub === 'comprar') {
           const tipo = args[1]?.toLowerCase();
           if (!tipo || !casas[tipo]) {
-            return reply(`❌ Tipo inválido!\n\n🏘️ Tipos: barraca, cabana, casa, mansao, castelo`);
+            return reply(`💎 Hmm, Tipo não deu certo!\n\n🏘️ Tipos: barraca, cabana, casa, mansao, castelo`);
           }
 
           const casa = casas[tipo];
           if (me.wallet < casa.price) {
-            return reply(`💰 Você precisa de ${casa.price.toLocaleString()} para comprar ${casa.name}!`);
+            return reply(`💰 Pra comprar ${casa.name} você precisa de ${casa.price.toLocaleString()} moedas ♡`);
           }
 
           me.wallet -= casa.price;
@@ -10003,7 +10003,7 @@ Entre em contato com o dono do bot:
 
         // Coletar renda
         if (sub === 'coletar') {
-          if (!me.house.type) return reply('❌ Você não tem uma casa!');
+          if (!me.house.type) return reply(`🏠 Você ainda não tem casa ♡`);
 
           const casa = casas[me.house.type];
           const agora = Date.now();
@@ -10014,7 +10014,7 @@ Entre em contato com o dono do bot:
             const tempoRestante = 86400000 - tempoPassado;
             const horas = Math.floor(tempoRestante / 3600000);
             const minutos = Math.floor((tempoRestante % 3600000) / 60000);
-            return reply(`⏰ Próxima coleta em: ${horas}h ${minutos}min`);
+            return reply(`⏰ A próxima coleta sai em ${horas}h ${minutos}min ♡`);
           }
 
           const rendaTotal = Math.min(diasPassados, 7) * casa.renda; // Máximo 7 dias acumulados
@@ -10027,7 +10027,7 @@ Entre em contato com o dono do bot:
 
         // Decorar
         if (sub === 'decorar') {
-          if (!me.house.type) return reply('❌ Você não tem uma casa!');
+          if (!me.house.type) return reply(`🏠 Você ainda não tem casa ♡`);
 
           const decId = args[1]?.toLowerCase();
           if (!decId) {
@@ -10041,11 +10041,11 @@ Entre em contato com o dono do bot:
             return reply(text);
           }
 
-          if (!decoracoes[decId]) return reply('❌ Decoração não encontrada!');
-          if (me.house.decorations.includes(decId)) return reply('❌ Você já tem essa decoração!');
+          if (!decoracoes[decId]) return reply(`🏠 Não achei essa decoração (・・ ) ?`);
+          if (me.house.decorations.includes(decId)) return reply(`🏠 Essa decoração você já tem ♡`);
 
           const dec = decoracoes[decId];
-          if (me.wallet < dec.price) return reply(`💰 Você precisa de ${dec.price.toLocaleString()}!`);
+          if (me.wallet < dec.price) return reply(`💰 Pra isso você precisa de ${dec.price.toLocaleString()} moedas ♡`);
 
           me.wallet -= dec.price;
           me.house.decorations.push(decId);
@@ -10054,7 +10054,7 @@ Entre em contato com o dono do bot:
           return reply(`🎨 *DECORAÇÃO ADICIONADA*\n\n${dec.emoji} ${dec.name}\n✨ +${dec.value} ${dec.bonus}`);
         }
 
-        return reply(`💡 Use: ${prefix}casa para ver opções`);
+        return reply(`💎 Manda ${prefix}casa pra ver as opções ♡`);
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -10109,18 +10109,18 @@ Entre em contato com o dono do bot:
         if (sub === 'criar') {
           const tipo = args[1]?.toLowerCase();
           if (!tipo || !dungeons[tipo]) {
-            return reply(`❌ Dungeon inválida!\n\n🏰 Tipos: floresta, caverna, ruinas, vulcao, abismo`);
+            return reply(`💎 Hmm, Dungeon não deu certo!\n\n🏰 Tipos: floresta, caverna, ruinas, vulcao, abismo`);
           }
 
           const dg = dungeons[tipo];
           if ((me.level || 1) < dg.level) {
-            return reply(`🔒 Você precisa ser nível ${dg.level}+ para esta dungeon!`);
+            return reply(`🔒 Essa dungeon é pra nível ${dg.level} ou mais ♡`);
           }
 
           // Verificar se já está em uma party
           for (const [id, party] of Object.entries(econ.dungeonParties)) {
             if (party.members.includes(sender)) {
-              return reply(`❌ Você já está em uma party!\n\n💡 Use ${prefix}dungeon sair para sair`);
+              return reply(`💎 Você já está em uma party!\n\n💡 Usa ${prefix}dungeon sair pra sair`);
             }
           }
 
@@ -10142,7 +10142,7 @@ Entre em contato com o dono do bot:
         // Entrar em party
         if (sub === 'entrar') {
           const partyInput = args[1];
-          if (!partyInput) return reply(`💡 Use: ${prefix}dungeon entrar <id da party>`);
+          if (!partyInput) return reply(`💎 Usa assim: ${prefix}dungeon entrar <id do grupo> ♡`);
 
           // Encontrar party
           let partyId = null;
@@ -10154,22 +10154,22 @@ Entre em contato com o dono do bot:
           }
 
           if (!partyId || !econ.dungeonParties[partyId]) {
-            return reply('❌ Party não encontrada!');
+            return reply(`💎 Não achei esse grupo de dungeon (・・ ) ?`);
           }
 
           const party = econ.dungeonParties[partyId];
           const dg = dungeons[party.type];
 
           if (party.members.includes(sender)) {
-            return reply('❌ Você já está nesta party!');
+            return reply(`💎 Você já tá nesse grupo ♡`);
           }
 
           if (party.members.length >= party.maxMembers) {
-            return reply('❌ Party está cheia!');
+            return reply(`💎 Esse grupo já lotou! (｡•́︿•̀｡)`);
           }
 
           if ((me.level || 1) < dg.level) {
-            return reply(`🔒 Você precisa ser nível ${dg.level}+!`);
+            return reply(`🔒 Precisa ser nível ${dg.level} ou mais ♡`);
           }
 
           party.members.push(sender);
@@ -10188,12 +10188,12 @@ Entre em contato com o dono do bot:
             }
           }
 
-          if (!myParty) return reply('❌ Você não é líder de nenhuma party!');
+          if (!myParty) return reply(`💎 Você não é líder de nenhum grupo de dungeon ♡`);
 
           const dg = dungeons[myParty.type];
 
           if (myParty.members.length < 2) {
-            return reply(`❌ Você precisa de pelo menos 2 membros para iniciar!`);
+            return reply(`💎 Precisa de pelo menos 2 pessoas pra começar ♡`);
           }
 
           // Calcular poder total do grupo
@@ -10253,18 +10253,18 @@ Entre em contato com o dono do bot:
               if (party.leader === sender) {
                 delete econ.dungeonParties[id];
                 saveEconomy(econ);
-                return reply('✅ Party encerrada!');
+                return reply(`✿ Grupo de dungeon encerrado ♡`);
               } else {
                 party.members = party.members.filter(m => m !== sender);
                 saveEconomy(econ);
-                return reply('✅ Você saiu da party!');
+                return reply(`✿ Você saiu do grupo de dungeon ♡`);
               }
             }
           }
-          return reply('❌ Você não está em nenhuma party!');
+          return reply(`💎 Você não tá em nenhum grupo de dungeon ♡`);
         }
 
-        return reply(`💡 Use ${prefix}dungeon para ver comandos`);
+        return reply(`💎 Manda ${prefix}dungeon pra ver os comandos ♡`);
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -10315,17 +10315,17 @@ Entre em contato com o dono do bot:
           const preco = parseInt(args[2]);
 
           if (!itemName || !preco || preco < 100) {
-            return reply(`💡 Use: ${prefix}mercadoplayer vender <item> <preço>\n\n⚠️ Preço mínimo: 100`);
+            return reply(`💡 Usa assim: ${prefix}mercadoplayer vender <item> <preço>\n\n⚠️ Preço mínimo: 100`);
           }
 
           if (!me.inventory || !me.inventory[itemName] || me.inventory[itemName] <= 0) {
-            return reply('❌ Você não tem este item!');
+            return reply(`🎒 Você não tem esse item (・・ ) ?`);
           }
 
           // Verificar limite de anúncios
           const meusAnuncios = econ.playerMarket.listings.filter(l => l.seller === sender);
           if (meusAnuncios.length >= 5) {
-            return reply('❌ Você já tem 5 itens à venda! Cancele algum primeiro.');
+            return reply(`🛒 Você já tem 5 itens à venda! Cancela algum primeiro ♡`);
           }
 
           me.inventory[itemName]--;
@@ -10340,7 +10340,7 @@ Entre em contato com o dono do bot:
           });
 
           saveEconomy(econ);
-          return reply(`✅ *ITEM LISTADO*\n\n📦 ${itemName}\n💰 ${preco.toLocaleString()}\n\n⚠️ Taxa de ${econ.playerMarket.fee * 100}% será cobrada na venda`);
+          return reply(`✿ *ITEM LISTADO*\n\n📦 ${itemName}\n💰 ${preco.toLocaleString()}\n\n⚠️ Taxa de ${econ.playerMarket.fee * 100}% será cobrada na venda`);
         }
 
         // Comprar item
@@ -10349,13 +10349,13 @@ Entre em contato com o dono do bot:
           const listings = econ.playerMarket.listings.filter(l => l.seller !== sender);
 
           if (isNaN(index) || index < 0 || index >= listings.length) {
-            return reply('❌ Número inválido! Use o número da lista.');
+            return reply(`💎 Esse número não tá na lista... confere pra mim? ♡`);
           }
 
           const listing = listings[index];
 
           if (me.wallet < listing.price) {
-            return reply(`💰 Você precisa de ${listing.price.toLocaleString()}!`);
+            return reply(`💰 Pra isso você precisa de ${listing.price.toLocaleString()} moedas ♡`);
           }
 
           // Processar compra
@@ -10372,7 +10372,7 @@ Entre em contato com o dono do bot:
           econ.playerMarket.listings = econ.playerMarket.listings.filter(l => l.id !== listing.id);
 
           saveEconomy(econ);
-          return reply(`✅ *COMPRA REALIZADA*\n\n📦 ${listing.name}\n💰 -${listing.price.toLocaleString()}\n\n📬 Vendedor @${listing.seller.split('@')[0]} recebeu ${valorLiquido.toLocaleString()}`);
+          return reply(`✿ *COMPRA REALIZADA*\n\n📦 ${listing.name}\n💰 -${listing.price.toLocaleString()}\n\n📬 Vendedor @${listing.seller.split('@')[0]} recebeu ${valorLiquido.toLocaleString()}`);
         }
 
         // Meus anúncios
@@ -10380,7 +10380,7 @@ Entre em contato com o dono do bot:
           const meusAnuncios = econ.playerMarket.listings.filter(l => l.seller === sender);
 
           if (meusAnuncios.length === 0) {
-            return reply('📦 Você não tem nenhum item à venda!');
+            return reply(`📦 Você não tem nada à venda ♡`);
           }
 
           let text = `🛒 *SEUS ANÚNCIOS*\n\n`;
@@ -10400,7 +10400,7 @@ Entre em contato com o dono do bot:
           const index = parseInt(args[1]) - 1;
 
           if (isNaN(index) || index < 0 || index >= meusAnuncios.length) {
-            return reply('❌ Número inválido!');
+            return reply(`💎 Esse número não dá... confere pra mim? ♡`);
           }
 
           const listing = meusAnuncios[index];
@@ -10413,10 +10413,10 @@ Entre em contato com o dono do bot:
           econ.playerMarket.listings = econ.playerMarket.listings.filter(l => l.id !== listing.id);
 
           saveEconomy(econ);
-          return reply(`✅ Anúncio cancelado! ${listing.name} devolvido ao inventário.`);
+          return reply(`🗑️ Anúncio cancelado! ${listing.name} voltou pro seu inventário ♡`);
         }
 
-        return reply(`💡 Use ${prefix}mercadoplayer para ver comandos`);
+        return reply(`💎 Manda ${prefix}mercadoplayer pra ver os comandos ♡`);
       }
 
       // Sistema de Missões
@@ -10506,10 +10506,10 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!me.clan) return reply('🏰 Você precisa estar em um clã para declarar guerra!');
+        if (!me.clan) return reply(`🏰 Pra declarar guerra você precisa estar num clã ♡`);
 
         const myClan = econ.clans[me.clan];
-        if (myClan.leader !== sender) return reply('👑 Apenas o líder pode declarar guerra!');
+        if (myClan.leader !== sender) return reply(`👑 Só o líder do clã pode declarar guerra ♡`);
 
         if (!q) {
           let text = `╭━━━⊱ ⚔️ *GUERRA DE CLÃS* ⊱━━━╮\n`;
@@ -10525,7 +10525,7 @@ Entre em contato com o dono do bot:
           return reply(text);
         }
 
-        return reply('⚠️ Sistema de guerras será implementado em breve!');
+        return reply(`⚔️ As guerras de clã tão chegando, aguenta aí ♡`);
         break;
       }
 
@@ -10538,20 +10538,20 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!q) return reply(`❗ Use: ${prefix}criarcla <nome do clã>`);
-        if (me.clan) return reply('❌ Você já pertence a um clã!');
+        if (!q) return reply(`💎 Usa assim: ${prefix}criarcla <nome do clã>`);
+        if (me.clan) return reply(`🏰 Você já tá num clã ♡`);
 
         const clanName = q.trim();
-        if (clanName.length < 3 || clanName.length > 24) return reply('❌ Nome do clã precisa ter entre 3 e 24 caracteres.');
+        if (clanName.length < 3 || clanName.length > 24) return reply(`💎 O nome do clã precisa ter de 3 a 24 letras ♡`);
 
         // Verificar duplicado
         const baseNormalized = normalizeClanName(clanName);
         const nameTaken = Object.values(econ.clans || {}).some(c => c.name && normalizeClanName(c.name) === baseNormalized);
-        if (nameTaken) return reply('❌ Já existe um clã com esse nome!');
+        if (nameTaken) return reply(`🏰 Já tem um clã com esse nome! Escolhe outro? ♡`);
 
         // Custo para criar clã
         const clanCost = 20000;
-        if ((me.wallet || 0) < clanCost) return reply(`💰 Você precisa de ${clanCost.toLocaleString()} moedas para criar um clã.`);
+        if ((me.wallet || 0) < clanCost) return reply(`💰 Criar um clã custa ${clanCost.toLocaleString()} moedas ♡`);
 
         me.wallet -= clanCost;
 
@@ -10562,7 +10562,7 @@ Entre em contato com o dono do bot:
         me.clan = id;
 
         saveEconomy(econ);
-        return reply(`✅ Clã criado com sucesso!\nNome: *${clanName}*\nLíder: @${sender.split('@')[0]}`, { mentions: [sender] });
+        return reply(`✿ Clã criado !\nNome: *${clanName}*\nLíder: @${sender.split('@')[0]}`, { mentions: [sender] });
         break;
       }
 
@@ -10618,23 +10618,23 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!me.clan) return reply('❌ Você precisa estar em um clã para convidar membros!');
+        if (!me.clan) return reply(`🏰 Pra convidar alguém você precisa estar num clã ♡`);
 
         const clan = econ.clans[me.clan];
-        if (!clan) { me.clan = null; saveEconomy(econ); return reply('❌ Seu clã não foi encontrado.'); }
+        if (!clan) { me.clan = null; saveEconomy(econ); return reply(`🏰 Não achei seu clã (・・ ) ?`); }
 
         // Apenas líder pode convidar por enquanto
-        if (clan.leader !== sender) return reply('👑 Apenas o líder do clã pode convidar novos membros!');
+        if (clan.leader !== sender) return reply(`👑 Só o líder do clã pode convidar gente nova ♡`);
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❗ Marque um membro para convidar. Ex: ${prefix}convidar @user`);
-        if (target === sender) return reply('❌ Você não pode convidar você mesmo!');
+        if (!target) return reply(`💎 Marca quem você quer convidar. Ex.: ${prefix}convidar @user`);
+        if (target === sender) return reply(`💎 Convidar você mesmo? Não dá, né ( ˘ ³˘)`);
 
         const targetUser = getEcoUser(econ, target);
-        if (targetUser.clan) return reply('❌ Esta pessoa já pertence a outro clã!');
+        if (targetUser.clan) return reply(`🏰 Essa pessoa já tá em outro clã ♡`);
 
         // Usar convites pendentes em vez de adicionar imediatamente.
         clan.pendingInvites = clan.pendingInvites || [];
-        if (clan.pendingInvites.includes(target)) return reply('❗ Este usuário já tem um convite pendente para o clã.');
+        if (clan.pendingInvites.includes(target)) return reply(`💌 Essa pessoa já tem um convite esperando ♡`);
         clan.pendingInvites.push(target);
         saveEconomy(econ);
 
@@ -10653,14 +10653,14 @@ Entre em contato com o dono do bot:
         const me2 = getEcoUser(econ2, sender);
         if (!me2.clan) return reply(`🛡️ Você ainda não tá em nenhum clã ♡`);
         const clan2 = econ2.clans[me2.clan];
-        if (!clan2) { me2.clan = null; saveEconomy(econ2); return reply('❌ Seu clã não foi encontrado.'); }
-        if (clan2.leader !== sender) return reply('👑 Apenas o líder pode remover convites.');
+        if (!clan2) { me2.clan = null; saveEconomy(econ2); return reply(`🏰 Não achei seu clã (・・ ) ?`); }
+        if (clan2.leader !== sender) return reply(`👑 Só o líder pode cancelar convites ♡`);
         const target2 = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target2) return reply(`❗ Marque um usuário para remover o convite. Ex: ${prefix}rmconvite @user`);
-        if (!Array.isArray(clan2.pendingInvites) || !clan2.pendingInvites.includes(target2)) return reply('❌ Este usuário não tem um convite pendente para o seu clã.');
+        if (!target2) return reply(`💎 Marca de quem é o convite. Ex.: ${prefix}rmconvite @user`);
+        if (!Array.isArray(clan2.pendingInvites) || !clan2.pendingInvites.includes(target2)) return reply(`💌 Essa pessoa não tem convite do seu clã ♡`);
         clan2.pendingInvites = clan2.pendingInvites.filter(id => id !== target2);
         saveEconomy(econ2);
-        return reply(`🗑️ Convite removido para @${target2.split('@')[0]}.`, { mentions: [target2] });
+        return reply(`🗑️ Cancelei o convite de @${target2.split('@')[0]} ♡`, { mentions: [target2] });
       }
         break;
 
@@ -10679,7 +10679,7 @@ Entre em contato com o dono do bot:
         if (!clan) {
           me.clan = null;
           saveEconomy(econ);
-          return reply('❌ Seu clã não foi encontrado, seu status foi resetado.');
+          return reply(`🏰 Não achei seu clã, então zerei seu status de clã ♡`);
         }
 
         // Se for líder
@@ -10695,14 +10695,14 @@ Entre em contato com o dono do bot:
             delete econ.clans[clan.id];
             me.clan = null;
             saveEconomy(econ);
-            return reply('🗑️ Você saiu e o clã foi dissolvido pois não há mais membros.');
+            return reply(`🗑️ Você saiu e, como não sobrou ninguém, o clã acabou (｡•́︿•̀｡)`);
           } else {
             const newLeader = remaining[0];
             clan.leader = newLeader;
             clan.members = remaining;
             me.clan = null;
             saveEconomy(econ);
-            return reply(`🔁 Você deixou o clã e a liderança foi transferida para @${newLeader.split('@')[0]}.`, { mentions: [newLeader] });
+            return reply(`🔁 Você saiu do clã e agora quem lidera é @${newLeader.split('@')[0]} ♡`, { mentions: [newLeader] });
           }
         }
 
@@ -10716,13 +10716,13 @@ Entre em contato com o dono do bot:
           }
         }
         saveEconomy(econ);
-        return reply('✅ Você saiu do clã.');
+        return reply(`✿ Você saiu do clã ♡`);
         break;
       }
       // Aceitar convite de clã
       case 'aceitarconvite':
       case 'aceitarrpg': {
-        if (!isGroup) return reply('⚔️ Comandos de clã só funcionam em grupos com Modo RPG.');
+        if (!isGroup) return reply(`⚔︎ O clã só funciona em grupo com o Modo RPG ligado, tá? ♡`);
         if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
@@ -10730,7 +10730,7 @@ Entre em contato com o dono do bot:
 
         // Procurar convites pendentes
         const clansWithInvite = Object.values(econ.clans || {}).filter(c => Array.isArray(c.pendingInvites) && c.pendingInvites.includes(sender));
-        if (!q && clansWithInvite.length === 0) return reply('❌ Você não possui convites pendentes para clãs.');
+        if (!q && clansWithInvite.length === 0) return reply(`💌 Você não tem nenhum convite de clã ♡`);
         let clanObj = null;
         if (!q) {
           if (clansWithInvite.length === 1) clanObj = clansWithInvite[0];
@@ -10739,7 +10739,7 @@ Entre em contato com o dono do bot:
           const qLower = q.trim().toLowerCase();
           clanObj = econ.clans[q] || Object.values(econ.clans || {}).find(c => (c.name || '').toLowerCase() === qLower);
         }
-        if (!clanObj) return reply('❌ Clã não encontrado ou sem convite pendente.');
+        if (!clanObj) return reply(`💌 Não achei esse clã, ou ele não te convidou (・・ ) ?`);
         // Join
         clanObj.members = clanObj.members || [];
         if (!clanObj.members.includes(sender)) clanObj.members.push(sender);
@@ -10747,18 +10747,18 @@ Entre em contato com o dono do bot:
         clanObj.pendingInvites = (clanObj.pendingInvites || []).filter(id => id !== sender);
         me.clan = clanObj.id;
         saveEconomy(econ);
-        return reply(`✅ Você entrou para o clã *${clanObj.name}*!`);
+        return reply(`🎉 Bem-vindo(a) ao clã *${clanObj.name}*! ♡`);
       }
 
       // Recusar convite
       case 'recusarconvite':
       case 'recusar': {
-        if (!isGroup) return reply('⚔️ Comandos de clã só funcionam em grupos com Modo RPG.');
+        if (!isGroup) return reply(`⚔︎ O clã só funciona em grupo com o Modo RPG ligado, tá? ♡`);
         if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
         const clansWithInvite = Object.values(econ.clans || {}).filter(c => Array.isArray(c.pendingInvites) && c.pendingInvites.includes(sender));
-        if (!q && clansWithInvite.length === 0) return reply('❌ Você não possui convites pendentes para clãs.');
+        if (!q && clansWithInvite.length === 0) return reply(`💌 Você não tem nenhum convite de clã ♡`);
         let clanObj = null;
         if (!q) {
           if (clansWithInvite.length === 1) clanObj = clansWithInvite[0];
@@ -10767,10 +10767,10 @@ Entre em contato com o dono do bot:
           const qLower = q.trim().toLowerCase();
           clanObj = econ.clans[q] || Object.values(econ.clans || {}).find(c => (c.name || '').toLowerCase() === qLower);
         }
-        if (!clanObj) return reply('❌ Clã não encontrado ou sem convite pendente.');
+        if (!clanObj) return reply(`💌 Não achei esse clã, ou ele não te convidou (・・ ) ?`);
         clanObj.pendingInvites = (clanObj.pendingInvites || []).filter(id => id !== sender);
         saveEconomy(econ);
-        return reply(`❗ Você recusou o convite do clã *${clanObj.name}*.`);
+        return reply(`💌 Você recusou o convite do clã *${clanObj.name}* ♡`);
       }
 
       // Expulsar membro do clã (apenas líder)
@@ -10782,12 +10782,12 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
         if (!me.clan) return reply(`🛡️ Você ainda não tá em nenhum clã ♡`);
         const clan = econ.clans[me.clan];
-        if (!clan) { me.clan = null; saveEconomy(econ); return reply('❌ Seu clã não foi encontrado.'); }
-        if (clan.leader !== sender) return reply('👑 Apenas o líder pode expulsar membros.');
+        if (!clan) { me.clan = null; saveEconomy(econ); return reply(`🏰 Não achei seu clã (・・ ) ?`); }
+        if (clan.leader !== sender) return reply(`👑 Só o líder pode expulsar gente do clã ♡`);
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❗ Marque um membro para expulsar. Ex: ${prefix}expulsar @user`);
-        if (target === sender) return reply('❌ Você não pode se expulsar como líder. Use sair para demitir-se e transferir liderança.');
-        if (!clan.members || !clan.members.includes(target)) return reply('❌ Este usuário não é membro do seu clã.');
+        if (!target) return reply(`💎 Marca quem você quer expulsar. Ex.: ${prefix}expulsar @user`);
+        if (target === sender) return reply(`👑 O líder não pode se expulsar! Usa sair pra deixar o clã e passar a liderança ♡`);
+        if (!clan.members || !clan.members.includes(target)) return reply(`🏰 Essa pessoa não é do seu clã ♡`);
         clan.members = clan.members.filter(m => m !== target);
         const targetUser = getEcoUser(econ, target);
         if (targetUser.clan === clan.id) targetUser.clan = null;
@@ -10796,7 +10796,7 @@ Entre em contato com o dono do bot:
           if (Array.isArray(c.pendingInvites) && c.pendingInvites.includes(target)) c.pendingInvites = c.pendingInvites.filter(x => x !== target);
         }
         saveEconomy(econ);
-        return reply(`🗑️ @${target.split('@')[0]} foi expulso do clã *${clan.name}*.`, { mentions: [target] });
+        return reply(`🗑️ @${target.split('@')[0]} saiu do clã *${clan.name}* (foi expulso).`, { mentions: [target] });
       }
 
       // Sistema de Família
@@ -10901,8 +10901,8 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para adotar!\n\n💡 Exemplo: ${prefix}adotaruser @user`);
-        if (target === sender) return reply('❌ Você não pode se adotar!');
+        if (!target) return reply(`💎 Marca alguém pra adotar ♡\n\n💡 Ex.: ${prefix}adotaruser @user`);
+        if (target === sender) return reply(`💎 Adotar você mesmo? Não dá, né ( ˘ ³˘)`);
 
         const targetUser = getEcoUser(econ, target);
 
@@ -10911,18 +10911,18 @@ Entre em contato com o dono do bot:
 
         // Verificar se já é filho
         if (me.family.children && me.family.children.includes(target)) {
-          return reply('❌ Esta pessoa já é seu filho(a)!');
+          return reply(`👨‍👧 Essa pessoa já é seu filho(a) ♡`);
         }
 
         // Verificar se já tem pais
         if (targetUser.family.parents && targetUser.family.parents.length >= 2) {
-          return reply('❌ Esta pessoa já tem 2 pais/mães!');
+          return reply(`👨‍👧 Essa pessoa já tem 2 pais/mães ♡`);
         }
 
         // Custo da adoção
         const adoptCost = 10000;
         if (me.wallet < adoptCost) {
-          return reply(`💰 Você precisa de ${adoptCost.toLocaleString()} moedas para adotar!`);
+          return reply(`💰 Adotar custa ${adoptCost.toLocaleString()} moedas ♡`);
         }
 
         me.wallet -= adoptCost;
@@ -10967,8 +10967,8 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para deserdar!\n\n💡 Exemplo: ${prefix}deserdar @user`);
-        if (target === sender) return reply('❌ Você não pode se deserdar!');
+        if (!target) return reply(`💎 Marca alguém pra deserdar ♡\n\n💡 Ex.: ${prefix}deserdar @user`);
+        if (target === sender) return reply(`💎 Deserdar você mesmo? Não dá, né ( ˘ ³˘)`);
 
         const targetUser = getEcoUser(econ, target);
 
@@ -10977,7 +10977,7 @@ Entre em contato com o dono do bot:
 
         // Verificar se é filho
         if (!me.family.children || !me.family.children.includes(target)) {
-          return reply('❌ Esta pessoa não é seu filho(a)!');
+          return reply(`👨‍👧 Essa pessoa não é seu filho(a) ♡`);
         }
 
         // Remover dos filhos
@@ -11142,21 +11142,21 @@ Entre em contato com o dono do bot:
             tournament.prize = 50000;
 
             saveEconomy(econ);
-            return reply(`╭━━━⊱ 🏆 *TORNEIO ABERTO!* ⊱━━━╮\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n⚔️ Um torneio foi iniciado!\n\n💰 Prêmio: ${tournament.prize.toLocaleString()}\n⏰ Inscrições abertas!\n\n💡 Use ${prefix}torneio entrar`);
+            return reply(`╭━━━⊱ 🏆 *TORNEIO ABERTO!* ⊱━━━╮\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n⚔️ Um torneio foi iniciado!\n\n💰 Prêmio: ${tournament.prize.toLocaleString()}\n⏰ Inscrições abertas!\n\n💡 Usa ${prefix}torneio entrar`);
           }
 
-          return reply(`❌ Não há torneio ativo!\n\n💡 Admins: Use ${prefix}torneio criar`);
+          return reply(`💎 Não tem torneio ativo!\n\n💡 Admins: Usa ${prefix}torneio criar`);
         }
 
         // Entrar no torneio
         if (q === 'entrar') {
           if (tournament.participants.includes(sender)) {
-            return reply('❌ Você já está inscrito no torneio!');
+            return reply(`🏆 Você já tá inscrito no torneio ♡`);
           }
 
           const entryCost = 5000;
           if (me.wallet < entryCost) {
-            return reply(`💰 Você precisa de ${entryCost.toLocaleString()} moedas para participar!`);
+            return reply(`💰 Entrar no torneio custa ${entryCost.toLocaleString()} moedas ♡`);
           }
 
           me.wallet -= entryCost;
@@ -11164,13 +11164,13 @@ Entre em contato com o dono do bot:
           tournament.prize += entryCost;
 
           saveEconomy(econ);
-          return reply(`✅ Você entrou no torneio!\n\n👥 Participantes: ${tournament.participants.length}\n💰 Prêmio acumulado: ${tournament.prize.toLocaleString()}`);
+          return reply(`✿ Você entrou no torneio!\n\n👥 Participantes: ${tournament.participants.length}\n💰 Prêmio acumulado: ${tournament.prize.toLocaleString()}`);
         }
 
         // Iniciar torneio
         if (q === 'iniciar' && isGroupAdmins) {
           if (tournament.participants.length < 2) {
-            return reply('❌ Precisa de pelo menos 2 participantes!');
+            return reply(`💎 Precisa de pelo menos 2 pessoas, tá? ♡`);
           }
 
           // Simular batalhas
@@ -11239,8 +11239,8 @@ Entre em contato com o dono do bot:
         if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para abraçar!\n\n💡 Exemplo: ${prefix}abracar @user`);
-        if (target === sender) return reply('❌ Você não pode se abraçar!');
+        if (!target) return reply(`💎 Marca alguém pra abraçar ♡\n\n💡 Ex.: ${prefix}abracar @user`);
+        if (target === sender) return reply(`🤗 Abraçar você mesmo? Vem cá que eu te abraço ♡`);
 
         const actions = [
           `${pushname} deu um abraço caloroso em @${target.split('@')[0]}! 🤗`,
@@ -11259,8 +11259,8 @@ Entre em contato com o dono do bot:
         if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para beijar!\n\n💡 Exemplo: ${prefix}beijarrpg @user`);
-        if (target === sender) return reply('❌ Você não pode se beijar!');
+        if (!target) return reply(`💎 Marca alguém pra beijar ♡\n\n💡 Ex.: ${prefix}beijarrpg @user`);
+        if (target === sender) return reply(`💋 Beijar você mesmo? Não dá, né ( ˘ ³˘)`);
 
         const actions = [
           `${pushname} deu um beijo em @${target.split('@')[0]}! 😘`,
@@ -11280,8 +11280,8 @@ Entre em contato com o dono do bot:
         if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para dar um tapa!\n\n💡 Exemplo: ${prefix}baterrpg @user`);
-        if (target === sender) return reply('❌ Você não pode bater em si mesmo!');
+        if (!target) return reply(`💎 Marca alguém pra dar um tapa ♡\n\n💡 Ex.: ${prefix}baterrpg @user`);
+        if (target === sender) return reply(`👊 Bater em você mesmo? Nem pensar! (｡•́︿•̀｡)`);
 
         const actions = [
           `${pushname} deu um tapa em @${target.split('@')[0]}! 👋💥`,
@@ -11303,12 +11303,12 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para proteger!\n\n💡 Exemplo: ${prefix}proteger @user`);
-        if (target === sender) return reply('❌ Você não pode se proteger assim!');
+        if (!target) return reply(`💎 Marca alguém pra proteger ♡\n\n💡 Ex.: ${prefix}proteger @user`);
+        if (target === sender) return reply(`🛡️ Proteger você mesmo assim não vale ( ˘ ³˘)`);
 
         const protectCost = 2000;
         if (me.wallet < protectCost) {
-          return reply(`💰 Você precisa de ${protectCost.toLocaleString()} moedas para proteger alguém!`);
+          return reply(`💰 Proteger alguém custa ${protectCost.toLocaleString()} moedas ♡`);
         }
 
         me.wallet -= protectCost;
@@ -11381,15 +11381,15 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque alguém para votar!\n\n💡 Exemplo: ${prefix}votar @user`);
-        if (target === sender) return reply('❌ Você não pode votar em si mesmo!');
+        if (!target) return reply(`💎 Marca alguém pra votar ♡\n\n💡 Ex.: ${prefix}votar @user`);
+        if (target === sender) return reply(`🗳️ Votar em você mesmo? Não vale ( ˘ ³˘)`);
 
         if (!me.lastVote) me.lastVote = {};
 
         const now = Date.now();
         if (me.lastVote[target] && (now - me.lastVote[target]) < 86400000) {
           const remaining = Math.ceil((86400000 - (now - me.lastVote[target])) / 3600000);
-          return reply(`⏰ Você já votou nesta pessoa hoje!\n\nAguarde ${remaining}h para votar novamente.`);
+          return reply(`⏰ Você já votou nesta pessoa hoje!\n\nEspera ${remaining}h pra votar novamente.`);
         }
 
         const targetData = getEcoUser(econ, target);
@@ -11433,7 +11433,7 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const allUsers = Object.entries(econ.users || {});
 
-        if (allUsers.length === 0) return reply('📊 Nenhum jogador registrado no sistema RPG ainda.');
+        if (allUsers.length === 0) return reply(`📊 Ninguém começou o RPG ainda ♡`);
 
         // Calcular poder total de cada jogador
         const rankedUsers = allUsers.map(([id, data]) => {
@@ -11480,10 +11480,10 @@ Entre em contato com o dono do bot:
 
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque um usuário!\n\n💡 Uso: ${prefix}rpgadd @user <valor>`);
+        if (!target) return reply(`💎 Marca alguém pra mim!\n\n💡 Usa assim: ${prefix}rpgadd @user <valor>`);
 
         const amount = parseInt(args[args.length - 1]) || 0;
-        if (amount <= 0) return reply('❌ Informe um valor válido maior que 0!');
+        if (amount <= 0) return reply(`💎 Me fala um valor maior que 0 ♡`);
 
         const econ = loadEconomy();
         const targetData = getEcoUser(econ, target);
@@ -11501,10 +11501,10 @@ Entre em contato com o dono do bot:
 
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque um usuário!\n\n💡 Uso: ${prefix}rpgremove @user <valor>`);
+        if (!target) return reply(`💎 Marca alguém pra mim!\n\n💡 Usa assim: ${prefix}rpgremove @user <valor>`);
 
         const amount = parseInt(args[args.length - 1]) || 0;
-        if (amount <= 0) return reply('❌ Informe um valor válido maior que 0!');
+        if (amount <= 0) return reply(`💎 Me fala um valor maior que 0 ♡`);
 
         const econ = loadEconomy();
         const targetData = getEcoUser(econ, target);
@@ -11523,10 +11523,10 @@ Entre em contato com o dono do bot:
 
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque um usuário!\n\n💡 Uso: ${prefix}rpgsetlevel @user <nivel>`);
+        if (!target) return reply(`💎 Marca alguém pra mim!\n\n💡 Usa assim: ${prefix}rpgsetlevel @user <nivel>`);
 
         const newLevel = parseInt(args[args.length - 1]) || 0;
-        if (newLevel < 1 || newLevel > 1000) return reply('❌ Nível deve ser entre 1 e 1000!');
+        if (newLevel < 1 || newLevel > 1000) return reply(`💎 O nível tem que ser de 1 a 1000 ♡`);
 
         const econ = loadEconomy();
         const targetData = getEcoUser(econ, target);
@@ -11551,12 +11551,12 @@ Entre em contato com o dono do bot:
 
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque um usuário!\n\n💡 Uso: ${prefix}rpgadditem @user <item> <quantidade>`);
+        if (!target) return reply(`💎 Marca alguém pra mim!\n\n💡 Usa assim: ${prefix}rpgadditem @user <item> <quantidade>`);
 
         const itemArgs = args.filter(a => !a.startsWith('@')).slice(0, -1).join('_').toLowerCase();
         const qty = parseInt(args[args.length - 1]) || 1;
 
-        if (!itemArgs) return reply('❌ Informe o nome do item!');
+        if (!itemArgs) return reply(`💎 Me fala o nome do item ♡`);
 
         const econ = loadEconomy();
         const targetData = getEcoUser(econ, target);
@@ -11574,12 +11574,12 @@ Entre em contato com o dono do bot:
 
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque um usuário!\n\n💡 Uso: ${prefix}rpgremoveitem @user <item> <quantidade>`);
+        if (!target) return reply(`💎 Marca alguém pra mim!\n\n💡 Usa assim: ${prefix}rpgremoveitem @user <item> <quantidade>`);
 
         const itemArgs = args.slice(0, -1).join('_').toLowerCase();
         const qty = parseInt(args[args.length - 1]) || 1;
 
-        if (!itemArgs) return reply('❌ Informe o nome do item!');
+        if (!itemArgs) return reply(`💎 Me fala o nome do item ♡`);
 
         const econ = loadEconomy();
         const targetData = getEcoUser(econ, target);
@@ -11597,7 +11597,7 @@ Entre em contato com o dono do bot:
 
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`❌ Marque um usuário!\n\n💡 Uso: ${prefix}rpgresetplayer @user`);
+        if (!target) return reply(`💎 Marca alguém pra mim!\n\n💡 Usa assim: ${prefix}rpgresetplayer @user`);
 
         const econ = loadEconomy();
 
@@ -11606,18 +11606,18 @@ Entre em contato com o dono do bot:
           saveEconomy(econ);
           return reply(`╭━━━⊱ ✅ *JOGADOR RESETADO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 🗑️ Todos os dados RPG removidos\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
         } else {
-          return reply('❌ Jogador não encontrado no sistema RPG!');
+          return reply(`💎 Essa pessoa ainda não começou o RPG (・・ ) ?`);
         }
       }
 
       // Reset global de todo o RPG
       case 'rpgresetglobal':
       case 'resetrpgglobal': {
-        if (!(isOwner && !isSubOwner)) return reply('🚫 Apenas o dono principal pode usar este comando!');
+        if (!(isOwner && !isSubOwner)) return reply(`💎 Esse é só pro meu dono principal, viu? ( ˘ ³˘)♡`);
 
         const confirmArg = (args[0] || '').toLowerCase();
         if (confirmArg !== 'confirmar') {
-          return reply(`⚠️ *ATENÇÃO: RESET GLOBAL DO RPG*\n\n🗑️ Este comando irá APAGAR TODOS os dados do sistema RPG!\n\n❌ Esta ação é IRREVERSÍVEL!\n\n✅ Para confirmar, use:\n${prefix}rpgresetglobal confirmar`);
+          return reply(`💎 *ATENÇÃO: RESET GLOBAL DO RPG*\n\n🗑️ Este comando irá APAGAR TODOS os dados do sistema RPG!\n\n❌ Esta ação é IRREVERSÍVEL!\n\n✅ Para confirmar, use:\n${prefix}rpgresetglobal confirmar`);
         }
 
         const econ = loadEconomy();
@@ -11718,7 +11718,7 @@ Entre em contato com o dono do bot:
         if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const rawItemId = (args[0] || '');
-        if (!rawItemId) return reply(`❌ Informe o item!\n\n💡 Uso: ${prefix}comprarpremium <item>\n🛒 Veja a loja: ${prefix}lojapremium`);
+        if (!rawItemId) return reply(`💎 Me fala o item ♡\n\n💡 Usa assim: ${prefix}comprarpremium <item>\n🛒 Olha a loja: ${prefix}lojapremium`);
 
         const premiumItems = {
           'titulo_lendario': { name: '🏅 Título Lendário', price: 500000 },
@@ -11736,13 +11736,13 @@ Entre em contato com o dono do bot:
         // Normaliza a busca do item ignorando acentos
         const itemId = findKeyIgnoringAccents(premiumItems, rawItemId) || normalizeParam(rawItemId).replace(/\s+/g, '_');
         const item = premiumItems[itemId];
-        if (!item) return reply(`❌ Item não encontrado!\n\n🛒 Veja a loja: ${prefix}lojapremium`);
+        if (!item) return reply(`💎 Não achei esse item (・・ ) ?\n\n🛒 Olha a loja: ${prefix}lojapremium`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
         if (me.wallet < item.price) {
-          return reply(`❌ Saldo insuficiente!\n\n💰 Necessário: ${item.price.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
+          return reply(`💰 Hmm, falta moedinha pra isso...\n\n💰 Necessário: ${item.price.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
         }
 
         me.wallet -= item.price;
@@ -11757,7 +11757,7 @@ Entre em contato com o dono do bot:
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *COMPRA PREMIUM* ⊱━━━╮\n│\n│ 🛒 ${item.name}\n│ 💰 -${item.price.toLocaleString()}\n│\n│ ✨ Item adicionado com sucesso!\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ ✅ *COMPRA PREMIUM* ⊱━━━╮\n│\n│ 🛒 ${item.name}\n│ 💰 -${item.price.toLocaleString()}\n│\n│ ✨ Item adicionado !\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Cassino Roleta - NERFADO
@@ -11771,12 +11771,12 @@ Entre em contato com o dono do bot:
 
         // Cooldown de 10 minutos
         const cdRoleta = me.cooldowns?.roleta || 0;
-        if (Date.now() < cdRoleta) return reply(`⏳ Aguarde ${timeLeft(cdRoleta)} para jogar roleta novamente.`);
+        if (Date.now() < cdRoleta) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdRoleta)} você gira a roleta de novo ♡`);
 
         const bet = parseInt(args[0]) || 0;
         const rawChoice = (args[1] || '');
 
-        if (bet <= 0) return reply(`🎰 *ROLETA*\n\n💡 Uso: ${prefix}roleta <valor> <cor>\n\nCores: vermelho, preto, verde\n\n🔴 Vermelho: 1.5x\n⚫ Preto: 1.5x\n🟢 Verde (0): 5x`);
+        if (bet <= 0) return reply(`🎰 *ROLETA*\n\n💡 Usa assim: ${prefix}roleta <valor> <cor>\n\nCores: vermelho, preto, verde\n\n🔴 Vermelho: 1.5x\n⚫ Preto: 1.5x\n🟢 Verde (0): 5x`);
 
         // Normaliza a cor escolhida
         const colorMap = {
@@ -11788,10 +11788,10 @@ Entre em contato com o dono do bot:
         const choice = colorMap[normalizedRaw] || findKeyIgnoringAccents(colorMap, rawChoice);
 
         if (!choice) {
-          return reply('❌ Escolha: vermelho, preto ou verde\n\n📝 Aceita: red, black, green também');
+          return reply('💎 Escolhe: vermelho, preto ou verde\n\n📝 Aceita: red, black, green também');
         }
 
-        if (bet > me.wallet) return reply('❌ Saldo insuficiente na carteira!');
+        if (bet > me.wallet) return reply(`💰 Hmm, falta moedinha na carteira pra isso... (｡•́︿•̀｡)`);
 
         // ROLETA NERFADA: A cor que o jogador NÃO escolheu tem 85% de chance de sair
         const result = Math.random();
@@ -11847,10 +11847,10 @@ Entre em contato com o dono do bot:
 
         // Cooldown de 10 minutos
         const cdBJ = me.cooldowns?.blackjack || 0;
-        if (Date.now() < cdBJ) return reply(`⏳ Aguarde ${timeLeft(cdBJ)} para jogar blackjack novamente.`);
+        if (Date.now() < cdBJ) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdBJ)} você joga blackjack de novo ♡`);
 
         const bet = parseInt(args[0]) || 0;
-        if (bet <= 0) return reply(`🃏 *BLACKJACK*\n\n💡 Uso: ${prefix}blackjack <valor>\n\n📜 Regras: Chegue mais perto de 21 sem passar!`);
+        if (bet <= 0) return reply(`🃏 *BLACKJACK*\n\n💡 Usa assim: ${prefix}blackjack <valor>\n\n📜 Regras: Chegue mais perto de 21 sem passar!`);
         if (bet > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // BLACKJACK NERFADO: Dealer tem cartas viciadas
@@ -11945,10 +11945,10 @@ Entre em contato com o dono do bot:
 
         // Cooldown de 8 minutos
         const cdSlots2 = me.cooldowns?.slots2 || 0;
-        if (Date.now() < cdSlots2) return reply(`⏳ Aguarde ${timeLeft(cdSlots2)} para jogar slots novamente.`);
+        if (Date.now() < cdSlots2) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdSlots2)} você joga slots de novo ♡`);
 
         const bet = parseInt(args[0]) || 0;
-        if (bet <= 0) return reply(`🎰 *CAÇA-NÍQUEIS*\n\n💡 Uso: ${prefix}slots <valor>\n\n🎲 Alinhe 3 símbolos iguais para ganhar!`);
+        if (bet <= 0) return reply(`🎰 *CAÇA-NÍQUEIS*\n\n💡 Usa assim: ${prefix}slots <valor>\n\n🎲 Alinhe 3 símbolos iguais pra ganhar!`);
         if (bet > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // SLOTS NERFADO: Cada posição tem preferência por símbolos diferentes
@@ -12057,7 +12057,7 @@ Entre em contato com o dono do bot:
           const totalCost = ticketPrice * qty;
 
           if (me.wallet < totalCost) {
-            return reply(`❌ Saldo insuficiente!\n\n💰 Necessário: ${totalCost.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
+            return reply(`💰 Hmm, falta moedinha pra isso...\n\n💰 Necessário: ${totalCost.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
           }
 
           me.wallet -= totalCost;
@@ -12069,7 +12069,7 @@ Entre em contato com o dono do bot:
           return reply(`╭━━━⊱ 🎫 *BILHETES COMPRADOS* ⊱━━━╮\n\n🎟️ Quantidade: ${qty}\n💰 Total: -${totalCost.toLocaleString()}\n\n🎫 Seus bilhetes: ${econ.lottery.tickets[sender]}\n💰 Jackpot atual: ${econ.lottery.jackpot.toLocaleString()}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
-        return reply(`❌ Subcomando inválido!\n\n💡 Use:\n${prefix}loteria - Ver informações\n${prefix}loteria comprar <qtd> - Comprar bilhetes`);
+        return reply(`💎 Hmm, não conheço essa opção!\n\n💡 Use:\n${prefix}loteria - Ver informações\n${prefix}loteria comprar <qtd> - Comprar bilhetes`);
       }
 
       // Corrida de cavalos
@@ -12155,7 +12155,7 @@ Entre em contato com o dono do bot:
 
         if (!sub || sub === 'ver') {
           if (econ.auctions.length === 0) {
-            return reply(`🏛️ Nenhum leilão ativo!\n\n💡 Use ${prefix}leilao criar <item> <preço> para criar um leilão`);
+            return reply(`🏛️ Nenhum leilão ativo!\n\n💡 Usa ${prefix}leilao criar <item> <preço> pra criar um leilão`);
           }
 
           let text = `╭━━━⊱ 🏛️ *LEILÕES ATIVOS* ⊱━━━╮\n\n`;
@@ -12180,11 +12180,11 @@ Entre em contato com o dono do bot:
           const price = parseInt(args[2]) || 0;
 
           if (!item || price < 1000) {
-            return reply(`❌ Use: ${prefix}leilao criar <item> <preço_inicial>\n\n📌 Preço mínimo: 1.000`);
+            return reply(`💎 Usa assim: ${prefix}leilao criar <item> <preço_inicial>\n\n📌 Preço mínimo: 1.000`);
           }
 
           if (!me.inventory || !me.inventory[item] || me.inventory[item] < 1) {
-            return reply(`❌ Você não tem esse item no inventário!`);
+            return reply(`🎒 Esse item não tá no seu inventário (・・ ) ?`);
           }
 
           me.inventory[item]--;
@@ -12208,17 +12208,17 @@ Entre em contato com o dono do bot:
           const bidAmount = parseInt(args[2]) || 0;
 
           if (auctionIndex < 0 || auctionIndex >= econ.auctions.length) {
-            return reply('❌ Leilão não encontrado!');
+            return reply(`🔨 Não achei esse leilão (・・ ) ?`);
           }
 
           const auction = econ.auctions[auctionIndex];
 
           if (auction.seller === sender) {
-            return reply('❌ Você não pode dar lance no próprio leilão!');
+            return reply(`🔨 Dar lance no seu próprio leilão? Não vale ( ˘ ³˘)`);
           }
 
           if (bidAmount <= auction.currentBid) {
-            return reply(`❌ Lance deve ser maior que ${auction.currentBid.toLocaleString()}!`);
+            return reply(`🔨 O lance tem que passar de ${auction.currentBid.toLocaleString()} ♡`);
           }
 
           if (me.wallet < bidAmount) {
@@ -12240,7 +12240,7 @@ Entre em contato com o dono do bot:
           return reply(`╭━━━⊱ 🏛️ *LANCE DADO* ⊱━━━╮\n\n📦 Item: ${auction.item}\n💰 Seu lance: ${bidAmount.toLocaleString()}\n🏆 Você é o maior lance!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
-        return reply(`❌ Subcomando inválido!\n\n💡 Use:\n${prefix}leilao - Ver leilões\n${prefix}leilao criar <item> <preço>\n${prefix}leilao dar <nº> <valor>`);
+        return reply(`💎 Hmm, não conheço essa opção!\n\n💡 Use:\n${prefix}leilao - Ver leilões\n${prefix}leilao criar <item> <preço>\n${prefix}leilao dar <nº> <valor>`);
       }
 
       // Ranking de riqueza global
@@ -12250,7 +12250,7 @@ Entre em contato com o dono do bot:
         const econ = loadEconomy();
         const allUsers = Object.entries(econ.users || {});
 
-        if (allUsers.length === 0) return reply('📊 Nenhum jogador registrado ainda.');
+        if (allUsers.length === 0) return reply(`📊 Ninguém começou ainda ♡`);
 
         const rankedUsers = allUsers.map(([id, data]) => {
           const totalWealth = (data.wallet || 0) + (data.bank || 0);
@@ -12322,10 +12322,10 @@ Entre em contato com o dono do bot:
         }
 
         const boost = boosts[sub];
-        if (!boost) return reply(`❌ Boost não encontrado!\n\n💡 Use ${prefix}boost para ver disponíveis`);
+        if (!boost) return reply(`💎 Boost não encontrado!\n\n💡 Usa ${prefix}boost pra ver disponíveis`);
 
         if (me.wallet < boost.price) {
-          return reply(`❌ Saldo insuficiente!\n\n💰 Necessário: ${boost.price.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
+          return reply(`💰 Hmm, falta moedinha pra isso...\n\n💰 Necessário: ${boost.price.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
         }
 
         me.wallet -= boost.price;
@@ -12338,7 +12338,7 @@ Entre em contato com o dono do bot:
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ⚡ *BOOST ATIVADO* ⊱━━━╮\n\n${boost.name}\n⏰ Duração: ${boost.duration / 60000} minutos\n💰 Custo: -${boost.price.toLocaleString()}\n\n🔥 Aproveite os bônus!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ ⚡ *BOOST LIGADO* ⊱━━━╮\n\n${boost.name}\n⏰ Duração: ${boost.duration / 60000} minutos\n💰 Custo: -${boost.price.toLocaleString()}\n\n🔥 Aproveite os bônus!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Sistema de Tributos/Impostos
@@ -12420,11 +12420,11 @@ Entre em contato com o dono do bot:
           const dueAmount = daysSincePayment > 0 ? dailyTax * daysSincePayment : 0;
 
           if (dueAmount === 0) {
-            return reply('✅ Você não tem tributos pendentes!');
+            return reply(`✿ Você tá em dia com os tributos ♡`);
           }
 
           if (me.wallet < dueAmount) {
-            return reply(`❌ Saldo insuficiente!\n\n💸 Valor devido: ${dueAmount.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
+            return reply(`💰 Hmm, falta moedinha pra isso...\n\n💸 Valor devido: ${dueAmount.toLocaleString()}\n💼 Sua carteira: ${me.wallet.toLocaleString()}`);
           }
 
           me.wallet -= dueAmount;
@@ -12433,10 +12433,10 @@ Entre em contato com o dono do bot:
 
           saveEconomy(econ);
 
-          return reply(`╭━━━⊱ ✅ *TRIBUTOS PAGOS* ⊱━━━╮\n\n💸 Valor: -${dueAmount.toLocaleString()}\n📅 Próximo: Em 1 dia\n\n✅ Você está em dia!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+          return reply(`╭━━━⊱ ✅ *TRIBUTOS PAGOS* ⊱━━━╮\n\n💸 Valor: -${dueAmount.toLocaleString()}\n📅 Próximo: Em 1 dia\n\n✅ Você tá em dia!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
-        return reply(`❌ Subcomando inválido!\n\n💡 Use:\n${prefix}tributos - Ver situação\n${prefix}tributos pagar - Pagar tributos`);
+        return reply(`💎 Hmm, não conheço essa opção!\n\n💡 Use:\n${prefix}tributos - Ver situação\n${prefix}tributos pagar - Pagar tributos`);
       }
 
       // Sistema de Doação
@@ -12450,7 +12450,7 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const amount = parseInt(args[0]) || 0;
-        if (amount < 1000) return reply(`💝 *DOAÇÃO*\n\n💡 Uso: ${prefix}doar <valor>\n\n📌 Mínimo: 1.000 moedas\n✨ Ganhe karma e reputação por doar!`);
+        if (amount < 1000) return reply(`💝 *DOAÇÃO*\n\n💡 Usa assim: ${prefix}doar <valor>\n\n📌 Mínimo: 1.000 moedas\n✨ Ganhe karma e reputação por doar!`);
 
         if (me.wallet < amount) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
@@ -12486,17 +12486,17 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
-        if (!target) return reply(`🎁 *PRESENTE*\n\n💡 Uso: ${prefix}presente @user <item> <quantidade>\n\n📦 Envie itens do seu inventário para outros jogadores!`);
-        if (target === sender) return reply('❌ Você não pode enviar presentes para si mesmo!');
+        if (!target) return reply(`🎁 *PRESENTE*\n\n💡 Usa assim: ${prefix}presente @user <item> <quantidade>\n\n📦 Envie itens do seu inventário pra outros jogadores!`);
+        if (target === sender) return reply(`🎁 Mandar presente pra você mesmo? Não vale ( ˘ ³˘)`);
 
         const item = (args[0] || '').toLowerCase();
         const qty = parseInt(args[1]) || 1;
 
-        if (!item) return reply('❌ Informe o item que deseja enviar!');
+        if (!item) return reply(`🎁 Me fala qual item você quer mandar ♡`);
 
         me.inventory = me.inventory || {};
         if (!me.inventory[item] || me.inventory[item] < qty) {
-          return reply(`❌ Você não tem ${item} suficiente!\n\n📦 Você tem: ${me.inventory[item] || 0}`);
+          return reply(`💎 Você ainda não tem ${item} suficiente!\n\n📦 Você tem: ${me.inventory[item] || 0}`);
         }
 
         const targetData = getEcoUser(econ, target);
@@ -12645,11 +12645,11 @@ Entre em contato com o dono do bot:
           return reply(text);
         }
 
-        if (q !== 'confirmar') return reply('❌ Use "confirmar" para prestigiar');
+        if (q !== 'confirmar') return reply(`💎 Manda "confirmar" pra fazer o prestígio ♡`);
 
         // Verificar todos os requisitos
         if ((me.level || 1) < requiredLevel) {
-          return reply(`❌ Você precisa ser nível ${requiredLevel}!\n📊 Atual: ${me.level || 1}`);
+          return reply(`💎 Você precisa ser nível ${requiredLevel}!\n📊 Atual: ${me.level || 1}`);
         }
 
         if ((me.wallet || 0) < requiredCoins) {
@@ -12789,14 +12789,14 @@ Entre em contato com o dono do bot:
         const amount = parseInt(args[1]) || 1;
 
         if (!econ.stockMarket.prices[stockType]) {
-          return reply('❌ Ação inválida! Escolha: tech, gold, crypto, energy');
+          return reply(`📈 Essa ação não existe! Escolhe: tech, gold, crypto ou energy ♡`);
         }
 
         const price = Math.floor(econ.stockMarket.prices[stockType]);
         const totalCost = price * amount;
 
         if (me.wallet < totalCost) {
-          return reply(`💰 Você precisa de ${totalCost.toLocaleString()} moedas!`);
+          return reply(`💰 Pra isso você precisa de ${totalCost.toLocaleString()} moedas ♡`);
         }
 
         me.wallet -= totalCost;
@@ -12825,7 +12825,7 @@ Entre em contato com o dono do bot:
         const me = getEcoUser(econ, sender);
 
         if (!me.investments || !econ.stockMarket) {
-          return reply('❌ Você não tem investimentos!');
+          return reply(`📈 Você ainda não tem investimentos ♡`);
         }
 
         const args = q.split(' ');
@@ -12833,7 +12833,7 @@ Entre em contato com o dono do bot:
         const amount = parseInt(args[1]) || 1;
 
         if (!me.investments.stocks[stockType] || me.investments.stocks[stockType] < amount) {
-          return reply('❌ Você não tem ações suficientes!');
+          return reply(`📈 Você não tem tantas ações assim (・・ ) ?`);
         }
 
         const price = Math.floor(econ.stockMarket.prices[stockType]);
@@ -12871,7 +12871,7 @@ Entre em contato com o dono do bot:
 
         // Cooldown de 8 minutos
         const cdDados = me.cooldowns?.dados || 0;
-        if (Date.now() < cdDados) return reply(`⏳ Aguarde ${timeLeft(cdDados)} para jogar dados novamente.`);
+        if (Date.now() < cdDados) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdDados)} você joga os dados de novo ♡`);
 
         // DADOS NERFADO: Bot tem dados viciados (sempre rola 4-6, jogador rola 1-6)
         const playerRoll = Math.floor(Math.random() * 6) + 1;
@@ -12942,7 +12942,7 @@ Entre em contato com o dono do bot:
         const bet = parseInt(args[1]) || 0;
 
         if (!choice) {
-          return reply(`💡 Use ${prefix}coinflip <cara|coroa> <valor>\n\n📝 Aceita: cara, coroa, heads, tails`);
+          return reply(`💡 Usa ${prefix}coinflip <cara|coroa> <valor>\n\n📝 Aceita: cara, coroa, heads, tails`);
         }
 
         if (bet < 100) return reply(`💰 A aposta mínima é 100 moedas ♡`);
@@ -12950,7 +12950,7 @@ Entre em contato com o dono do bot:
 
         // Cooldown de 8 minutos
         const cdCoin = me.cooldowns?.coinflip || 0;
-        if (Date.now() < cdCoin) return reply(`⏳ Aguarde ${timeLeft(cdCoin)} para jogar novamente.`);
+        if (Date.now() < cdCoin) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdCoin)} você joga de novo ♡`);
 
         // COINFLIP NERFADO: 5% de chance de ganhar (era 50%)
         // A moeda é "viciada" - quase sempre cai no lado oposto
@@ -12994,7 +12994,7 @@ Entre em contato com o dono do bot:
 
         // Cooldown de 10 minutos
         const cdCrash = me.cooldowns?.crash || 0;
-        if (Date.now() < cdCrash) return reply(`⏳ Aguarde ${timeLeft(cdCrash)} para jogar crash novamente.`);
+        if (Date.now() < cdCrash) return reply(`⏳ Calminha! Daqui a ${timeLeft(cdCrash)} você joga crash de novo ♡`);
 
         // CRASH NERFADO: 85% de chance de crashar antes de 1.1x (perda quase garantida)
         // Crash point viciado para valores baixos
@@ -13222,7 +13222,7 @@ Entre em contato com o dono do bot:
           }
 
           if (!hasAvailableRewards) {
-            return reply('❌ Você não tem recompensas disponíveis!\n\n💡 Complete missões diárias ou mantenha seu streak para ganhar recompensas.');
+            return reply('💎 Você ainda não tem recompensas disponíveis!\n\n💡 Complete missões diárias ou mantenha seu streak pra ganhar recompensas.');
           } else {
             return reply(availableText + `💡 Use ${prefix}reivindicar novamente para coletar!`);
           }
@@ -13313,7 +13313,7 @@ Entre em contato com o dono do bot:
               lowpass: 'lowpass=f=500'
             };
             const muk = isQuotedAudio ? info.message.extendedTextMessage.contextInfo.quotedMessage.audioMessage : info.message.audioMessage;
-            await reply('🎵 Processando áudio... Por favor, aguarde alguns segundos.');
+            await reply(`🎵 Mexendo no áudio... só uns segundinhos ⋆｡˚`);
             const rane = __dirname + `/../database/tmp/${Math.random()}.mp3`;
             const buffimg = await getFileBuffer(muk, 'audio');
             fs.writeFileSync(rane, buffimg);
@@ -13324,7 +13324,7 @@ Entre em contato com o dono do bot:
               await fs.unlinkSync(gem);
               if (err) {
                 console.error(`FFMPEG Error (Audio Effect ${command}):`, err);
-                return reply(`❌ Erro ao aplicar o efeito *${command}* no áudio. Verifique se o arquivo está válido e tente novamente.`);
+                return reply(`💎 Não consegui pôr o efeito *${command}* nesse áudio... confere o arquivo e tenta de novo? (╥﹏╥)`);
               }
               const hah = fs.readFileSync(ran);
               await nazu.sendMessage(from, {
@@ -13336,7 +13336,7 @@ Entre em contato com o dono do bot:
               await fs.unlinkSync(ran);
             });
           } else {
-            reply("  Para aplicar este efeito de áudio, responda a uma mensagem que contenha um áudio.");
+            reply(`💎 Responde um áudio com esse comando que eu ponho o efeito ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -13363,7 +13363,7 @@ Entre em contato com o dono do bot:
         try {
           if (isMedia && info.message.videoMessage || isQuotedVideo) {
             const encmedia = isQuotedVideo ? info.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage : info.message.videoMessage;
-            await reply('🎬 Processando vídeo... Por favor, aguarde alguns segundos.');
+            await reply(`🎬 Mexendo no vídeo... só uns segundinhos ⋆｡˚`);
             const videoEffects = {
               videorapido: '[0:v]setpts=0.5*PTS[v];[0:a]atempo=2[a]',
               fastvid: '[0:v]setpts=0.5*PTS[v];[0:a]atempo=2[a]',
@@ -13412,7 +13412,7 @@ Entre em contato com o dono do bot:
               await fs.unlinkSync(media);
               if (err) {
                 console.error(`FFMPEG Error (Video Effect ${command}):`, err);
-                return reply(`❌ Erro ao aplicar o efeito *${command}* no vídeo. Verifique se o arquivo está válido e tente novamente.`);
+                return reply(`💎 Não consegui pôr o efeito *${command}* nesse vídeo... confere o arquivo e tenta de novo? (╥﹏╥)`);
               }
               const buffer453 = fs.readFileSync(ran);
               const messageType = command === 'tomp3' ? {
@@ -13452,7 +13452,7 @@ Entre em contato com o dono do bot:
         const quantidade = parseInt(args[0]) || 50;
         const limite = Math.min(Math.max(quantidade, 10), 200); // Entre 10 e 200 mensagens
 
-        reply(`💬 Coletando as últimas ${limite} mensagens para resumir... ⏳`).then(() => {
+        reply(`💬 Lendo as últimas ${limite} mensagens pra te contar o resumo... ⋆｡˚`).then(() => {
           // Buscar mensagens do cache
           const mensagensGrupo = [];
 
@@ -13500,7 +13500,7 @@ Entre em contato com o dono do bot:
           }
 
           if (mensagensGrupo.length < 5) {
-            return reply('😅 Não encontrei mensagens suficientes para resumir. O grupo precisa ter mais atividade recente!');
+            return reply(`💎 Ainda não tem conversa suficiente pra resumir... conversem mais um pouquinho ♡`);
           }
 
           const conversaTexto = mensagensGrupo.slice(-limite).join('\n');
@@ -13526,9 +13526,9 @@ Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
           console.error('Erro ao resumir conversa:', e);
           if (e.message?.includes('API key inválida')) {
 
-            return reply('🤖 *Sistema de IA temporariamente indisponível*\n\nO administrador já foi notificado!');
+            return reply('🤖 *Sistema de IA descansando agora*\n\nO administrador já foi notificado!');
           } else {
-            return reply('😓 Não consegui resumir a conversa agora! Tente novamente em breve. 🌈');
+            return reply(`💎 Não consegui resumir a conversa agora... tenta daqui a pouco? (╥﹏╥)`);
           }
         });
         break;
@@ -13571,7 +13571,7 @@ Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
         const tipoHistoria = generos[genero] || `uma história criativa de ${genero}`;
         const temaExtra = tema ? ` envolvendo "${tema}"` : '';
 
-        await reply('📖 Escrevendo sua história... Aguarde um momento! ✨');
+        await reply(`📖 Escrevendo sua história com carinho... ⋆｡˚`);
 
         try {
           const prompt = `Escreva ${tipoHistoria}${temaExtra} em português brasileiro. A história deve ter:
@@ -13590,9 +13590,9 @@ Seja criativo e original. Não use clichês. A história deve ser envolvente do 
           console.error('Erro ao gerar história:', e);
           if (e.message?.includes('API key inválida')) {
 
-            await reply('🤖 *Sistema de IA temporariamente indisponível*\n\nO administrador já foi notificado!');
+            await reply('🤖 *Sistema de IA descansando agora*\n\nO administrador já foi notificado!');
           } else {
-            await reply('😓 Não consegui escrever a história agora! Tente novamente em breve. 🌈');
+            await reply(`💎 Não consegui escrever a história agora... tenta daqui a pouco? (╥﹏╥)`);
           }
         }
         break;
@@ -13628,7 +13628,7 @@ Seja criativo e original. Não use clichês. A história deve ser envolvente do 
 
         const tipoInfo = tipos[tipo] || { emoji: '✨', nome: tipo };
 
-        await reply(`${tipoInfo.emoji} Buscando recomendações de ${tipoInfo.nome}... Aguarde! ✨`);
+        await reply(`${tipoInfo.emoji} Procurando ${tipoInfo.nome} pra você... ⋆｡˚`);
 
         try {
           const prompt = `Recomende 5 ${tipoInfo.nome} do gênero/estilo "${preferencia}" em português brasileiro.
@@ -13647,9 +13647,9 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           console.error('Erro ao gerar recomendações:', e);
           if (e.message?.includes('API key inválida')) {
 
-            await reply('🤖 *Sistema de IA temporariamente indisponível*\n\nO administrador já foi notificado!');
+            await reply('🤖 *Sistema de IA descansando agora*\n\nO administrador já foi notificado!');
           } else {
-            await reply('😓 Não consegui buscar recomendações agora! Tente novamente em breve. 🌈');
+            await reply(`💎 Não consegui achar recomendações agora... tenta daqui a pouco? (╥﹏╥)`);
           }
         }
         break;
@@ -13683,7 +13683,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           // Validar tamanho do chute
           if (chute.length !== tamanhoEsperado) {
-            return reply(`❌ A palavra deve ter ${tamanhoEsperado} letras!\n\n💡 Você tem um jogo ativo com palavra de ${tamanhoEsperado} letras.\n\n📝 Chute: ${prefix}wordle [palavra de ${tamanhoEsperado} letras]`);
+            return reply(`💎 A palavra deve ter ${tamanhoEsperado} letras!\n\n💡 Você tem um jogo ativo com palavra de ${tamanhoEsperado} letras.\n\n📝 Chute: ${prefix}wordle [palavra de ${tamanhoEsperado} letras]`);
           }
 
           game.tentativas++;
@@ -13762,7 +13762,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         // Iniciar novo jogo - escolher tamanho aleatório
         const tamanhosDisponiveis = Object.keys(palavrasPorTamanho).filter(t => palavrasPorTamanho[t] && palavrasPorTamanho[t].length > 0);
         if (tamanhosDisponiveis.length === 0) {
-          return reply('❌ Erro: Nenhuma palavra disponível no banco de dados!');
+          return reply(`💎 Fiquei sem palavras pro jogo... (╥﹏╥)`);
         }
 
         const tamanhoEscolhido = tamanhosDisponiveis[Math.floor(Math.random() * tamanhosDisponiveis.length)];
@@ -13823,7 +13823,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             const pontos = Math.max(50 - Math.floor(parseFloat(tempoResposta) * 2), 10);
             return reply(`🎉 *CORRETO!*\n\n✅ Resposta: *${game.display}*\n⏱️ Tempo: ${tempoResposta}s\n🏆 +${pontos} pontos`);
           } else {
-            return reply(`❌ *ERRADO!*\n\n✅ A resposta correta era: *${game.display}*\n\nMais sorte na próxima!`);
+            return reply(`💎 *ERRADO!*\n\n✅ A resposta correta era: *${game.display}*\n\nMais sorte na próxima!`);
           }
         }
 
@@ -13843,7 +13843,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         // Mostrar categorias
         if (!args[0]) {
           const categoriasList = Object.keys(quizDB).map(cat => `• ${prefix}quiz ${cat}`).join('\n');
-          return reply(`❓ *QUIZ - Teste seus conhecimentos!*\n\n📚 *Categorias disponíveis:*\n${categoriasList}\n\n💡 Responda rápido para ganhar mais pontos!`);
+          return reply(`❓ *QUIZ - Teste seus conhecimentos!*\n\n📚 *Categorias disponíveis:*\n${categoriasList}\n\n💡 Responda rápido pra ganhar mais pontos!`);
         }
 
         // Nova pergunta
@@ -13852,7 +13852,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
         if (!perguntas) {
           const categoriasDisponiveis = Object.keys(quizDB).join(', ');
-          return reply(`❌ Categoria "${categoria}" não encontrada!\n\n📚 Categorias disponíveis: ${categoriasDisponiveis}`);
+          return reply(`💎 Categoria "${categoria}" não encontrada!\n\n📚 Categorias disponíveis: ${categoriasDisponiveis}`);
         }
 
         const perguntaEscolhida = perguntas[Math.floor(Math.random() * perguntas.length)];
@@ -13864,7 +13864,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           iniciado: Date.now()
         };
 
-        await reply(`❓ *QUIZ* (${categoria})\n\n${perguntaEscolhida.p}\n\n💡 Responda com: ${prefix}quiz [resposta]\n⏱️ Responda rápido para mais pontos!`);
+        await reply(`❓ *QUIZ* (${categoria})\n\n${perguntaEscolhida.p}\n\n💡 Responda com: ${prefix}quiz [resposta]\n⏱️ Responda rápido pra mais pontos!`);
         break;
       }
 
@@ -13924,7 +13924,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
                 delete global.forcaGames[forcaKey];
                 return reply(`${desenhoForca[6]}\n\n💀 *GAME OVER!*\n\n❌ A palavra era: *${game.palavra.toUpperCase()}*`);
               }
-              return reply(`${desenhoForca[game.erros]}\n\n❌ Palavra errada! (+2 erros)\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ') || 'Nenhuma'}\n⚠️ Erros: ${game.erros}/6\n\n💡 Use ${prefix}forca dica para ver a dica`);
+              return reply(`${desenhoForca[game.erros]}\n\n❌ Palavra errada! (+2 erros)\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ') || 'Nenhuma'}\n⚠️ Erros: ${game.erros}/6\n\n💡 Usa ${prefix}forca dica pra ver a dica`);
             }
           }
 
@@ -13932,7 +13932,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const letra = chute[0];
 
           if (game.letrasCorretas.includes(letra) || game.letrasErradas.includes(letra)) {
-            return reply(`⚠️ Você já chutou a letra "${letra.toUpperCase()}"!\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ') || 'Nenhuma'}\n\n💡 Use ${prefix}forca dica para ver a dica`);
+            return reply(`💎 Você já chutou a letra "${letra.toUpperCase()}"!\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ') || 'Nenhuma'}\n\n💡 Usa ${prefix}forca dica pra ver a dica`);
           }
 
           const palavraNorm = normalizar(game.palavra.toLowerCase());
@@ -13952,7 +13952,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
               return reply(`🎉 *PARABÉNS!*\n\n📝 ${game.progresso.join(' ')}\n\n✅ Vocês descobriram a palavra!\n🏆 *${game.palavra.toUpperCase()}*`);
             }
 
-            return reply(`${desenhoForca[game.erros]}\n\n✅ Letra "${letra.toUpperCase()}" correta!\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ') || 'Nenhuma'}\n⚠️ Erros: ${game.erros}/6\n\n💡 Use ${prefix}forca dica para ver a dica`);
+            return reply(`${desenhoForca[game.erros]}\n\n✅ Letra "${letra.toUpperCase()}" correta!\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ') || 'Nenhuma'}\n⚠️ Erros: ${game.erros}/6\n\n💡 Usa ${prefix}forca dica pra ver a dica`);
           } else {
             game.letrasErradas.push(letra.toUpperCase());
             game.erros++;
@@ -13962,7 +13962,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
               return reply(`${desenhoForca[6]}\n\n💀 *GAME OVER!*\n\n❌ A palavra era: *${game.palavra.toUpperCase()}*`);
             }
 
-            return reply(`${desenhoForca[game.erros]}\n\n❌ Letra "${letra.toUpperCase()}" errada!\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ')}\n⚠️ Erros: ${game.erros}/6\n\n💡 Use ${prefix}forca dica para ver a dica`);
+            return reply(`${desenhoForca[game.erros]}\n\n❌ Letra "${letra.toUpperCase()}" errada!\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ')}\n⚠️ Erros: ${game.erros}/6\n\n💡 Usa ${prefix}forca dica pra ver a dica`);
           }
         }
 
@@ -14003,7 +14003,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       case 'digitar':
       case 'typing':
       case 'digitacao': {
-        if (!isGroup) return reply('⚡ Este jogo só funciona em grupos!');
+        if (!isGroup) return reply(`⚡ Esse jogo é pra jogar em grupo, tá? ♡`);
 
         // Carregar frases do JSON
         const digitacaoPath = pathz.join(__dirname, 'funcs', 'json', 'digitacao.json');
@@ -14031,7 +14031,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           // Verificar se já existe desafio pendente
           if (global.digitacaoChallenges[challengeKey]) {
-            return reply('⚠️ Já existe um desafio pendente neste grupo!');
+            return reply(`💎 Já tem um desafio esperando aqui no grupo! Termina ele primeiro ♡`);
           }
 
           // Criar desafio
@@ -14042,7 +14042,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             created: Date.now()
           };
 
-          return reply(`⚡ *DESAFIO DE DIGITAÇÃO*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} para uma corrida de digitação!\n\n💡 O desafiado deve usar: ${prefix}digitar aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
+          return reply(`⚡ *DESAFIO DE DIGITAÇÃO*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} pra uma corrida de digitação!\n\n💡 O desafiado deve usar: ${prefix}digitar aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
         }
 
         // Aceitar desafio
@@ -14050,21 +14050,21 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const challenge = global.digitacaoChallenges[challengeKey];
 
           if (!challenge) {
-            return reply('❌ Não há desafio pendente para você aceitar!');
+            return reply(`💎 Não tem nenhum desafio esperando por você ♡`);
           }
 
           if (challenge.challenged !== sender) {
-            return reply('❌ Este desafio não é para você!');
+            return reply(`💎 Esse desafio é pra outra pessoa, tá? ♡`);
           }
 
           if (challenge.status !== 'pending') {
-            return reply('❌ Este desafio já foi aceito ou expirado!');
+            return reply(`💎 Esse desafio já foi aceito ou acabou o tempo ♡`);
           }
 
           // Verificar expiração (60 segundos)
           if (Date.now() - challenge.created > 60000) {
             delete global.digitacaoChallenges[challengeKey];
-            return reply('⏰ O desafio expirou!');
+            return reply(`⏰ Acabou o tempo do desafio! (｡•́︿•̀｡)`);
           }
 
           // Iniciar jogo
@@ -14092,7 +14092,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             await reply(`⚡ *CORRIDA DE DIGITAÇÃO INICIADA!*\n\n📝 *Digite exatamente esta frase:*\n\n"${fraseEscolhida}"\n\n⏱️ Quem digitar primeiro e corretamente vence!\n\n💡 Digite: ${prefix}digitar ${fraseEscolhida}`, { mentions: [challenge.challenger, challenge.challenged] });
           }, delay);
 
-          return reply(`✅ Desafio aceito! A frase será enviada em ${delay / 1000} segundos... ⏱️`, { mentions: [challenge.challenger] });
+          return reply(`🔥 Desafio aceito! A frase chega em ${delay / 1000} segundos... preparem os dedinhos ⏱️`, { mentions: [challenge.challenger] });
         }
 
         // Verificar resposta (digitação)
@@ -14108,12 +14108,12 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
               const tempoMinimo = 3000; // 3 segundos
 
               if (tempoDecorrido < tempoMinimo) {
-                return reply(`⏱️ Muito rápido! Aguarde pelo menos ${(tempoMinimo - tempoDecorrido) / 1000} segundos antes de responder.\n\n⚠️ Isso previne cópia e cola!`);
+                return reply(`⏱️ Muito rápido! Espera pelo menos ${(tempoMinimo - tempoDecorrido) / 1000} segundos antes de responder.\n\n⚠️ Isso previne cópia e cola!`);
               }
 
               // Verificar se já respondeu
               if (game.resultados[sender]) {
-                return reply('⚠️ Você já respondeu! Aguarde o resultado.');
+                return reply(`💎 Você já respondeu! Agora é só esperar ♡`);
               }
 
               // Verificar se acertou
@@ -14182,7 +14182,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
                 return reply(resultadoMsg, { mentions: [game.challenger, game.challenged] });
               } else {
                 // Ainda aguardando outro jogador
-                return reply(`✅ Resposta recebida! Aguardando o oponente...`);
+                return reply(`✿ Resposta anotada! Esperando o outro jogador... ♡`);
               }
             }
           }
@@ -14198,7 +14198,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       case 'batalhanaval':
       case 'batalha':
       case 'naval': {
-        if (!isGroup) return reply('🚢 Este jogo só funciona em grupos!');
+        if (!isGroup) return reply(`🚢 Batalha naval é pra jogar em grupo, tá? ♡`);
 
         // Carregar configuração do JSON
         const navalPath = pathz.join(__dirname, 'funcs', 'json', 'batalhanaval.json');
@@ -14322,7 +14322,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           }
 
           if (global.navalChallenges[gameKey] || global.navalGames[gameKey]) {
-            return reply('⚠️ Já existe um jogo ou desafio pendente neste grupo!');
+            return reply(`💎 Já tem um jogo ou desafio rolando aqui! Termina ele primeiro ♡`);
           }
 
           global.navalChallenges[gameKey] = {
@@ -14332,7 +14332,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             created: Date.now()
           };
 
-          return reply(`🚢 *DESAFIO DE BATALHA NAVAL*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} para uma batalha naval!\n\n💡 O desafiado deve usar: ${prefix}batalhanaval aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
+          return reply(`🚢 *DESAFIO DE BATALHA NAVAL*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} pra uma batalha naval!\n\n💡 O desafiado deve usar: ${prefix}batalhanaval aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
         }
 
         // Aceitar desafio
@@ -14340,12 +14340,12 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const challenge = global.navalChallenges[gameKey];
 
           if (!challenge || challenge.challenged !== sender || challenge.status !== 'pending') {
-            return reply('❌ Não há desafio pendente para você aceitar!');
+            return reply(`💎 Não tem nenhum desafio esperando por você ♡`);
           }
 
           if (Date.now() - challenge.created > 60000) {
             delete global.navalChallenges[gameKey];
-            return reply('⏰ O desafio expirou!');
+            return reply(`⏰ Acabou o tempo do desafio! (｡•́︿•̀｡)`);
           }
 
           // Criar tabuleiros e posicionar navios
@@ -14382,17 +14382,17 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const game = global.navalGames[gameKey];
 
           if (game.status !== 'active') {
-            return reply('❌ Este jogo já terminou!');
+            return reply(`💎 Esse jogo já acabou ♡`);
           }
 
           // Verificar se é a vez do jogador
           if (game.turno !== sender) {
-            return reply('⏳ Não é sua vez! Aguarde o oponente.');
+            return reply(`⏳ Ainda não é sua vez! Espera o outro jogador ♡`);
           }
 
           const coordenada = parseCoordenada(args[0].toUpperCase());
           if (!coordenada) {
-            return reply(`❌ Coordenada inválida! Use formato: A1, B5, J10, etc.\n\n💡 Exemplo: ${prefix}batalhanaval A5`);
+            return reply(`💎 Hmm, Coordenada não deu certo! Use formato: A1, B5, J10, etc.\n\n💡 Ex.: ${prefix}batalhanaval A5`);
           }
 
           // Determinar qual tabuleiro atacar e qual tabuleiro de tiros atualizar
@@ -14414,7 +14414,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           // Verificar se já atirou aqui
           if (tirosJogador[coordenada.linha][coordenada.coluna] !== '🌊') {
-            return reply('⚠️ Você já atirou nesta coordenada!');
+            return reply(`🎯 Você já atirou nesse lugar! Tenta outro ♡`);
           }
 
           // Processar tiro
@@ -14570,7 +14570,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       // ═══════════════════════════════════════════════════════════════
       case 'stop':
       case 'adedonha': {
-        if (!isGroup) return reply('🛑 Este jogo só funciona em grupos!');
+        if (!isGroup) return reply(`🛑 Stop é pra jogar em grupo, tá? ♡`);
 
         // Carregar categorias do JSON
         const stopPath = pathz.join(__dirname, 'funcs', 'json', 'stop.json');
@@ -14714,7 +14714,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const letraNorm = normalizar(game.letra.toLowerCase());
 
           if (palavraNorm[0] !== letraNorm) {
-            return reply(`❌ A palavra "${palavraInput}" não começa com a letra "${game.letra}"!`);
+            return reply(`💎 "${palavraInput}" não começa com "${game.letra}"! (｡•́︿•̀｡)`);
           }
 
           // Inicializar respostas do jogador se necessário
@@ -14724,7 +14724,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           // Verificar se já respondeu esta categoria
           if (game.respostas[sender][categoria]) {
-            return reply(`⚠️ Você já respondeu a categoria "${categoria}"!\n\n📝 Sua resposta: ${game.respostas[sender][categoria]}`);
+            return reply(`💎 Você já respondeu a categoria "${categoria}"!\n\n📝 Sua resposta: ${game.respostas[sender][categoria]}`);
           }
 
           // Verificar se outro jogador já usou esta palavra
@@ -14733,7 +14733,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           );
 
           if (palavraJaUsada) {
-            return reply(`⚠️ Outro jogador já usou a palavra "${palavraInput}"!`);
+            return reply(`💎 Alguém já usou "${palavraInput}"! Pensa em outra ♡`);
           }
 
           // Adicionar resposta
@@ -14839,7 +14839,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
               delete global.anagramaGames[gameKey];
               return reply(`😢 *GAME OVER!*\n\n❌ Você esgotou suas tentativas!\n\n📝 A palavra era: *${game.palavra.toUpperCase()}*\n💡 Dica: ${game.dica}`);
             }
-            return reply(`❌ Resposta incorreta!\n\n🔀 Anagrama: ${game.embaralhada}\n💡 Dica: ${game.dica}\n📊 Tentativas: ${game.tentativas}/5\n\n💡 Tente novamente: ${prefix}anagrama [palavra]`);
+            return reply(`💎 Resposta incorreta!\n\n🔀 Anagrama: ${game.embaralhada}\n💡 Dica: ${game.dica}\n📊 Tentativas: ${game.tentativas}/5\n\n💡 Tenta de novo: ${prefix}anagrama [palavra]`);
           }
         }
 
@@ -14870,7 +14870,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       // ═══════════════════════════════════════════════════════════════
       case 'dueloquiz':
       case 'duelo': {
-        if (!isGroup) return reply('⚔️ Este jogo só funciona em grupos!');
+        if (!isGroup) return reply(`⚔️ Duelo é pra jogar em grupo, tá? ♡`);
 
         // Carregar perguntas do JSON
         const quizPath = pathz.join(__dirname, 'funcs', 'json', 'quiz.json');
@@ -14908,7 +14908,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           }
 
           if (global.dueloQuizChallenges[gameKey] || global.dueloQuizGames[gameKey]) {
-            return reply('⚠️ Já existe um duelo ou desafio pendente neste grupo!');
+            return reply(`💎 Já tem um duelo ou desafio rolando aqui! Termina ele primeiro ♡`);
           }
 
           global.dueloQuizChallenges[gameKey] = {
@@ -14919,7 +14919,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             created: Date.now()
           };
 
-          return reply(`⚔️ *DESAFIO DE QUIZ*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} para um duelo de ${numPerguntas} perguntas!\n\n💡 O desafiado deve usar: ${prefix}dueloquiz aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
+          return reply(`⚔️ *DESAFIO DE QUIZ*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} pra um duelo de ${numPerguntas} perguntas!\n\n💡 O desafiado deve usar: ${prefix}dueloquiz aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
         }
 
         // Aceitar desafio
@@ -14927,12 +14927,12 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const challenge = global.dueloQuizChallenges[gameKey];
 
           if (!challenge || challenge.challenged !== sender || challenge.status !== 'pending') {
-            return reply('❌ Não há desafio pendente para você aceitar!');
+            return reply(`💎 Não tem nenhum desafio esperando por você ♡`);
           }
 
           if (Date.now() - challenge.created > 60000) {
             delete global.dueloQuizChallenges[gameKey];
-            return reply('⏰ O desafio expirou!');
+            return reply(`⏰ Acabou o tempo do desafio! (｡•́︿•̀｡)`);
           }
 
           // Selecionar perguntas aleatórias de categorias diferentes
@@ -14966,7 +14966,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           }
 
           if (perguntasSelecionadas.length < challenge.numPerguntas) {
-            return reply(`❌ Não há perguntas suficientes no banco de dados!`);
+            return reply(`💎 Fiquei sem perguntas pro duelo... (╥﹏╥)`);
           }
 
           global.dueloQuizGames[gameKey] = {
@@ -14992,12 +14992,12 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const game = global.dueloQuizGames[gameKey];
 
           if (game.status !== 'active') {
-            return reply('❌ Este duelo já terminou!');
+            return reply(`💎 Esse duelo já acabou ♡`);
           }
 
           // Verificar se é a vez do jogador
           if (game.turno !== sender) {
-            return reply('⏳ Não é sua vez! Aguarde o oponente.');
+            return reply(`⏳ Ainda não é sua vez! Espera o outro jogador ♡`);
           }
 
           const perguntaAtual = game.perguntas[game.perguntaAtual];
@@ -15202,12 +15202,12 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           );
 
           if (!palavraEncontrada) {
-            return reply(`❌ "${args.join(' ')}" não está na lista de palavras!\n\n📋 Palavras encontradas: ${game.palavrasEncontradas.length}/${game.palavras.length}\n💡 Tente novamente: ${prefix}cacapalavras [palavra]`);
+            return reply(`💎 "${args.join(' ')}" não está na lista de palavras!\n\n📋 Palavras encontradas: ${game.palavrasEncontradas.length}/${game.palavras.length}\n💡 Tenta de novo: ${prefix}cacapalavras [palavra]`);
           }
 
           // Verificar se já encontrou
           if (game.palavrasEncontradas.includes(palavraEncontrada)) {
-            return reply(`⚠️ Você já encontrou a palavra "${palavraEncontrada}"!\n\n📋 Palavras encontradas: ${game.palavrasEncontradas.length}/${game.palavras.length}`);
+            return reply(`💎 Você já encontrou a palavra "${palavraEncontrada}"!\n\n📋 Palavras encontradas: ${game.palavrasEncontradas.length}/${game.palavras.length}`);
           }
 
           // Adicionar à lista de encontradas
@@ -15220,7 +15220,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             return reply(`🎉 *PARABÉNS!*\n\n✅ Você encontrou todas as palavras!\n\n📋 Palavras: ${game.palavras.join(', ')}\n⏱️ Tempo: ${tempoDecorrido}s\n🏆 Excelente trabalho!`);
           }
 
-          return reply(`✅ *PALAVRA ENCONTRADA!*\n\n📝 "${palavraEncontrada}"\n\n📋 Progresso: ${game.palavrasEncontradas.length}/${game.palavras.length}\n💡 Continue procurando: ${prefix}cacapalavras [palavra]`);
+          return reply(`✿ *PALAVRA ENCONTRADA!*\n\n📝 "${palavraEncontrada}"\n\n📋 Progresso: ${game.palavrasEncontradas.length}/${game.palavras.length}\n💡 Continue procurando: ${prefix}cacapalavras [palavra]`);
         }
 
         // Verificar se há jogo ativo
@@ -15252,7 +15252,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         );
 
         if (palavrasFiltradas.length < configDificuldade.palavras) {
-          return reply(`❌ Não há palavras suficientes para a dificuldade "${dificuldade}"!`);
+          return reply(`💎 Não tenho palavras suficientes no nível "${dificuldade}"... tenta outro? ♡`);
         }
 
         // Selecionar palavras aleatórias
@@ -15305,7 +15305,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         const domainMatch = urlToCheck.match(/^([^\/]+)/);
         const domain = domainMatch ? domainMatch[1] : urlToCheck;
 
-        await reply('🔍 Verificando segurança do link... Aguarde!');
+        await reply(`🔍 Conferindo se esse link é seguro... ⋆｡˚`);
 
         try {
           // Verificar domínio na API FishFish
@@ -15316,7 +15316,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           if (response.status === 404) {
             // Domínio não encontrado na base de dados maliciosos = provavelmente seguro
-            await reply(`✅ *Link Verificado*\n\n🔗 *Domínio:* ${domain}\n\n🟢 *Status:* Não encontrado em listas de ameaças\n\n⚠️ *Nota:* Isso não garante 100% de segurança, apenas que o link não está em bases de dados conhecidas de malware/phishing.`);
+            await reply(`✿ *Link Verificado*\n\n🔗 *Domínio:* ${domain}\n\n🟢 *Status:* Não encontrado em listas de ameaças\n\n⚠️ *Nota:* Isso não garante 100% de segurança, apenas que o link não está em bases de dados conhecidas de malware/phishing.`);
           } else if (response.data) {
             const data = response.data;
             const categoria = data.category || 'unknown';
@@ -15343,7 +15343,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           }
         } catch (e) {
           console.error('Erro ao verificar URL:', e);
-          await reply(`⚠️ Não foi possível verificar o link no momento.\n\nTente novamente mais tarde ou verifique manualmente em: https://www.virustotal.com`);
+          await reply(`💎 Não consegui verificar o link no momento.\n\nTenta de novo mais tarde ou confere manualmente em: https://www.virustotal.com`);
         }
         break;
       }
@@ -15359,7 +15359,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           return reply(`🌤️ *Previsão do Tempo*\n\n💡 *Como usar:*\n• ${prefix}clima <cidade>\n\n📌 *Exemplos:*\n• ${prefix}clima São Paulo\n• ${prefix}clima Rio de Janeiro\n• ${prefix}clima Tokyo`);
         }
 
-        await reply('🌤️ Consultando previsão do tempo... ⏳');
+        await reply(`🌤️ Olhando o céu pra você... ⋆｡˚`);
 
         try {
           // Usar wttr.in que é gratuito e não precisa de API key
@@ -15413,7 +15413,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           await reply(`${weatherEmoji} *Clima em ${cityName}*\n📍 ${region}, ${country}\n\n🌡️ *Temperatura:* ${tempC}°C\n🤒 *Sensação:* ${feelsLike}°C\n💧 *Umidade:* ${humidity}%\n💨 *Vento:* ${windKmph} km/h (${windDir})\n☀️ *Índice UV:* ${uvIndex}\n👁️ *Visibilidade:* ${visibility} km\n☁️ *Nuvens:* ${cloudcover}%\n\n📋 *Condição:* ${descPt}${forecast}`);
         } catch (e) {
           console.error('Erro ao buscar clima:', e);
-          await reply('❌ Não consegui encontrar informações do clima para essa cidade. Verifique o nome e tente novamente!');
+          await reply(`💎 Não achei o clima dessa cidade... confere o nome e tenta de novo? ♡`);
         }
         break;
       }
@@ -15482,7 +15482,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         const timezone = fusos[local];
 
         if (!timezone) {
-          return reply(`❌ Fuso horário "${q}" não encontrado!\n\n📍 *Locais disponíveis:*\nbrasil, eua, newyork, losangeles, japao, china, coreia, londres, paris, alemanha, portugal, russia, dubai, india, australia, argentina`);
+          return reply(`💎 Fuso horário "${q}" não encontrado!\n\n📍 *Locais disponíveis:*\nbrasil, eua, newyork, losangeles, japao, china, coreia, londres, paris, alemanha, portugal, russia, dubai, india, australia, argentina`);
         }
 
         try {
@@ -15499,7 +15499,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           await reply(`🕐 *Horário em ${q}*\n\n⏰ *Hora:* ${hora}\n📅 *Data:* ${data}\n\n🇧🇷 *Diferença do Brasil:* ${diffStr}`);
         } catch (e) {
           console.error('Erro ao converter fuso:', e);
-          await reply('❌ Erro ao obter o horário. Tente novamente!');
+          await reply(`💎 Não consegui ver a hora agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       }
@@ -15536,7 +15536,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           const [dia, mes] = data.split('/').map(Number);
           if (dia < 1 || dia > 31 || mes < 1 || mes > 12) {
-            return reply('❌ Data inválida! Use o formato DD/MM');
+            return reply(`💎 Hmm, essa data não deu certo! Usa o formato DD/MM ♡`);
           }
 
           aniversarios[sender] = { dia, mes, nome: pushname };
@@ -15553,7 +15553,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             .sort((a, b) => a[1].dia - b[1].dia);
 
           if (aniversariantes.length === 0) {
-            return reply('📅 Nenhum aniversariante registrado para este mês!');
+            return reply(`🎂 Ninguém faz aniversário este mês ♡`);
           }
 
           let lista = `🎂 *Aniversariantes de ${new Date().toLocaleDateString('pt-BR', { month: 'long' })}*\n\n`;
@@ -15612,7 +15612,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         }
 
-        await reply('📊 Calculando estatísticas do grupo... ⏳');
+        await reply(`📊 Fazendo as contas do grupo... ⋆｡˚`);
 
         try {
           const groupMeta = await getCachedGroupMetadata(from);
@@ -15648,7 +15648,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           await reply(`📊 *Estatísticas do Grupo*\n\n📛 *Nome:* ${groupName}\n📅 *Criado em:* ${groupCreation}\n\n👥 *Membros:* ${members}\n👑 *Admins:* ${admins}\n👤 *Membros comuns:* ${members - admins}${activityStats}${recursosStr}\n\n📝 *Descrição:*\n${groupDesc.substring(0, 200)}${groupDesc.length > 200 ? '...' : ''}`);
         } catch (e) {
           console.error('Erro ao buscar estatísticas:', e);
-          await reply('❌ Erro ao obter estatísticas do grupo.');
+          await reply(`💎 Não consegui calcular os números do grupo... (╥﹏╥)`);
         }
         break;
       }
@@ -15670,10 +15670,10 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`).then(() => {
             const prompt = `Traduza o seguinte texto para ${idioma}:\n\n${texto}\n\nForneça apenas a tradução, sem explicações adicionais.`;
             ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null).then((bahz) => {
-              reply(`🌐✨ *Prontinho! Sua tradução para ${idioma.toUpperCase()} está aqui:*\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
+              reply(`🌐✨ *Prontinho! Sua tradução pra ${idioma.toUpperCase()} está aqui:*\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
             }).catch((e) => {
               console.error("Erro ao traduzir texto:", e);
-              reply("❌ Não foi possível realizar a tradução no momento. Tente novamente mais tarde.");
+              reply(`💎 Não consegui traduzir agora... tenta mais tarde? (╥﹏╥)`);
             });
 
           });
@@ -15689,17 +15689,17 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           }, { quoted: info });
         }).catch((e) => {
           console.error("Erro ao gerar QR Code:", e);
-          reply("❌ Erro ao gerar QR Code. Tente novamente mais tarde.");
+          reply(`💎 Não consegui criar o QR code... tenta mais tarde? (╥﹏╥)`);
         });
         break;
 
       case 'updates':
-        if (!isOwner || isOwner && isSubOwner) return reply("🚫 Apenas o Dono principal pode utilizar esse comando!");
+        if (!isOwner || isOwner && isSubOwner) return reply(`💎 Esse é só pro meu dono principal, viu? ( ˘ ³˘)♡`);
         await reply('✿ As atualizações do bot chegam pelo GitHub do Opala, sem atualização automática por aqui ♡');
         break;
       case 'addsubdono':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode adicionar subdonos!");
-        if (isSubOwner && !isOwner) return reply("🚫 Subdonos não podem adicionar outros subdonos!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode criar subdonos ♡`);
+        if (isSubOwner && !isOwner) return reply(`💎 Subdono não cria outro subdono, tá? ♡`);
         try {
           let targetUserId;
 
@@ -15755,7 +15755,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
                 }
               }
             } else {
-              return reply("❌ Número inválido! Use um número completo (ex: 5511999998888)");
+              return reply(`💎 Esse número não deu certo! Manda completo, com DDI e DDD (ex.: 5511999998888) ♡`);
             }
           } else {
             return reply(`📝 *Como usar:*\n\n1️⃣ Marque o usuário: ${prefix}addsubdono @usuario\n2️⃣ Ou digite o número: ${prefix}addsubdono 5511999998888`);
@@ -15765,14 +15765,14 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           await reply(result.message);
         } catch (e) {
           console.error("Erro ao adicionar subdono:", e);
-          await reply("❌ Ocorreu um erro inesperado ao tentar adicionar o subdono.");
+          await reply(`💎 Eita, não consegui adicionar o subdono... (╥﹏╥)`);
         }
         break;
       case 'remsubdono':
       case 'rmsubdono':
       case 'delsubdono':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode remover subdonos!");
-        if (isSubOwner && !isOwner) return reply("🚫 Subdonos não podem remover outros subdonos!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode tirar subdonos ♡`);
+        if (isSubOwner && !isOwner) return reply(`💎 Subdono não tira outro subdono, tá? ♡`);
         try {
           let targetUserId;
 
@@ -15832,7 +15832,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
               if (index >= 0 && index < subdonos.length) {
                 targetUserId = subdonos[index];
               } else {
-                return reply("❌ Número/índice inválido! Use um número completo ou o índice da lista de subdonos.");
+                return reply(`💎 Não achei esse número ou posição na lista de subdonos (・・ ) ?`);
               }
             }
           } else {
@@ -15843,16 +15843,16 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           await reply(result.message);
         } catch (e) {
           console.error("Erro ao remover subdono:", e);
-          await reply("❌ Ocorreu um erro inesperado ao tentar remover o subdono.");
+          await reply(`💎 Eita, não consegui tirar o subdono... (╥﹏╥)`);
         }
         break;
       case 'listasubdonos':
       case 'listsubdonos':
-        if (!isOwnerOrSub) return reply("🚫 Apenas o Dono e Subdonos podem ver a lista!");
+        if (!isOwnerOrSub) return reply(`💎 Essa lista é só pro dono e os subdonos ♡`);
         try {
           const subdonos = getSubdonos();
           if (subdonos.length === 0) {
-            return reply("✨ Nenhum subdono cadastrado no momento.");
+            return reply(`✨ Ainda não tem nenhum subdono ♡`);
           }
           let listaMsg = "👑 *Lista de Subdonos Atuais:*\n\n";
           const mentions = [];
@@ -15872,7 +15872,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           });
         } catch (e) {
           console.error("Erro ao listar subdonos:", e);
-          await reply("❌ Ocorreu um erro inesperado ao tentar listar os subdonos.");
+          await reply(`💎 Eita, não consegui listar os subdonos... (╥﹏╥)`);
         }
         break;
 
@@ -16304,14 +16304,14 @@ ${prefix}addsubbot @152656307871952`
       case 'removesubbot':
       case 'delsubbot':
       case 'rmsubbot':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode remover sub-bots!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode tirar sub-bots ♡`);
         try {
           const subBotManager = await import('./utils/subBotManager.js');
 
           if (!q || !q.trim()) {
             const listResult = subBotManager.listSubBots();
             if (!listResult.success || listResult.subbots.length === 0) {
-              return reply('❌ Nenhum sub-bot cadastrado para remover.');
+              return reply(`🤖 Não tem nenhum sub-bot pra tirar ♡`);
             }
 
             let msg = `📋 *Sub-Bots Disponíveis:*\n\n`;
@@ -16331,26 +16331,26 @@ ${prefix}addsubbot @152656307871952`
             const index = parseInt(q) - 1;
             if (index >= 0 && index < listResult.subbots.length) {
               const botId = listResult.subbots[index].id;
-              await reply('⏳ Removendo sub-bot... Aguarde...');
+              await reply(`🤖 Tirando o sub-bot... ⋆｡˚`);
               const result = await subBotManager.removeSubBot(botId);
               return reply(result.message);
             }
           }
 
           // Se não for índice, tenta pelo ID direto
-          await reply('⏳ Removendo sub-bot... Aguarde...');
+          await reply(`🤖 Tirando o sub-bot... ⋆｡˚`);
           const result = await subBotManager.removeSubBot(q.trim());
           await reply(result.message);
         } catch (error) {
           console.error("Erro ao remover sub-bot:", error);
-          await reply(`❌ Erro ao remover sub-bot: ${error.message}`);
+          await reply(`💎 Não consegui tirar o sub-bot: ${error.message}`);
         }
         break;
 
       case 'listarsubbots':
       case 'listsubbots':
       case 'subbots':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode ver os sub-bots!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode ver os sub-bots ♡`);
         try {
           const subBotManager = await import('./utils/subBotManager.js');
 
@@ -16361,7 +16361,7 @@ ${prefix}addsubbot @152656307871952`
           }
 
           if (result.subbots.length === 0) {
-            return reply(`📋 *Nenhum sub-bot cadastrado.*\n\n💡 Use ${prefix}addsubbot <número> para adicionar um sub-bot.`);
+            return reply(`📋 *Nenhum sub-bot cadastrado.*\n\n💡 Usa ${prefix}addsubbot <número> pra adicionar um sub-bot.`);
           }
 
           let msg = `🤖 *Sub-Bots Ativos* 🤖\n`;
@@ -16386,30 +16386,30 @@ ${prefix}addsubbot @152656307871952`
           await reply(msg);
         } catch (error) {
           console.error("Erro ao listar sub-bots:", error);
-          await reply(`❌ Erro ao listar sub-bots: ${error.message}`);
+          await reply(`💎 Não consegui listar os sub-bots: ${error.message}`);
         }
         break;
 
       case 'conectarsubbot':
       case 'reconnectsubbot':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode reconectar sub-bots!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode reconectar sub-bots ♡`);
         try {
           const subBotManager = await import('./utils/subBotManager.js');
 
           if (!q || !q.trim()) {
-            return reply(`📝 *Como usar:*\n\n${prefix}conectarsubbot <id>\n\n*Exemplo:*\n${prefix}conectarsubbot subbot_1234567890_abc123\n\n💡 Use \`${prefix}listarsubbots\` para ver os IDs`);
+            return reply(`📝 *Como usar:*\n\n${prefix}conectarsubbot <id>\n\n*Exemplo:*\n${prefix}conectarsubbot subbot_1234567890_abc123\n\n💡 Use \`${prefix}listarsubbots\` pra ver os IDs`);
           }
 
           const botId = q.trim();
 
-          await reply('⏳ Conectando sub-bot... Aguarde...');
+          await reply(`🤖 Conectando o sub-bot... ⋆｡˚`);
 
           const result = await subBotManager.reconnectSubBot(botId);
 
           await reply(result.message);
         } catch (error) {
           console.error("Erro ao reconectar sub-bot:", error);
-          await reply(`❌ Erro ao reconectar sub-bot: ${error.message}`);
+          await reply(`💎 Não consegui reconectar o sub-bot: ${error.message}`);
         }
         break;
 
@@ -16431,7 +16431,7 @@ ${prefix}addsubbot @152656307871952`
 
         } catch (error) {
           console.error("Erro ao gerar código de pareamento:", error);
-          await reply(`❌ Erro ao gerar código: ${error.message}`);
+          await reply(`💎 Não consegui gerar o código: ${error.message}`);
         }
         break;
 
@@ -16474,7 +16474,7 @@ ${prefix}addsubbot @152656307871952`
       case 'viewmsg':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q) return reply(`Use: ${prefix}viewmsg [on/off]`);
+          if (!q) return reply(`💎 Usa assim: ${prefix}viewmsg on ou ${prefix}viewmsg off ♡`);
           const botStateFile = DATABASE_DIR + '/botState.json';
           let botState = loadJsonFile(botStateFile, {
             status: 'on',
@@ -16483,34 +16483,34 @@ ${prefix}addsubbot @152656307871952`
           if (q.toLowerCase() === 'on') {
             botState.viewMessages = true;
             writeJsonFile(botStateFile, botState);
-            await reply('✅ Visualização de mensagens ativada!');
+            await reply(`👀 Prontinho! Agora eu marco as mensagens como lidas ♡`);
           } else if (q.toLowerCase() === 'off') {
             botState.viewMessages = false;
             writeJsonFile(botStateFile, botState);
-            await reply('✅ Visualização de mensagens desativada!');
+            await reply(`🙈 Prontinho! Não marco mais as mensagens como lidas ♡`);
           } else {
-            return reply('🤔 Use "on" para ativar ou "off" para desativar.');
+            return reply(`💎 Manda "on" pra ligar ou "off" pra desligar ♡`);
           }
         } catch (e) {
           console.error('Erro no comando viewmsg:', e);
-          await reply('😥 Ocorreu um erro ao alterar a visualização de mensagens.');
+          await reply(`💎 Eita, não consegui mudar isso... (╥﹏╥)`);
         }
         break;
       case 'modoaluguel':
-        if (!isOwner || isOwner && isSubOwner) return reply("🚫 Apenas o Dono principal pode gerenciar o modo de aluguel!");
+        if (!isOwner || isOwner && isSubOwner) return reply(`💎 Só o dono principal mexe no modo aluguel ♡`);
         try {
           const action = q.toLowerCase().trim();
           if (action === 'on' || action === 'ativar') {
             if (setRentalMode(true)) {
-              await reply("✅ Modo de aluguel global ATIVADO! O bot agora só responderá em grupos com aluguel ativo.");
+              await reply(`✿ Modo aluguel *ligado*! Agora só respondo nos grupos com aluguel ativo ♡`);
             } else {
-              await reply("❌ Erro ao ativar o modo de aluguel global.");
+              await reply(`💎 Eita, não consegui ligar o modo aluguel... (╥﹏╥)`);
             }
           } else if (action === 'off' || action === 'desativar') {
             if (setRentalMode(false)) {
-              await reply("✅ Modo de aluguel global DESATIVADO! O bot responderá em todos os grupos permitidos.");
+              await reply(`✿ Modo aluguel *desligado*! Respondo em todos os grupos liberados ♡`);
             } else {
-              await reply("❌ Erro ao desativar o modo de aluguel global.");
+              await reply(`💎 Eita, não consegui desligar o modo aluguel... (╥﹏╥)`);
             }
           } else {
             const currentStatus = isRentalModeActive() ? 'ATIVADO' : 'DESATIVADO';
@@ -16525,7 +16525,7 @@ ${prefix}addsubbot @152656307871952`
       case 'atualizar':
       case 'update':
       case 'atualizarbot':
-        if (!isOwner || isSubOwner) return reply("🚫 Apenas o Dono principal pode atualizar o bot!");
+        if (!isOwner || isSubOwner) return reply(`💎 Só o dono principal pode me atualizar ♡`);
         // Opala: o atualizador antigo baixava o bot original e apagava as mudanças. As versões novas chegam pelo GitHub do Opala.
         await reply('✿ O Opala não se atualiza sozinho: as versões novas chegam pelo GitHub do Opala ♡');
         break;
@@ -16533,7 +16533,7 @@ ${prefix}addsubbot @152656307871952`
       case 'reiniciar':
       case 'restart':
       case 'reboot':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode reiniciar o bot!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode me reiniciar ♡`);
 
         reply(`🔄 *REINICIANDO O BOT...*
 
@@ -16553,7 +16553,7 @@ ${prefix}addsubbot @152656307871952`
           }, 2000);
         }).catch((e) => {
           console.error("Erro no comando reiniciar:", e);
-          reply(`❌ Erro ao tentar reiniciar: ${e.message}`);
+          reply(`💎 Não consegui reiniciar: ${e.message}`);
         });
         break;
 
@@ -16611,7 +16611,7 @@ ${prefix}addsubbot @152656307871952`
           await reply(message);
         } catch (e) {
           console.error('Erro no comando listaluguel:', e);
-          await reply("Ocorreu um erro ao listar os aluguéis (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar os aluguéis... (╥﹏╥)`);
         }
         break;
       case 'leveling':
@@ -16623,7 +16623,7 @@ ${prefix}addsubbot @152656307871952`
         if (isGroup) {
           optimizer.invalidateGroup(from);
         }
-        await reply(`🎚️ Sistema de leveling ${groupData.levelingEnabled ? 'ativado' : 'desativado'}!`);
+        await reply(`🎚️ Sistema de níveis ${groupData.levelingEnabled ? 'ligado' : 'desligado'} ♡`);
         break;
       case 'level':
         const levelingDataLevel = loadLevelingSafe();
@@ -16664,44 +16664,44 @@ ${prefix}addsubbot @152656307871952`
         break;
       case 'addxp':
         if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-        if (!menc_os2 || !q) return reply("Marque um usuário e especifique a quantidade de XP.");
+        if (!menc_os2 || !q) return reply(`💎 Marca alguém e diz quanto XP ♡`);
         const xpToAdd = parseInt(args[args.length - 1]);
-        if (isNaN(xpToAdd)) return reply("Quantidade de XP inválida.");
+        if (isNaN(xpToAdd)) return reply(`💎 Hmm, esse XP não deu certo... confere pra mim? ♡`);
         const levelingDataAdd = loadLevelingSafe();
         const userDataAdd = getLevelingUser(levelingDataAdd, menc_os2);
         userDataAdd.xp = (userDataAdd.xp || 0) + xpToAdd;
         checkLevelUp(menc_os2, userDataAdd, levelingDataAdd, nazu, from);
         saveLevelingSafe(levelingDataAdd);
-        await reply(`✅ Adicionado ${xpToAdd} XP para @${getUserName(menc_os2)}`, {
+        await reply(`✨ +${xpToAdd} XP pra @${getUserName(menc_os2)} ♡`, {
           mentions: [menc_os2]
         });
         break;
       case 'delxp':
         if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-        if (!menc_os2 || !q) return reply("Marque um usuário e especifique a quantidade de XP.");
+        if (!menc_os2 || !q) return reply(`💎 Marca alguém e diz quanto XP ♡`);
         const xpToRemove = parseInt(args[args.length - 1]);
-        if (isNaN(xpToRemove)) return reply("Quantidade de XP inválida.");
+        if (isNaN(xpToRemove)) return reply(`💎 Hmm, esse XP não deu certo... confere pra mim? ♡`);
         const levelingDataDel = loadLevelingSafe();
         const userDataDel = getLevelingUser(levelingDataDel, menc_os2);
         userDataDel.xp = Math.max(0, (userDataDel.xp || 0) - xpToRemove);
         checkLevelDown(menc_os2, userDataDel, levelingDataDel);
         saveLevelingSafe(levelingDataDel);
-        await reply(`✅ Removido ${xpToRemove} XP de @${getUserName(menc_os2)}`, {
+        await reply(`✨ -${xpToRemove} XP de @${getUserName(menc_os2)}`, {
           mentions: [menc_os2]
         });
         break;
 
       case 'dayfree':
         try {
-          if (!isOwner) return reply('❌ Este comando é exclusivo para o dono ou subdonos.');
-          if (!q) return reply(`Uso: ${prefix}${command} <dias> [motivo opcional]\nEx: ${prefix}adddiasaluguel 7 Manutenção compensatória`);
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono e os subdonos, tá? ( ˘ ³˘)♡`);
+          if (!q) return reply(`💎 Usa assim: ${prefix}${command} <dias> [motivo opcional]\nEx: ${prefix}adddiasaluguel 7 Manutenção compensatória`);
           const parts = q.split(' ');
           const extraDays = parseInt(parts[0]);
-          if (isNaN(extraDays) || extraDays <= 0) return reply('O primeiro argumento deve ser um número positivo de dias.');
+          if (isNaN(extraDays) || extraDays <= 0) return reply(`💎 Começa pelo número de dias (um número positivo) ♡`);
           const motivo = parts.slice(1).join(' ') || 'Não especificado';
           const rentalData = loadRentalData();
           const groupIds = Object.keys(rentalData.groups);
-          if (groupIds.length === 0) return reply('Não há grupos com aluguel configurado.');
+          if (groupIds.length === 0) return reply(`📭 Nenhum grupo tem aluguel ainda ♡`);
           let successCount = 0;
           let failCount = 0;
           let summary = `📊 Resumo da extensão de aluguel:\n\n`;
@@ -16729,7 +16729,7 @@ ${prefix}addsubbot @152656307871952`
           await reply(summary);
         } catch (e) {
           console.error('Erro no comando adddiasaluguel:', e);
-          await reply('Ocorreu um erro ao estender aluguel em todos os grupos.');
+          await reply(`💎 Eita, não consegui estender os aluguéis... (╥﹏╥)`);
         }
         break;
 
@@ -16743,7 +16743,7 @@ ${prefix}addsubbot @152656307871952`
 
         if (!isOwner) {
           console.log('🚫 Bloqueado: usuário não é dono');
-          return reply("🚫 Apenas o Dono principal pode adicionar aluguel!");
+          return reply(`💎 Só o dono principal pode adicionar aluguel ♡`);
         }
 
         if (!isGroup) {
@@ -16781,7 +16781,7 @@ ${prefix}addsubbot @152656307871952`
 
         } catch (e) {
           console.error("💥 Erro no comando addaluguel:", e);
-          await reply("❌ Ocorreu um erro inesperado ao adicionar o aluguel.");
+          await reply(`💎 Eita, não consegui adicionar o aluguel... (╥﹏╥)`);
         }
 
         console.log('🏁 Fim do comando addaluguel');
@@ -16790,13 +16790,13 @@ ${prefix}addsubbot @152656307871952`
       case 'listaraluguel':
       case 'veralugueis':
       case 'listrentals':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode ver a lista de aluguéis!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode ver os aluguéis ♡`);
         try {
           const rentalData = loadRentalData();
           const groupIds = Object.keys(rentalData.groups || {});
 
           if (groupIds.length === 0) {
-            return reply("📭 Nenhum grupo com aluguel ativo no momento.");
+            return reply(`📭 Nenhum grupo com aluguel ativo agora ♡`);
           }
 
           let message = `╭━━━⊱ 📋 *LISTA DE ALUGUÉIS* ⊱━━━╮\n`;
@@ -16877,14 +16877,14 @@ ${prefix}addsubbot @152656307871952`
           await reply(message);
         } catch (e) {
           console.error("Erro no comando listaraluguel:", e);
-          await reply("❌ Ocorreu um erro ao listar os aluguéis.");
+          await reply(`💎 Eita, não consegui listar os aluguéis... (╥﹏╥)`);
         }
         break;
 
       case 'removeraluguel':
       case 'deletaraluguel':
       case 'cancelaraluguel':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode remover aluguéis!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode tirar aluguéis ♡`);
         try {
           let targetGroupId = q?.trim() || '';
 
@@ -16892,11 +16892,11 @@ ${prefix}addsubbot @152656307871952`
           if (!targetGroupId && isGroup) {
             targetGroupId = from;
           } else if (!targetGroupId) {
-            return reply(`💡 *Uso:* ${prefix}removeraluguel [id_do_grupo]\n\n📝 Use dentro de um grupo ou informe o ID.\n💡 Use ${prefix}listaraluguel para ver os IDs.`);
+            return reply(`💡 Usa assim: ${prefix}removeraluguel [id_do_grupo]\n\n📝 Use dentro de um grupo ou informe o ID.\n💡 Usa ${prefix}listaraluguel pra ver os IDs.`);
           }
 
           if (!targetGroupId.trim()) {
-            return reply(`💡 *Uso:* ${prefix}removeraluguel [id_do_grupo]\n\n📝 Use dentro de um grupo ou informe o ID.`);
+            return reply(`💡 Usa assim: ${prefix}removeraluguel [id_do_grupo]\n\n📝 Use dentro de um grupo ou informe o ID.`);
           }
 
           // Normaliza o ID do grupo
@@ -16907,7 +16907,7 @@ ${prefix}addsubbot @152656307871952`
           const rentalData = loadRentalData();
 
           if (!rentalData.groups || !rentalData.groups[targetGroupId]) {
-            return reply(`❌ Este grupo não possui aluguel ativo.\n\n💡 Use ${prefix}listaraluguel para ver os grupos com aluguel.`);
+            return reply(`💎 Este grupo não tem aluguel ativo.\n\n💡 Usa ${prefix}listaraluguel pra ver os grupos com aluguel.`);
           }
 
           // Busca informações do grupo antes de remover
@@ -16939,21 +16939,21 @@ ${prefix}addsubbot @152656307871952`
           // Tenta notificar o grupo
           try {
             await nazu.sendMessage(targetGroupId, {
-              text: `⚠️ *AVISO IMPORTANTE*\n\nO aluguel deste grupo foi removido pelo proprietário do bot.\n\n❌ O bot não funcionará mais neste grupo.\n\nPara mais informações, entre em contato com o dono.`
+              text: `💎 *AVISO IMPORTANTE*\n\nO aluguel deste grupo foi removido pelo proprietário do bot.\n\n❌ O bot não funcionará mais neste grupo.\n\nPara mais informações, entre em contato com o dono.`
             });
           } catch (e) {
             console.log("Não foi possível notificar o grupo:", e.message);
           }
         } catch (e) {
           console.error("Erro no comando removeraluguel:", e);
-          await reply("❌ Ocorreu um erro ao remover o aluguel.");
+          await reply(`💎 Eita, não consegui tirar o aluguel... (╥﹏╥)`);
         }
         break;
 
       case 'estenderaluguel':
       case 'adddiasaluguel':
       case 'extenderrental':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode estender aluguéis!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode estender aluguéis ♡`);
         try {
           const parts = q?.trim().split(' ') || [];
           let targetGroupId;
@@ -16971,11 +16971,11 @@ ${prefix}addsubbot @152656307871952`
           }
           // Nenhum argumento válido
           else {
-            return reply(`💡 *Uso:* ${prefix}estenderaluguel <dias> (no grupo)\nou\n${prefix}estenderaluguel <id_do_grupo> <dias>\n\n📝 *Exemplo:*\n${prefix}estenderaluguel 7 (no grupo)\n${prefix}estenderaluguel 5511999999999 7\n\n💡 Use ${prefix}listaraluguel para ver os IDs.`);
+            return reply(`💡 Usa assim: ${prefix}estenderaluguel <dias> (no grupo)\nou\n${prefix}estenderaluguel <id_do_grupo> <dias>\n\n📝 *Exemplo:*\n${prefix}estenderaluguel 7 (no grupo)\n${prefix}estenderaluguel 5511999999999 7\n\n💡 Usa ${prefix}listaraluguel pra ver os IDs.`);
           }
 
           if (isNaN(daysToAdd) || daysToAdd <= 0) {
-            return reply("❌ O número de dias deve ser um valor positivo!");
+            return reply(`💎 O número de dias tem que ser positivo ♡`);
           }
 
           // Normaliza o ID do grupo
@@ -16986,7 +16986,7 @@ ${prefix}addsubbot @152656307871952`
           const result = extendGroupRental(targetGroupId, daysToAdd);
 
           if (!result.success) {
-            return reply(`❌ ${result.message}`);
+            return reply(`💎 ${result.message}`);
           }
 
           // Busca informações do grupo
@@ -17024,21 +17024,21 @@ ${prefix}addsubbot @152656307871952`
           }
         } catch (e) {
           console.error("Erro no comando estenderaluguel:", e);
-          await reply("❌ Ocorreu um erro ao estender o aluguel.");
+          await reply(`💎 Eita, não consegui estender o aluguel... (╥﹏╥)`);
         }
         break;
 
       case 'infoaluguel':
       case 'statusaluguel':
       case 'detalhesaluguel':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode ver informações de aluguel!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode ver os detalhes do aluguel ♡`);
         try {
           let targetGroupId = q.trim();
 
           // Se não passou ID, usa o grupo atual
           if (!targetGroupId || targetGroupId === '') {
             if (!isGroup) {
-              return reply(`💡 *Uso:* ${prefix}infoaluguel <id_do_grupo>\n\n📝 Ou use este comando dentro do grupo para ver o status dele.`);
+              return reply(`💡 Usa assim: ${prefix}infoaluguel <id_do_grupo>\n\n📝 Ou use este comando dentro do grupo pra ver o status dele.`);
             }
             targetGroupId = from;
           } else {
@@ -17052,7 +17052,7 @@ ${prefix}addsubbot @152656307871952`
           const rental = rentalData.groups?.[targetGroupId];
 
           if (!rental) {
-            return reply(`❌ Este grupo não possui aluguel ativo.\n\n💡 Use ${prefix}addaluguel para adicionar.`);
+            return reply(`💎 Este grupo não tem aluguel ativo.\n\n💡 Usa ${prefix}addaluguel pra adicionar.`);
           }
 
           // Busca informações do grupo
@@ -17116,13 +17116,13 @@ ${prefix}addsubbot @152656307871952`
           await reply(message);
         } catch (e) {
           console.error("Erro no comando infoaluguel:", e);
-          await reply("❌ Ocorreu um erro ao buscar informações do aluguel.");
+          await reply(`💎 Eita, não consegui ver o aluguel... (╥﹏╥)`);
         }
         break;
 
       case 'gerarcodigobr':
       case 'gerarcod':
-        if (!isOwner) return reply("🚫 Apenas o Dono principal pode gerar códigos!");
+        if (!isOwner) return reply(`💎 Só o dono principal pode gerar códigos ♡`);
         try {
           const parts = q.trim().split(' ');
           const durationArg = parts[0]?.toLowerCase();
@@ -17130,14 +17130,14 @@ ${prefix}addsubbot @152656307871952`
           let durationDays = null;
           let targetGroupId = null;
           if (!durationArg) {
-            return reply(`🤔 Uso: ${prefix}gerarcodigobr <dias|permanente> [id_do_grupo_opcional]`);
+            return reply(`💎 Usa assim: ${prefix}gerarcodigobr <dias|permanente> [id do grupo, se quiser]`);
           }
           if (durationArg === 'permanente') {
             durationDays = 'permanent';
           } else if (!isNaN(parseInt(durationArg)) && parseInt(durationArg) > 0) {
             durationDays = parseInt(durationArg);
           } else {
-            return reply('🤔 Duração inválida. Use um número de dias (ex: 7) ou a palavra "permanente".');
+            return reply(`💎 Hmm, essa duração não deu certo! Usa um número de dias (ex.: 7) ou "permanente" ♡`);
           }
           if (targetGroupArg) {
             if (targetGroupArg.includes('@g.us')) {
@@ -17149,7 +17149,7 @@ ${prefix}addsubbot @152656307871952`
               if (mentionedJid && mentionedJid.endsWith('@g.us')) {
                 targetGroupId = mentionedJid;
               } else {
-                return reply('🤔 ID do grupo alvo inválido. Forneça o ID completo (numero@g.us) ou deixe em branco para um código genérico.');
+                return reply(`💎 Esse ID de grupo não parece certo. Manda completo (numero@g.us) ou deixa vazio pra um código geral ♡`);
               }
             }
           }
@@ -17157,14 +17157,14 @@ ${prefix}addsubbot @152656307871952`
           await reply(result.message);
         } catch (e) {
           console.error("Erro no comando gerarcodigo:", e);
-          await reply("❌ Ocorreu um erro inesperado ao gerar o código.");
+          await reply(`💎 Eita, não consegui gerar o código... (╥﹏╥)`);
         }
         break;
       case 'limparaluguel':
         try {
-          if (!isOwner) return reply("Apenas o dono pode usar este comando. 🚫");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
-          await reply("🔄 Iniciando limpeza completa de aluguéis...");
+          await reply(`🧹 Limpando todos os aluguéis... ⋆｡˚`);
 
           let rentalData = loadRentalData();
           let groupsCleaned = 0;
@@ -17214,7 +17214,7 @@ ${prefix}addsubbot @152656307871952`
                 await new Promise(resolve => setTimeout(resolve, delay));
                 try {
                   await nazu.sendMessage(admin, {
-                    text: `⚠️ Olá, admin do grupo *${groupMetadata.subject}*! O aluguel do grupo expirou, e por isso saí. Para renovar, entre em contato com o dono. Obrigado! ${symbols[Math.floor(Math.random() * symbols.length)]}`
+                    text: `💎 Olá, admin do grupo *${groupMetadata.subject}*! O aluguel do grupo expirou, e por isso saí. Para renovar, entre em contato com o dono. Obrigado! ${symbols[Math.floor(Math.random() * symbols.length)]}`
                   });
                   adminsNotified++;
                 } catch (e) {
@@ -17262,7 +17262,7 @@ ${prefix}addsubbot @152656307871952`
                 const groupName = groupMetadata?.subject || 'Grupo desconhecido';
 
                 await nazu.sendMessage(groupId, {
-                  text: `👋 Este grupo não possui aluguel registrado. Estou saindo. Até mais! ${symbols[Math.floor(Math.random() * symbols.length)]}`
+                  text: `👋 Este grupo não tem aluguel registrado. Estou saindo. Até mais! ${symbols[Math.floor(Math.random() * symbols.length)]}`
                 });
 
                 await nazu.groupLeave(groupId);
@@ -17336,16 +17336,16 @@ ${prefix}addsubbot @152656307871952`
           await reply(summary);
         } catch (e) {
           console.error('Erro no comando limparaluguel:', e);
-          await reply("Ocorreu um erro ao limpar alugueis (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui limpar os aluguéis... (╥﹏╥)`);
         }
         break;
       case 'addautoresponse':
       case 'addauto':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q || !q.includes('/')) return reply(`Por favor, forneça a mensagem recebida e a resposta separadas por /. Ex: ${groupPrefix}addauto bom dia/Olá, bom dia!`);
+          if (!q || !q.includes('/')) return reply(`💎 Me manda a mensagem recebida e a resposta separadas por /. Ex: ${groupPrefix}addauto bom dia/Olá, bom dia!`);
           const [received, response] = q.split('/').map(s => s.trim());
-          if (!received || !response) return reply("Formato inválido. Use: mensagem recebida/mensagem do bot");
+          if (!received || !response) return reply(`💎 Usa assim: mensagem recebida/minha resposta ♡`);
 
           const responseData = {
             type: 'text',
@@ -17353,13 +17353,13 @@ ${prefix}addsubbot @152656307871952`
           };
 
           if (await addAutoResponse(from, received, responseData, true)) {
-            await reply(`✅ Auto-resposta global adicionada!\nTrigger: ${received}\nResposta: ${response}`);
+            await reply(`✿ Auto-resposta global adicionada!\nTrigger: ${received}\nResposta: ${response}`);
           } else {
-            await reply("😥 Erro ao salvar a auto-resposta. Tente novamente!");
+            await reply(`💎 Eita, não consegui guardar a resposta automática... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addauto:', e);
-          await reply("Ocorreu um erro ao adicionar auto-resposta (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar a resposta automática... (╥﹏╥)`);
         }
         break;
 
@@ -17402,20 +17402,20 @@ ${prefix}addsubbot @152656307871952`
                 buffer: stickerBuffer.toString('base64')
               };
             } else {
-              return reply('❌ Por favor, responda a uma mídia válida (imagem, vídeo, áudio ou sticker)!');
+              return reply(`💎 Responde uma imagem, vídeo, áudio ou figurinha, tá? ♡`);
             }
           } else {
-            return reply('❌ Por favor, responda a uma mídia para adicionar como auto-resposta!');
+            return reply(`💎 Responde a mídia que vai virar resposta automática ♡`);
           }
 
           if (await addAutoResponse(from, trigger, responseData, true)) {
-            await reply(`✅ Auto-resposta global com mídia adicionada!\nTrigger: ${trigger}\nTipo: ${responseData.type}`);
+            await reply(`✿ Auto-resposta global com mídia adicionada!\nTrigger: ${trigger}\nTipo: ${responseData.type}`);
           } else {
-            await reply("😥 Erro ao salvar a auto-resposta. Tente novamente!");
+            await reply(`💎 Eita, não consegui guardar a resposta automática... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addautomidia:', e);
-          await reply("Ocorreu um erro ao adicionar auto-resposta com mídia (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar a resposta automática com mídia... (╥﹏╥)`);
         }
         break;
 
@@ -17424,9 +17424,9 @@ ${prefix}addsubbot @152656307871952`
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q || !q.includes('/')) return reply(`Por favor, forneça a mensagem recebida e a resposta separadas por /. Ex: ${groupPrefix}addautoadm oi/Olá! Como posso ajudar?`);
+          if (!q || !q.includes('/')) return reply(`💎 Me manda a mensagem recebida e a resposta separadas por /. Ex: ${groupPrefix}addautoadm oi/Olá! Como posso ajudar?`);
           const [received, response] = q.split('/').map(s => s.trim());
-          if (!received || !response) return reply("Formato inválido. Use: mensagem recebida/mensagem do bot");
+          if (!received || !response) return reply(`💎 Usa assim: mensagem recebida/minha resposta ♡`);
 
           const responseData = {
             type: 'text',
@@ -17434,13 +17434,13 @@ ${prefix}addsubbot @152656307871952`
           };
 
           if (await addAutoResponse(from, received, responseData, false)) {
-            await reply(`✅ Auto-resposta do grupo adicionada!\nTrigger: ${received}\nResposta: ${response}`);
+            await reply(`✿ Auto-resposta do grupo adicionada!\nTrigger: ${received}\nResposta: ${response}`);
           } else {
-            await reply("😥 Erro ao salvar a auto-resposta. Tente novamente!");
+            await reply(`💎 Eita, não consegui guardar a resposta automática... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addautoadm:', e);
-          await reply("Ocorreu um erro ao adicionar auto-resposta do grupo (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar a resposta automática do grupo... (╥﹏╥)`);
         }
         break;
 
@@ -17484,20 +17484,20 @@ ${prefix}addsubbot @152656307871952`
                 buffer: stickerBuffer.toString('base64')
               };
             } else {
-              return reply('❌ Por favor, responda a uma mídia válida (imagem, vídeo, áudio ou sticker)!');
+              return reply(`💎 Responde uma imagem, vídeo, áudio ou figurinha, tá? ♡`);
             }
           } else {
-            return reply('❌ Por favor, responda a uma mídia para adicionar como auto-resposta!');
+            return reply(`💎 Responde a mídia que vai virar resposta automática ♡`);
           }
 
           if (await addAutoResponse(from, trigger, responseData, false)) {
-            await reply(`✅ Auto-resposta do grupo com mídia adicionada!\nTrigger: ${trigger}\nTipo: ${responseData.type}`);
+            await reply(`✿ Auto-resposta do grupo com mídia adicionada!\nTrigger: ${trigger}\nTipo: ${responseData.type}`);
           } else {
-            await reply("😥 Erro ao salvar a auto-resposta. Tente novamente!");
+            await reply(`💎 Eita, não consegui guardar a resposta automática... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addautoadmidia:', e);
-          await reply("Ocorreu um erro ao adicionar auto-resposta do grupo com mídia (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar a resposta automática do grupo com mídia... (╥﹏╥)`);
         }
         break;
       case 'listautoresponses':
@@ -17505,7 +17505,7 @@ ${prefix}addsubbot @152656307871952`
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
           const autoResponses = loadCustomAutoResponses();
-          if (autoResponses.length === 0) return reply("📜 Nenhuma auto-resposta global definida.");
+          if (autoResponses.length === 0) return reply(`📜 Ainda não tem resposta automática geral ♡`);
 
           let responseText = `📜 *Auto-Respostas Globais (${autoResponses.length})*\n\n`;
           autoResponses.forEach((item, index) => {
@@ -17535,7 +17535,7 @@ ${prefix}addsubbot @152656307871952`
           await reply(responseText);
         } catch (e) {
           console.error('Erro no comando listauto:', e);
-          await reply("Ocorreu um erro ao listar auto-respostas (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar as respostas automáticas... (╥﹏╥)`);
         }
         break;
 
@@ -17546,7 +17546,7 @@ ${prefix}addsubbot @152656307871952`
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           const autoResponses = loadGroupAutoResponses(from);
-          if (autoResponses.length === 0) return reply("📜 Nenhuma auto-resposta do grupo definida.");
+          if (autoResponses.length === 0) return reply(`📜 Esse grupo ainda não tem resposta automática ♡`);
 
           let responseText = `📜 *Auto-Respostas do Grupo (${autoResponses.length})*\n\n`;
           autoResponses.forEach((item, index) => {
@@ -17573,27 +17573,27 @@ ${prefix}addsubbot @152656307871952`
           await reply(responseText);
         } catch (e) {
           console.error('Erro no comando listautoadm:', e);
-          await reply("Ocorreu um erro ao listar auto-respostas do grupo (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar as respostas do grupo... (╥﹏╥)`);
         }
         break;
       case 'delautoresponse':
       case 'delauto':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q || isNaN(parseInt(q))) return reply(`Por favor, forneça o número da auto-resposta a ser removida. Ex: ${groupPrefix}delauto 1`);
+          if (!q || isNaN(parseInt(q))) return reply(`💎 Qual resposta apagar? Ex.: ${groupPrefix}delauto 1 ♡`);
           const index = parseInt(q) - 1;
           const autoResponses = loadCustomAutoResponses();
-          if (index < 0 || index >= autoResponses.length) return reply(`❌ Número inválido. Use ${groupPrefix}listauto para ver a lista.`);
+          if (index < 0 || index >= autoResponses.length) return reply(`💎 Esse número não tá na lista. Confere em ${groupPrefix}listauto ♡`);
           const removed = autoResponses.splice(index, 1)[0];
           if (saveCustomAutoResponses(autoResponses)) {
             const trigger = removed.trigger || removed.received;
             await reply(`🗑️ Auto-resposta global removida:\nTrigger: ${trigger}`);
           } else {
-            await reply("😥 Erro ao remover a auto-resposta. Tente novamente!");
+            await reply(`💎 Eita, não consegui apagar a resposta automática... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando delauto:', e);
-          await reply("Ocorreu um erro ao remover auto-resposta (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui apagar a resposta automática... (╥﹏╥)`);
         }
         break;
 
@@ -17602,19 +17602,19 @@ ${prefix}addsubbot @152656307871952`
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q || isNaN(parseInt(q))) return reply(`Por favor, forneça o número da auto-resposta a ser removida. Ex: ${groupPrefix}delautoadm 1`);
+          if (!q || isNaN(parseInt(q))) return reply(`💎 Qual resposta apagar? Ex.: ${groupPrefix}delautoadm 1 ♡`);
           const index = parseInt(q) - 1;
           const autoResponses = loadGroupAutoResponses(from);
-          if (index < 0 || index >= autoResponses.length) return reply(`❌ Número inválido. Use ${groupPrefix}listautoadm para ver a lista.`);
+          if (index < 0 || index >= autoResponses.length) return reply(`💎 Esse número não tá na lista. Confere em ${groupPrefix}listautoadm ♡`);
           const removed = autoResponses.splice(index, 1)[0];
           if (saveGroupAutoResponses(from, autoResponses)) {
             await reply(`🗑️ Auto-resposta do grupo removida:\nTrigger: ${removed.trigger}`);
           } else {
-            await reply("😥 Erro ao remover a auto-resposta. Tente novamente!");
+            await reply(`💎 Eita, não consegui apagar a resposta automática... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando delautoadm:', e);
-          await reply("Ocorreu um erro ao remover auto-resposta do grupo (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui apagar a resposta do grupo... (╥﹏╥)`);
         }
         break;
 
@@ -17692,17 +17692,17 @@ ${prefix}addsubbot @152656307871952`
           await reply(responseText);
         } catch (e) {
           console.error('Erro no comando autoresponses:', e);
-          await reply("Ocorreu um erro ao listar auto-respostas (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar as respostas automáticas... (╥﹏╥)`);
         }
         break;
       case 'addnoprefix':
       case 'addnopref':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q || !q.includes('/')) return reply(`Por favor, forneça a mensagem e o comando separados por /. Ex: ${groupPrefix}addnoprefix f/grupo f\nVocê pode incluir parâmetros fixos no comando!`);
+          if (!q || !q.includes('/')) return reply(`💎 Me manda a mensagem e o comando separados por /. Ex: ${groupPrefix}addnoprefix f/grupo f\nVocê pode incluir parâmetros fixos no comando!`);
           const [trigger, ...commandParts] = q.split('/');
           const targetCommand = commandParts.join('/').trim();
-          if (!trigger.trim() || !targetCommand) return reply("Formato inválido. Use: mensagem/comando [parâmetros]");
+          if (!trigger.trim() || !targetCommand) return reply(`💎 Usa assim: mensagem/comando [parâmetros] ♡`);
           // Otimização: Cache de comandos sem prefixo
           const noPrefixCommands = await optimizer.memoize(
             `noprefix:${from}`,
@@ -17710,7 +17710,7 @@ ${prefix}addsubbot @152656307871952`
             10000 // 10 segundos
           );
           if (noPrefixCommands.some(cmd => cmd.trigger === trigger.trim())) {
-            return reply(`A mensagem "${trigger.trim()}" já está mapeada para um comando.`);
+            return reply(`💎 A mensagem "${trigger.trim()}" já chama um comando ♡`);
           }
           const commandWords = targetCommand.split(' ');
           const baseCommand = normalizar(commandWords[0]);
@@ -17724,13 +17724,13 @@ ${prefix}addsubbot @152656307871952`
           if (saveNoPrefixCommands(noPrefixCommands)) {
             // Invalida cache após salvar
             optimizer.clearStatic(`noprefix:${from}`);
-            await reply(`✅ Comando sem prefixo adicionado!\nMensagem: ${trigger.trim()}\nComando: ${targetCommand}`);
+            await reply(`✿ Comando sem prefixo adicionado!\nMensagem: ${trigger.trim()}\nComando: ${targetCommand}`);
           } else {
-            await reply("😥 Erro ao salvar o comando sem prefixo. Tente novamente!");
+            await reply(`💎 Eita, não consegui guardar o comando sem prefixo... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addnoprefix:', e);
-          await reply("Ocorreu um erro ao adicionar comando sem prefixo (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar o comando sem prefixo... (╥﹏╥)`);
         }
         break;
       case 'listnoprefix':
@@ -17743,7 +17743,7 @@ ${prefix}addsubbot @152656307871952`
             () => Promise.resolve(loadNoPrefixCommands()),
             10000 // 10 segundos
           );
-          if (noPrefixCommands.length === 0) return reply("📜 Nenhum comando sem prefixo definido.");
+          if (noPrefixCommands.length === 0) return reply(`📜 Ainda não tem comando sem prefixo ♡`);
           let responseText = `📜 *Comandos Sem Prefixo do Grupo ${groupName}*\n\n`;
           noPrefixCommands.forEach((item, index) => {
             const fullCommand = item.fixedParams ? `${item.command} ${item.fixedParams}` : item.command;
@@ -17752,14 +17752,14 @@ ${prefix}addsubbot @152656307871952`
           await reply(responseText);
         } catch (e) {
           console.error('Erro no comando listnoprefix:', e);
-          await reply("Ocorreu um erro ao listar comandos sem prefixo (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar os comandos sem prefixo... (╥﹏╥)`);
         }
         break;
       case 'delnoprefix':
       case 'delnopref':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q || isNaN(parseInt(q))) return reply(`Por favor, forneça o número do comando sem prefixo a ser removido. Ex: ${groupPrefix}delnoprefix 1`);
+          if (!q || isNaN(parseInt(q))) return reply(`💎 Qual apagar? Ex.: ${groupPrefix}delnoprefix 1 ♡`);
           const index = parseInt(q) - 1;
           // Otimização: Cache de comandos sem prefixo
           const noPrefixCommands = await optimizer.memoize(
@@ -17767,30 +17767,30 @@ ${prefix}addsubbot @152656307871952`
             () => Promise.resolve(loadNoPrefixCommands()),
             10000 // 10 segundos
           );
-          if (index < 0 || index >= noPrefixCommands.length) return reply(`❌ Número inválido. Use ${groupPrefix}listnoprefix para ver a lista.`);
+          if (index < 0 || index >= noPrefixCommands.length) return reply(`💎 Esse número não tá na lista. Confere em ${groupPrefix}listnoprefix ♡`);
           const removed = noPrefixCommands.splice(index, 1)[0];
           if (saveNoPrefixCommands(noPrefixCommands)) {
             // Invalida cache após salvar
             optimizer.clearStatic(`noprefix:${from}`);
             await reply(`🗑️ Comando sem prefixo removido:\nMensagem: ${removed.trigger}\nComando: ${removed.command}`);
           } else {
-            await reply("😥 Erro ao remover o comando sem prefixo. Tente novamente!");
+            await reply(`💎 Eita, não consegui apagar o comando sem prefixo... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando delnoprefix:', e);
-          await reply("Ocorreu um erro ao remover comando sem prefixo (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui apagar o comando sem prefixo... (╥﹏╥)`);
         }
         break;
       case 'addalias':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q || !q.includes('/')) return reply(`Por favor, forneça o apelido e o comando separados por /. Ex: ${groupPrefix}addalias h/hidetag\nVocê pode incluir parâmetros fixos no comando!`);
+          if (!q || !q.includes('/')) return reply(`💎 Me manda o apelido e o comando separados por /. Ex: ${groupPrefix}addalias h/hidetag\nVocê pode incluir parâmetros fixos no comando!`);
           const [alias, ...commandParts] = q.split('/');
           const targetCommand = commandParts.join('/').trim();
-          if (!alias.trim() || !targetCommand) return reply("Formato inválido. Use: apelido/comando [parâmetros]");
+          if (!alias.trim() || !targetCommand) return reply(`💎 Usa assim: apelido/comando [parâmetros] ♡`);
           const aliases = loadCommandAliases();
           if (aliases.some(item => item.alias === normalizar(alias.trim()))) {
-            return reply(`O apelido "${alias.trim()}" já está em uso.`);
+            return reply(`💎 O apelido "${alias.trim()}" já existe ♡`);
           }
           const commandWords = targetCommand.split(' ');
           const baseCommand = normalizar(commandWords[0]);
@@ -17802,20 +17802,20 @@ ${prefix}addsubbot @152656307871952`
             fixedParams: fixedParams || ''
           });
           if (saveCommandAliases(aliases)) {
-            await reply(`✅ Apelido adicionado!\nApelido: ${groupPrefix}${alias.trim()}\nComando: ${groupPrefix}${targetCommand}`);
+            await reply(`✿ Apelido adicionado!\nApelido: ${groupPrefix}${alias.trim()}\nComando: ${groupPrefix}${targetCommand}`);
           } else {
-            await reply("😥 Erro ao salvar o apelido. Tente novamente!");
+            await reply(`💎 Eita, não consegui guardar o apelido... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addalias:', e);
-          await reply("Ocorreu um erro ao adicionar apelido (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar o apelido... (╥﹏╥)`);
         }
         break;
       case 'listalias':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
           const aliases = loadCommandAliases();
-          if (aliases.length === 0) return reply("📜 Nenhum apelido de comando definido.");
+          if (aliases.length === 0) return reply(`📜 Ainda não tem apelido de comando ♡`);
           let responseText = `📜 *Apelidos de Comandos do Grupo ${groupName}*\n\n`;
           aliases.forEach((item, index) => {
             const fullCommand = item.fixedParams ? `${item.command} ${item.fixedParams}` : item.command;
@@ -17824,25 +17824,25 @@ ${prefix}addsubbot @152656307871952`
           await reply(responseText);
         } catch (e) {
           console.error('Erro no comando listaliases:', e);
-          await reply("Ocorreu um erro ao listar apelidos (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar os apelidos... (╥﹏╥)`);
         }
         break;
       case 'delalias':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q || isNaN(parseInt(q))) return reply(`Por favor, forneça o número do apelido a ser removido. Ex: ${groupPrefix}delalias 1`);
+          if (!q || isNaN(parseInt(q))) return reply(`💎 Qual apelido apagar? Ex.: ${groupPrefix}delalias 1 ♡`);
           const index = parseInt(q) - 1;
           const aliases = loadCommandAliases();
-          if (index < 0 || index >= aliases.length) return reply(`❌ Número inválido. Use ${groupPrefix}listaliases para ver a lista.`);
+          if (index < 0 || index >= aliases.length) return reply(`💎 Esse número não tá na lista. Confere em ${groupPrefix}listaliases ♡`);
           const removed = aliases.splice(index, 1)[0];
           if (saveCommandAliases(aliases)) {
             await reply(`🗑️ Apelido removido:\nApelido: ${groupPrefix}${removed.alias}\nComando: ${groupPrefix}${removed.command}`);
           } else {
-            await reply("😥 Erro ao remover o apelido. Tente novamente!");
+            await reply(`💎 Eita, não consegui apagar o apelido... tenta de novo? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando delalias:', e);
-          await reply("Ocorreu um erro ao remover apelido (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui apagar o apelido... (╥﹏╥)`);
         }
         break;
 
@@ -17868,7 +17868,7 @@ ${prefix}addsubbot @152656307871952`
           // Verificar se já existe
           const existingCmd = findCustomCommand(normalizedTrigger);
           if (existingCmd) {
-            return reply(`❌ Já existe um comando com o gatilho "${trigger}".\nUse ${groupPrefix}delcmd ${trigger} para removê-lo primeiro.`);
+            return reply(`💎 Já existe um comando com o gatilho "${trigger}".\nUsa ${groupPrefix}delcmd ${trigger} pra removê-lo primeiro.`);
           }
 
           // Otimização: Cache de comandos personalizados
@@ -17897,13 +17897,13 @@ ${prefix}addsubbot @152656307871952`
             if (settings.context === 'private') flagList.push('Privado');
             const flagsStr = flagList.length ? `\n*Flags:* ${flagList.join(', ')}` : '';
             const usageStr = usage ? `\n*Uso:* ${usage}` : '';
-            await reply(`✅ Comando personalizado criado!\n\n*Gatilho:* ${trigger}\n*Resposta:* ${responseText.substring(0, 100)}${responseText.length > 100 ? '...' : ''}${flagsStr}${usageStr}\n\n_Digite "${trigger}" para testar!_`);
+            await reply(`✿ Comando personalizado criado!\n\n*Gatilho:* ${trigger}\n*Resposta:* ${responseText.substring(0, 100)}${responseText.length > 100 ? '...' : ''}${flagsStr}${usageStr}\n\n_Digite "${trigger}" pra testar!_`);
           } else {
-            await reply('❌ Erro ao salvar o comando personalizado.');
+            await reply(`💎 Eita, não consegui guardar o comando... (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addcmd:', e);
-          await reply("❌ Ocorreu um erro ao adicionar comando personalizado.");
+          await reply(`💎 Eita, não consegui criar o comando... (╥﹏╥)`);
         }
         break;
 
@@ -17911,13 +17911,13 @@ ${prefix}addsubbot @152656307871952`
       case 'editcmd':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q) return reply(`❌ Forneça o gatilho do comando a ser editado. Ex: ${groupPrefix}edcmd saudacao [param:name:required] Nova resposta aqui`);
+          if (!q) return reply(`💎 Me manda o gatilho do comando a ser editado. Ex: ${groupPrefix}edcmd saudacao [param:name:required] Nova resposta aqui`);
           const allTokens = q.trim().split(/ +/);
           const trigger = allTokens.shift();
-          if (!trigger) return reply(`❌ Forneça o gatilho do comando a ser editado.`);
+          if (!trigger) return reply(`💎 Me fala qual comando editar ♡`);
           const normalizedTrigger = normalizar(trigger).replace(/\s+/g, '');
           const existingCmd = findCustomCommand(normalizedTrigger);
-          if (!existingCmd) return reply(`❌ Comando ${trigger} não encontrado.`);
+          if (!existingCmd) return reply(`💎 Não achei o comando ${trigger} (・・ ) ?`);
           const parsed = parseCustomCommandMeta(allTokens);
           const settings = parsed.settings || existingCmd.settings || {};
           const responseText = parsed.rest.join(' ');
@@ -17937,16 +17937,16 @@ ${prefix}addsubbot @152656307871952`
             if (saveCustomCommands(commands)) {
               // Invalida cache após salvar
               optimizer.clearStatic(`customcmds:${from}`);
-              await reply(`✅ Comando atualizado: ${trigger}\n*Uso:* ${updatedCmd.usage}`);
+              await reply(`✿ Comando atualizado: ${trigger}\n*Uso:* ${updatedCmd.usage}`);
             } else {
-              await reply('❌ Erro ao salvar edição do comando.');
+              await reply(`💎 Eita, não consegui guardar a edição... (╥﹏╥)`);
             }
           } else {
-            return reply('❌ Não foi possível localizar o comando para editar.');
+            return reply(`💎 Não achei o comando pra editar (・・ ) ?`);
           }
         } catch (e) {
           console.error('Erro no comando edcmd:', e);
-          await reply('❌ Ocorreu um erro ao editar o comando.');
+          await reply(`💎 Eita, não consegui editar o comando... (╥﹏╥)`);
         }
         break;
 
@@ -17954,17 +17954,17 @@ ${prefix}addsubbot @152656307871952`
       case 'editcmdmidia':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q) return reply(`❌ Forneça o gatilho do comando a ser editado. Ex: ${groupPrefix}edcmdmidia logo (responda imagem)`);
+          if (!q) return reply(`💎 Me fala qual comando editar. Ex.: ${groupPrefix}edcmdmidia logo (respondendo uma imagem) ♡`);
           const allTokens = q.trim().split(/ +/);
           const trigger = allTokens.shift();
-          if (!trigger) return reply(`❌ Forneça o gatilho do comando a ser editado.`);
+          if (!trigger) return reply(`💎 Me fala qual comando editar ♡`);
           const normalizedTrigger = normalizar(trigger).replace(/\s+/g, '');
           const existingCmd = findCustomCommand(normalizedTrigger);
-          if (!existingCmd) return reply(`❌ Comando ${trigger} não encontrado.`);
+          if (!existingCmd) return reply(`💎 Não achei o comando ${trigger} (・・ ) ?`);
           const parsed = parseCustomCommandMeta(allTokens);
           const settings = parsed.settings || existingCmd.settings || {};
           const caption = parsed.rest.join(' ');
-          if (!quotedMessageContent) return reply('❌ Por favor responda uma mídia para atualizar a resposta do comando.');
+          if (!quotedMessageContent) return reply(`💎 Responde a mídia nova do comando, tá? ♡`);
           let responseData = null;
           if (isQuotedImage) {
             const imageBuffer = await getFileBuffer(quotedMessageContent.imageMessage, 'image');
@@ -17979,7 +17979,7 @@ ${prefix}addsubbot @152656307871952`
             const stickerBuffer = await getFileBuffer(quotedMessageContent.stickerMessage, 'sticker');
             responseData = { type: 'sticker', buffer: stickerBuffer.toString('base64') };
           } else {
-            return reply('❌ Por favor, responda a uma mídia válida (imagem, vídeo, áudio ou sticker)!');
+            return reply(`💎 Responde uma imagem, vídeo, áudio ou figurinha, tá? ♡`);
           }
           const updatedCmd = { ...existingCmd };
           if (responseData) updatedCmd.response = responseData;
@@ -17997,16 +17997,16 @@ ${prefix}addsubbot @152656307871952`
             if (saveCustomCommands(commands)) {
               // Invalida cache após salvar
               optimizer.clearStatic(`customcmds:${from}`);
-              await reply(`✅ Comando de mídia atualizado: ${trigger}\n*Uso:* ${updatedCmd.usage}`);
+              await reply(`✿ Comando de mídia atualizado: ${trigger}\n*Uso:* ${updatedCmd.usage}`);
             } else {
-              await reply('❌ Erro ao salvar edição do comando de mídia.');
+              await reply(`💎 Eita, não consegui guardar a mídia do comando... (╥﹏╥)`);
             }
           } else {
-            return reply('❌ Não foi possível localizar o comando para editar.');
+            return reply(`💎 Não achei o comando pra editar (・・ ) ?`);
           }
         } catch (e) {
           console.error('Erro no comando edcmdmidia:', e);
-          await reply('❌ Ocorreu um erro ao editar o comando de mídia.');
+          await reply(`💎 Eita, não consegui editar o comando de mídia... (╥﹏╥)`);
         }
         break;
 
@@ -18035,7 +18035,7 @@ ${prefix}addsubbot @152656307871952`
           // Verificar se já existe
           const existingCmd = findCustomCommand(normalizedTrigger);
           if (existingCmd) {
-            return reply(`❌ Já existe um comando com o gatilho "${trigger}".\nUse ${groupPrefix}delcmd ${trigger} para removê-lo primeiro.`);
+            return reply(`💎 Já existe um comando com o gatilho "${trigger}".\nUsa ${groupPrefix}delcmd ${trigger} pra removê-lo primeiro.`);
           }
 
           let responseData = null;
@@ -18070,10 +18070,10 @@ ${prefix}addsubbot @152656307871952`
                 buffer: stickerBuffer.toString('base64')
               };
             } else {
-              return reply('❌ Por favor, responda a uma mídia válida (imagem, vídeo, áudio ou sticker)!');
+              return reply(`💎 Responde uma imagem, vídeo, áudio ou figurinha, tá? ♡`);
             }
           } else {
-            return reply('❌ Por favor, responda a uma mídia para adicionar como comando!');
+            return reply(`💎 Responde a mídia que vai virar comando, tá? ♡`);
           }
 
           // Otimização: Cache de comandos personalizados
@@ -18104,11 +18104,11 @@ ${prefix}addsubbot @152656307871952`
             const usageStr = usage ? `\n*Uso:* ${usage}` : '';
             await reply(`✅ Comando personalizado com mídia criado!\n\n*Gatilho:* ${trigger}\n*Tipo:* ${responseData.type}\n${caption ? `*Legenda:* ${caption}\n` : ''}${flagsStr}${usageStr}\n_Digite "${trigger}" para testar!_`);
           } else {
-            await reply('❌ Erro ao salvar o comando personalizado.');
+            await reply(`💎 Eita, não consegui guardar o comando... (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando addcmdmidia:', e);
-          await reply("❌ Ocorreu um erro ao adicionar comando personalizado com mídia.");
+          await reply(`💎 Eita, não consegui criar o comando com mídia... (╥﹏╥)`);
         }
         break;
 
@@ -18125,7 +18125,7 @@ ${prefix}addsubbot @152656307871952`
             10000 // 10 segundos
           );
           if (commands.length === 0) {
-            return reply(`📜 *Nenhum comando personalizado criado.*\n\nUse ${groupPrefix}addcmd para criar um!`);
+            return reply(`📜 *Nenhum comando personalizado criado.*\n\nUsa ${groupPrefix}addcmd pra criar um!`);
           }
 
           let responseText = `📜 *Comandos Personalizados (${commands.length})*\n\n`;
@@ -18175,7 +18175,7 @@ ${prefix}addsubbot @152656307871952`
           await reply(responseText);
         } catch (e) {
           console.error('Erro no comando listcmd:', e);
-          await reply("❌ Ocorreu um erro ao listar comandos personalizados.");
+          await reply(`💎 Eita, não consegui listar os comandos... (╥﹏╥)`);
         }
         break;
 
@@ -18185,7 +18185,7 @@ ${prefix}addsubbot @152656307871952`
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
 
           if (!q) {
-            return reply(`❌ Forneça o número ou nome do comando.\n\nExemplo:\n• ${groupPrefix}delcmd 1\n• ${groupPrefix}delcmd bemvindo`);
+            return reply(`💎 Me manda o número ou nome do comando.\n\nExemplo:\n• ${groupPrefix}delcmd 1\n• ${groupPrefix}delcmd bemvindo`);
           }
 
           const arg = q.trim();
@@ -18202,7 +18202,7 @@ ${prefix}addsubbot @152656307871952`
             );
 
             if (index < 0 || index >= commands.length) {
-              return reply(`❌ Número inválido. Use ${groupPrefix}listcmd para ver a lista.`);
+              return reply(`💎 Esse número não tá na lista. Confere em ${groupPrefix}listcmd ♡`);
             }
 
             const removed = commands[index];
@@ -18211,7 +18211,7 @@ ${prefix}addsubbot @152656307871952`
             if (result.removed) {
               await reply(`🗑️ *Comando removido!*\n\n*Gatilho:* ${removed.trigger}\n*Tipo:* ${typeof removed.response === 'string' ? 'texto' : removed.response.type}`);
             } else {
-              await reply('❌ Erro ao remover o comando.');
+              await reply(`💎 Eita, não consegui apagar o comando... (╥﹏╥)`);
             }
           } else {
             // Remover por nome
@@ -18219,7 +18219,7 @@ ${prefix}addsubbot @152656307871952`
             const cmd = findCustomCommand(normalizedTrigger);
 
             if (!cmd) {
-              return reply(`❌ Comando "${arg}" não encontrado.\n\nUse ${groupPrefix}listcmd para ver todos os comandos.`);
+              return reply(`💎 Comando "${arg}" não encontrado.\n\nUsa ${groupPrefix}listcmd pra ver todos os comandos.`);
             }
 
             result = removeCustomCommand(c => c.id === cmd.id);
@@ -18227,12 +18227,12 @@ ${prefix}addsubbot @152656307871952`
             if (result.removed) {
               await reply(`🗑️ *Comando removido!*\n\n*Gatilho:* ${cmd.trigger}\n*Tipo:* ${typeof cmd.response === 'string' ? 'texto' : cmd.response.type}`);
             } else {
-              await reply('❌ Erro ao remover o comando.');
+              await reply(`💎 Eita, não consegui apagar o comando... (╥﹏╥)`);
             }
           }
         } catch (e) {
           console.error('Erro no comando delcmd:', e);
-          await reply("❌ Ocorreu um erro ao remover comando personalizado.");
+          await reply(`💎 Eita, não consegui apagar o comando... (╥﹏╥)`);
         }
         break;
 
@@ -18242,7 +18242,7 @@ ${prefix}addsubbot @152656307871952`
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
 
           if (!q) {
-            return reply(`❌ Forneça o nome do comando para testar.\n\nExemplo: ${groupPrefix}testcmd bemvindo`);
+            return reply(`💎 Me manda o nome do comando pra testar.\n\nExemplo: ${groupPrefix}testcmd bemvindo`);
           }
 
           const rawParts = q.trim().split(/ +/);
@@ -18300,17 +18300,17 @@ ${prefix}addsubbot @152656307871952`
               if (p.required && (typeof val === 'undefined' || val === '')) missingTest.push(p.name);
               if (typeof val !== 'undefined' && val !== '') {
                 const check = validateParamValue(val, p);
-                if (!check.ok) return reply(`❌ Parâmetro inválido: ${check.message}`);
+                if (!check.ok) return reply(`💎 Hmm, algo não bateu: ${check.message}`);
               }
             }
             if (missingTest.length) {
               const usage = cmd.usage || buildUsageFromParams(cmd.trigger, settings.params);
-              return reply(`❌ Faltam parâmetros obrigatórios: ${missingTest.map(m => m.name).join(', ')}\nUso: ${usage}`);
+              return reply(`💎 Faltam parâmetros obrigatórios: ${missingTest.map(m => m.name).join(', ')}\nUso: ${usage}`);
             }
           }
 
           if (!cmd) {
-            return reply(`❌ Comando "${q}" não encontrado.\n\nUse ${groupPrefix}listcmd para ver todos os comandos.`);
+            return reply(`💎 Comando "${q}" não encontrado.\n\nUsa ${groupPrefix}listcmd pra ver todos os comandos.`);
           }
 
           await reply(`🧪 *Testando comando: ${cmd.trigger}*\n\n_Executando..._`);
@@ -18531,14 +18531,14 @@ ${prefix}addsubbot @152656307871952`
           }
         } catch (e) {
           console.error('Erro no comando testcmd:', e);
-          await reply("❌ Ocorreu um erro ao testar o comando personalizado.");
+          await reply(`💎 Eita, não consegui testar o comando... (╥﹏╥)`);
         }
         break;
 
       case 'addblackglobal':
         try {
-          if (!isOwner) return reply("Apenas o dono pode adicionar usuários à blacklist global.");
-          if (!menc_os2 && !q) return reply(`Marque o usuário ou forneça o número (ex: ${prefix}addblackglobal @usuario motivo).`);
+          if (!isOwner) return reply(`💎 Só o dono mexe na lista negra geral ♡`);
+          if (!menc_os2 && !q) return reply(`💎 Marca a pessoa ou manda o número (ex.: ${prefix}addblackglobal @usuario motivo) ♡`);
           const reason = q ? (q.includes('@') || !menc_os2) ? (args.length > 1 ? args.slice(1).join(' ') : 'Não especificado') : q.trim() : 'Não especificado';
           let targetUser = menc_os2 || (q.split(' ')[0].includes('@') ? q.split(' ')[0] : (isValidJid(q.split(' ')[0]) || isValidLid(q.split(' ')[0])) ? q.split(' ')[0] : null);
 
@@ -18570,7 +18570,7 @@ ${prefix}addsubbot @152656307871952`
                 }
               }
             } else {
-              return reply('❌ Número inválido! Use um número completo (ex: 5511999998888)');
+              return reply(`💎 Esse número não deu certo! Manda completo, com DDI e DDD (ex.: 5511999998888) ♡`);
             }
           }
           const result = await addGlobalBlacklist(targetUser, reason, pushname, nazu);
@@ -18579,13 +18579,13 @@ ${prefix}addsubbot @152656307871952`
           });
         } catch (e) {
           console.error('Erro no comando addblackglobal:', e);
-          await reply("Ocorreu um erro ao adicionar à blacklist global (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui pôr na lista negra geral... (╥﹏╥)`);
         }
         break;
       case 'rmblackglobal':
         try {
-          if (!isOwner) return reply("Apenas o dono pode remover usuários da blacklist global.");
-          if (!menc_os2 && !q) return reply(`Marque o usuário ou forneça o número (ex: ${prefix}remblackglobal @usuario).`);
+          if (!isOwner) return reply(`💎 Só o dono mexe na lista negra geral ♡`);
+          if (!menc_os2 && !q) return reply(`💎 Marca a pessoa ou manda o número (ex.: ${prefix}remblackglobal @usuario) ♡`);
           let targetUser = menc_os2 || (q.split(' ')[0].includes('@') ? q.split(' ')[0] : (isValidJid(q.split(' ')[0]) || isValidLid(q.split(' ')[0])) ? q.split(' ')[0] : null);
           if (!targetUser && q) {
             const cleanNumber = q.split(' ')[0].replace(/\D/g, '');
@@ -18611,7 +18611,7 @@ ${prefix}addsubbot @152656307871952`
                 }
               }
             } else {
-              return reply('❌ Número inválido! Use um número completo (ex: 5511999998888)');
+              return reply(`💎 Esse número não deu certo! Manda completo, com DDI e DDD (ex.: 5511999998888) ♡`);
             }
           }
           const result = await removeGlobalBlacklist(targetUser, nazu);
@@ -18620,15 +18620,15 @@ ${prefix}addsubbot @152656307871952`
           });
         } catch (e) {
           console.error('Erro no comando remblackglobal:', e);
-          await reply("Ocorreu um erro ao remover da blacklist global (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui tirar da lista negra geral... (╥﹏╥)`);
         }
         break;
       case 'listblackglobal':
         try {
-          if (!isOwner) return reply("Apenas o dono pode listar a blacklist global.");
+          if (!isOwner) return reply(`💎 Só o dono vê a lista negra geral ♡`);
           const blacklistData = getGlobalBlacklist();
           if (Object.keys(blacklistData.users).length === 0) {
-            return reply("🛑 A blacklist global está vazia.");
+            return reply(`🛑 A lista negra geral tá vazinha ♡`);
           }
           let message = `🛑 *Blacklist Global* 🛑\n\n`;
           for (const [userId, data] of Object.entries(blacklistData.users)) {
@@ -18640,19 +18640,19 @@ ${prefix}addsubbot @152656307871952`
           });
         } catch (e) {
           console.error('Erro no comando listblackglobal:', e);
-          await reply("Ocorreu um erro ao listar a blacklist global (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar a lista negra geral... (╥﹏╥)`);
         }
         break;
       //FERRAMENTAS
       case 'encurtalink':
       case 'tinyurl':
         try {
-          if (!q) return reply(`❌️ *Forma incorreta, use está como exemplo:* ${prefix + command} https://instagram.com/hiudyyy_`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} https://instagram.com/usuario ♡`);
           const shortResponse = await axios.post("https://spoo.me/api/v1/shorten", {
             long_url: q,
             alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
           });
-          reply(`✅ *Link encurtado com sucesso!*\n\n🔗 *Link curto:* ${shortResponse.data.short_url}\n📎 *Link original:* ${shortResponse.data.long_url}`);
+          reply(`✿ *Link encurtado !*\n\n🔗 *Link curto:* ${shortResponse.data.short_url}\n📎 *Link original:* ${shortResponse.data.long_url}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -18674,7 +18674,7 @@ ${prefix}addsubbot @152656307871952`
       case 'printsite':
       case 'ssweb':
         try {
-          if (!q) return reply(`Cade o link?`);
+          if (!q) return reply(`💎 Cadê o link? ♡`);
           await nazu.sendMessage(from, {
             image: {
               url: `https://image.thum.io/get/fullpage/${q}`
@@ -18692,7 +18692,7 @@ ${prefix}addsubbot @152656307871952`
       case 'videopralink':
       case 'gerarlink':
         try {
-          if (!isQuotedImage && !isQuotedVideo && !isQuotedDocument && !isQuotedAudio) return reply(`Marque um video, uma foto, um audio ou um documento`);
+          if (!isQuotedImage && !isQuotedVideo && !isQuotedDocument && !isQuotedAudio) return reply(`💎 Responde um vídeo, foto, áudio ou documento, tá? ♡`);
           var foto1 = isQuotedImage ? info.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage : {};
           var video1 = isQuotedVideo ? info.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage : {};
           var docc1 = isQuotedDocument ? info.message.extendedTextMessage.contextInfo.quotedMessage.documentMessage : {};
@@ -18721,7 +18721,7 @@ ${prefix}addsubbot @152656307871952`
       case 'scanlink':
       case 'urlscan':
         try {
-          if (!q) return reply(`🔒 *Verificador de Links*\n\n❌ Por favor, envie um link ou domínio para verificar.\n\n📝 *Uso:* ${prefix}${command} <link>\n\n📌 *Exemplos:*\n${prefix}${command} google.com\n${prefix}${command} https://exemplo.com/pagina`);
+          if (!q) return reply(`🔒 *Verificador de Links*\n\n❌ Por favor, envie um link ou domínio pra verificar.\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Exemplos:*\n${prefix}${command} google.com\n${prefix}${command} https://exemplo.com/pagina`);
 
           // Extrair domínio do link
           let urlToCheck = q.trim();
@@ -18740,7 +18740,7 @@ ${prefix}addsubbot @152656307871952`
             domain = urlToCheck.replace(/^(https?:\/\/)?/, '').split('/')[0];
           }
 
-          await reply('🔍 Verificando segurança do link...');
+          await reply(`🔍 Conferindo se esse link é seguro... ⋆｡˚`);
 
           // Verificar domínio na API FishFish
           const fishResponse = await axios.get(`https://api.fishfish.gg/v1/domains/${encodeURIComponent(domain)}`, {
@@ -18750,7 +18750,7 @@ ${prefix}addsubbot @152656307871952`
 
           if (fishResponse.status === 404) {
             // Domínio não encontrado na base de dados = provavelmente seguro
-            await reply(`✅ *Resultado da Verificação*\n\n🔗 *Link:* ${urlToCheck}\n🌐 *Domínio:* ${domain}\n\n📊 *Status:* Não encontrado na base de ameaças\n\n💚 *Análise:* Este domínio não está listado como malicioso na base de dados FishFish. Isso geralmente indica que é seguro, mas sempre tenha cuidado ao acessar links desconhecidos!\n\n⚠️ *Dica:* Mesmo links "seguros" podem ter conteúdo prejudicial. Navegue com cautela!`);
+            await reply(`✿ *Resultado da Verificação*\n\n🔗 *Link:* ${urlToCheck}\n🌐 *Domínio:* ${domain}\n\n📊 *Status:* Não encontrado na base de ameaças\n\n💚 *Análise:* Este domínio não está listado como malicioso na base de dados FishFish. Isso geralmente indica que é seguro, mas sempre tenha cuidado ao acessar links desconhecidos!\n\n⚠️ *Dica:* Mesmo links "seguros" podem ter conteúdo prejudicial. Navegue com cautela!`);
           } else if (fishResponse.status === 200) {
             const data = fishResponse.data;
             const category = data.category || 'unknown';
@@ -18781,16 +18781,16 @@ ${prefix}addsubbot @152656307871952`
 
             await reply(`${statusEmoji} *Resultado da Verificação*\n\n🔗 *Link:* ${urlToCheck}\n🌐 *Domínio:* ${domain}\n\n📊 *Status:* ${statusText}\n🏷️ *Categoria:* ${category}\n⚡ *Nível de Risco:* ${riskLevel}\n📅 *Registrado em:* ${createdAt}${warningMsg}\n\n🔒 *Verificado por:* FishFish Security API`);
           } else {
-            await reply('❌ Erro ao verificar o link. Tente novamente mais tarde.');
+            await reply(`💎 Não consegui conferir o link... tenta mais tarde? (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando verificar:', e);
 
           if (e.code === 'ECONNABORTED' || e.message?.includes('timeout')) {
-            return reply('⏰ Tempo esgotado! O servidor de verificação está demorando para responder.');
+            return reply(`⏰ O verificador demorou demais pra responder... tenta de novo daqui a pouco ♡`);
           }
 
-          reply('❌ Ocorreu um erro ao verificar o link. Tente novamente.');
+          reply(`💎 Não consegui conferir o link... tenta de novo? (╥﹏╥)`);
         }
         break;
 
@@ -18800,7 +18800,7 @@ ${prefix}addsubbot @152656307871952`
       case 'fusohorario':
       case 'horariomundial':
         try {
-          if (!q) return reply(`🕐 *Consulta de Horário Mundial*\n\n📝 *Uso:* ${prefix}${command} <cidade/país>\n\n📌 *Exemplos:*\n${prefix}${command} tokyo\n${prefix}${command} new york\n${prefix}${command} london\n${prefix}${command} são paulo\n\n💡 *Dica:* Use nomes em inglês para melhores resultados!`);
+          if (!q) return reply(`🕐 *Consulta de Horário Mundial*\n\n📝 *Usa assim:* ${prefix}${command} <cidade/país>\n\n📌 *Exemplos:*\n${prefix}${command} tokyo\n${prefix}${command} new york\n${prefix}${command} london\n${prefix}${command} são paulo\n\n💡 *Dica:* Use nomes em inglês pra melhores resultados!`);
 
           const location = q.trim();
 
@@ -18848,7 +18848,7 @@ ${prefix}addsubbot @152656307871952`
           }
 
           if (!timezone) {
-            return reply(`❌ *Local não encontrado!*\n\n🔍 Não consegui encontrar o fuso horário para "${location}".\n\n💡 *Tente usar:*\n• Nomes de cidades grandes (Tokyo, London, New York)\n• Nomes de países (Brasil, Japan, USA)\n• Nomes em inglês geralmente funcionam melhor`);
+            return reply(`💎 *Local não encontrado!*\n\n🔍 Não consegui encontrar o fuso horário pra "${location}".\n\n💡 *Tente usar:*\n• Nomes de cidades grandes (Tokyo, London, New York)\n• Nomes de países (Brasil, Japan, USA)\n• Nomes em inglês geralmente funcionam melhor`);
           }
 
           // Obter horário atual no fuso especificado
@@ -18887,7 +18887,7 @@ ${prefix}addsubbot @152656307871952`
           await reply(`🕐 *Horário em ${location.charAt(0).toUpperCase() + location.slice(1)}*\n\n📅 ${formattedTime}\n\n🌍 *Fuso:* ${timezone}\n⏰ *Diferença:* ${diffText}`);
         } catch (e) {
           console.error('Erro no comando hora:', e);
-          reply('❌ Ocorreu um erro ao consultar o horário. Tente novamente.');
+          reply(`💎 Não consegui ver a hora agora... tenta de novo? (╥﹏╥)`);
         }
         break;
 
@@ -18896,7 +18896,7 @@ ${prefix}addsubbot @152656307871952`
       case 'tempo2':
       case 'weather2':
       case 'previsao2':
-        if (!q) return reply(`🌤️ *Previsão do Tempo*\n\n📝 *Uso:* ${prefix}${command} <cidade>\n\n📌 *Exemplos:*\n${prefix}${command} São Paulo\n${prefix}${command} Tokyo\n${prefix}${command} New York`);
+        if (!q) return reply(`🌤️ *Previsão do Tempo*\n\n📝 *Usa assim:* ${prefix}${command} <cidade>\n\n📌 *Exemplos:*\n${prefix}${command} São Paulo\n${prefix}${command} Tokyo\n${prefix}${command} New York`);
 
         const city = q.trim();
 
@@ -18905,7 +18905,7 @@ ${prefix}addsubbot @152656307871952`
           timeout: 120000
         }).then((weatherResponse) => {
           if (!weatherResponse.data || !weatherResponse.data.current_condition) {
-            return reply('❌ Cidade não encontrada. Verifique o nome e tente novamente.');
+            return reply(`💎 Não achei essa cidade... confere o nome? ♡`);
           }
 
           const current = weatherResponse.data.current_condition[0];
@@ -18951,10 +18951,10 @@ ${prefix}addsubbot @152656307871952`
           console.error('Erro no comando clima:', e);
 
           if (e.response?.status === 404 || e.message?.includes('404')) {
-            return reply('❌ Cidade não encontrada. Verifique o nome e tente novamente.');
+            return reply(`💎 Não achei essa cidade... confere o nome? ♡`);
           }
 
-          reply('❌ Ocorreu um erro ao consultar o clima. Tente novamente.');
+          reply(`💎 Não consegui ver o clima agora... tenta de novo? (╥﹏╥)`);
         });
         break;
 
@@ -18987,7 +18987,7 @@ ${prefix}addsubbot @152656307871952`
             youtube.mp3(videoUrl, 128)
               .then(async (dlRes) => {
                 if (!dlRes.ok)
-                  return nazu.sendMessage(from, { text: `❌ Erro ao baixar o áudio: ${dlRes.msg}` }, { quoted: info });
+                  return nazu.sendMessage(from, { text: `💎 Não consegui baixar o áudio: ${dlRes.msg}` }, { quoted: info });
 
                 try {
                   await nazu.sendMessage(from, {
@@ -18996,7 +18996,7 @@ ${prefix}addsubbot @152656307871952`
                   }, { quoted: info });
                 } catch (audioError) {
                   if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
-                    await nazu.sendMessage(from, { text: '📦 Arquivo muito grande para enviar como áudio, enviando como documento...' }, { quoted: info });
+                    await nazu.sendMessage(from, { text: '📦 Arquivo muito grande pra enviar como áudio, enviando como documento...' }, { quoted: info });
                     await nazu.sendMessage(from, {
                       document: dlRes.buffer,
                       fileName: `${dlRes.filename}`,
@@ -19013,7 +19013,7 @@ ${prefix}addsubbot @152656307871952`
                 if (String(downloadError).includes("age")) {
                   nazu.sendMessage(from, { text: `🔞 Este conteúdo possui restrição de idade e não pode ser baixado.` }, { quoted: info });
                 } else {
-                  nazu.sendMessage(from, { text: `❌ Ocorreu um erro ao baixar o áudio: ${downloadError.message}` }, { quoted: info });
+                  nazu.sendMessage(from, { text: `💎 Eita, não consegui baixar o áudio: ${downloadError.message}` }, { quoted: info });
                 }
               });
 
@@ -19022,11 +19022,11 @@ ${prefix}addsubbot @152656307871952`
 
           if (!youtube || typeof youtube.search !== 'function') {
             console.warn('[YOUTUBE] search function not available');
-            return reply(`❌ Sistema de busca do YouTube não está disponível no momento.`);
+            return reply(`💎 A busca do YouTube tá descansando agora... tenta daqui a pouco ♡`);
           }
 
           // Mensagem de pesquisa
-          await reply(`🔍 *Pesquisando no YouTube...*\n\n🎵 Música: *${q}*\n\n⏳ Aguarde um momento...`);
+          await reply(`🔍 *Pesquisando no YouTube...*\n\n🎵 Música: *${q}*\n\n⏳ Espera um momento...`);
 
           // Usando .then em vez de await para a pesquisa do YouTube
           youtube.search(q)
@@ -19035,7 +19035,7 @@ ${prefix}addsubbot @152656307871952`
               videoInfo = result;
               videoUrl = result.data.url;
 
-              if (videoInfo.data.seconds > 1800) return reply(`⚠️ Este vídeo é muito longo (${videoInfo.data.timestamp}).\nPor favor, escolha um vídeo com menos de 30 minutos.`);
+              if (videoInfo.data.seconds > 1800) return reply(`💎 Este vídeo é muito longo (${videoInfo.data.timestamp}).\nPor favor, escolha um vídeo com menos de 30 minutos.`);
 
               const views = typeof videoInfo.data.views === 'number'
                 ? videoInfo.data.views.toLocaleString('pt-BR')
@@ -19055,7 +19055,7 @@ ${prefix}addsubbot @152656307871952`
 
               youtube.mp3(videoUrl, 128)
                 .then(async (dlRes) => {
-                  if (!dlRes.ok) return nazu.sendMessage(from, { text: `❌ Erro ao baixar o áudio: ${dlRes.msg}` }, { quoted: info });
+                  if (!dlRes.ok) return nazu.sendMessage(from, { text: `💎 Não consegui baixar o áudio: ${dlRes.msg}` }, { quoted: info });
 
                   try {
                     await nazu.sendMessage(from, {
@@ -19064,7 +19064,7 @@ ${prefix}addsubbot @152656307871952`
                     }, { quoted: info });
                   } catch (audioError) {
                     if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
-                      await nazu.sendMessage(from, { text: '📦 Arquivo muito grande para enviar como áudio, enviando como documento...' }, { quoted: info });
+                      await nazu.sendMessage(from, { text: '📦 Arquivo muito grande pra enviar como áudio, enviando como documento...' }, { quoted: info });
                       await nazu.sendMessage(from, {
                         document: dlRes.buffer,
                         fileName: `${dlRes.filename}`,
@@ -19079,17 +19079,17 @@ ${prefix}addsubbot @152656307871952`
                 .catch((downloadError) => {
                   console.error('Erro no download (busca):', downloadError);
                   if (downloadError.message?.includes('API key inválida')) {
-                    nazu.sendMessage(from, { text: '🤖 *Sistema de YouTube temporariamente indisponível*' }, { quoted: info });
+                    nazu.sendMessage(from, { text: '🤖 *Sistema de YouTube descansando agora*' }, { quoted: info });
                   } else if (String(downloadError).includes("age")) {
                     nazu.sendMessage(from, { text: `🔞 Este conteúdo possui restrição de idade e não pode ser baixado.` }, { quoted: info });
                   } else {
-                    nazu.sendMessage(from, { text: `❌ Ocorreu um erro ao baixar o áudio: ${downloadError.message}` }, { quoted: info });
+                    nazu.sendMessage(from, { text: `💎 Eita, não consegui baixar o áudio: ${downloadError.message}` }, { quoted: info });
                   }
                 });
             })
             .catch((error) => {
               console.error('Erro ao buscar vídeo no YouTube:', error);
-              return reply(`❌ Erro ao buscar vídeo: ${error.message}`);
+              return reply(`💎 Não consegui achar o vídeo: ${error.message}`);
             });
 
           // Retornar após iniciar a pesquisa em modo promisse para não continuar executando o bloco
@@ -19099,7 +19099,7 @@ ${prefix}addsubbot @152656307871952`
           console.error('Erro no comando play/ytmp3 (bloco principal):', error);
 
           if (String(error).includes("age"))
-            return reply(`🔞 Este conteúdo possui restrição de idade e não pode ser processado.`);
+            return reply(`🔞 Esse vídeo tem restrição de idade, então não consigo baixar ♡`);
 
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
@@ -19120,15 +19120,15 @@ ${prefix}addsubbot @152656307871952`
           }
 
           if (!q.includes('open.spotify.com/track/')) {
-            return reply('❌ Por favor, envie um link válido do Spotify.\n\n💡 Dica: Use o comando play2 para buscar por nome!');
+            return reply('💎 Por favor, envie um link válido do Spotify.\n\n💡 Dica: Usa o comando play2 pra buscar por nome!');
           }
 
-          await reply('🎵 Baixando do Spotify... Aguarde um momento!');
+          await reply(`🎵 Buscando no Spotify... ⋆｡˚`);
 
           const downloadResult = await spotifyModule.download(q);
 
           if (!downloadResult.ok) {
-            return reply(`❌ ${downloadResult.msg}`);
+            return reply(`💎 ${downloadResult.msg}`);
           }
 
           const caption = `🎵 *Música Baixada do Spotify!* 🎵\n\n` +
@@ -19213,7 +19213,7 @@ ${prefix}addsubbot @152656307871952`
 
         } catch (e) {
           console.error('Erro no comando pinterest:', e);
-          reply("Ocorreu um erro ao processar o Pinterest (｡•́︿•̀｡)");
+          reply(`💎 Eita, não consegui buscar no Pinterest... (╥﹏╥)`);
         }
         break;
 
@@ -19246,7 +19246,7 @@ ${prefix}addsubbot @152656307871952`
             youtube.mp3(videoUrl, 128)
               .then(async (dlRes) => {
                 if (!dlRes.ok)
-                  return nazu.sendMessage(from, { text: `❌ Erro ao baixar o áudio: ${dlRes.msg}` }, { quoted: info });
+                  return nazu.sendMessage(from, { text: `💎 Não consegui baixar o áudio: ${dlRes.msg}` }, { quoted: info });
 
                 try {
                   await nazu.sendMessage(from, {
@@ -19255,7 +19255,7 @@ ${prefix}addsubbot @152656307871952`
                   }, { quoted: info });
                 } catch (audioError) {
                   if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
-                    await nazu.sendMessage(from, { text: '📦 Arquivo muito grande para enviar como áudio, enviando como documento...' }, { quoted: info });
+                    await nazu.sendMessage(from, { text: '📦 Arquivo muito grande pra enviar como áudio, enviando como documento...' }, { quoted: info });
                     await nazu.sendMessage(from, {
                       document: dlRes.buffer,
                       fileName: `${dlRes.filename}`,
@@ -19272,7 +19272,7 @@ ${prefix}addsubbot @152656307871952`
                 if (String(downloadError).includes("age")) {
                   nazu.sendMessage(from, { text: `🔞 Este conteúdo possui restrição de idade e não pode ser baixado.` }, { quoted: info });
                 } else {
-                  nazu.sendMessage(from, { text: `❌ Ocorreu um erro ao baixar o áudio: ${downloadError.message}` }, { quoted: info });
+                  nazu.sendMessage(from, { text: `💎 Eita, não consegui baixar o áudio: ${downloadError.message}` }, { quoted: info });
                 }
               });
 
@@ -19281,11 +19281,11 @@ ${prefix}addsubbot @152656307871952`
 
           if (!youtube || typeof youtube.search !== 'function') {
             console.warn('[YOUTUBE] search function not available');
-            return reply(`❌ Sistema de busca do YouTube não está disponível no momento.`);
+            return reply(`💎 A busca do YouTube tá descansando agora... tenta daqui a pouco ♡`);
           }
 
           // Mensagem de pesquisa
-          await reply(`🔍 *Pesquisando no YouTube...*\n\n🎵 Música: *${q}*\n\n⏳ Aguarde um momento...`);
+          await reply(`🔍 *Pesquisando no YouTube...*\n\n🎵 Música: *${q}*\n\n⏳ Espera um momento...`);
 
           // Usando .then em vez de await para a pesquisa do YouTube
           youtube.search(q)
@@ -19294,7 +19294,7 @@ ${prefix}addsubbot @152656307871952`
               videoInfo = result;
               videoUrl = result.data.url;
 
-              if (videoInfo.data.seconds > 1800) return reply(`⚠️ Este vídeo é muito longo (${videoInfo.data.timestamp}).\nPor favor, escolha um vídeo com menos de 30 minutos.`);
+              if (videoInfo.data.seconds > 1800) return reply(`💎 Este vídeo é muito longo (${videoInfo.data.timestamp}).\nPor favor, escolha um vídeo com menos de 30 minutos.`);
 
               const views = typeof videoInfo.data.views === 'number'
                 ? videoInfo.data.views.toLocaleString('pt-BR')
@@ -19307,7 +19307,7 @@ ${prefix}addsubbot @152656307871952`
 
               youtube.mp3(videoUrl, 128)
                 .then(async (dlRes) => {
-                  if (!dlRes.ok) return nazu.sendMessage(from, { text: `❌ Erro ao baixar o áudio: ${dlRes.msg}` }, { quoted: info });
+                  if (!dlRes.ok) return nazu.sendMessage(from, { text: `💎 Não consegui baixar o áudio: ${dlRes.msg}` }, { quoted: info });
 
                   try {
                     await nazu.sendMessage(from, {
@@ -19316,7 +19316,7 @@ ${prefix}addsubbot @152656307871952`
                     }, { quoted: info });
                   } catch (audioError) {
                     if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
-                      await nazu.sendMessage(from, { text: '📦 Arquivo muito grande para enviar como áudio, enviando como documento...' }, { quoted: info });
+                      await nazu.sendMessage(from, { text: '📦 Arquivo muito grande pra enviar como áudio, enviando como documento...' }, { quoted: info });
                       await nazu.sendMessage(from, {
                         document: dlRes.buffer,
                         fileName: `${dlRes.filename}`,
@@ -19331,17 +19331,17 @@ ${prefix}addsubbot @152656307871952`
                 .catch((downloadError) => {
                   console.error('Erro no download (busca):', downloadError);
                   if (downloadError.message?.includes('API key inválida')) {
-                    nazu.sendMessage(from, { text: '🤖 *Sistema de YouTube temporariamente indisponível*' }, { quoted: info });
+                    nazu.sendMessage(from, { text: '🤖 *Sistema de YouTube descansando agora*' }, { quoted: info });
                   } else if (String(downloadError).includes("age")) {
                     nazu.sendMessage(from, { text: `🔞 Este conteúdo possui restrição de idade e não pode ser baixado.` }, { quoted: info });
                   } else {
-                    nazu.sendMessage(from, { text: `❌ Ocorreu um erro ao baixar o áudio: ${downloadError.message}` }, { quoted: info });
+                    nazu.sendMessage(from, { text: `💎 Eita, não consegui baixar o áudio: ${downloadError.message}` }, { quoted: info });
                   }
                 });
             })
             .catch((error) => {
               console.error('Erro ao buscar vídeo no YouTube:', error);
-              return reply(`❌ Erro ao buscar vídeo: ${error.message}`);
+              return reply(`💎 Não consegui achar o vídeo: ${error.message}`);
             });
 
           // Retornar após iniciar a pesquisa em modo promisse para não continuar executando o bloco
@@ -19351,7 +19351,7 @@ ${prefix}addsubbot @152656307871952`
           console.error('Erro no comando play/ytmp3 (bloco principal):', error);
 
           if (String(error).includes("age"))
-            return reply(`🔞 Este conteúdo possui restrição de idade e não pode ser processado.`);
+            return reply(`🔞 Esse vídeo tem restrição de idade, então não consigo baixar ♡`);
 
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
@@ -19372,15 +19372,15 @@ ${prefix}addsubbot @152656307871952`
 
 
           if (!q.includes('soundcloud.com/')) {
-            return reply('❌ Por favor, envie um link válido do SoundCloud.\n\n💡 Dica: Use o comando play3 para buscar por nome!');
+            return reply('💎 Por favor, envie um link válido do SoundCloud.\n\n💡 Dica: Usa o comando play3 pra buscar por nome!');
           }
 
-          await reply('🎵 Baixando do SoundCloud... Aguarde um momento!');
+          await reply(`🎵 Buscando no SoundCloud... ⋆｡˚`);
 
           soundcloud.download(q)
             .then(async (result) => {
               if (!result.ok) {
-                return reply(`❌ Erro: ${result.msg}`);
+                return reply(`💎 Ops: ${result.msg}`);
               }
 
               const caption = `🎵 *Música Baixada com Sucesso!* 🎵\n\n` +
@@ -19419,7 +19419,7 @@ ${prefix}addsubbot @152656307871952`
             })
             .catch((error) => {
               console.error('Erro no download do SoundCloud:', error);
-              reply(`❌ Erro ao baixar do SoundCloud: ${error.message}`);
+              reply(`💎 Não consegui baixar do SoundCloud: ${error.message}`);
             });
 
         } catch (error) {
@@ -19445,15 +19445,15 @@ ${prefix}addsubbot @152656307871952`
 
 
 
-          await reply('🔎 Buscando no SoundCloud... Aguarde!');
+          await reply(`🔎 Procurando no SoundCloud... ⋆｡˚`);
 
           soundcloud.searchDownload(q)
             .then(async (result) => {
               if (!result.ok) {
                 if (result.msg.includes('API key inválida')) {
-                  return reply('🤖 *Sistema de SoundCloud temporariamente indisponível*\n\n😅 Estou com problemas técnicos no momento. O administrador já foi notificado!');
+                  return reply('🤖 *Sistema de SoundCloud descansando agora*\n\n😅 Estou com problemas técnicos no momento. O administrador já foi notificado!');
                 }
-                return reply(`❌ Erro: ${result.msg}`);
+                return reply(`💎 Ops: ${result.msg}`);
               }
 
               const formatDuration = (seconds) => {
@@ -19511,9 +19511,9 @@ ${prefix}addsubbot @152656307871952`
             .catch((error) => {
               console.error('Erro na busca/download do SoundCloud:', error);
               if (error.message?.includes('API key inválida')) {
-                reply('🤖 *Sistema de SoundCloud temporariamente indisponível*');
+                reply(`🤖 *O SoundCloud tá descansando agora... tenta daqui a pouco ♡*`);
               } else {
-                reply(`❌ Erro ao buscar no SoundCloud: ${error.message}`);
+                reply(`💎 Não consegui buscar no SoundCloud: ${error.message}`);
               }
             });
 
@@ -19547,7 +19547,7 @@ ${prefix}addsubbot @152656307871952`
                   });
                 } catch (videoError) {
                   if (String(videoError).includes("ENOSPC") || String(videoError).includes("size")) {
-                    await reply('Arquivo muito grande, enviando como documento...');
+                    await reply(`💎 Ficou grandão, vou mandar como documento ♡`);
                     await nazu.sendMessage(from, {
                       document: dlRes.buffer,
                       fileName: `${dlRes.filename}`,
@@ -19593,7 +19593,7 @@ ${prefix}addsubbot @152656307871952`
                   }, { quoted: info });
                 } catch (videoError) {
                   if (String(videoError).includes("ENOSPC") || String(videoError).includes("size")) {
-                    await reply('Arquivo muito grande, enviando como documento...');
+                    await reply(`💎 Ficou grandão, vou mandar como documento ♡`);
                     await nazu.sendMessage(from, {
                       document: dlRes.buffer,
                       fileName: `${dlRes.filename}`,
@@ -19623,7 +19623,7 @@ ${prefix}addsubbot @152656307871952`
       case 'lyrics':
         try {
 
-          if (!q) return reply('cade o nome da musica?');
+          if (!q) return reply(`💎 Qual música você quer? ♡`);
 
           await reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
 
@@ -19671,7 +19671,7 @@ ${prefix}addsubbot @152656307871952`
               const urlz = datinha.urls?.[0];
 
               if (!urlz) {
-                return reply('❌ Não foi possível obter o link do vídeo.');
+                return reply(`💎 Não consegui pegar o link do vídeo... (╥﹏╥)`);
               }
 
               await nazu.sendMessage(from, {
@@ -19712,15 +19712,15 @@ ${prefix}addsubbot @152656307871952`
           }
 
           if (!q.includes('facebook.com/')) {
-            return reply('❌ Por favor, envie um link válido do Facebook.');
+            return reply(`💎 Manda um link do Facebook, tá? ♡`);
           }
 
-          await reply('📹 Baixando vídeo do Facebook em HD... Aguarde!');
+          await reply(`📹 Baixando o vídeo do Facebook em HD... ⋆｡˚`);
 
           facebook.downloadHD(q)
             .then(async (result) => {
               if (!result.ok) {
-                return reply(`❌ Erro: ${result.msg}`);
+                return reply(`💎 Ops: ${result.msg}`);
               }
 
               const qualityList = result.allQualities.map((q, i) =>
@@ -19749,7 +19749,7 @@ ${prefix}addsubbot @152656307871952`
                 }, { quoted: info });
               } catch (videoError) {
                 if (String(videoError).includes("ENOSPC") || String(videoError).includes("size")) {
-                  await reply('📦 Vídeo muito grande, enviando como documento...');
+                  await reply(`💎 O vídeo ficou grandão, vou mandar como documento ♡`);
                   await nazu.sendMessage(from, {
                     document: result.buffer,
                     fileName: result.filename,
@@ -19757,13 +19757,13 @@ ${prefix}addsubbot @152656307871952`
                   }, { quoted: info });
                 } else {
                   console.error('Erro ao enviar vídeo do Facebook:', videoError);
-                  reply('❌ Ocorreu um erro ao enviar o vídeo.');
+                  reply(`💎 Não consegui mandar o vídeo... tenta de novo? (╥﹏╥)`);
                 }
               }
             })
             .catch((error) => {
               console.error('Erro no download do Facebook:', error);
-              reply(`❌ Erro ao baixar do Facebook: ${error.message}`);
+              reply(`💎 Não consegui baixar do Facebook: ${error.message}`);
             });
 
         } catch (error) {
@@ -19851,21 +19851,21 @@ ${prefix}addsubbot @152656307871952`
       case 'drive':
       case 'gd':
         try {
-          if (!q) return reply(`📁 *Google Drive Download*\n\n❌ Por favor, envie o link do arquivo do Google Drive.\n\n📝 *Uso:* ${prefix}${command} <link>\n\n📌 *Formatos suportados:*\n• https://drive.google.com/file/d/ID/view\n• https://drive.google.com/open?id=ID\n• https://drive.google.com/uc?id=ID`);
+          if (!q) return reply(`📁 *Google Drive Download*\n\n❌ Por favor, envie o link do arquivo do Google Drive.\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Formatos suportados:*\n• https://drive.google.com/file/d/ID/view\n• https://drive.google.com/open?id=ID\n• https://drive.google.com/uc?id=ID`);
 
           // Validar se é um link do Google Drive
           const gdriveRegex = /(?:https?:\/\/)?(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)|docs\.google\.com\/(?:document|spreadsheets|presentation)\/d\/)([a-zA-Z0-9_-]+)/i;
           if (!gdriveRegex.test(q)) {
-            return reply('❌ Link inválido! Por favor, envie um link válido do Google Drive.');
+            return reply(`💎 Hmm, esse link não é do Google Drive... confere pra mim? ♡`);
           }
 
-          await reply('⏳ Buscando informações do arquivo...');
+          await reply(`💎 Olhando o arquivo... ⋆｡˚`);
 
           // Usar implementação local do gdrive
           const gdriveResult = await gdriveGetInfo(q);
 
           if (!gdriveResult.ok) {
-            return reply(`❌ ${gdriveResult.msg || 'Erro ao obter informações do arquivo'}`);
+            return reply(`💎 ${gdriveResult.msg || 'Não consegui ver o arquivo'}`);
           }
 
           const { fileName, fileSize, fileSizeBytes, downloadUrl, mimetype } = gdriveResult;
@@ -19877,7 +19877,7 @@ ${prefix}addsubbot @152656307871952`
               long_url: downloadUrl,
               alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
             });
-            return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}\n\n⚠️ *Arquivo muito grande para enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkGdrive.data.short_url}`);
+            return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}\n\n⚠️ *Arquivo muito grande pra enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkGdrive.data.short_url}`);
           }
 
           await reply(`📁 *Baixando arquivo...*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}`);
@@ -19928,30 +19928,30 @@ ${prefix}addsubbot @152656307871952`
           console.error('Erro no comando gdrive:', e);
 
           if (e.code === 'ECONNABORTED' || e.message?.includes('timeout')) {
-            return reply('⏰ Tempo esgotado! O arquivo pode ser muito grande ou a conexão está lenta.');
+            return reply(`⏰ Demorou demais... o arquivo pode ser grande ou a conexão tá lenta. Tenta de novo? ♡`);
           }
 
-          reply('❌ Ocorreu um erro ao baixar o arquivo. Verifique se o link está correto e tente novamente.');
+          reply(`💎 Não consegui baixar o arquivo... confere o link e tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'mediafire':
       case 'mf':
         try {
-          if (!q) return reply(`📁 *MediaFire Download*\n\n❌ Por favor, envie o link do arquivo do MediaFire.\n\n📝 *Uso:* ${prefix}${command} <link>\n\n📌 *Exemplo:*\n${prefix}${command} https://www.mediafire.com/file/abc123/arquivo.zip/file`);
+          if (!q) return reply(`📁 *MediaFire Download*\n\n❌ Por favor, envie o link do arquivo do MediaFire.\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Exemplo:*\n${prefix}${command} https://www.mediafire.com/file/abc123/arquivo.zip/file`);
 
           // Validar se é um link do MediaFire
           const mediafireRegex = /(?:https?:\/\/)?(?:www\.)?mediafire\.com\/(?:file|view|download)\/([a-zA-Z0-9]+)/i;
           if (!mediafireRegex.test(q)) {
-            return reply('❌ Link inválido! Por favor, envie um link válido do MediaFire.');
+            return reply(`💎 Hmm, esse link não é do MediaFire... confere pra mim? ♡`);
           }
 
-          await reply('⏳ Buscando informações do arquivo...');
+          await reply(`💎 Olhando o arquivo... ⋆｡˚`);
 
           // Usar implementação local do mediafire
           const mfResult = await mediafireGetInfo(q);
 
           if (!mfResult.ok) {
-            return reply(`❌ ${mfResult.msg || 'Erro ao obter informações do arquivo'}`);
+            return reply(`💎 ${mfResult.msg || 'Não consegui ver o arquivo'}`);
           }
 
           const { fileName, fileSize, uploadDate, mimetype, extension, downloadUrl } = mfResult;
@@ -19974,7 +19974,7 @@ ${prefix}addsubbot @152656307871952`
               long_url: downloadUrl,
               alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
             });
-            return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Upload:* ${uploadDate || 'N/A'}\n📋 *Tipo:* ${extension || mimetype}\n\n⚠️ *Arquivo muito grande para enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkMf.data.short_url}`);
+            return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Upload:* ${uploadDate || 'N/A'}\n📋 *Tipo:* ${extension || mimetype}\n\n⚠️ *Arquivo muito grande pra enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkMf.data.short_url}`);
           }
 
           await reply(`📁 *Baixando arquivo...*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Upload:* ${uploadDate || 'N/A'}`);
@@ -20026,10 +20026,10 @@ ${prefix}addsubbot @152656307871952`
           console.error('Erro no comando mediafire:', e);
 
           if (e.code === 'ECONNABORTED' || e.message?.includes('timeout')) {
-            return reply('⏰ Tempo esgotado! O arquivo pode ser muito grande ou a conexão está lenta.');
+            return reply(`⏰ Demorou demais... o arquivo pode ser grande ou a conexão tá lenta. Tenta de novo? ♡`);
           }
 
-          reply('❌ Ocorreu um erro ao baixar o arquivo. Verifique se o link está correto e tente novamente.');
+          reply(`💎 Não consegui baixar o arquivo... confere o link e tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'twitter':
@@ -20038,21 +20038,21 @@ ${prefix}addsubbot @152656307871952`
       case 'x':
       case 'xdl':
         try {
-          if (!q) return reply(`🐦 *Twitter/X Download*\n\n❌ Por favor, envie o link do tweet.\n\n📝 *Uso:* ${prefix}${command} <link>\n\n📌 *Formatos suportados:*\n• https://twitter.com/user/status/ID\n• https://x.com/user/status/ID`);
+          if (!q) return reply(`🐦 *Twitter/X Download*\n\n❌ Por favor, envie o link do tweet.\n\n📝 *Usa assim:* ${prefix}${command} <link>\n\n📌 *Formatos suportados:*\n• https://twitter.com/user/status/ID\n• https://x.com/user/status/ID`);
 
           // Validar se é um link do Twitter/X
           const twitterRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/(?:\w+\/status|i\/status)\/(\d+)/i;
           if (!twitterRegex.test(q)) {
-            return reply('❌ Link inválido! Por favor, envie um link válido do Twitter/X.');
+            return reply(`💎 Hmm, esse link não é do X (Twitter)... confere pra mim? ♡`);
           }
 
-          await reply('⏳ Buscando informações do tweet...');
+          await reply(`💎 Olhando o post... ⋆｡˚`);
 
           // Usar implementação local do twitter
           const twitterResult = await twitterGetInfo(q);
 
           if (!twitterResult.ok) {
-            return reply(`❌ ${twitterResult.msg || 'Erro ao obter informações do tweet'}`);
+            return reply(`💎 ${twitterResult.msg || 'Não consegui ver o post'}`);
           }
 
           const { text, author, stats, media, hasMedia, type } = twitterResult;
@@ -20061,7 +20061,7 @@ ${prefix}addsubbot @152656307871952`
           const caption = `🐦 *Twitter/X Download*\n\n👤 *${author?.name || 'Usuário'}* (@${author?.username || 'unknown'})\n\n💬 ${text || ''}\n\n❤️ ${stats?.likes || 0} • 🔁 ${stats?.retweets || 0} • 💬 ${stats?.replies || 0}`;
 
           if (!hasMedia || !media || media.length === 0) {
-            return reply(`${caption}\n\n⚠️ Este tweet não contém mídia para download.`);
+            return reply(`${caption}\n\n⚠️ Este tweet não contém mídia pra download.`);
           }
 
           // Enviar cada mídia
@@ -20100,10 +20100,10 @@ ${prefix}addsubbot @152656307871952`
           console.error('Erro no comando twitter:', e);
 
           if (e.code === 'ECONNABORTED' || e.message?.includes('timeout')) {
-            return reply('⏰ Tempo esgotado! Tente novamente.');
+            return reply(`⏰ Demorou demais... tenta de novo? ♡`);
           }
 
-          reply('❌ Ocorreu um erro ao baixar o tweet. Verifique se o link está correto e tente novamente.');
+          reply(`💎 Não consegui baixar o post... confere o link e tenta de novo? (╥﹏╥)`);
         }
         break;
 
@@ -20164,7 +20164,7 @@ Se não definir cores:
 
         } catch (e) {
           console.error('Erro no comando brat:', e);
-          reply("Ocorreu um erro ao processar o sticker Brat (｡•́︿•̀｡)");
+          reply(`💎 Eita, não consegui fazer a figurinha brat... (╥﹏╥)`);
         }
         break;
 
@@ -20229,7 +20229,7 @@ Se não definir cores, a API usa padrão automaticamente.`
 
         } catch (e) {
           console.error('Erro no comando bratvid:', e);
-          reply("Ocorreu um erro ao processar o sticker animado Brat (｡•́︿•̀｡)");
+          reply(`💎 Eita, não consegui fazer a figurinha brat animada... (╥﹏╥)`);
         }
         break;
 
@@ -20323,7 +20323,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           console.error('Erro ao enviar menu:', error);
           const customDesign = getMenuDesignWithDefaults(nomebot, pushname);
           const menuText = await menu(prefix, nomebot, pushname, customDesign);
-          await reply(`${menuText}\n\n⚠️ *Nota*: Ocorreu um erro ao carregar a mídia do menu.`);
+          await reply(`${menuText}\n\n⚠️ *Nota*: Deu um errinho ao carregar a mídia do menu.`);
         }
         break;
       case 'alteradores':
@@ -20335,7 +20335,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('alteradores', menuAlterador);
         } catch (error) {
           console.error('Erro ao enviar menu de alteradores:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de alteradores");
+          await reply(`💎 Eita, não consegui abrir o menu de efeitos... (╥﹏╥)`);
         }
         break;
 
@@ -20345,7 +20345,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('logotipos', menuLogos);
         } catch (error) {
           console.error('Erro ao enviar menu de Logos:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de Logos");
+          await reply(`💎 Eita, não consegui abrir o menu de logos... (╥﹏╥)`);
         }
         break;
 
@@ -20355,7 +20355,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('menuedits', menuedits);
         } catch (error) {
           console.error('Erro ao enviar menu de Logos:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de Logos");
+          await reply(`💎 Eita, não consegui abrir o menu de logos... (╥﹏╥)`);
         }
         break;
 
@@ -20371,7 +20371,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('brincadeiras', async () => menuContent);
         } catch (error) {
           console.error('Erro ao enviar menu de brincadeiras:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de brincadeiras");
+          await reply(`💎 Eita, não consegui abrir o menu de brincadeiras... (╥﹏╥)`);
         }
         break;
       case 'menudown':
@@ -20383,7 +20383,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('downloads', menudown);
         } catch (error) {
           console.error('Erro ao enviar menu de downloads:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de downloads");
+          await reply(`💎 Eita, não consegui abrir o menu de downloads... (╥﹏╥)`);
         }
         break;
       case 'ferramentas':
@@ -20395,7 +20395,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('ferramentas', menuFerramentas);
         } catch (error) {
           console.error('Erro ao enviar menu de ferramentas:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de ferramentas");
+          await reply(`💎 Eita, não consegui abrir o menu de ferramentas... (╥﹏╥)`);
         }
         break;
       case 'menuadm':
@@ -20406,7 +20406,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('admin', menuadm);
         } catch (error) {
           console.error('Erro ao enviar menu de administração:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de administração");
+          await reply(`💎 Eita, não consegui abrir o menu dos admins... (╥﹏╥)`);
         }
         break;
       case 'menumembros':
@@ -20418,7 +20418,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           await sendMenuWithMedia('membros', menuMembros);
         } catch (error) {
           console.error('Erro ao enviar menu de membros:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de membros");
+          await reply(`💎 Eita, não consegui abrir o menu de membros... (╥﹏╥)`);
         }
         break;
       case 'configcmdnotfound':
@@ -20466,21 +20466,21 @@ Se não definir cores, a API usa padrão automaticamente.`
 
           } catch (e) {
             console.error("Erro ao reiniciar:", e);
-            await reply(`❌ Erro ao tentar reiniciar: ${e.message}`);
+            await reply(`💎 Não consegui reiniciar: ${e.message}`);
           }
         }
         switch (subcommand) {
           case 'activate':
             cmdNotFoundConfig.enabled = true;
             if (saveCmdNotFoundConfig(cmdNotFoundConfig, 'ativado')) {
-              reply('✅ Mensagens de comando não encontrados foram ativadas!');
+              reply(`✿ Prontinho! Agora eu aviso quando alguém erra o comando ♡`);
             }
             break;
 
           case 'deactivate':
             cmdNotFoundConfig.enabled = false;
             if (saveCmdNotFoundConfig(cmdNotFoundConfig, 'desativado')) {
-              reply('✅ Mensagens de comando não encontrados foram desativadas!');
+              reply(`✿ Prontinho! Não aviso mais quando alguém erra o comando ♡`);
             }
             break;
 
@@ -20499,10 +20499,10 @@ Se não definir cores, a API usa padrão automaticamente.`
 
             cmdNotFoundConfig.message = newMessage;
             if (saveCmdNotFoundConfig(cmdNotFoundConfig)) {
-              reply('✅ Mensagem personalizada salva com sucesso!');
+              reply(`✿ Prontinho! Guardei sua mensagem ♡`);
               console.log(`🔧 Comando não encontrado: Mensagem alterada por ${pushname} (${sender})`);
             } else {
-              reply('❌ Ocorreu um erro ao salvar a mensagem. Tente novamente.');
+              reply(`💎 Eita, não consegui guardar a mensagem... tenta de novo? (╥﹏╥)`);
             }
             break;
 
@@ -20515,7 +20515,7 @@ Se não definir cores, a API usa padrão automaticamente.`
 
             cmdNotFoundConfig.style = style;
             if (saveCmdNotFoundConfig(cmdNotFoundConfig, `estilo alterado para ${style}`)) {
-              reply(`✅ Estilo alterado para "${style}" com sucesso!`);
+              reply(`✿ Prontinho! Estilo trocado pra "${style}" ♡`);
             }
             break;
 
@@ -20548,7 +20548,7 @@ Se não definir cores, a API usa padrão automaticamente.`
             };
 
             if (saveCmdNotFoundConfig(cmdNotFoundConfig, 'resetado para padrão')) {
-              reply('✅ Configurações de comando não encontradas restauradas para o padrão!');
+              reply(`✿ Prontinho! O aviso de comando errado voltou ao padrão ♡`);
             }
             break;
 
@@ -20565,7 +20565,7 @@ Se não definir cores, a API usa padrão automaticamente.`
       case 'ajuda':
         try {
           if (!isOwner) {
-            await reply("⚠️ Este comando é exclusivo para o dono do bot.");
+            await reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
             return;
           }
 
@@ -21151,7 +21151,7 @@ Precisa de ajuda? Entre em contato:
           await reply(tutorialText);
         } catch (error) {
           console.error('Erro no comando tutorial:', error);
-          await reply('❌ Ocorreu um erro ao exibir o tutorial.');
+          await reply(`💎 Eita, não consegui mostrar o tutorial... (╥﹏╥)`);
         }
         break;
 
@@ -21159,13 +21159,13 @@ Precisa de ajuda? Entre em contato:
       case 'ownermenu':
         try {
           if (!isOwner) {
-            await reply("⚠️ Este menu é exclusivo para o dono do bot.");
+            await reply(`💎 Esse menu é só pro meu dono, viu? ( ˘ ³˘)♡`);
             return;
           }
           await sendMenuWithMedia('dono', menuDono);
         } catch (error) {
           console.error('Erro ao enviar menu do dono:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu do dono");
+          await reply(`💎 Eita, não consegui abrir o menu do dono... (╥﹏╥)`);
         }
         break;
       case 'stickermenu':
@@ -21175,7 +21175,7 @@ Precisa de ajuda? Entre em contato:
           await sendMenuWithMedia('stickers', menuSticker);
         } catch (error) {
           console.error('Erro ao enviar menu de stickers:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de stickers");
+          await reply(`💎 Eita, não consegui abrir o menu de figurinhas... (╥﹏╥)`);
         }
         break;
         async function sendMenuWithMedia(menuType, menuFunction) {
@@ -21238,7 +21238,7 @@ Precisa de ajuda? Entre em contato:
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv3' ? null : 'antipv3';
           writeJsonFile(ANTIPV_FILE, antipvData);
-          await reply(`✅ Antipv3 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'bloqueia usuários que usam comandos no privado' : 'responde normalmente no privado'}.`);
+          await reply(`✿ Antipv3 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'bloqueia usuários que usam comandos no privado' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21249,7 +21249,7 @@ Precisa de ajuda? Entre em contato:
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv2' ? null : 'antipv2';
           writeJsonFile(ANTIPV_FILE, antipvData);
-          await reply(`✅ Antipv2 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'avisa que comandos só funcionam em grupos no privado' : 'responde normalmente no privado'}.`);
+          await reply(`✿ Antipv2 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'avisa que comandos só funcionam em grupos no privado' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21260,7 +21260,7 @@ Precisa de ajuda? Entre em contato:
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv4' ? null : 'antipv4';
           writeJsonFile(ANTIPV_FILE, antipvData);
-          await reply(`✅ Antipv4 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'avisa que o bot so funciona em grupos' : 'responde normalmente no privado'}.`);
+          await reply(`✿ Antipv4 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'avisa que o bot so funciona em grupos' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21270,7 +21270,7 @@ Precisa de ajuda? Entre em contato:
       case 'antipvmsg':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!q) return reply(`Por favor, forneça a nova mensagem para o antipv. Exemplo: ${prefix}antipvmessage Comandos no privado estão desativados!`);
+          if (!q) return reply(`💎 Me manda a nova mensagem pra o antipv. Exemplo: ${prefix}antipvmessage Comandos no privado estão desativados!`);
           const antipvFile = DATABASE_DIR + '/antipv.json';
           let antipvData = loadJsonFile(antipvFile, {
             mode: 'off',
@@ -21278,10 +21278,10 @@ Precisa de ajuda? Entre em contato:
           });
           antipvData.message = q.trim();
           writeJsonFile(antipvFile, antipvData);
-          await reply(`✅ Mensagem do antipv atualizada para: "${antipvData.message}"`);
+          await reply(`✿ Prontinho! O aviso do privado agora é: "${antipvData.message}"`);
         } catch (e) {
           console.error('Erro no comando setantipvmensagem:', e);
-          await reply("Ocorreu um erro ao configurar a mensagem do antipv (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui mudar o aviso do privado... (╥﹏╥)`);
         }
         break;
       case 'antipv':
@@ -21289,7 +21289,7 @@ Precisa de ajuda? Entre em contato:
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv' ? null : 'antipv';
           writeJsonFile(ANTIPV_FILE, antipvData);
-          await reply(`✅ Antipv ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'ignora mensagens no privado' : 'responde normalmente no privado'}.`);
+          await reply(`✿ Antipv ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'ignora mensagens no privado' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21330,9 +21330,9 @@ Precisa de ajuda? Entre em contato:
           if (!q || !q.includes('chat.whatsapp.com')) return reply('Digite um link de convite válido! Exemplo: ' + prefix + 'entrar https://chat.whatsapp.com/...');
           const code = q.split('https://chat.whatsapp.com/')[1];
           await nazu.groupAcceptInvite(code).then(res => {
-            reply(`✅ Entrei no grupo com sucesso!`);
+            reply(`🎉 Entrei no grupo! Oiê, gente ♡`);
           }).catch(err => {
-            reply('❌ Erro ao entrar no grupo. Link inválido ou permissão negada.');
+            reply(`💎 Não consegui entrar... o link pode estar errado ou sem permissão (｡•́︿•̀｡)`);
           });
         } catch (e) {
           console.error(e);
@@ -21360,25 +21360,25 @@ Precisa de ajuda? Entre em contato:
 
           // Verifica se é um ID de grupo válido
           if (!groupId.endsWith('@g.us')) {
-            return reply('❌ ID de grupo inválido! Deve terminar com @g.us');
+            return reply(`💎 Esse ID de grupo não parece certo! Ele termina com @g.us ♡`);
           }
 
           // Tenta obter informações do grupo para confirmar
           try {
             const groupMetadata = await nazu.groupMetadata(groupId).catch(() => null);
             if (!groupMetadata) {
-              return reply('❌ Grupo não encontrado ou não tenho acesso a ele.');
+              return reply(`💎 Não achei esse grupo, ou não tenho acesso a ele (・・ ) ?`);
             }
 
             const groupName = groupMetadata.subject || 'Grupo desconhecido';
 
             // Sai do grupo
             await nazu.groupLeave(groupId);
-            await reply(`✅ Sai do grupo "${groupName}" com sucesso!`);
+            await reply(`👋 Saí do grupo "${groupName}" ♡`);
           } catch (error) {
             // Tenta sair mesmo assim
             await nazu.groupLeave(groupId).catch(() => { });
-            await reply(`✅ Comando de saída executado para o grupo ${groupId}`);
+            await reply(`👋 Pedi pra sair do grupo ${groupId} ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -21470,7 +21470,7 @@ Precisa de ajuda? Entre em contato:
             }
           }
 
-          await reply(`✅ Transmissão enviada para ${enviados}/${totalGroups} grupos!`);
+          await reply(`📣 Recado enviado pra ${enviados} de ${totalGroups} grupos ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21481,12 +21481,12 @@ Precisa de ajuda? Entre em contato:
       case 'inscrevertm':
       case 'inscrevertm2':
         try {
-          if (isGroup) return reply('⚠️ Este comando só funciona no privado! Me chama no PV para se inscrever.');
+          if (isGroup) return reply(`💎 Esse funciona só no meu privado! Me chama lá pra se inscrever ♡`);
 
           // Verifica se o usuário já está inscrito
           if (transmissao.isSubscribed(sender)) {
             const stats = transmissao.getStats();
-            return reply(`✅ Você já está inscrito nas transmissões!\n\n📊 *Estatísticas:*\n• Total de inscritos: ${stats.totalSubscribers}\n• Mensagens enviadas: ${stats.totalMessages}\n• Última transmissão: ${stats.lastBroadcast || 'Nenhuma ainda'}`);
+            return reply(`✿ Você já está inscrito nas transmissões!\n\n📊 *Estatísticas:*\n• Total de inscritos: ${stats.totalSubscribers}\n• Mensagens enviadas: ${stats.totalMessages}\n• Última transmissão: ${stats.lastBroadcast || 'Nenhuma ainda'}`);
           }
 
           // Inscreve o usuário
@@ -21495,7 +21495,7 @@ Precisa de ajuda? Entre em contato:
           reply(`🎉 *Inscrição confirmada!*\n\nVocê agora receberá as transmissões da bot diretamente no seu privado.\n\n💡 *Como funciona:*\n• Você receberá mensagens importantes da equipe\n• Para cancelar, use: ${prefix}desinscrever\n\n✨ Obrigado por se inscrever!`);
         } catch (e) {
           console.error('[INSCREVERTM ERROR]', e);
-          await reply("❌ Ocorreu um erro ao processar sua inscrição. Tente novamente mais tarde.");
+          await reply(`💎 Eita, não consegui fazer sua inscrição... tenta mais tarde? (╥﹏╥)`);
         }
         break;
 
@@ -21503,17 +21503,17 @@ Precisa de ajuda? Entre em contato:
       case 'desinscrevertm':
       case 'cancelartm':
         try {
-          if (isGroup) return reply('⚠️ Este comando só funciona no privado!');
+          if (isGroup) return reply(`💎 Esse funciona só no meu privado, tá? ♡`);
 
           // Verifica se o usuário está inscrito
           if (!transmissao.isSubscribed(sender)) {
-            return reply('⚠️ Você não está inscrito nas transmissões.');
+            return reply(`💎 Você não tá inscrito nos recados ♡`);
           }
 
           // Remove a inscrição
           transmissao.unsubscribe(sender);
 
-          reply(`✅ *Inscrição cancelada!*\n\nVocê não receberá mais as transmissões.\n\n💡 Para se inscrever novamente, use: ${prefix}inscrevertm`);
+          reply(`✿ *Inscrição cancelada!*\n\nVocê não receberá mais as transmissões.\n\n💡 Para se inscrever novamente, use: ${prefix}inscrevertm`);
         } catch (e) {
           console.error('[DESINSCREVER ERROR]', e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21529,7 +21529,7 @@ Precisa de ajuda? Entre em contato:
           const subscribers = transmissao.getSubscribers();
 
           if (subscribers.length === 0) {
-            return reply('⚠️ Ainda não há inscritos para enviar a transmissão.\n\n💡 Os usuários devem usar o comando /inscrevertm no privado para se inscrever.');
+            return reply('💎 Ainda não há inscritos pra enviar a transmissão.\n\n💡 Os usuários devem usar o comando /inscrevertm no privado pra se inscrever.');
           }
 
           const cabecalho = `╔══════════════════════\n║  📡 *TRANSMISSÃO PRIVADA* 📡\n╚══════════════════════\n\n`;
@@ -21625,10 +21625,10 @@ Precisa de ajuda? Entre em contato:
           }
 
           const stats = transmissao.getStats();
-          await reply(`✅ *Transmissão concluída!*\n\n📊 *Resultado:*\n• Enviados: ${enviados}\n• Falhas: ${falhas}\n• Total de inscritos: ${stats.totalSubscribers}\n\n🕐 ${new Date().toLocaleString('pt-BR')}`);
+          await reply(`✿ *Transmissão concluída!*\n\n📊 *Resultado:*\n• Enviados: ${enviados}\n• Falhas: ${falhas}\n• Total de inscritos: ${stats.totalSubscribers}\n\n🕐 ${new Date().toLocaleString('pt-BR')}`);
         } catch (e) {
           console.error('[TM2 ERROR]', e);
-          await reply("❌ Ocorreu um erro ao enviar a transmissão.");
+          await reply(`💎 Eita, não consegui mandar o recado... (╥﹏╥)`);
         }
         break;
 
@@ -21663,7 +21663,7 @@ Precisa de ajuda? Entre em contato:
           reply(message);
         } catch (e) {
           console.error('[STATUSTM ERROR]', e);
-          await reply("❌ Ocorreu um erro ao consultar as estatísticas.");
+          await reply(`💎 Eita, não consegui ver os números... (╥﹏╥)`);
         }
         break;
 
@@ -21699,13 +21699,13 @@ Precisa de ajuda? Entre em contato:
           message += '🔄 Reiniciando o sistema em 2 segundos...';
           reply(message);
           setTimeout(() => {
-            reply('🔄 Reiniciando agora...');
+            reply(`🔄 Reiniciando... já volto ♡`);
             setTimeout(() => {
               process.exit();
             }, 1200);
           }, 2000);
         } catch (error) {
-          reply(`❌ Erro ao executar a limpeza: ${error.message}`);
+          reply(`💎 Não consegui fazer a limpeza: ${error.message}`);
         }
         break;
       case 'cases':
@@ -21755,10 +21755,10 @@ Precisa de ajuda? Entre em contato:
           const botStateFile = pathz.join(DATABASE_DIR, 'botState.json');
           const isOn = botState.status === 'on';
           if (command === 'boton' && isOn) {
-            return reply('🌟 O bot já está ativado!');
+            return reply(`🌟 Eu já tô ligada ♡`);
           }
           if (command === 'botoff' && !isOn) {
-            return reply('🌙 O bot já está desativado!');
+            return reply(`🌙 Eu já tô desligada ♡`);
           }
           botState.status = command === 'boton' ? 'on' : 'off';
           writeJsonFile(botStateFile, botState);
@@ -21782,7 +21782,7 @@ Precisa de ajuda? Entre em contato:
             timestamp: Date.now()
           };
           writeJsonFile(blockFile, globalBlocks);
-          await reply(`✅ Comando *${cmdToBlock}* bloqueado globalmente!\nMotivo: ${reason}`);
+          await reply(`✿ Comando *${cmdToBlock}* bloqueado globalmente!\nMotivo: ${reason}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21795,11 +21795,11 @@ Precisa de ajuda? Entre em contato:
           if (!cmdToUnblock) return reply('❌ Informe o comando a desbloquear! Ex.: ' + prefix + 'unblockcmd sticker');
           const blockFile = pathz.join(DATABASE_DIR, 'globalBlocks.json');
           if (!globalBlocks.commands || !globalBlocks.commands[cmdToUnblock]) {
-            return reply(`❌ O comando *${cmdToUnblock}* não está bloqueado!`);
+            return reply(`💎 O comando *${cmdToUnblock}* não tá bloqueado ♡`);
           }
           delete globalBlocks.commands[cmdToUnblock];
           writeJsonFile(blockFile, globalBlocks);
-          await reply(`✅ Comando *${cmdToUnblock}* desbloqueado globalmente!`);
+          await reply(`✿ Prontinho! *${cmdToUnblock}* liberado em todos os grupos ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21829,7 +21829,7 @@ Precisa de ajuda? Entre em contato:
           }
 
           if (subOwnerCommands.includes(cmdToAdd)) {
-            return reply(`❌ O comando *${cmdToAdd}* já está liberado para subdonos!`);
+            return reply(`💎 O comando *${cmdToAdd}* já tá liberado pros subdonos ♡`);
           }
 
           subOwnerCommands.push(cmdToAdd);
@@ -21839,7 +21839,7 @@ Precisa de ajuda? Entre em contato:
             JSON.stringify(subOwnerCommands, null, 2)
           );
 
-          await reply(`✅ Comando *${cmdToAdd}* adicionado para subdonos!`);
+          await reply(`✿ Prontinho! *${cmdToAdd}* liberado pros subdonos ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21869,7 +21869,7 @@ Precisa de ajuda? Entre em contato:
           }
 
           if (!subOwnerCommands.includes(cmdToRemove)) {
-            return reply(`❌ O comando *${cmdToRemove}* não está liberado!`);
+            return reply(`💎 O comando *${cmdToRemove}* não tava liberado ♡`);
           }
 
           subOwnerCommands = subOwnerCommands.filter(
@@ -21881,7 +21881,7 @@ Precisa de ajuda? Entre em contato:
             JSON.stringify(subOwnerCommands, null, 2)
           );
 
-          await reply(`✅ Comando *${cmdToRemove}* removido dos subdonos!`);
+          await reply(`✿ Prontinho! *${cmdToRemove}* não é mais dos subdonos ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -21902,7 +21902,7 @@ Precisa de ajuda? Entre em contato:
           }
 
           if (!subOwnerCommands.length) {
-            return reply('❌ Nenhum comando liberado para subdonos.');
+            return reply(`📭 Nenhum comando liberado pros subdonos ainda ♡`);
           }
 
           let txt = `📜 *Comandos liberados para subdonos:*\n\n`;
@@ -21925,7 +21925,7 @@ Precisa de ajuda? Entre em contato:
           var reason = q ? (q.includes('@') || !menc_os2) ? (q.includes(' ') ? q.split(' ').slice(1).join(' ') : "Não informado") : q.trim() : 'Não informado';
           var menc_os3;
           menc_os3 = (menc_os2 && menc_os2.includes(' ')) ? menc_os2.split(' ')[0] : menc_os2;
-          if (!menc_os3) return reply("Erro ao processar usuário mencionado");
+          if (!menc_os3) return reply(`💎 Não consegui entender quem foi marcado... (｡•́︿•̀｡)`);
           const blockFile = pathz.join(DATABASE_DIR, 'globalBlocks.json');
           globalBlocks.users = globalBlocks.users || {};
           globalBlocks.users[menc_os3] = {
@@ -21933,7 +21933,7 @@ Precisa de ajuda? Entre em contato:
             timestamp: Date.now()
           };
           writeJsonFile(blockFile, globalBlocks);
-          await reply(`✅ Usuário @${getUserName(menc_os3)} bloqueado globalmente!\nMotivo: ${reason}`, {
+          await reply(`✿ Usuário @${getUserName(menc_os3)} bloqueado globalmente!\nMotivo: ${reason}`, {
             mentions: [menc_os3]
           });
         } catch (e) {
@@ -21947,18 +21947,18 @@ Precisa de ajuda? Entre em contato:
           if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           const blockFile = pathz.join(DATABASE_DIR, 'globalBlocks.json');
           if (!globalBlocks.users) {
-            return reply(`ℹ️ Não há usuários bloqueados globalmente.`);
+            return reply(`✿ Ninguém tá bloqueado em todos os grupos ♡`);
           }
           const userToUnblock = globalBlocks.users[menc_os2] ? menc_os2 :
             globalBlocks.users[getUserName(menc_os2)] ? getUserName(menc_os2) : null;
           if (!userToUnblock) {
-            return reply(`❌ O usuário @${getUserName(menc_os2)} não está bloqueado globalmente!`, {
+            return reply(`💎 @${getUserName(menc_os2)} não tá bloqueado em todos os grupos ♡`, {
               mentions: [menc_os2]
             });
           }
           delete globalBlocks.users[userToUnblock];
           writeJsonFile(blockFile, globalBlocks);
-          await reply(`✅ Usuário @${getUserName(menc_os2)} desbloqueado globalmente!`, {
+          await reply(`✿ Prontinho! @${getUserName(menc_os2)} foi desbloqueado em todos os grupos ♡`, {
             mentions: [menc_os2]
           });
         } catch (e) {
@@ -22003,14 +22003,14 @@ Precisa de ajuda? Entre em contato:
       case 'prefix':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`⚙️ *Configuração de Prefixo*\n\n📝 *Como usar:*\n• Digite o novo prefixo após o comando\n• Ex: ${prefix}${command} /\n• Ex: ${prefix}${command} !\n\n✅ O prefixo do bot será atualizado para o valor especificado!`);
+          if (!q) return reply(`⚙️ *Configuração de Prefixo*\n\n📝 *Como usar:*\n• Digite o novo prefixo após o comando\n• Ex: ${prefix}${command} /\n• Ex: ${prefix}${command} !\n\n✅ O prefixo do bot será atualizado pra o valor especificado!`);
 
           let newPrefix = q.trim();
 
           // Bloqueia o uso de $ como prefixo e converte automaticamente para /
           if (newPrefix === '$') {
             newPrefix = '/';
-            await reply(`⚠️ O símbolo "$" é reservado e não pode ser usado como prefixo.\n✅ Prefixo alterado automaticamente para "/" globalmente!`);
+            await reply(`💎 O símbolo "$" é reservado e não pode ser usado como prefixo.\n✅ Prefixo alterado automaticamente pra "/" globalmente!`);
           }
 
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
@@ -22019,7 +22019,7 @@ Precisa de ajuda? Entre em contato:
 
           // Se não foi convertido, envia mensagem normal
           if (newPrefix !== '/') {
-            await reply(`Prefixo alterado com sucesso para "${newPrefix}"!`);
+            await reply(`✿ Prontinho! Meu prefixo agora é "${newPrefix}" ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -22088,7 +22088,7 @@ Precisa de ajuda? Entre em contato:
       case 'numero-dono':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Por favor, digite o novo número do dono.\nExemplo: ${prefix}${command} +553285076326`);
+          if (!q) return reply(`💎 digite o novo número do dono.\nExemplo: ${prefix}${command} +553285076326`);
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
           config.numerodono = q;
           writeJsonFile(CONFIG_FILE, config);
@@ -22115,7 +22115,7 @@ Precisa de ajuda? Entre em contato:
 
 
           if (user !== numeroDono) {
-            return reply('❌ Você não é o dono!')
+            return reply(`💎 Hmm, você não é meu dono ( ˘ ³˘)`)
           }
 
 
@@ -22127,23 +22127,23 @@ Precisa de ajuda? Entre em contato:
           }
 
           if (!lid) {
-            return reply('❌ Não consegui pegar o LID!')
+            return reply(`💎 Não consegui pegar o seu LID... (｡•́︿•̀｡)`)
           }
 
 
           if (config.lidowner === lid) {
-            return reply('⚠️ Seu LID já está configurado na JSON!')
+            return reply(`💎 Seu LID já tá configurado ♡`)
           }
 
           config.lidowner = lid
 
           fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
 
-          reply(`✅ LID atualizado com sucesso:\n${lid}`)
+          reply(`✿ LID atualizado :\n${lid}`)
 
         } catch (err) {
           console.error(err)
-          reply('❌ Erro ao executar comando.')
+          reply(`💎 Eita, não consegui rodar o comando... (╥﹏╥)`)
         }
       }
         break
@@ -22189,11 +22189,11 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'nome-bot':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Por favor, digite o novo nome do bot.\nExemplo: ${prefix}${command} Opala`);
+          if (!q) return reply(`💎 digite o novo nome do bot.\nExemplo: ${prefix}${command} Opala`);
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
           config.nomebot = q;
           writeJsonFile(CONFIG_FILE, config);
-          await reply(`Nome do bot alterado com sucesso para "${q}"!`);
+          await reply(`✿ Prontinho! Agora meu nome é "${q}" ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -22210,11 +22210,11 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           var RSM = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
           var boij2 = RSM?.imageMessage || info.message?.imageMessage || RSM?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessage?.message?.imageMessage || RSM?.viewOnceMessage?.message?.imageMessage;
           var boij = RSM?.videoMessage || info.message?.videoMessage || RSM?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessage?.message?.videoMessage || RSM?.viewOnceMessage?.message?.videoMessage;
-          if (!boij && !boij2) return reply(`Marque uma imagem ou um vídeo, com o comando: ${prefix + command} (mencionando a mídia)`);
+          if (!boij && !boij2) return reply(`💎 Responde uma imagem ou vídeo com ${prefix + command} ♡`);
           var isVideo2 = !!boij;
           var buffer = await getFileBuffer(isVideo2 ? boij : boij2, isVideo2 ? 'video' : 'image');
           fs.writeFileSync(__dirname + '/../midias/menu.' + (isVideo2 ? 'mp4' : 'jpg'), buffer);
-          await reply('✅ Mídia do menu atualizada com sucesso.');
+          await reply(`✿ Prontinho! O menu ganhou mídia nova ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -22230,7 +22230,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           // Verifica se é para remover
           if (q && (q.toLowerCase() === 'off' || q.toLowerCase() === 'del' || q.toLowerCase() === 'delete' || q.toLowerCase() === 'remover')) {
             if (!isMenuAudioEnabled()) {
-              return reply("ℹ️ Não há áudio configurado para o menu.");
+              return reply(`🔇 O menu ainda não tem áudio ♡`);
             }
 
             removeMenuAudio();
@@ -22271,7 +22271,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
             `💡 Para remover, use: ${prefix}${command} off`);
         } catch (e) {
           console.error('Erro no comando audiomenu:', e);
-          await reply("❌ Ocorreu um erro ao configurar o áudio do menu (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui mudar o áudio do menu... (╥﹏╥)`);
         }
         break;
 
@@ -22295,7 +22295,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(statusMsg);
         } catch (e) {
           console.error('Erro no comando lermais:', e);
-          await reply("❌ Ocorreu um erro ao alterar a configuração (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui mudar essa configuração... (╥﹏╥)`);
         }
         break;
 
@@ -22318,14 +22318,14 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
             // Processa a imagem com ffmpeg antes de atualizar
             const processedBuffer = await processImageForProfile(imageBuffer);
             await nazu.updateProfilePicture(nazu.user.id, processedBuffer);
-            reply('✅ Foto de perfil do bot alterada com sucesso!');
+            reply(`✿ Prontinho! Ganhei foto nova ♡`);
           } catch (updateError) {
             console.error('Erro ao alterar foto de perfil:', updateError);
-            reply('❌ Ocorreu um erro ao alterar a foto de perfil. Verifique se o ffmpeg está instalado e a imagem é válida.');
+            reply(`💎 Não consegui trocar minha foto... confere se a imagem tá certinha (｡•́︿•̀｡)`);
           }
         } catch (e) {
           console.error('Erro no comando fotobot:', e);
-          reply("❌ Ocorreu um erro ao alterar a foto de perfil (｡•́︿•̀｡)");
+          reply(`💎 Eita, não consegui trocar minha foto... (╥﹏╥)`);
         }
         break;
 
@@ -22386,7 +22386,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
             `🎨 Esta foto será exibida apenas neste grupo quando alguém usar o comando ${prefix}menu`);
         } catch (e) {
           console.error('Erro no comando fotomenugrupo:', e);
-          await reply("❌ Ocorreu um erro ao personalizar a foto do menu (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui trocar a foto do menu... (╥﹏╥)`);
         }
         break;
 
@@ -22397,16 +22397,16 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           if (!isGroupCustomizationEnabled()) {
-            return reply("⚠️ O sistema de personalização está desativado.");
+            return reply(`💎 A personalização por grupo tá desligada ♡`);
           }
 
           const customization = getGroupCustomization(from);
           if (!customization || !customization.customPhoto) {
-            return reply("ℹ️ Este grupo não possui foto personalizada.");
+            return reply(`💎 Esse grupo não tem foto personalizada ♡`);
           }
 
           removeGroupCustomPhoto(from);
-          await reply("✅ Foto personalizada removida! O menu voltará a usar a foto padrão.");
+          await reply(`✿ Prontinho! O menu volta a usar a foto padrão ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -22433,7 +22433,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
 
           const customName = q.trim();
           if (customName.length > 50) {
-            return reply("❌ O nome não pode ter mais de 50 caracteres.");
+            return reply(`💎 O nome pode ter no máximo 50 letras ♡`);
           }
 
           setGroupCustomName(from, customName);
@@ -22443,7 +22443,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
             `💡 Este nome será exibido apenas neste grupo nos menus e comandos.`);
         } catch (e) {
           console.error('Erro no comando nomegrupo:', e);
-          await reply("❌ Ocorreu um erro ao personalizar o nome (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui trocar o nome... (╥﹏╥)`);
         }
         break;
 
@@ -22454,16 +22454,16 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           if (!isGroupCustomizationEnabled()) {
-            return reply("⚠️ O sistema de personalização está desativado.");
+            return reply(`💎 A personalização por grupo tá desligada ♡`);
           }
 
           const customization = getGroupCustomization(from);
           if (!customization || !customization.customName) {
-            return reply("ℹ️ Este grupo não possui nome personalizado.");
+            return reply(`💎 Esse grupo não tem nome personalizado ♡`);
           }
 
           removeGroupCustomName(from);
-          await reply("✅ Nome personalizado removido! O bot voltará a usar o nome padrão.");
+          await reply(`✿ Prontinho! Volto a usar meu nome padrão ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -22476,7 +22476,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           if (!isGroupCustomizationEnabled()) {
-            return reply("⚠️ O sistema de personalização está desativado.");
+            return reply(`💎 A personalização por grupo tá desligada ♡`);
           }
 
           const customization = getGroupCustomization(from);
@@ -22518,15 +22518,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'settopborder':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╭─⊰`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╭─⊰`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.menuTopBorder = q;
 
           if (saveMenuDesign(currentDesign)) {
-            await reply(`✅ Borda superior do menu definida como: ${q}`);
+            await reply(`✿ Borda de cima do menu: ${q}`);
           } else {
-            await reply("❌ Erro ao salvar configurações do design do menu.");
+            await reply(`💎 Eita, não consegui guardar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22539,15 +22539,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setbordabaixo':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.bottomBorder = q;
 
           if (saveMenuDesign(currentDesign)) {
-            await reply(`✅ Borda inferior do menu definida como: ${q}`);
+            await reply(`✿ Borda de baixo do menu: ${q}`);
           } else {
-            await reply("❌ Erro ao salvar configurações do design do menu.");
+            await reply(`💎 Eita, não consegui guardar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22560,15 +22560,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setbordamiddle':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ┊`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ┊`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.middleBorder = q;
 
           if (saveMenuDesign(currentDesign)) {
-            await reply(`✅ Borda do meio do menu definida como: ${q}`);
+            await reply(`✿ Borda do meio do menu: ${q}`);
           } else {
-            await reply("❌ Erro ao salvar configurações do design do menu.");
+            await reply(`💎 Eita, não consegui guardar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22581,15 +22581,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setitem':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} •.̇𖥨֗🍓⭟`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} •.̇𖥨֗🍓⭟`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.menuItemIcon = q;
 
           if (saveMenuDesign(currentDesign)) {
-            await reply(`✅ Ícone dos itens do menu definido como: ${q}`);
+            await reply(`✿ Ícone dos itens do menu: ${q}`);
           } else {
-            await reply("❌ Erro ao salvar configurações do design do menu.");
+            await reply(`💎 Eita, não consegui guardar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22602,15 +22602,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'seticoneseparador':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ❁`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ❁`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.separatorIcon = q;
 
           if (saveMenuDesign(currentDesign)) {
-            await reply(`✅ Ícone separador do menu definido como: ${q}`);
+            await reply(`✿ Ícone separador do menu: ${q}`);
           } else {
-            await reply("❌ Erro ao salvar configurações do design do menu.");
+            await reply(`💎 Eita, não consegui guardar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22623,15 +22623,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'settitulo':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} 🍧ฺꕸ▸`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} 🍧ฺꕸ▸`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.menuTitleIcon = q;
 
           if (saveMenuDesign(currentDesign)) {
-            await reply(`✅ Ícone do título do menu definido como: ${q}`);
+            await reply(`✿ Ícone do título do menu: ${q}`);
           } else {
-            await reply("❌ Erro ao salvar configurações do design do menu.");
+            await reply(`💎 Eita, não consegui guardar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22644,16 +22644,16 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setheadermenu':
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
-          if (!q) return reply(`Uso: ${prefix + command} <texto>\n\nExemplo: ${prefix + command} ╭┈⊰ 🌸 『 *{botName}* 』\\n┊Olá, {userName}!\\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯\n\n*Placeholders disponíveis:*\n{botName} - Nome do bot\n{userName} - Nome do usuário`);
+          if (!q) return reply(`💎 Usa assim: ${prefix + command} <texto>\n\nExemplo: ${prefix + command} ╭┈⊰ 🌸 『 *{botName}* 』\\n┊Olá, {userName}!\\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯\n\n*Placeholders disponíveis:*\n{botName} - Nome do bot\n{userName} - Nome do usuário`);
 
           const currentDesign = loadMenuDesign();
           // Processa quebras de linha explícitas
           currentDesign.header = q.replace(/\\n/g, '\n');
 
           if (saveMenuDesign(currentDesign)) {
-            await reply(`✅ Cabeçalho do menu definido com sucesso!\n\n*Preview:*\n${currentDesign.header.replace(/{botName}/g, nomebot).replace(/{userName}/g, pushname)}`);
+            await reply(`✿ Cabeçalho do menu definido !\n\n*Preview:*\n${currentDesign.header.replace(/{botName}/g, nomebot).replace(/{userName}/g, pushname)}`);
           } else {
-            await reply("❌ Erro ao salvar configurações do design do menu.");
+            await reply(`💎 Eita, não consegui guardar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22678,9 +22678,9 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           };
 
           if (saveMenuDesign(defaultDesign)) {
-            await reply("✅ Design do menu resetado para o padrão com sucesso!");
+            await reply(`✿ Prontinho! O menu voltou ao visual padrão ♡`);
           } else {
-            await reply("❌ Erro ao resetar o design do menu.");
+            await reply(`💎 Eita, não consegui voltar o visual do menu... (╥﹏╥)`);
           }
         } catch (e) {
           console.error(e);
@@ -22750,7 +22750,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
 
           const bannedGroups = Object.keys(banGpIds || {}).filter(id => banGpIds[id]);
           if (bannedGroups.length === 0) {
-            return reply('✅ Nenhum grupo banido no momento.');
+            return reply(`✿ Nenhum grupo banido ♡`);
           }
 
           const maxItems = 50;
@@ -22785,9 +22785,9 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           banGpIds[from] = !banGpIds[from];
           if (banGpIds[from]) {
-            await reply('🚫 Grupo banido, apenas usuarios premium ou meu dono podem utilizar o bot aqui agora.');
+            await reply(`🚫 Grupo banido: agora só o meu dono e os premium me usam aqui.`);
           } else {
-            await reply('✅ Grupo desbanido, todos podem utilizar o bot novamente.');
+            await reply(`✿ Grupo desbanido! Todo mundo pode me usar de novo ♡`);
           }
           fs.writeFileSync(__dirname + `/../database/dono/bangp.json`, JSON.stringify(banGpIds));
         } catch (e) {
@@ -22800,10 +22800,10 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
-          if (!!premiumListaZinha[menc_os2]) return reply('O usuário ja esta na lista premium.');
+          if (!!premiumListaZinha[menc_os2]) return reply(`💎 Essa pessoa já é premium ♡`);
           premiumListaZinha[menc_os2] = true;
           await nazu.sendMessage(from, {
-            text: `✅ @${getUserName(menc_os2)} foi adicionado(a) a lista premium.`,
+            text: `✿ @${getUserName(menc_os2)} foi adicionado(a) a lista premium.`,
             mentions: [menc_os2]
           }, {
             quoted: info
@@ -22821,7 +22821,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
-          if (!premiumListaZinha[menc_os2]) return reply('O usuário não esta na lista premium.');
+          if (!premiumListaZinha[menc_os2]) return reply(`💎 Essa pessoa não é premium ♡`);
           delete premiumListaZinha[menc_os2];
           await nazu.sendMessage(from, {
             text: `🫡 @${getUserName(menc_os2)} foi removido(a) da lista premium.`,
@@ -22840,10 +22840,10 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!!premiumListaZinha[from]) return reply('O grupo ja esta na lista premium.');
+          if (!!premiumListaZinha[from]) return reply(`💎 Esse grupo já é premium ♡`);
           premiumListaZinha[from] = true;
           await nazu.sendMessage(from, {
-            text: `✅ O grupo foi adicionado a lista premium.`
+            text: `✿ O grupo foi adicionado a lista premium.`
           }, {
             quoted: info
           });
@@ -22860,7 +22860,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!premiumListaZinha[from]) return reply('O grupo não esta na lista premium.');
+          if (!premiumListaZinha[from]) return reply(`💎 Esse grupo não é premium ♡`);
           delete premiumListaZinha[from];
           await nazu.sendMessage(from, {
             text: `🫡 O grupo foi removido da lista premium.`
@@ -22921,7 +22921,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           });
         } catch (e) {
           console.error(e);
-          await reply('😔 Ops, algo deu errado. Tente novamente mais tarde!');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'resetgold':
@@ -22959,7 +22959,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           });
         } catch (error) {
           console.error('Erro ao enviar menu VIP:', error);
-          await reply(`❌ Erro ao carregar menu VIP. Use ${prefix}infovip para mais informações.`);
+          await reply(`💎 Eita, não consegui abrir o menu VIP... dá uma olhada em ${prefix}infovip ♡`);
         }
         break;
 
@@ -22971,7 +22971,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(infoText);
         } catch (error) {
           console.error('Erro ao enviar info VIP:', error);
-          await reply('❌ Erro ao carregar informações VIP.');
+          await reply(`💎 Eita, não consegui ver as informações VIP... (╥﹏╥)`);
         }
         break;
 
@@ -23106,7 +23106,7 @@ ${prefix}addcmdvip menudown all`);
                 const menuPreview = menuText.substring(0, 500).replace(/\n/g, '\\n');
                 console.log(`[DEBUG] Menu "${menuName}" gerado (primeiros 500 chars):`, menuPreview);
                 console.log(`[DEBUG] Prefix usado: "${prefix}"`);
-                return reply(`❌ Nenhum comando encontrado no menu "${menuName}"!\n\n*Debug:* Prefixo usado: "${prefix}"\nVerifique o console para mais detalhes.`);
+                return reply(`💎 Nenhum comando encontrado no menu "${menuName}"!\n\n*Debug:* Prefixo usado: "${prefix}"\nConfere o console pra mais detalhes.`);
               }
 
               const commandsArray = Array.from(commands).sort();
@@ -23144,7 +23144,7 @@ ${prefix}addcmdvip menudown all`);
 💡 Use ${prefix}listcmdvip para ver todos os comandos VIP.`);
             } catch (error) {
               console.error(`Erro ao processar menu ${menuName}:`, error);
-              return reply(`❌ Erro ao processar o menu "${menuName}": ${error.message}`);
+              return reply(`💎 Não consegui abrir o menu "${menuName}": ${error.message}`);
             }
             break;
           }
@@ -23169,7 +23169,7 @@ ${prefix}addcmdvip menudown all`);
           }
         } catch (error) {
           console.error('Erro ao adicionar comando VIP:', error);
-          await reply('❌ Erro ao adicionar comando VIP.');
+          await reply(`💎 Eita, não consegui adicionar o comando VIP... (╥﹏╥)`);
         }
         break;
 
@@ -23200,7 +23200,7 @@ ${prefix}removecmdvip premium_ia`);
           }
         } catch (error) {
           console.error('Erro ao remover comando VIP:', error);
-          await reply('❌ Erro ao remover comando VIP.');
+          await reply(`💎 Eita, não consegui tirar o comando VIP... (╥﹏╥)`);
         }
         break;
 
@@ -23209,7 +23209,7 @@ ${prefix}removecmdvip premium_ia`);
       case 'comandosvip':
         try {
           if (!isOwner && !isPremium) {
-            return reply('🚫 Este comando é apenas para o dono ou usuários VIP!');
+            return reply(`💎 Esse é só pro meu dono e pros VIPs ♡`);
           }
 
           const customDesign = getMenuDesignWithDefaults(nomebot, pushname);
@@ -23218,7 +23218,7 @@ ${prefix}removecmdvip premium_ia`);
           await reply(listText);
         } catch (error) {
           console.error('Erro ao listar comandos VIP:', error);
-          await reply('❌ Erro ao listar comandos VIP.');
+          await reply(`💎 Eita, não consegui listar os comandos VIP... (╥﹏╥)`);
         }
         break;
 
@@ -23243,7 +23243,7 @@ ${prefix}togglecmdvip premium_ia off`);
           const action = args[1].toLowerCase();
 
           if (!['on', 'off', 'ativar', 'desativar'].includes(action)) {
-            return reply('❌ Use "on" para ativar ou "off" para desativar!');
+            return reply(`💎 Manda "on" pra ligar ou "off" pra desligar ♡`);
           }
 
           const enabled = ['on', 'ativar'].includes(action);
@@ -23256,7 +23256,7 @@ ${prefix}togglecmdvip premium_ia off`);
           }
         } catch (error) {
           console.error('Erro ao alternar comando VIP:', error);
-          await reply('❌ Erro ao alternar status do comando VIP.');
+          await reply(`💎 Eita, não consegui mudar o comando VIP... (╥﹏╥)`);
         }
         break;
 
@@ -23293,7 +23293,7 @@ ${prefix}togglecmdvip premium_ia off`);
           await reply(statsText);
         } catch (error) {
           console.error('Erro ao obter estatísticas VIP:', error);
-          await reply('❌ Erro ao obter estatísticas VIP.');
+          await reply(`💎 Eita, não consegui ver os números VIP... (╥﹏╥)`);
         }
         break;
 
@@ -23327,13 +23327,13 @@ ${prefix}togglecmdvip premium_ia off`);
           writeJsonFile(indicacoesFile, indicacoesData);
 
           await nazu.sendMessage(from, {
-            text: `✅ *Indicação adicionada com sucesso!*\n\n👤 @${getUserName(menc_os2)} agora tem *${indicacoesData.users[menc_os2].count}* indicação(ões)! 🎉`,
+            text: `✿ *Indicação adicionada !*\n\n👤 @${getUserName(menc_os2)} agora tem *${indicacoesData.users[menc_os2].count}* indicação(ões)! 🎉`,
             mentions: [menc_os2]
           }, { quoted: info });
 
         } catch (e) {
           console.error('Erro no comando addindicacao:', e);
-          reply("❌ Ocorreu um erro ao adicionar a indicação.");
+          reply(`💎 Eita, não consegui contar a indicação... (╥﹏╥)`);
         }
         break;
 
@@ -23350,7 +23350,7 @@ ${prefix}togglecmdvip premium_ia off`);
             .sort((a, b) => b.count - a.count);
 
           if (usersArray.length === 0) {
-            return reply("📊 Ainda não há indicações registradas no sistema.");
+            return reply(`📊 Ninguém indicou ninguém ainda ♡`);
           }
 
           let mensagem = '🏆 *TOP INDICAÇÕES DA BOT* 🏆\n\n';
@@ -23379,7 +23379,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
         } catch (e) {
           console.error('Erro no comando topindica:', e);
-          reply("❌ Ocorreu um erro ao buscar o ranking de indicações.");
+          reply(`💎 Eita, não consegui ver o ranking de indicações... (╥﹏╥)`);
         }
         break;
 
@@ -23395,7 +23395,7 @@ ${prefix}togglecmdvip premium_ia off`);
           let indicacoesData = loadJsonFile(indicacoesFile, { users: {} });
 
           if (!indicacoesData.users[menc_os2] || indicacoesData.users[menc_os2].count === 0) {
-            return reply("❌ Este usuário não possui indicações registradas!");
+            return reply(`💎 Essa pessoa não tem indicações ♡`);
           }
 
           const countBefore = indicacoesData.users[menc_os2].count;
@@ -23420,7 +23420,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
         } catch (e) {
           console.error('Erro no comando delindicacao:', e);
-          reply("❌ Ocorreu um erro ao remover a indicação.");
+          reply(`💎 Eita, não consegui tirar a indicação... (╥﹏╥)`);
         }
         break;
 
@@ -23460,9 +23460,9 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'pubgavatar':
       case 'comics':
         try {
-          if (!q) return reply(`❌ Cadê o texto?\nExemplo: .${command} Olá Mundo`);
+          if (!q) return reply(`💎 Cadê o texto?\nExemplo: .${command} Olá Mundo`);
 
-          await reply(`⏳ Gerando logotipo... aguarde! ☀️`);
+          await reply(`🎨 Desenhando seu logo... ⋆｡˚`);
 
           const resultado = await logos.gerarLogo({ query: q, type: command });
 
@@ -23475,12 +23475,12 @@ ${prefix}togglecmdvip premium_ia off`);
           }
 
           if (!resultado.buffer) {
-            return reply('❌ Não foi possível gerar o logotipo');
+            return reply(`💎 Não consegui fazer o logo... (╥﹏╥)`);
           }
 
           await nazu.sendMessage(from, {
             image: resultado.buffer,
-            caption: `✅ Logotipo gerado com sucesso!`
+            caption: `✿ Logotipo gerado !`
           }, { quoted: info });
 
         } catch (e) {
@@ -23497,10 +23497,10 @@ ${prefix}togglecmdvip premium_ia off`);
         try {
           const [texto1, texto2] = q.split('/').map(i => i.trim());
           if (!texto1 || !texto2) {
-            return reply(`❌ Cadê os textos?\nExemplo: ${prefix + command} Opala/Bot`);
+            return reply(`💎 Cadê os textos?\nExemplo: ${prefix + command} Opala/Bot`);
           }
 
-          await reply(`⏳ Gerando logotipo... aguarde! ☀️`);
+          await reply(`🎨 Desenhando seu logo... ⋆｡˚`);
 
           const resultado = await logos.gerarLogo2({
             query: texto1,
@@ -23517,12 +23517,12 @@ ${prefix}togglecmdvip premium_ia off`);
           }
 
           if (!resultado.buffer) {
-            return reply('❌ Não foi possível gerar o logotipo');
+            return reply(`💎 Não consegui fazer o logo... (╥﹏╥)`);
           }
 
           await nazu.sendMessage(from, {
             image: resultado.buffer,
-            caption: `✅ Logotipo gerado com sucesso!`
+            caption: `✿ Logotipo gerado !`
           }, { quoted: info });
 
         } catch (e) {
@@ -23540,20 +23540,20 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'desfoque':
       case 'camera':
         try {
-          if (!isQuotedImage) return reply('❌ Marque uma imagem.');
+          if (!isQuotedImage) return reply(`💎 Responde uma imagem, tá? ♡`);
 
           var foto1 = isQuotedImage ? info.message.extendedTextMessage.contextInfo.quotedMessage.imageMessage : {};
 
-          await reply('⏳ Enviando imagem e gerando edição... ☀️');
+          await reply(`🎨 Editando sua foto... ⋆｡˚`);
           let media = await getFileBuffer(foto1, "image");
 
           if (!media) {
-            return reply('❌ Falha ao obter a mídia.');
+            return reply(`💎 Não consegui pegar a mídia... (╥﹏╥)`);
           }
           let linkz = await upload(media);
 
           if (!linkz) {
-            return reply('❌ Falha ao fazer upload da imagem.');
+            return reply(`💎 Não consegui enviar a imagem... (╥﹏╥)`);
           }
 
           const resultado = await edits.geraredit({
@@ -23562,7 +23562,7 @@ ${prefix}togglecmdvip premium_ia off`);
           });
 
           if (!resultado) {
-            return reply('❌ Erro desconhecido.');
+            return reply(`💎 Eita, algo deu errado do meu lado... (╥﹏╥)`);
           }
 
           if (!resultado.ok) {
@@ -23570,12 +23570,12 @@ ${prefix}togglecmdvip premium_ia off`);
           }
 
           if (!resultado.buffer) {
-            return reply('❌ Não foi possível gerar o logotipo.');
+            return reply(`💎 Não consegui fazer o logo... (╥﹏╥)`);
           }
 
           await nazu.sendMessage(from, {
             image: resultado.buffer,
-            caption: '✅ Edição aplicada com sucesso!'
+            caption: '✿ Edição aplicada !'
           }, { quoted: info });
 
         } catch (e) {
@@ -23623,7 +23623,7 @@ ${prefix}togglecmdvip premium_ia off`);
               quoted: info
             });
           } else {
-            return reply('Por favor, *mencione uma imagem, video ou áudio em visualização única* para executar o comando.');
+            return reply(`💎 Responde uma *foto, vídeo ou áudio de visualização única* com o comando ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -23632,7 +23632,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'limpardb':
         try {
-          if (!isOwner) return reply("Apenas o dono pode limpar o banco de dados.");
+          if (!isOwner) return reply(`💎 Só o meu dono pode limpar o banco de dados ♡`);
           const allGroups = await nazu.groupFetchAllParticipating();
           const currentGroupIds = Object.keys(allGroups);
           const groupFiles = fs.readdirSync(GRUPOS_DIR).filter(file => file.endsWith('.json'));
@@ -23649,7 +23649,7 @@ ${prefix}togglecmdvip premium_ia off`);
           await reply(`🧹 Limpeza do DB concluída!\n\nRemovidos ${removedCount} grupos obsoletos:\n${removedGroups.map(id => `• ${id}`).join('\n') || 'Nenhum grupo obsoleto encontrado.'}`);
         } catch (e) {
           console.error('Erro no comando limpardb:', e);
-          await reply("Ocorreu um erro ao limpar o DB (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui limpar o banco de dados... (╥﹏╥)`);
         }
         break;
       case 'mantercontador':
@@ -23678,13 +23678,13 @@ ${prefix}togglecmdvip premium_ia off`);
           await reply(`${emoji} *Preservação do contador ${status}!*\n\n${groupData.preservarContador ? '🔒 O bot não removerá mais do contador quem sair do grupo.\n📊 Os dados dos membros que saírem serão mantidos no rank de atividade.' : '🔓 O bot voltará a remover do contador quem sair do grupo.\n🧹 Use o comando *limparrank* para limpar usuários ausentes manualmente.'}`);
         } catch (e) {
           console.error('[MANTER CONTADOR] Erro:', e);
-          await reply("❌ Ocorreu um erro ao configurar a preservação do contador. Tente novamente mais tarde.");
+          await reply(`💎 Eita, não consegui mudar isso... tenta mais tarde? (╥﹏╥)`);
         }
         break;
       case 'limparrank':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem limpar o rank de atividade.");
+          if (!isGroupAdmin) return reply(`💎 Só os admins podem limpar o rank de atividade ♡`);
 
           // Verifica se a preservação do contador está ativada
           const preservarContador = groupData.preservarContador === true;
@@ -23752,25 +23752,25 @@ ${prefix}togglecmdvip premium_ia off`);
           console.log(`[LIMPAR RANK] Action completed in group ${from}. Removed ${removedCount} users, ${invalidUsers.length} invalid entries.`);
         } catch (e) {
           console.error('[LIMPAR RANK] Error:', e);
-          await reply("❌ Ocorreu um erro ao limpar o rank. Tente novamente mais tarde.");
+          await reply(`💎 Eita, não consegui limpar o rank... tenta mais tarde? (╥﹏╥)`);
         }
         break;
       case 'resetrank':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem resetar o rank de atividade.");
+          if (!isGroupAdmin) return reply(`💎 Só os admins podem zerar o rank de atividade ♡`);
           const oldCount = (groupData.contador || []).length;
           groupData.contador = [];
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           await reply(`🔄 Reset do rank de atividade concluído!\n\nRemovidas ${oldCount} entradas de usuários. O rank agora está vazio.`);
         } catch (e) {
           console.error('Erro no comando resetarrank:', e);
-          await reply("Ocorreu um erro ao resetar o rank (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui zerar o rank... (╥﹏╥)`);
         }
         break;
       case 'limparrankg':
         try {
-          if (!isOwner) return reply("Apenas o dono pode limpar os ranks de todos os grupos.");
+          if (!isOwner) return reply(`💎 Só o meu dono pode limpar o rank de todos os grupos ♡`);
 
           const groupFiles = fs.readdirSync(GRUPOS_DIR).filter(file => file.endsWith('.json'));
           let totalRemoved = 0;
@@ -23913,7 +23913,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
         } catch (e) {
           console.error('[LIMPAR RANK GLOBAL] Error:', e);
-          await reply("❌ Ocorreu um erro ao limpar ranks de todos os grupos. Tente novamente mais tarde.");
+          await reply(`💎 Eita, não consegui limpar os ranks... tenta mais tarde? (╥﹏╥)`);
         }
         break;
       case 'rankativos':
@@ -24068,7 +24068,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
           // Verifica se o usuário está no grupo
           if (!AllgroupMembers.includes(targetUser)) {
-            return reply("Este usuário não está no grupo.");
+            return reply(`💎 Essa pessoa não tá no grupo (・・ ) ?`);
           }
 
           // Busca os dados do usuário no contador
@@ -24109,7 +24109,7 @@ ${prefix}togglecmdvip premium_ia off`);
           });
         } catch (e) {
           console.error('[CHECKATIVO] Erro:', e);
-          await reply("❌ Ocorreu um erro ao verificar a atividade. Tente novamente.");
+          await reply(`💎 Eita, não consegui ver a atividade... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'atividade':
@@ -24167,7 +24167,7 @@ ${prefix}togglecmdvip premium_ia off`);
           });
         } catch (e) {
           console.error('[ATIVIDADE] Erro:', e);
-          await reply("❌ Ocorreu um erro ao mostrar a atividade. Tente novamente.");
+          await reply(`💎 Eita, não consegui mostrar a atividade... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'totalcmd':
@@ -24251,7 +24251,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'infoserver':
         if (!isOwner) {
-          await reply('🚫 *Ops! Você não tem permissão!* 😅\n\n🌸 *Este comando é só para o dono*\nInformações do servidor são confidenciais! ✨');
+          await reply('🚫 *Ops! Você não tem permissão!* 😅\n\n🌸 *Este comando é só pra o dono*\nInformações do servidor são confidenciais! ✨');
           break;
         }
         const serverUptime = process.uptime();
@@ -24480,13 +24480,13 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'iaclear':
       case 'limparhist':
-        if (!isOwnerOrSub) return reply("🚫 Apenas donos e subdonos podem limpar o histórico!");
+        if (!isOwnerOrSub) return reply(`💎 Só o meu dono e os subdonos podem limpar a memória da IA ♡`);
         try {
           ia.clearOldHistorico(0);
-          reply("✅ *Histórico do assistente limpo!*\n\n🗑️ Todas as conversas antigas foram removidas da memória.");
+          reply("✿ *Histórico do assistente limpo!*\n\n🗑️ Todas as conversas antigas foram removidas da memória.");
         } catch (e) {
           console.error("Erro em iaclear:", e);
-          reply("❌ Erro ao limpar histórico.");
+          reply(`💎 Eita, não consegui limpar a memória... (╥﹏╥)`);
         }
         break;
       case 'topcmd':
@@ -24495,7 +24495,7 @@ ${prefix}togglecmdvip premium_ia off`);
         try {
           if (!commandStats || typeof commandStats.getMostUsedCommands !== 'function') {
             console.warn('[COMMANDSTATS] getMostUsedCommands not available');
-            return reply("Sistema de estatísticas temporariamente indisponível.");
+            return reply(`💎 Os números tão descansando agora... tenta daqui a pouco ♡`);
           }
           const topCommands = await commandStats.getMostUsedCommands(10);
           const menuVideoPath = __dirname + '/../midias/menu.mp4';
@@ -24524,11 +24524,11 @@ ${prefix}togglecmdvip premium_ia off`);
           const cmdName = q.startsWith(prefix) ? q.slice(prefix.length) : q;
           if (!commandStats || typeof commandStats.getCommandStats !== 'function') {
             console.warn('[COMMANDSTATS] getCommandStats not available');
-            return reply("Sistema de estatísticas temporariamente indisponível.");
+            return reply(`💎 Os números tão descansando agora... tenta daqui a pouco ♡`);
           }
           const stats = await commandStats.getCommandStats(cmdName);
           if (!stats) {
-            return reply(`❌ Comando *${cmdName}* não encontrado ou nunca foi usado.`);
+            return reply(`💎 O comando *${cmdName}* não existe ou nunca foi usado ♡`);
           }
           const topUsersText = stats.topUsers.length > 0 ? stats.topUsers.map((user, index) => {
             return `${index + 1}º @${getUserName(user.userId)} - ${user.count} usos`;
@@ -24699,7 +24699,7 @@ ${prefix}togglecmdvip premium_ia off`);
         try {
           const econ = loadEconomy();
 
-          await reply('🔍 Iniciando diagnóstico do database...');
+          await reply(`🔍 Dando uma olhada no banco de dados... ⋆｡˚`);
 
           const report = diagnosticDatabase(econ);
 
@@ -24753,7 +24753,7 @@ ${prefix}togglecmdvip premium_ia off`);
           return reply(text);
         } catch (error) {
           console.error('Erro no diagnóstico:', error);
-          return reply(`❌ Erro ao executar diagnóstico:\n${error.message}`);
+          return reply(`💎 Não consegui executar diagnóstico:\n${error.message}`);
         }
         break;
       }
@@ -24800,7 +24800,7 @@ ${prefix}togglecmdvip premium_ia off`);
           }, { quoted: info });
         } catch (e) {
           console.error("Erro no comando ping:", e);
-          await reply("❌ Ocorreu um erro ao processar o comando ping");
+          await reply(`💎 Eita, não consegui medir minha velocidade... (╥﹏╥)`);
         }
         break;
       case 'toimg':
@@ -24880,7 +24880,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
           } catch (error) {
             console.error('Erro togif:', error);
-            await reply('❌ Erro ao converter a figurinha animada.');
+            await reply(`💎 Não consegui converter a figurinha animada... (╥﹏╥)`);
           } finally {
             try {
               fs.rmSync(togifTempDir, {
@@ -24898,7 +24898,7 @@ ${prefix}togglecmdvip premium_ia off`);
             ?.contextInfo?.quotedMessage;
 
         if (!quoted) {
-          return reply('❌ Marque um áudio.');
+          return reply(`💎 Responde um áudio, tá? ♡`);
         }
 
         const isAudio =
@@ -24911,7 +24911,7 @@ ${prefix}togglecmdvip premium_ia off`);
           );
 
         if (!isAudio) {
-          return reply('❌ A mensagem marcada não é um áudio.');
+          return reply(`💎 Isso não é um áudio... responde um áudio, tá? ♡`);
         }
         const audio =
           quoted.audioMessage ||
@@ -24927,12 +24927,12 @@ ${prefix}togglecmdvip premium_ia off`);
         const linkz =
           await upload(media);
 
-        reply('*Já estou efetuando a transcrição!📃*')
+        reply(`📃 *Já tô escrevendo o áudio, calma ♡*`)
         const resultado =
           await totext.totext(linkz);
 
         if (!resultado?.ok) {
-          return reply(`❌ ${resultado?.msg || 'Erro ao transcrever áudio.'}`);
+          return reply(`💎 ${resultado?.msg || 'Não consegui transcrever o áudio...'}`);
         }
 
 
@@ -24982,10 +24982,10 @@ case 'tss': {
   }
 
   if (!texto) {
-    return reply('❌ Digite o texto antes do "|".');
+    return reply(`💎 Escreve o texto antes do "|" ♡`);
   }
 
-  reply(`🔊 Gerando áudio (voz ${modelo})...`);
+  reply(`🔊 Gravando com a voz ${modelo}... ⋆｡˚`);
 
   const resultado = await tts.tts(texto, modelo);
 
@@ -25025,7 +25025,7 @@ break;
             );
           }
 
-          reply('⏳ Removendo fundo, aguarde...');
+          reply(`✂️ Tirando o fundo... ⋆｡˚`);
 
           const imageBuffer = await getFileBuffer(imgMsg, 'image');
           const imageUrl = await upload(imageBuffer, true);
@@ -25045,7 +25045,7 @@ break;
           const resultUrl = bgResult.download;
 
           if (!resultUrl) {
-            return reply('❌ A API não retornou nenhuma imagem.');
+            return reply(`💎 Não voltou nenhuma imagem... tenta de novo? (╥﹏╥)`);
           }
 
           if (command === 'sbg' || command === 'sfundo') {
@@ -25109,10 +25109,10 @@ break;
             info.message?.viewOnceMessageV2?.message?.imageMessage;
 
           if (!upscaleImgMsg) {
-            return reply(`❌ Marque uma imagem para melhorar a qualidade.\n\n💡 Uso: ${prefix}${command}`);
+            return reply(`💎 Marca uma imagem pra melhorar a qualidade.\n\n💡 Usa assim: ${prefix}${command}`);
           }
 
-          reply('⏳ Melhorando a imagem, aguarde...');
+          reply(`✨ Deixando a imagem mais bonita... ⋆｡˚`);
 
           const imageBuffer = await getFileBuffer(upscaleImgMsg, 'image');
           const imageUrl = await upload(imageBuffer, true);
@@ -25135,7 +25135,7 @@ break;
         break;
       case 'qc':
         try {
-          if (!q) return reply('Falta o texto.');
+          if (!q) return reply(`💎 Faltou o texto ♡`);
           let ppimg = "";
           try {
             ppimg = await nazu.profilePictureUrl(sender, 'image');
@@ -25206,7 +25206,7 @@ break;
         break;
       case 'ttp':
         try {
-          if (!q) return reply('Cadê o texto?');
+          if (!q) return reply(`💎 Cadê o texto? ♡`);
           var cor;
           cor = ["f702ff", "ff0202", "00ff2e", "efff00", "00ecff", "3100ff", "ffb400", "ff00b0", "00ff95", "efff00"];
           var fonte;
@@ -25254,7 +25254,7 @@ break;
         break;
       case 'attp':
         try {
-          if (!q) return reply('Cadê o texto?');
+          if (!q) return reply(`💎 Cadê o texto? ♡`);
 
           const fs = await import('fs');
           const path = await import('path');
@@ -25298,7 +25298,7 @@ break;
             fs.mkdirSync(tempDir, { recursive: true });
           }
 
-          await reply('⏳ Gerando sticker animado... aguarde!');
+          await reply(`✨ Fazendo a figurinha animada... ⋆｡˚`);
 
           // Baixar 18 imagens com cores diferentes
           const numFrames = 18;
@@ -25354,7 +25354,7 @@ break;
 
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao criar o sticker animado. Tente novamente em alguns minutos.");
+          await reply(`💎 Não consegui fazer a figurinha animada... tenta daqui a uns minutinhos? (╥﹏╥)`);
         }
         break;
       case 'st':
@@ -25365,9 +25365,9 @@ break;
           var RSM = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
           var boij2 = RSM?.imageMessage || info.message?.imageMessage || RSM?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessage?.message?.imageMessage || RSM?.viewOnceMessage?.message?.imageMessage;
           var boij = RSM?.videoMessage || info.message?.videoMessage || RSM?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessage?.message?.videoMessage || RSM?.viewOnceMessage?.message?.videoMessage;
-          if (!boij && !boij2) return reply(`Marque uma imagem ou um vídeo de até 9.9 segundos para fazer figurinha, com o comando: ${prefix + command} (mencionando a mídia)`);
+          if (!boij && !boij2) return reply(`Marque uma imagem ou um vídeo de até 9.9 segundos pra fazer figurinha, com o comando: ${prefix + command} (mencionando a mídia)`);
           var isVideo2 = !!boij;
-          if (isVideo2 && boij.seconds > 9.9) return reply(`O vídeo precisa ter no máximo 9.9 segundos para ser convertido em figurinha.`);
+          if (isVideo2 && boij.seconds > 9.9) return reply(`💎 O vídeo pode ter no máximo 9,9 segundos pra virar figurinha ♡`);
           var buffer = await getFileBuffer(isVideo2 ? boij : boij2, isVideo2 ? 'video' : 'image');
           await sendSticker(nazu, from, {
             sticker: buffer,
@@ -25391,9 +25391,9 @@ break;
           var RSM = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
           var boij2 = RSM?.imageMessage || info.message?.imageMessage || RSM?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessageV2?.message?.imageMessage || info.message?.viewOnceMessage?.message?.imageMessage || RSM?.viewOnceMessage?.message?.imageMessage;
           var boij = RSM?.videoMessage || info.message?.videoMessage || RSM?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessageV2?.message?.videoMessage || info.message?.viewOnceMessage?.message?.videoMessage || RSM?.viewOnceMessage?.message?.videoMessage;
-          if (!boij && !boij2) return reply(`Marque uma imagem ou um vídeo de até 9.9 segundos para fazer figurinha, com o comando: ${prefix + command} (mencionando a mídia)`);
+          if (!boij && !boij2) return reply(`Marque uma imagem ou um vídeo de até 9.9 segundos pra fazer figurinha, com o comando: ${prefix + command} (mencionando a mídia)`);
           var isVideo2 = !!boij;
-          if (isVideo2 && boij.seconds > 9.9) return reply(`O vídeo precisa ter no máximo 9.9 segundos para ser convertido em figurinha.`);
+          if (isVideo2 && boij.seconds > 9.9) return reply(`💎 O vídeo pode ter no máximo 9,9 segundos pra virar figurinha ♡`);
           var buffer = await getFileBuffer(isVideo2 ? boij : boij2, isVideo2 ? 'video' : 'image');
           await sendSticker(nazu, from, {
             sticker: buffer,
@@ -25426,7 +25426,7 @@ break;
       case 'renomear':
       case 'mudarpack':
         try {
-          if (!isQuotedSticker) return reply('Você usou de forma errada... Marque uma figurinha.');
+          if (!isQuotedSticker) return reply(`💎 Responde uma figurinha, tá? ♡`);
           let author = "";
           let packname = "";
           if (!q) {
@@ -25480,7 +25480,7 @@ break;
           const dataTake = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf-8')) : {};
           dataTake[sender] = { author, pack };
           fs.writeFileSync(filePath, JSON.stringify(dataTake, null, 2), 'utf-8');
-          reply(`Autor e pacote salvos com sucesso!\nAutor: ${author || "(vazio)"}\nPacote: ${pack}`);
+          reply(`Autor e pacote salvos !\nAutor: ${author || "(vazio)"}\nPacote: ${pack}`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25488,11 +25488,11 @@ break;
         break;
       case 'take':
         try {
-          if (!isQuotedSticker) return reply('Você usou de forma errada... Marque uma figurinha.');
+          if (!isQuotedSticker) return reply(`💎 Responde uma figurinha, tá? ♡`);
           const filePath = pathz.join(USERS_DIR, 'take.json');
-          if (!fs.existsSync(filePath)) return reply('Nenhum autor e pacote salvos. Use o comando *rgtake* primeiro.');
+          if (!fs.existsSync(filePath)) return reply(`💎 Você ainda não guardou autor e pacote. Usa *rgtake* primeiro ♡`);
           const dataTake = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-          if (!dataTake[sender]) return reply('Você não tem autor e pacote salvos. Use o comando *rgtake* primeiro.');
+          if (!dataTake[sender]) return reply(`💎 Você ainda não guardou autor e pacote. Usa *rgtake* primeiro ♡`);
           const {
             author,
             pack
@@ -25521,16 +25521,16 @@ break;
           const quantidade = parseInt(q);
 
           if (isNaN(quantidade) || quantidade < 1 || quantidade > 15) {
-            return reply('❌ Número inválido! Escolha entre 1 e 15 figurinhas.');
+            return reply(`💎 Escolhe de 1 a 15 figurinhas ♡`);
           }
 
           // Destino: PV se for grupo, ou o próprio chat se for PV
           const destino = isGroup ? sender : from;
 
           if (isGroup) {
-            await reply(`📬 Enviando ${quantidade} figurinha${quantidade > 1 ? 's' : ''} no seu privado...\n⏳ Aguarde um momento!`);
+            await reply(`📬 Enviando ${quantidade} figurinha${quantidade > 1 ? 's' : ''} no seu privado...\n⏳ Espera um momento!`);
           } else {
-            await reply(`🎨 Enviando ${quantidade} figurinha${quantidade > 1 ? 's' : ''}...\n⏳ Aguarde um momento!`);
+            await reply(`🎨 Enviando ${quantidade} figurinha${quantidade > 1 ? 's' : ''}...\n⏳ Espera um momento!`);
           }
 
           const usedNumbers = new Set();
@@ -25581,7 +25581,7 @@ break;
 
         } catch (e) {
           console.error('Erro no comando figurinhas:', e);
-          await reply("🐝 Oh não! Aconteceu um errinho ao enviar as figurinhas. Tente de novo daqui a pouquinho, por favor! 🥺");
+          await reply(`💎 Ai, não consegui mandar as figurinhas... tenta daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -25603,7 +25603,7 @@ break;
             fs.writeFileSync(buildGroupFilePath(from), JSON.stringify(groupData, null, 2));
             return reply(`*${options[q.toLowerCase()]}*`);
           }
-          reply(`❌ Opção inválida! Use *${prefix}mention* para ver as opções.`);
+          reply(`💎 Essa opção não existe! Manda *${prefix}mention* pra ver as opções ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25614,7 +25614,7 @@ break;
       case 'del':
       case 'd':
         if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
-        if (!menc_prt) return reply("Marque uma mensagem.");
+        if (!menc_prt) return reply(`💎 Responde uma mensagem, tá? ♡`);
         let stanzaId, participant;
         if (info.message.extendedTextMessage) {
           stanzaId = info.message.extendedTextMessage.contextInfo.stanzaId;
@@ -25644,14 +25644,14 @@ break;
           var reason = q ? (q.includes('@') || !menc_os2) ? (q.includes(' ') ? q.split(' ').slice(1).join(' ') : "Não informado") : q.trim() : 'Não informado';
           var menc_os3;
           menc_os3 = (menc_os2 && menc_os2.includes(' ')) ? menc_os2.split(' ')[0] : menc_os2;
-          if (!menc_os3) return reply("Erro ao processar usuário mencionado");
+          if (!menc_os3) return reply(`💎 Não consegui entender quem foi marcado... (｡•́︿•̀｡)`);
           groupData.blockedUsers = groupData.blockedUsers || {};
           groupData.blockedUsers[menc_os3] = {
             reason,
             timestamp: Date.now()
           };
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Usuário @${getUserName(menc_os3)} bloqueado no grupo!\nMotivo: ${reason}`, {
+          await reply(`✿ Usuário @${getUserName(menc_os3)} bloqueado no grupo!\nMotivo: ${reason}`, {
             mentions: [menc_os3]
           });
         } catch (e) {
@@ -25665,18 +25665,18 @@ break;
         try {
           if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (!groupData.blockedUsers) {
-            return reply(`ℹ️ Não há usuários bloqueados neste grupo.`);
+            return reply(`✿ Ninguém tá bloqueado neste grupo ♡`);
           }
           const userToUnblock = groupData.blockedUsers[menc_os2] ? menc_os2 :
             groupData.blockedUsers[getUserName(menc_os2)] ? getUserName(menc_os2) : null;
           if (!userToUnblock) {
-            return reply(`❌ O usuário @${getUserName(menc_os2)} não está bloqueado no grupo!`, {
+            return reply(`💎 @${getUserName(menc_os2)} não tá bloqueado aqui ♡`, {
               mentions: [menc_os2]
             });
           }
           delete groupData.blockedUsers[userToUnblock];
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Usuário @${getUserName(menc_os2)} desbloqueado no grupo!`, {
+          await reply(`✿ Prontinho! @${getUserName(menc_os2)} foi desbloqueado no grupo ♡`, {
             mentions: [menc_os2]
           });
         } catch (e) {
@@ -25770,7 +25770,7 @@ break;
           if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (menc_os2 === nmrdn) return reply(`💎 Banir meu dono? Nem pensar! (๑•̀ㅂ•́)و`);
-          if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover (｡•́︿•̀｡)");
+          if (menc_os2 === botNumber) return reply(`💎 Me remover? Eu faço parte da bagunça! (｡•́︿•̀｡)`);
           await nazu.groupParticipantsUpdate(from, [menc_os2], 'remove');
 
           // Notificação X9 para banimento
@@ -25782,7 +25782,7 @@ break;
             }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
           }
 
-          reply(`✅ Usuário banido com sucesso!${q && q.length > 0 ? '\n\nMotivo: ' + q : ''}`);
+          reply(`✿ Usuário banido !${q && q.length > 0 ? '\n\nMotivo: ' + q : ''}`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25797,11 +25797,11 @@ break;
           if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (menc_os2 === nmrdn) return reply(`💎 Banir meu dono? Nem pensar! (๑•̀ㅂ•́)و`);
-          if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover (｡•́︿•̀｡)");
+          if (menc_os2 === botNumber) return reply(`💎 Me remover? Eu faço parte da bagunça! (｡•́︿•̀｡)`);
 
           // Aviso com contagem regressiva
           await nazu.sendMessage(from, {
-            text: `⚠️ *ÚLTIMAS PALAVRAS!*\n\n@${menc_os2.split('@')[0]}, você tem *10 segundos* para dizer suas últimas palavras antes de ser banido! ⏰`,
+            text: `💎 *ÚLTIMAS PALAVRAS!*\n\n@${menc_os2.split('@')[0]}, você tem *10 segundos* pra dizer suas últimas palavras antes de ser banido! ⏰`,
             mentions: [menc_os2]
           });
 
@@ -25836,11 +25836,11 @@ break;
         if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
         if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
         if (menc_os2 === nmrdn) return reply(`💎 Banir meu dono? Nem pensar! (๑•̀ㅂ•́)و`);
-        if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover (｡•́︿•̀｡)");
+        if (menc_os2 === botNumber) return reply(`💎 Me remover? Eu faço parte da bagunça! (｡•́︿•̀｡)`);
 
         try {
           await nazu.sendMessage(from, {
-            text: `⚠️ *ÚLTIMAS PALAVRAS!*\n\n@${menc_os2.split('@')[0]}, você tem *10 segundos* para dizer suas últimas palavras antes de ser banido! ⏰`,
+            text: `💎 *ÚLTIMAS PALAVRAS!*\n\n@${menc_os2.split('@')[0]}, você tem *10 segundos* pra dizer suas últimas palavras antes de ser banido! ⏰`,
             mentions: [menc_os2]
           });
 
@@ -25871,7 +25871,7 @@ break;
         try {
           groupData.bamMessage = q;
           persistGroupData();
-          await reply(`✅ *Mensagem do bam configurada!*\n\n📝 Nova mensagem:\n${q}\n\n💡 Use #user# para mencionar o usuário marcado.`);
+          await reply(`✿ *Mensagem do bam configurada!*\n\n📝 Nova mensagem:\n${q}\n\n💡 Use #user# pra mencionar o usuário marcado.`);
         } catch (e) {
           console.error('Erro no setbammsg:', e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25900,7 +25900,7 @@ break;
         try {
           delete groupData.bamMessage;
           persistGroupData();
-          await reply(`✅ Mensagem do bam resetada para o padrão!\n\nUse ${prefix}verbammsg para ver a mensagem padrão.`);
+          await reply(`✿ Mensagem do bam resetada pra o padrão!\n\nUsa ${prefix}verbammsg pra ver a mensagem padrão.`);
         } catch (e) {
           console.error('Erro no resetbammsg:', e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25959,11 +25959,11 @@ break;
             }
           } catch (queryErr) {
             console.error('Erro ao buscar solicitações:', queryErr);
-            return reply('❌ Este recurso não está disponível na versão atual do WhatsApp ou não há solicitações pendentes.');
+            return reply(`💎 Não tem pedido pra entrar, ou essa versão do WhatsApp não deixa eu ver ♡`);
           }
 
           if (!requests || requests.length === 0) {
-            return reply('📭 Não há solicitações pendentes neste grupo.');
+            return reply(`📭 Ninguém pediu pra entrar ♡`);
           }
 
           let msg = `📨 *Solicitações Pendentes* (${requests.length})\n\n`;
@@ -25979,7 +25979,7 @@ break;
           await reply(msg, { mentions: requests.map(r => r.jid) });
         } catch (e) {
           console.error(e);
-          await reply("❌ Erro ao buscar solicitações. Verifique se há solicitações pendentes.");
+          await reply(`💎 Não consegui ver os pedidos de entrada... (╥﹏╥)`);
         }
         break;
       case 'aprovar':
@@ -26014,11 +26014,11 @@ break;
               }
             } catch (queryErr) {
               console.error('Erro ao buscar solicitações:', queryErr);
-              return reply('❌ Erro ao buscar solicitações pendentes.');
+              return reply(`💎 Não consegui ver os pedidos de entrada... (╥﹏╥)`);
             }
 
             if (!allRequests || allRequests.length === 0) {
-              return reply('📭 Não há solicitações pendentes para aprovar.');
+              return reply(`📭 Não tem pedido pra aprovar ♡`);
             }
 
             const approved = [];
@@ -26037,7 +26037,7 @@ break;
             // Notificação X9 para aprovação em massa
             if (groupData.x9 && approved.length > 0) {
               await nazu.sendMessage(from, {
-                text: `✅ *X9 Report:* ${approved.length} solicitações foram aprovadas em massa por @${sender.split('@')[0]}.`,
+                text: `✿ *X9 Report:* ${approved.length} solicitações foram aprovadas em massa por @${sender.split('@')[0]}.`,
                 mentions: [sender],
               }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
             }
@@ -26050,7 +26050,7 @@ break;
           }
 
           if (!menc_jid2 || menc_jid2.length === 0) {
-            return reply(`❌ Marque alguém ou use "all" para aprovar todos.\n\n💡 Exemplos:\n• ${prefix}aprovar @usuario\n• ${prefix}aprovar all\n\nUse ${prefix}solicitacoes para ver pendentes.`);
+            return reply(`💎 Marque alguém ou use "all" pra aprovar todos.\n\n💡 Exemplos:\n• ${prefix}aprovar @usuario\n• ${prefix}aprovar all\n\nUsa ${prefix}solicitacoes pra ver pendentes.`);
           }
 
           const usersToApprove = menc_jid2;
@@ -26065,7 +26065,7 @@ break;
               // Notificação X9 para aprovação de solicitação
               if (groupData.x9) {
                 await nazu.sendMessage(from, {
-                  text: `✅ *X9 Report:* Solicitação de @${user.split('@')[0]} foi aprovada por @${sender.split('@')[0]}.`,
+                  text: `✿ *X9 Report:* Solicitação de @${user.split('@')[0]} foi aprovada por @${sender.split('@')[0]}.`,
                   mentions: [user, sender],
                 }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
               }
@@ -26088,7 +26088,7 @@ break;
           await reply(responseMsg, { mentions: [...approved, ...failed] });
         } catch (e) {
           console.error(e);
-          await reply("❌ Erro ao aprovar solicitações.");
+          await reply(`💎 Eita, não consegui aprovar os pedidos... (╥﹏╥)`);
         }
         break;
       case 'recusarsolic':
@@ -26100,7 +26100,7 @@ break;
           if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           if (!menc_jid2 || menc_jid2.length === 0) {
-            return reply(`❌ Marque alguém ou mencione números.\n\n💡 Exemplo: ${prefix}recusarsolic @usuario\n\nUse ${prefix}solicitacoes para ver pendentes.`);
+            return reply(`💎 Marque alguém ou mencione números.\n\n💡 Ex.: ${prefix}recusarsolic @usuario\n\nUsa ${prefix}solicitacoes pra ver pendentes.`);
           }
 
           const usersToReject = menc_jid2;
@@ -26115,7 +26115,7 @@ break;
               // Notificação X9 para recusa de solicitação
               if (groupData.x9) {
                 await nazu.sendMessage(from, {
-                  text: `❌ *X9 Report:* Solicitação de @${user.split('@')[0]} foi recusada por @${sender.split('@')[0]}.`,
+                  text: `💎 *X9 Report:* Solicitação de @${user.split('@')[0]} foi recusada por @${sender.split('@')[0]}.`,
                   mentions: [user, sender],
                 }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
               }
@@ -26138,7 +26138,7 @@ break;
           await reply(responseMsg, { mentions: [...rejected, ...failed] });
         } catch (e) {
           console.error(e);
-          await reply("❌ Erro ao recusar solicitações.");
+          await reply(`💎 Eita, não consegui recusar os pedidos... (╥﹏╥)`);
         }
         break;
       case 'autoaceitarsolic':
@@ -26170,7 +26170,7 @@ break;
           await reply(msg);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao configurar auto-aceitar.");
+          await reply(`💎 Eita, não consegui mudar o aceite automático... (╥﹏╥)`);
         }
         break;
       case 'captchasolic':
@@ -26222,7 +26222,7 @@ break;
 
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao configurar captcha.");
+          await reply(`💎 Eita, não consegui mudar o captcha... (╥﹏╥)`);
         }
         break;
 
@@ -26240,7 +26240,7 @@ break;
 
 
 
-          reply(`✅ Usuário promovido a administrador!`);
+          reply(`👑 Prontinho! Agora é admin ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -26257,7 +26257,7 @@ break;
 
 
 
-          reply(`✅ Usuário rebaixado com sucesso!`);
+          reply(`✿ Prontinho! Não é mais admin.`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -26286,7 +26286,7 @@ break;
             }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
           }
 
-          reply(`✅ Nome do grupo alterado para: *${newName}*`);
+          reply(`✿ O grupo agora se chama *${newName}* ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -26313,7 +26313,7 @@ break;
             }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
           }
 
-          reply(`✅ Descrição do grupo alterada!`);
+          reply(`✿ Descrição do grupo trocada ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -26343,14 +26343,14 @@ break;
 
 
 
-            reply('✅ Foto do grupo alterada com sucesso!');
+            reply(`✿ Foto do grupo trocada ♡`);
           } catch (updateError) {
             console.error('Erro ao alterar foto do grupo:', updateError);
-            reply('❌ Ocorreu um erro ao alterar a foto do grupo. Verifique se o ffmpeg está instalado e a imagem é válida.');
+            reply(`💎 Não consegui trocar a foto do grupo... confere se a imagem tá certinha (｡•́︿•̀｡)`);
           }
         } catch (e) {
           console.error('Erro no comando fotogrupo:', e);
-          reply("❌ Ocorreu um erro ao alterar a foto do grupo (｡•́︿•̀｡)");
+          reply(`💎 Eita, não consegui trocar a foto do grupo... (╥﹏╥)`);
         }
         break;
       case 'marcar':
@@ -26372,7 +26372,7 @@ break;
             data.mark = {};
           }
           let membros = AllgroupMembers.filter(m => !['0', 'games'].includes(data.mark[m]));
-          if (!membros.length) return reply('❌ Nenhum membro para mencionar.');
+          if (!membros.length) return reply(`💎 Não tem ninguém pra marcar ♡`);
 
           // Registra uso para grupos grandes (proteção anti-ban) se estiver ativa
           const configMarcar = loadMassMentionConfig();
@@ -26408,7 +26408,7 @@ break;
               }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
             }
 
-            await reply('Grupo aberto.');
+            await reply(`🔓 Grupo aberto! Todo mundo pode falar ♡`);
           } else if (q.toLowerCase() === 'f' || q.toLowerCase() === 'c' || q.toLowerCase() === 'close' || q.toLowerCase() === 'fechar') {
             await nazu.groupSettingUpdate(from, 'announcement');
 
@@ -26420,7 +26420,7 @@ break;
               }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
             }
 
-            await reply('Grupo fechado.');
+            await reply(`🔒 Grupo fechado! Só os admins falam agora.`);
           }
         } catch (e) {
           console.error(e);
@@ -26432,7 +26432,7 @@ break;
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 07:00 | ${groupPrefix}${command} off`);
+          if (!q) return reply(`💎 Usa assim: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 07:00 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
           const argLower = rawArg.toLowerCase();
           const groupFilePath = pathz.join(GRUPOS_DIR, `${from}.json`);
@@ -26451,7 +26451,7 @@ break;
             writeJsonFile(groupFilePath, data);
             // Remove cron job in memory (se houver)
             try { unscheduleGroupJob(from, 'open'); } catch (e) { }
-            return reply('✅ Agendamento diário para ABRIR o grupo foi removido.');
+            return reply(`✿ Tirei o horário de abrir o grupo ♡`);
           }
 
           // Validate time format with enhanced validation
@@ -26461,7 +26461,7 @@ break;
           }
           const normalizedTime = normalizeScheduleTime(rawArg);
           if (!normalizedTime) {
-            return reply(`⏰ Não consegui entender o horário informado. Use o formato HH:MM, por exemplo ${prefix}opengp 07:30`);
+            return reply(`⏰ Não entendi o horário! Usa HH:MM, tipo ${prefix}opengp 07:30 ♡`);
           }
 
           // Save the schedule
@@ -26482,7 +26482,7 @@ break;
           await reply(msg);
         } catch (e) {
           console.error('Erro no opengp:', e);
-          await reply('Ocorreu um erro ao salvar o agendamento (｡•́︿•̀｡)');
+          await reply(`💎 Eita, não consegui guardar o horário... (╥﹏╥)`);
         }
         break;
       case 'closegp':
@@ -26490,7 +26490,7 @@ break;
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 22:30 | ${groupPrefix}${command} off`);
+          if (!q) return reply(`💎 Usa assim: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 22:30 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
           const argLower = rawArg.toLowerCase();
           const groupFilePath = pathz.join(GRUPOS_DIR, `${from}.json`);
@@ -26509,7 +26509,7 @@ break;
             writeJsonFile(groupFilePath, data);
             // Remove cron job in memory (se houver)
             try { unscheduleGroupJob(from, 'close'); } catch (e) { }
-            return reply('✅ Agendamento diário para FECHAR o grupo foi removido.');
+            return reply(`✿ Tirei o horário de fechar o grupo ♡`);
           }
 
           // Validate time format with enhanced validation
@@ -26519,7 +26519,7 @@ break;
           }
           const normalizedTime = normalizeScheduleTime(rawArg);
           if (!normalizedTime) {
-            return reply(`⏰ Não consegui entender o horário informado. Use o formato HH:MM, por exemplo ${prefix}closegp 22:30`);
+            return reply(`⏰ Não entendi o horário! Usa HH:MM, tipo ${prefix}closegp 22:30 ♡`);
           }
 
           // Save the schedule
@@ -26540,7 +26540,7 @@ break;
           await reply(msg);
         } catch (e) {
           console.error('Erro no closegp:', e);
-          await reply('Ocorreu um erro ao salvar o agendamento (｡•́︿•̀｡)');
+          await reply(`💎 Eita, não consegui guardar o horário... (╥﹏╥)`);
         }
         break;
       case 'automsg':
@@ -26592,7 +26592,7 @@ A mensagem será enviada todos os dias no horário especificado.`);
 
               const normalizedTime = normalizeScheduleTime(timeStr);
               if (!normalizedTime) {
-                return reply(`⏰ Horário inválido. Use o formato HH:MM`);
+                return reply(`⏰ Esse horário não deu certo! Usa HH:MM ♡`);
               }
 
               // Verificar se há mensagem respondida ou texto
@@ -26684,12 +26684,12 @@ A mensagem será enviada todos os dias no horário especificado.`);
                   msgConfig.type = 'text';
                   msgConfig.content = text;
                 } else {
-                  return reply('❌ Tipo de mensagem não suportado. Use texto, imagem, vídeo, documento, figurinha ou áudio.');
+                  return reply(`💎 Esse tipo de mensagem eu não sei repetir. Usa texto, imagem, vídeo, documento, figurinha ou áudio ♡`);
                 }
               } else {
                 // Usar descrição como texto
                 if (!description || description === 'Sem descrição') {
-                  return reply('❌ Você precisa responder a uma mensagem ou fornecer um texto após o horário.');
+                  return reply(`💎 Responde uma mensagem ou escreve um texto depois do horário ♡`);
                 }
                 msgConfig.type = 'text';
                 msgConfig.content = description;
@@ -26715,7 +26715,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             case 'list':
             case 'lista':
               if (data.autoMessages.length === 0) {
-                return reply('📭 Nenhuma mensagem automática configurada.');
+                return reply(`📭 Nenhuma mensagem automática ainda ♡`);
               }
 
               let listMsg = '📨 *Auto Mensagens Configuradas*\n\n';
@@ -26735,12 +26735,12 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             case 'remover':
               const msgId = args[1];
               if (!msgId) {
-                return reply(`❌ Forneça o ID da mensagem.\nUso: ${groupPrefix}automsg del [id]`);
+                return reply(`💎 Me manda o ID da mensagem.\nUso: ${groupPrefix}automsg del [id]`);
               }
 
               const msgIndex = data.autoMessages.findIndex(m => m.id === msgId);
               if (msgIndex === -1) {
-                return reply('❌ Mensagem não encontrada. Use automsg list para ver os IDs.');
+                return reply(`💎 Não achei essa mensagem. Os IDs aparecem em automsg list ♡`);
               }
 
               const removedMsg = data.autoMessages[msgIndex];
@@ -26771,12 +26771,12 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             case 'ativar':
               const onMsgId = args[1];
               if (!onMsgId) {
-                return reply(`❌ Forneça o ID da mensagem.\nUso: ${groupPrefix}automsg on [id]`);
+                return reply(`💎 Me manda o ID da mensagem.\nUso: ${groupPrefix}automsg on [id]`);
               }
 
               const onMsg = data.autoMessages.find(m => m.id === onMsgId);
               if (!onMsg) {
-                return reply('❌ Mensagem não encontrada. Use automsg list para ver os IDs.');
+                return reply(`💎 Não achei essa mensagem. Os IDs aparecem em automsg list ♡`);
               }
 
               onMsg.enabled = true;
@@ -26785,19 +26785,19 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
               // Reagendar
               scheduleAutoMessage(from, onMsg, nazu);
 
-              await reply(`✅ Mensagem automática ativada!\n\n🆔 ID: ${onMsgId}`);
+              await reply(`✿ Mensagem automática ligada!\n\n🆔 ID: ${onMsgId}`);
               break;
 
             case 'off':
             case 'desativar':
               const offMsgId = args[1];
               if (!offMsgId) {
-                return reply(`❌ Forneça o ID da mensagem.\nUso: ${groupPrefix}automsg off [id]`);
+                return reply(`💎 Me manda o ID da mensagem.\nUso: ${groupPrefix}automsg off [id]`);
               }
 
               const offMsg = data.autoMessages.find(m => m.id === offMsgId);
               if (!offMsg) {
-                return reply('❌ Mensagem não encontrada. Use automsg list para ver os IDs.');
+                return reply(`💎 Não achei essa mensagem. Os IDs aparecem em automsg list ♡`);
               }
 
               offMsg.enabled = false;
@@ -26806,15 +26806,15 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
               // Desagendar
               unscheduleAutoMessage(from, offMsgId);
 
-              await reply(`✅ Mensagem automática desativada!\n\n🆔 ID: ${offMsgId}`);
+              await reply(`✿ Mensagem automática desligada!\n\n🆔 ID: ${offMsgId}`);
               break;
 
             default:
-              return reply(`❌ Subcomando inválido. Use: add, list, del, on ou off`);
+              return reply(`💎 Hmm, não conheço essa opção. Usa: add, list, del, on ou off ♡`);
           }
         } catch (e) {
           console.error('Erro no automsg:', e);
-          await reply('❌ Ocorreu um erro ao processar o comando de auto mensagem.');
+          await reply(`💎 Eita, não consegui mexer nas mensagens automáticas... (╥﹏╥)`);
         }
         break;
       case 'chaveamento':
@@ -26824,10 +26824,10 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           if (q) {
             participantes = q.split(',').map(n => n.trim()).filter(n => n);
             if (participantes.length !== 16) {
-              return reply(`❌ Forneça exatamente 16 nomes! Você forneceu ${participantes.length}. Exemplo: ${prefix}${command} nome1,nome2,...,nome16`);
+              return reply(`💎 Me manda exatamente 16 nomes! Você forneceu ${participantes.length}. Exemplo: ${prefix}${command} nome1,nome2,...,nome16`);
             }
           } else {
-            return reply(`❌ Forneça exatamente 16 nomes! Você forneceu 0. Exemplo: ${prefix}${command} nome1,nome2,...,nome16`);
+            return reply(`💎 Preciso de 16 nomes certinhos! Ex.: ${prefix}${command} nome1,nome2,...,nome16 ♡`);
           }
           participantes = participantes.sort(() => Math.random() - 0.5);
           const grupo1 = participantes.slice(0, 8);
@@ -26871,9 +26871,9 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
         break;
       case 'sorteionum':
         try {
-          if (!q) return reply(`Por favor, forneça um intervalo de números. Exemplo: ${prefix}sorteionum 1-50`);
+          if (!q) return reply(`💎 Me dá um intervalo de números. Ex.: ${prefix}sorteionum 1-50 ♡`);
           const [min, max] = q.split('-').map(n => parseInt(n.trim()));
-          if (isNaN(min) || isNaN(max) || min >= max) return reply('❌ Intervalo inválido! Use o formato: min-max (ex.: 1-50).');
+          if (isNaN(min) || isNaN(max) || min >= max) return reply(`💎 Esse intervalo não deu certo! Usa mín-máx (ex.: 1-50) ♡`);
           const numeroSorteado = Math.floor(Math.random() * (max - min + 1)) + min;
           await reply(`🎲 *Sorteio de Número* 🎲\n\nNúmero sorteado: *${numeroSorteado}*`);
         } catch (e) {
@@ -26883,7 +26883,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
         break;
       case 'sorteionome':
         try {
-          if (!q) return reply(`Por favor, forneça os nomes para o sorteio. Exemplo: ${prefix}sorteionome 4/nick1,nick2,nick3,... ou ${prefix}sorteionome nick1,nick2,nick3,...`);
+          if (!q) return reply(`💎 Me manda os nomes pra o sorteio. Exemplo: ${prefix}sorteionome 4/nick1,nick2,nick3,... ou ${prefix}sorteionome nick1,nick2,nick3,...`);
           let numVencedores = 1;
           let numGrupos = 1;
           let nomes = [];
@@ -26897,7 +26897,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             nomes = q.split(',').map(n => n.trim()).filter(n => n);
           }
           if (nomes.length < numVencedores * numGrupos) return reply(`❌ Não há nomes suficientes! Você precisa de pelo menos ${numVencedores * numGrupos} nomes para sortear ${numVencedores} vencedor${numVencedores > 1 ? 'es' : ''}${numGrupos > 1 ? ` em ${numGrupos} grupos` : ''}.`);
-          if (numVencedores < 1 || numGrupos < 1) return reply('❌ Quantidade de vencedores ou grupos inválida! Use números positivos.');
+          if (numVencedores < 1 || numGrupos < 1) return reply(`💎 A quantidade de vencedores ou grupos tem que ser um número positivo ♡`);
           let resultado = `🎉 *Resultado do Sorteio de Nomes* 🎉\n\n`;
           let nomesDisponiveis = [...nomes];
           if (numGrupos === 1) {
@@ -26936,10 +26936,10 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           // Otimização: Usar cache para leitura de arquivo
           let data = await optimizer.loadJsonWithCache(path, { mark: {} });
           let membros = AllgroupMembers.filter(m => !['0', 'marca'].includes(data.mark[m]));
-          if (membros.length < 2) return reply('❌ Preciso de pelo menos 2 membros válidos no grupo para realizar o sorteio!');
+          if (membros.length < 2) return reply(`💎 Preciso de pelo menos 2 pessoas no grupo pra sortear ♡`);
           let numVencedores = parseInt(q) || 1;
-          if (numVencedores < 1) return reply('❌ O número de vencedores deve ser maior que 0!');
-          if (numVencedores > membros.length) return reply(`❌ Não há membros suficientes! O grupo tem apenas ${membros.length} membros válidos.`);
+          if (numVencedores < 1) return reply(`💎 Precisa ter pelo menos 1 vencedor ♡`);
+          if (numVencedores > membros.length) return reply(`💎 Não tem gente suficiente! O grupo só tem ${membros.length} pessoas válidas ♡`);
           let vencedores = [];
           let membrosDisponiveis = [...membros];
           for (let i = 0; i < numVencedores; i++) {
@@ -27073,7 +27073,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
                 }
               } catch (err) {
                 console.error('Erro ao baixar mídia marcada para hidetag:', err);
-                return reply('❌ Erro ao baixar a mídia marcada. Tente novamente.');
+                return reply(`💎 Não consegui baixar a mídia... tenta de novo? (╥﹏╥)`);
               }
             }
           }
@@ -27226,7 +27226,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           groupData.antilinkhard = !groupData.antilinkhard;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Antilinkhard ${groupData.antilinkhard ? 'ativado' : 'desativado'}! Qualquer link enviado resultará em banimento.`);
+          await reply(`✿ Antilinkhard ${groupData.antilinkhard ? 'ativado' : 'desativado'}! Qualquer link enviado resultará em banimento.`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27241,7 +27241,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           groupData.x9 = !groupData.x9;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ X9 ${groupData.x9 ? 'ativado' : 'desativado'}! Vou contar toda a verdade agora.`);
+          await reply(`🕵️ X9 ${groupData.x9 ? 'ligado! Agora eu conto tudinho' : 'desligado! Boca fechada'} ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27273,41 +27273,41 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           if (sub === 'add' || sub === 'registrar' || sub === 'register') {
             let targetGroupId = rest;
             if (!targetGroupId && isGroup) targetGroupId = from;
-            if (!targetGroupId) return reply(`💡 Use: ${prefix}divdono add [id_do_grupo]`);
+            if (!targetGroupId) return reply(`💎 Usa assim: ${prefix}divdono add [id do grupo]`);
 
             if (!targetGroupId.includes('@g.us')) {
               targetGroupId += '@g.us';
             }
             if (!isGroupId(targetGroupId)) {
-              return reply('❌ ID de grupo inválido! Deve terminar com @g.us');
+              return reply(`💎 Esse ID de grupo não parece certo! Ele termina com @g.us ♡`);
             }
 
             if (!groups.includes(targetGroupId)) {
               groups.push(targetGroupId);
               config.groups = groups;
               saveDonoDivulgacao(config);
-              return reply(`✅ Grupo registrado para divulgação.\n📌 Total: ${groups.length}`);
+              return reply(`✿ Grupo registrado pra divulgação.\n📌 Total: ${groups.length}`);
             }
-            return reply('⚠️ Este grupo já está registrado.');
+            return reply(`💎 Esse grupo já tá na lista ♡`);
           }
 
           if (sub === 'rem' || sub === 'remove' || sub === 'del') {
-            if (!rest) return reply(`💡 Use: ${prefix}divdono rem <id_do_grupo>`);
+            if (!rest) return reply(`💎 Usa assim: ${prefix}divdono rem <id do grupo>`);
             let targetGroupId = rest.trim();
             if (!targetGroupId.includes('@g.us')) {
               targetGroupId += '@g.us';
             }
             const newGroups = groups.filter(id => id !== targetGroupId);
             if (newGroups.length === groups.length) {
-              return reply('⚠️ Grupo não encontrado na lista.');
+              return reply(`💎 Não achei esse grupo na lista (・・ ) ?`);
             }
             config.groups = newGroups;
             saveDonoDivulgacao(config);
-            return reply(`✅ Grupo removido da divulgação.\n📌 Total: ${newGroups.length}`);
+            return reply(`✿ Grupo removido da divulgação.\n📌 Total: ${newGroups.length}`);
           }
 
           if (sub === 'list' || sub === 'lista') {
-            if (!groups.length) return reply('⚠️ Nenhum grupo registrado para divulgação.');
+            if (!groups.length) return reply(`📭 Nenhum grupo na divulgação ainda ♡`);
 
             let text = `📣 *GRUPOS REGISTRADOS (${groups.length})*\n`;
             let index = 1;
@@ -27334,21 +27334,21 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             }
             config.message = rest;
             saveDonoDivulgacao(config);
-            return reply('✅ Mensagem de divulgação salva com sucesso.');
+            return reply(`✿ Prontinho! Guardei o texto da divulgação ♡`);
           }
 
           if (sub === 'send' || sub === 'enviar') {
             const customText = rest || null;
             const result = await runDonoDivulgacaoSend(nazu, customText, 'manual');
             if (!result.success) return reply(result.message);
-            return reply(`✅ Divulgação enviada.\n📨 Enviadas: ${result.sent}\n⚠️ Falhas: ${result.failed}`);
+            return reply(`✿ Divulgação enviada.\n📨 Enviadas: ${result.sent}\n⚠️ Falhas: ${result.failed}`);
           }
 
           if (sub === 'time' || sub === 'hora' || sub === 'agendar') {
             if (!rest) {
               const status = config.schedule?.enabled ? 'ativado' : 'desativado';
               const time = config.schedule?.time || '—';
-              return reply(`⏰ *Agendamento:* ${status}\n🕒 Horário: ${time}\n💡 Use ${prefix}divdono time HH:MM ou off`);
+              return reply(`⏰ *Agendamento:* ${status}\n🕒 Horário: ${time}\n💡 Usa ${prefix}divdono time HH:MM ou off`);
             }
 
             if (['off', 'desligar', 'desativar'].includes(rest.toLowerCase())) {
@@ -27358,12 +27358,12 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
               config.schedule.lastRun = null;
               saveDonoDivulgacao(config);
               unscheduleDonoDivulgacaoJob();
-              return reply('✅ Agendamento diário desativado.');
+              return reply(`✿ Prontinho! Desliguei o horário diário ♡`);
             }
 
             const normalized = normalizeScheduleTime(rest);
             if (!normalized) {
-              return reply('❌ Formato inválido. Use HH:MM (ex: 09:30).');
+              return reply(`⏰ Esse horário não deu certo! Usa HH:MM (ex.: 09:30) ♡`);
             }
 
             config.schedule = config.schedule || {};
@@ -27373,7 +27373,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             saveDonoDivulgacao(config);
             scheduleDonoDivulgacaoJob(normalized, nazu);
 
-            return reply(`✅ Agendamento diário definido para ${normalized} (horário de São Paulo).`);
+            return reply(`⏰ Prontinho! Todo dia às ${normalized} (horário de Brasília) ♡`);
           }
 
           if (sub === 'status') {
@@ -27398,7 +27398,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           return reply(helpText);
         } catch (e) {
           console.error('Erro no comando divdono:', e);
-          await reply('💔 Ocorreu um erro ao processar o comando.');
+          await reply(`💎 Eita, algo deu errado do meu lado... (╥﹏╥)`);
         }
         break;
 
@@ -27420,13 +27420,13 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           if (saveDivulgacao({ savedMessage: q })) {
             // Invalida cache após salvar
             optimizer.clearStatic('divulgacao:config');
-            await reply(`✅ Mensagem de divulgação salva:\n\n${q}`);
+            await reply(`✿ Mensagem de divulgação salva:\n\n${q}`);
           } else {
-            await reply("💔 Ocorreu um erro ao salvar a mensagem.");
+            await reply(`💎 Eita, não consegui guardar a mensagem... (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no comando setdiv:', e);
-          await reply("💔 Ocorreu um erro geral ao processar o comando.");
+          await reply(`💎 Eita, algo deu errado do meu lado... (╥﹏╥)`);
         }
         break;
 
@@ -27445,8 +27445,8 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
 
           if (!messageText) messageText = loadDivulgacao().savedMessage;
 
-          if (!messageText) return reply(`❌ Nenhuma mensagem para divulgar.`);
-          if (isNaN(count) || count <= 0 || count > maxCount) return reply(`❌ Quantidade inválida.`);
+          if (!messageText) return reply(`📭 Não tem mensagem pra divulgar ♡`);
+          if (isNaN(count) || count <= 0 || count > maxCount) return reply(`💎 Hmm, essa quantidade não dá... confere pra mim? ♡`);
 
           // Proteção Anti-Ban: Verifica rate limit para grupos grandes (apenas se markAll estiver ativo)
           if (markAll) {
@@ -27490,7 +27490,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           processarProxima(0, 0);
         } catch (e) {
           console.error("Erro no comando 'divulgar':", e);
-          await reply("💔 Ocorreu um erro ao iniciar a divulgação.");
+          await reply(`💎 Eita, não consegui começar a divulgação... (╥﹏╥)`);
         }
         break;
 
@@ -27502,7 +27502,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           groupData.antibtn = !groupData.antibtn;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Anti Botão ${groupData.antibtn ? 'ativado' : 'desativado'}!`);
+          await reply(`✿ Anti Botão ${groupData.antibtn ? 'ligado' : 'desligado'} ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27516,7 +27516,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
 
           groupData.antistatus = !groupData.antistatus;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Anti Status ${groupData.antistatus ? 'ativado' : 'desativado'}!`);
+          await reply(`✿ Anti Status ${groupData.antistatus ? 'ligado' : 'desligado'} ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27530,7 +27530,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
 
           groupData.antidel = !groupData.antidel;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Antidelete ${groupData.antidel ? 'ativado' : 'desativado'}!`);
+          await reply(`✿ Antidelete ${groupData.antidel ? 'ligado' : 'desligado'} ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27573,7 +27573,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
 
           groupData.antidoc = !groupData.antidoc;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Antidoc ${groupData.antidoc ? 'ativado' : 'desativado'}! Documentos enviados resultarão em banimento.`);
+          await reply(`✿ Antidoc ${groupData.antidoc ? 'ligado! Quem mandar documento sai do grupo' : 'desligado'} ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27593,12 +27593,12 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           const timeInput = args[1].toLowerCase();
           const action = args[2].toLowerCase();
           if (!['ban', 'adv'].includes(action)) {
-            return reply("❌ Ação inválida! Use 'ban' para banimento direto ou 'adv' para advertências.");
+            return reply(`💎 Escolhe 'ban' pra remover direto ou 'adv' pra dar advertência ♡`);
           }
           let intervalSeconds;
           const timeMatch = timeInput.match(/^(\d+)(s|m|h)$/);
           if (!timeMatch) {
-            return reply("❌ Tempo inválido! Use formatos como 20s, 1m ou 2h.");
+            return reply(`⏰ Esse tempo não deu certo! Usa tipo 20s, 1m ou 2h ♡`);
           }
           const timeValue = parseInt(timeMatch[1]);
           const timeUnit = timeMatch[2];
@@ -27610,7 +27610,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             intervalSeconds = timeValue * 3600;
           }
           if (isNaN(limit) || limit <= 0) {
-            return reply("❌ Quantidade de mensagens deve ser um número positivo!");
+            return reply(`💎 A quantidade de mensagens tem que ser um número positivo ♡`);
           }
 
           groupData.messageLimit = {
@@ -27623,7 +27623,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           };
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           const actionText = action === 'ban' ? 'banimento direto' : 'advertências (ban após 3)';
-          await reply(`✅ Limite de mensagens configurado: ${limit} mensagens a cada ${timeInput} com ${actionText}!`);
+          await reply(`✿ Limite ligado: ${limit} mensagens a cada ${timeInput}, com ${actionText} ♡`);
         } catch (e) {
           console.error('Erro no comando limitmessage:', e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27634,11 +27634,11 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!groupData.messageLimit?.enabled) {
-            return reply("📴 O limite de mensagens não está ativo neste grupo.");
+            return reply(`📴 O limite de mensagens não tá ligado aqui ♡`);
           }
           delete groupData.messageLimit;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply("🗑️ Sistema de limite de mensagens desativado com sucesso!");
+          await reply(`✿ Prontinho! Desliguei o limite de mensagens ♡`);
         } catch (e) {
           console.error('Erro no comando dellimitmessage:', e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27647,21 +27647,21 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
       case 'setprefix':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem alterar o prefixo.");
-          if (!q) return reply(`Por favor, forneça o novo prefixo. Exemplo: ${groupPrefix}setprefix !`);
+          if (!isGroupAdmin) return reply(`💎 Só os admins podem trocar meu prefixo, tá? ♡`);
+          if (!q) return reply(`💎 Me fala o prefixo novo. Ex.: ${groupPrefix}setprefix ! ♡`);
           let newPrefix = q.trim();
 
           // Bloqueia o uso de $ como prefixo e converte automaticamente para /
           if (newPrefix === '$') {
             newPrefix = '/';
-            await reply(`⚠️ O símbolo "$" é reservado e não pode ser usado como prefixo.\n✅ Prefixo alterado automaticamente para "/" neste grupo!`);
+            await reply(`💎 O símbolo "$" é reservado e não pode ser usado como prefixo.\n✅ Prefixo alterado automaticamente pra "/" neste grupo!`);
           }
 
           if (newPrefix.length > 1) {
-            return reply("🤔 O prefixo deve ter no máximo 1 digito.");
+            return reply(`💎 O prefixo tem que ser um símbolo só ♡`);
           }
           if (newPrefix.includes(' ')) {
-            return reply("🤔 O prefixo não pode conter espaços.");
+            return reply(`💎 O prefixo não pode ter espaço ♡`);
           }
 
           groupData.customPrefix = newPrefix;
@@ -27669,11 +27669,11 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
 
           // Se não foi convertido, envia mensagem normal
           if (newPrefix !== '/') {
-            await reply(`✅ Prefixo do bot alterado para "${newPrefix}" neste grupo!`);
+            await reply(`✿ Prontinho! Aqui no grupo meu prefixo agora é "${newPrefix}" ♡`);
           }
         } catch (e) {
           console.error('Erro no comando setprefix:', e);
-          await reply("Ocorreu um erro ao alterar o prefixo (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui trocar o prefixo... (╥﹏╥)`);
         }
         break;
       case 'antiflood':
@@ -27689,7 +27689,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
             delete antifloodData[from].interval;
           } else {
             const interval = parseInt(q);
-            if (isNaN(interval) || interval < 1) return reply('Intervalo inválido! Use um número maior que 0 ou "off".');
+            if (isNaN(interval) || interval < 1) return reply(`💎 Esse intervalo não deu certo! Usa um número maior que 0 ou "off" ♡`);
             antifloodData[from].enabled = true;
             antifloodData[from].interval = interval;
           }
@@ -27728,7 +27728,7 @@ Exemplos:
           if (sub === 'off') {
             cfg.enabled = false;
             writeJsonFile(filePath, cfg);
-            return reply('✅ AntiSpam Global desativado.');
+            return reply(`✿ AntiSpam geral desligado ♡`);
           }
           if (sub === 'on') {
             const limit = parseInt(parts[1]);
@@ -27751,7 +27751,7 @@ Exemplos:
           return reply('Opção inválida.\n' + usage);
         } catch (e) {
           console.error('Erro em antispamcmd:', e);
-          await reply('Ocorreu um erro ao configurar o AntiSpam.');
+          await reply(`💎 Eita, não consegui mudar o AntiSpam... (╥﹏╥)`);
         }
         break;
       case 'antiloc':
@@ -27766,7 +27766,7 @@ Exemplos:
           if (isGroup) {
             optimizer.invalidateGroup(from);
           }
-          await reply(`✅ Antiloc ${groupData.antiloc ? 'ativado' : 'desativado'}! Localizações enviadas resultarão em banimento.`);
+          await reply(`✿ Antiloc ${groupData.antiloc ? 'ligado! Quem mandar localização sai do grupo' : 'desligado'} ♡`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -27789,9 +27789,9 @@ Exemplos:
           }
           writeJsonFile(groupFilePath, groupData);
           if (groupData.modobrincadeira) {
-            await reply('🎉 *Modo de Brincadeiras ativado!* Agora o grupo está no modo de brincadeiras. Divirta-se!');
+            await reply(`🎉 *Brincadeiras ligadas!* Bora se divertir, galera ♡`);
           } else {
-            await reply('⚠️ *Modo de Brincadeiras desativado!* O grupo não está mais no modo de brincadeiras.');
+            await reply(`💤 *Brincadeiras desligadas.* Quando quiserem, é só ligar de novo ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -27815,9 +27815,9 @@ Exemplos:
           }
           writeJsonFile(groupFilePath, groupData);
           if (groupData.bemvindo) {
-            await reply(`✅ *Boas-vindas ativadas!* Agora, novos membros serão recebidos com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv*`);
+            await reply(`✿ *Boas-vindas ligadas!* Agora, novos membros serão recebidos com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv*`);
           } else {
-            await reply('⚠️ *Boas-vindas desativadas!* O grupo não enviará mais mensagens para novos membros.');
+            await reply(`💤 *Boas-vindas desligadas.* Não vou mais receber quem chega.`);
           }
         } catch (e) {
           console.error(e);
@@ -27841,9 +27841,9 @@ Exemplos:
           }
           writeJsonFile(groupFilePath, groupData);
           if (groupData.bemvindo2) {
-            await reply(`✅ *Boas-vindas ativadas!* Agora, novos membros serão recebidos com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv2*\n*Esse bem vindo não tem foto!*`);
+            await reply(`✿ *Boas-vindas ligadas!* Agora, novos membros serão recebidos com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv2*\n*Esse bem vindo não tem foto!*`);
           } else {
-            await reply('⚠️ *Boas-vindas desativadas!* O grupo não enviará mais mensagens para novos membros.\n*Esse bem vindo não tem foto!*');
+            await reply('💎 *Boas-vindas desligadas!* O grupo não enviará mais mensagens pra novos membros.\n*Esse bem vindo não tem foto!*');
           }
         } catch (e) {
           console.error(e);
@@ -27855,14 +27855,14 @@ Exemplos:
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!isBotAdmin) return reply("❌ Preciso ser administrador.");
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const limite = parseInt(q);
           if (isNaN(limite) || limite < 0) return reply("⚠️ Use um número válido. Ex: " + prefix + "banghost 1");
           const arquivoGrupo = `${GRUPOS_DIR}/${from}.json`;
-          if (!fs.existsSync(arquivoGrupo)) return reply("📂 Sem dados de mensagens.");
+          if (!fs.existsSync(arquivoGrupo)) return reply(`📂 Ainda não tenho dados de mensagens ♡`);
           let dados = JSON.parse(fs.readFileSync(arquivoGrupo))
           let contador = dados.contador
-          if (!Array.isArray(contador)) return reply("⚠️ Contador não disponível.")
+          if (!Array.isArray(contador)) return reply(`💎 O contador não tá disponível agora ♡`)
           const currentMembers = AllgroupMembers
           const contadorMap = new Map()
           contador.forEach(user => contadorMap.set(user.id, user))
@@ -27890,7 +27890,7 @@ Exemplos:
           });
           const admins = groupAdmins || [];
           const fantasmas = validUsers.filter(u => (u.msg || 0) <= limite && !admins.includes(u.id) && u.id !== botNumber && u.id !== sender && u.id !== nmrdn).map(u => u.id)
-          if (!fantasmas.length) return reply(`🎉 Nenhum fantasma com até ${limite} msg.`);
+          if (!fantasmas.length) return reply(`🎉 Ninguém com ${limite} mensagens ou menos! Grupo animado ♡`);
 
           let removidos = 0;
           try {
@@ -27907,7 +27907,7 @@ Exemplos:
           reply(removidos === 0 ? `⚠️ Nenhum fantasma pôde ser removido com até ${limite} msg.` : `✅ ${removidos} fantasma(s) removido(s).`);
         } catch (e) {
           console.error("Erro no banghost:", e);
-          reply("💥 Erro ao tentar remover fantasmas.");
+          reply(`💎 Eita, não consegui remover os sumidos... (╥﹏╥)`);
         }
         break;
 
@@ -27932,7 +27932,7 @@ Exemplos:
               delete groupData.welcome.image; // limpa imagem antiga se tiver
               writeJsonFile(buildGroupFilePath(from), groupData);
 
-              await reply(`✅ Foto de boas-vindas ATIVADA!\n\nUse o comando ${prefix}set-fotobv para configurar a imagem de boas-vindas.`);
+              await reply(`✿ Foto de boas-vindas ATIVADA!\n\nUsa o comando ${prefix}set-fotobv pra configurar a imagem de boas-vindas.`);
 
             } else if (action === 'off' || action === 'desativar') {
 
@@ -27941,7 +27941,7 @@ Exemplos:
               delete groupData.welcome.image;
               writeJsonFile(buildGroupFilePath(from), groupData);
 
-              await reply("✅ Foto de boas-vindas DESATIVADA!");
+              await reply(`✿ Foto de boas-vindas *desligada* ♡`);
 
             } else {
 
@@ -27979,7 +27979,7 @@ Exemplos:
 
               writeJsonFile(buildGroupFilePath(from), groupData);
 
-              await reply("✅ Foto de boas-vindas definida para API!");
+              await reply(`✿ Foto de boas-vindas automática ligada ♡`);
 
 
             } else if (isQuotedImage || isImage) {
@@ -27999,7 +27999,7 @@ Exemplos:
 
               writeJsonFile(buildGroupFilePath(from), groupData);
 
-              await reply("✅ Foto de boas-vindas personalizada configurada!");
+              await reply(`✿ Prontinho! Foto de boas-vindas personalizada ♡`);
 
 
             } else {
@@ -28073,7 +28073,7 @@ Exemplos:
             JSON.stringify(globalJson, null, 2)
           );
 
-          return reply("✅ Banner de boas-vindas atualizado com sucesso!");
+          return reply(`✿ Prontinho! Banner de boas-vindas atualizado ♡`);
 
         } catch (error) {
           console.error(error);
@@ -28107,7 +28107,7 @@ Exemplos:
               writeJsonFile(buildGroupFilePath(from), groupData);
 
               const exitMsgHint = groupData.exit.enabled ? '' : `\n\n⚠️ As mensagens de saída estão desativadas. Use ${prefix}saida para ativá-las.`;
-              await reply(`✅ Foto de saída ATIVADA!\n\nSe quiser usar uma imagem personalizada, marque/envie uma imagem com ${prefix}${command}.${exitMsgHint}`);
+              await reply(`✿ Foto de saída ATIVADA!\n\nSe quiser usar uma imagem personalizada, marque/envie uma imagem com ${prefix}${command}.${exitMsgHint}`);
 
             } else if (!isQuotedImage && !isImage && (action === 'off' || action === 'desativar')) {
 
@@ -28116,7 +28116,7 @@ Exemplos:
               delete groupData.exit.image;
               writeJsonFile(buildGroupFilePath(from), groupData);
 
-              await reply("✅ Foto de saída DESATIVADA!");
+              await reply(`✿ Foto de saída *desligada* ♡`);
 
             } else if (isQuotedImage || isImage) {
 
@@ -28129,7 +28129,7 @@ Exemplos:
               groupData.exit.image = uploadResult;
               writeJsonFile(buildGroupFilePath(from), groupData);
 
-              await reply('✅ Foto de saída personalizada configurada com sucesso!');
+              await reply(`✿ Prontinho! Foto de saída personalizada ♡`);
 
             } else {
 
@@ -28155,7 +28155,7 @@ Exemplos:
           await reply(mensagem);
         } catch (e) {
           console.error(e);
-          await reply("Ocorreu um erro ao limpar o chat (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui limpar o chat... (╥﹏╥)`);
         }
         break;
       case 'antibanmarcar':
@@ -28172,14 +28172,14 @@ Exemplos:
             if (!config[from]) config[from] = {};
             config[from].enabled = true;
             saveMassMentionConfig(config);
-            reply(`✅ *Proteção Anti-Ban ativada!*\n\nComandos de marcação em massa (marcar, hidetag, etc) agora terão limite de ${MASS_MENTION_MAX_USES} usos a cada 5 horas neste grupo.\n\n💡 Isso ajuda a evitar banimento do número pela Meta em grupos com 150+ membros.`);
+            reply(`✿ *Proteção Anti-Ban ligada!*\n\nComandos de marcação em massa (marcar, hidetag, etc) agora terão limite de ${MASS_MENTION_MAX_USES} usos a cada 5 horas neste grupo.\n\n💡 Isso ajuda a evitar banimento do número pela Meta em grupos com 150+ membros.`);
           } else if (action === 'off' || action === 'desativar' || action === '0') {
             if (config[from]) {
               config[from].enabled = false;
               saveMassMentionConfig(config);
-              reply('✅ *Proteção Anti-Ban desativada!*\n\nComandos de marcação em massa voltaram ao normal.');
+              reply('✿ *Proteção Anti-Ban desligada!*\n\nComandos de marcação em massa voltaram ao normal.');
             } else {
-              reply('❌ A proteção já está desativada.');
+              reply(`💎 Essa proteção já tá desligada ♡`);
             }
           } else if (action === 'status' || action === 'ver') {
             const isEnabled = config[from]?.enabled || false;
@@ -28202,7 +28202,7 @@ Exemplos:
             statusMsg += `\n💡 Comandos afetados: marcar, hidetag, divulgar, etc.`;
             reply(statusMsg);
           } else {
-            reply(`❌ Uso incorreto!\n\n*Opções:*\n• ${prefix}antibanmarcar on - Ativar proteção\n• ${prefix}antibanmarcar off - Desativar proteção\n• ${prefix}antibanmarcar status - Ver status`);
+            reply(`💎 Uso incorreto!\n\n*Opções:*\n• ${prefix}antibanmarcar on - Ativar proteção\n• ${prefix}antibanmarcar off - Desativar proteção\n• ${prefix}antibanmarcar status - Ver status`);
           }
         } catch (e) {
           console.error(e);
@@ -28220,10 +28220,10 @@ Exemplos:
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             welcome: {}
           };
-          if (!groupData.welcome?.image) return reply("❌ Não há imagem de boas-vindas configurada.");
+          if (!groupData.welcome?.image) return reply(`💎 Não tem imagem de boas-vindas configurada ♡`);
           delete groupData.welcome.image;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply("✅ A imagem de boas-vindas foi removida com sucesso!");
+          reply(`✿ Prontinho! Tirei a imagem de boas-vindas ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -28240,10 +28240,10 @@ Exemplos:
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             exit: {}
           };
-          if (!groupData.exit?.image) return reply("❌ Não há imagem de saída configurada.");
+          if (!groupData.exit?.image) return reply(`💎 Não tem imagem de saída configurada ♡`);
           delete groupData.exit.image;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply("✅ A imagem de saída foi removida com sucesso!");
+          reply(`✿ Prontinho! Tirei a imagem de saída ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -28300,10 +28300,10 @@ Exemplos:
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!parceriasData.active) {
-            return reply("O sistema de parcerias não está ativo neste grupo.");
+            return reply(`🤝 As parcerias não tão ligadas aqui ♡`);
           }
           if (Object.keys(parceriasData.partners).length === 0) {
-            return reply("Não há parcerias ativas neste grupo.");
+            return reply(`🤝 Nenhuma parceria ativa aqui ♡`);
           }
           let message = "📋 *Lista de Parcerias Ativas* 📋\n\n";
           for (const [userId, data] of Object.entries(parceriasData.partners)) {
@@ -28315,7 +28315,7 @@ Exemplos:
           });
         } catch (e) {
           console.error('Erro no comando parcerias:', e);
-          await reply("Ocorreu um erro ao listar as parcerias (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar as parcerias... (╥﹏╥)`);
         }
         break;
       case 'addparceria':
@@ -28323,7 +28323,7 @@ Exemplos:
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q) return reply(`Uso: ${prefix}addparceria @usuário limite ou marcando uma mensagem com ${prefix}addparceria limite`);
+          if (!q) return reply(`💎 Usa assim: ${prefix}addparceria @usuário limite (ou respondendo a mensagem: ${prefix}addparceria limite) ♡`);
           let userId, limit;
           if (menc_os2) {
 
@@ -28336,15 +28336,15 @@ Exemplos:
 
             limit = parseInt(q);
           } else {
-            return reply("Por favor, marque um usuário ou responda a uma mensagem.");
+            return reply(`💎 Marca alguém ou responde a mensagem da pessoa ♡`);
           }
           if (!userId || isNaN(limit) || limit < 1) {
-            return reply("Uso inválido. Certifique-se de marcar um usuário e especificar um limite válido (número maior que 0).");
+            return reply(`💎 Hmm, não deu certo. Marca alguém e diz um limite maior que 0 ♡`);
           }
           // Normaliza o ID do usuário para LID antes de salvar (aceita JID ou LID)
           const userIdLid = await getLidFromJidCached(nazu, userId);
           if (!AllgroupMembers.includes(userIdLid)) {
-            return reply(`@${getUserName(userId)} não está no grupo.`, {
+            return reply(`💎 @${getUserName(userId)} não tá no grupo (・・ ) ?`, {
               mentions: [userId]
             });
           }
@@ -28353,12 +28353,12 @@ Exemplos:
             count: 0
           };
           saveParceriasData(from, parceriasData);
-          await reply(`✅ @${getUserName(userId)} foi adicionado como parceiro com limite de ${limit} links de grupos.`, {
+          await reply(`🤝 Prontinho! @${getUserName(userId)} agora é parceiro, com até ${limit} links de grupo ♡`, {
             mentions: [userIdLid]
           });
         } catch (e) {
           console.error('Erro no comando addparceria:', e);
-          await reply("Ocorreu um erro ao adicionar a parceria (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar a parceria... (╥﹏╥)`);
         }
         break;
       case 'delparceria':
@@ -28372,23 +28372,23 @@ Exemplos:
           } else if (isQuotedMsg) {
             userId = info.message.extendedTextMessage.contextInfo.participant;
           } else {
-            return reply("Por favor, marque um usuário ou responda a uma mensagem.");
+            return reply(`💎 Marca alguém ou responde a mensagem da pessoa ♡`);
           }
           // Normaliza para LID e busca no map
           const userIdLid = await getLidFromJidCached(nazu, userId);
           if (!parceriasData.partners[userIdLid]) {
-            return reply(`@${getUserName(userId)} não é um parceiro.`, {
+            return reply(`💎 @${getUserName(userId)} não é parceiro ♡`, {
               mentions: [userIdLid]
             });
           }
           delete parceriasData.partners[userId];
           saveParceriasData(from, parceriasData);
-          await reply(`✅ @${getUserName(userId)} não é mais um parceiro.`, {
+          await reply(`✿ Prontinho! @${getUserName(userId)} não é mais parceiro.`, {
             mentions: [userIdLid]
           });
         } catch (e) {
           console.error('Erro no comando delparceria:', e);
-          await reply("Ocorreu um erro ao remover a parceria (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui tirar a parceria... (╥﹏╥)`);
         }
         break;
       case 'modoparceria':
@@ -28397,26 +28397,26 @@ Exemplos:
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           parceriasData.active = !parceriasData.active;
           saveParceriasData(from, parceriasData);
-          await reply(`✅ Sistema de parcerias ${parceriasData.active ? 'ativado' : 'desativado'} com sucesso!`);
+          await reply(`🤝 Parcerias ${parceriasData.active ? 'ligadas' : 'desligadas'} ♡`);
         } catch (e) {
           console.error('Erro no comando modoparceria:', e);
-          await reply("Ocorreu um erro ao alterar o modo de parcerias (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui mudar as parcerias... (╥﹏╥)`);
         }
         break;
       case 'antifig':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar o antifig.");
+          if (!isGroupAdmin) return reply(`💎 Só os admins mexem no antifig, tá? ♡`);
 
           groupData.antifig = groupData.antifig || {};
 
           groupData.antifig.enabled = !groupData.antifig.enabled;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           const status = groupData.antifig.enabled ? "ativado" : "desativado";
-          await reply(`✅ Antifig ${status}! Figurinhas ${groupData.antifig.enabled ? "serão apagadas e o remetente receberá advertências" : "agora são permitidas"}.`);
+          await reply(`✿ Antifig ${status}! Figurinhas ${groupData.antifig.enabled ? "serão apagadas e o remetente receberá advertências" : "agora são permitidas"}.`);
         } catch (e) {
           console.error('Erro no comando antifig:', e);
-          await reply("Ocorreu um erro ao gerenciar o antifig (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui mexer no antifig... (╥﹏╥)`);
         }
         break;
       case 'addblacklist':
@@ -28449,7 +28449,7 @@ Exemplos:
               }
             }
           }
-          if (!targetUser) return reply(`Marque o usuário ou forneça o número (ex: ${prefix}addblacklist 5511999998888 motivo).`);
+          if (!targetUser) return reply(`💎 Marca a pessoa ou manda o número (ex.: ${prefix}addblacklist 5511999998888 motivo) ♡`);
           const reason = q ? (q.includes('@') || !menc_os2) ? (args.length > 1 ? args.slice(1).join(' ') : 'Motivo não informado') : q.trim() : 'Motivo não informado';
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -28457,14 +28457,14 @@ Exemplos:
           };
 
           groupData.blacklist = groupData.blacklist || {};
-          if (groupData.blacklist[targetUser]) return reply("❌ Este usuário já está na blacklist.");
+          if (groupData.blacklist[targetUser]) return reply(`💎 Essa pessoa já tá na lista negra ♡`);
 
           groupData.blacklist[targetUser] = {
             reason,
             timestamp: Date.now()
           };
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply(`✅ @${getUserName(targetUser)} foi adicionado à blacklist.\nMotivo: ${reason}`, {
+          reply(`✿ @${getUserName(targetUser)} foi adicionado à blacklist.\nMotivo: ${reason}`, {
             mentions: [targetUser]
           });
         } catch (e) {
@@ -28502,17 +28502,17 @@ Exemplos:
               }
             }
           }
-          if (!targetUser) return reply(`Marque o usuário ou forneça o número (ex: ${prefix}delblacklist 5511999998888).`);
+          if (!targetUser) return reply(`💎 Marca a pessoa ou manda o número (ex.: ${prefix}delblacklist 5511999998888) ♡`);
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             blacklist: {}
           };
 
           groupData.blacklist = groupData.blacklist || {};
-          if (!groupData.blacklist[targetUser]) return reply("❌ Este usuário não está na blacklist.");
+          if (!groupData.blacklist[targetUser]) return reply(`💎 Essa pessoa não tá na lista negra ♡`);
           delete groupData.blacklist[targetUser];
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply(`✅ @${getUserName(targetUser)} foi removido da blacklist.`, {
+          reply(`✿ Prontinho! @${getUserName(targetUser)} saiu da lista negra ♡`, {
             mentions: [targetUser]
           });
         } catch (e) {
@@ -28530,7 +28530,7 @@ Exemplos:
           };
 
           groupData.blacklist = groupData.blacklist || {};
-          if (Object.keys(groupData.blacklist).length === 0) return reply("📋 A blacklist está vazia.");
+          if (Object.keys(groupData.blacklist).length === 0) return reply(`📋 A lista negra tá vazinha ♡`);
           let text = "📋 *Lista de Usuários na Blacklist*\n\n";
           for (const [user, data] of Object.entries(groupData.blacklist)) {
             text += `👤 @${getUserName(user)}\n📝 Motivo: ${data.reason}\n🕒 Adicionado em: ${new Date(data.timestamp).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}\n\n`;
@@ -28549,8 +28549,8 @@ Exemplos:
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!menc_os2) return reply("Marque um usuário 🙄");
-          if (menc_os2 === botNumber) return reply("❌ Não posso advertir a mim mesma!");
+          if (!menc_os2) return reply(`💎 Marca alguém pra mim! (・・ ) ?`);
+          if (menc_os2 === botNumber) return reply(`💎 Me advertir? Mas eu sou um anjinho! ( ˘ ³˘)♡`);
           const reason = q ? (q.includes('@') || !menc_os2) ? (args.length > 1 ? args.slice(1).join(' ') : 'Motivo não informado') : q.trim() : 'Motivo não informado';
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -28575,7 +28575,7 @@ Exemplos:
               mentions: [menc_os2]
             });
           } else {
-            reply(`⚠️ @${getUserName(menc_os2)} recebeu uma advertência (${warningCount}/3).\nMotivo: ${reason}`, {
+            reply(`💎 @${getUserName(menc_os2)} recebeu uma advertência (${warningCount}/3).\nMotivo: ${reason}`, {
               mentions: [menc_os2]
             });
           }
@@ -28590,18 +28590,18 @@ Exemplos:
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!menc_os2) return reply("Marque um usuário 🙄");
+          if (!menc_os2) return reply(`💎 Marca alguém pra mim! (・・ ) ?`);
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             warnings: {}
           };
 
           groupData.warnings = groupData.warnings || {};
-          if (!groupData.warnings[menc_os2] || groupData.warnings[menc_os2].length === 0) return reply("❌ Este usuário não tem advertências.");
+          if (!groupData.warnings[menc_os2] || groupData.warnings[menc_os2].length === 0) return reply(`✿ Essa pessoa não tem advertência nenhuma ♡`);
           groupData.warnings[menc_os2].pop();
           if (groupData.warnings[menc_os2].length === 0) delete groupData.warnings[menc_os2];
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply(`✅ Uma advertência foi removida de @${getUserName(menc_os2)}. Advertências restantes: ${groupData.warnings[menc_os2]?.length || 0}/3`, {
+          reply(`✿ Uma advertência foi removida de @${getUserName(menc_os2)}. Advertências restantes: ${groupData.warnings[menc_os2]?.length || 0}/3`, {
             mentions: [menc_os2]
           });
         } catch (e) {
@@ -28620,7 +28620,7 @@ Exemplos:
           };
 
           groupData.warnings = groupData.warnings || {};
-          if (Object.keys(groupData.warnings).length === 0) return reply("📋 Não há advertências ativas no grupo.");
+          if (Object.keys(groupData.warnings).length === 0) return reply(`📋 Ninguém tem advertência no grupo ♡`);
           let text = "📋 *Lista de Advertências*\n\n";
           for (const [user, warnings] of Object.entries(groupData.warnings)) {
             try {
@@ -28648,7 +28648,7 @@ Exemplos:
       case 'suporteticket':
       case 'ticket':
         try {
-          if (!isGroup) return reply('Use este comando no grupo para abrir um ticket.');
+          if (!isGroup) return reply(`💎 Usa esse comando no grupo pra abrir um chamado ♡`);
 
           const action = (args[0] || '').toLowerCase();
           const enableActions = ['on', 'ativar', 'ligar', 'enable'];
@@ -28657,13 +28657,13 @@ Exemplos:
           if (enableActions.includes(action)) {
             if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
             setSupportMode(from, true);
-            return reply('✅ *Modo suporte ativado!* Agora membros podem solicitar tickets.');
+            return reply(`🎫 *Suporte ligado!* Agora a galera pode abrir chamados ♡`);
           }
 
           if (disableActions.includes(action)) {
             if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
             setSupportMode(from, false);
-            return reply('⚠️ *Modo suporte desativado!*');
+            return reply(`💤 *Suporte desligado.*`);
           }
 
           const reason = q?.trim() || '';
@@ -28677,14 +28677,14 @@ Exemplos:
 
           if (!createResult.success) {
             if (createResult.existingTicket?.id) {
-              return reply(`⚠️ Você já tem um ticket pendente: *${createResult.existingTicket.id}*`);
+              return reply(`🎫 Você já tem um chamado esperando: *${createResult.existingTicket.id}* ♡`);
             }
-            return reply(`⚠️ ${createResult.message || 'Não foi possível criar o ticket.'}`);
+            return reply(`💎 ${createResult.message || 'Não consegui abrir o chamado...'}`);
           }
 
           const { ticket, ahead } = createResult;
           const aheadText = ahead > 0 ? `Há ${ahead} ticket(s) na fila na sua frente.` : 'Você é o próximo da fila.';
-          await reply(`✅ Ticket criado! ID: *${ticket.id}*\n${aheadText}\nUm admin vai falar com você no privado.`);
+          await reply(`✿ Ticket criado! ID: *${ticket.id}*\n${aheadText}\nUm admin vai falar com você no privado.`);
 
           const userMention = `@${String(ticket.userId).split('@')[0]}`;
           const adminMessage =
@@ -28712,17 +28712,17 @@ Exemplos:
       case 'suporteaceitar':
       case 'ticket.aceitar':
         try {
-          if (isGroup) return reply('Use este comando no meu privado.');
-          if (!q) return reply('Informe o ID do ticket.');
+          if (isGroup) return reply(`💎 Usa esse no meu privado, tá? ♡`);
+          if (!q) return reply(`💎 Me fala o número do chamado ♡`);
 
           const ticketId = q.trim().split(/\s+/)[0];
           const found = findSupportTicketById(ticketId);
-          if (!found || !found.ticket) return reply('❌ Ticket não encontrado.');
+          if (!found || !found.ticket) return reply(`💎 Não achei esse chamado (・・ ) ?`);
 
           const ticket = found.ticket;
           const groupMeta = await getCachedGroupMetadata(ticket.groupId).catch(() => null);
           if (!groupMeta || !groupMeta.participants) {
-            return reply('❌ Não consegui validar o grupo deste ticket.');
+            return reply(`💎 Não consegui conferir o grupo desse chamado... (｡•́︿•̀｡)`);
           }
 
           const rawAdmins = groupMeta.participants
@@ -28732,7 +28732,7 @@ Exemplos:
 
           const adminIds = await convertIdsToLid(nazu, rawAdmins);
           const isTicketAdmin = idInArray(sender, adminIds) || isOwner || isSubOwner;
-          if (!isTicketAdmin) return reply('❌ Apenas admins do grupo podem aceitar este ticket.');
+          if (!isTicketAdmin) return reply(`💎 Só os admins do grupo podem aceitar esse chamado ♡`);
 
           const acceptResult = acceptSupportTicket(ticketId, sender);
           if (!acceptResult.success) {
@@ -28744,7 +28744,7 @@ Exemplos:
                 { mentions: [acceptedBy] }
               );
             }
-            return reply(`⚠️ ${acceptResult.message || 'Não foi possível aceitar o ticket.'}`);
+            return reply(`💎 ${acceptResult.message || 'Não consegui aceitar o chamado...'}`);
           }
 
           const acceptedMention = `@${String(ticket.userId).split('@')[0]}`;
@@ -28774,9 +28774,9 @@ Exemplos:
           }
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
           if (groupData.soadm) {
-            await reply(`✅ *Modo apenas adm ativado!* Agora apenas administrdores do grupo poderam utilizar o bot*`);
+            await reply(`👑 *Só admins ligado!* Agora só os admins do grupo podem me usar.`);
           } else {
-            await reply('⚠️ *Modo apenas adm desativado!* Agora todos os membros podem utilizar o bot novamente.');
+            await reply(`✿ *Só admins desligado!* Todo mundo pode me usar de novo ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -28807,9 +28807,9 @@ Exemplos:
           }
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
           if (groupData.modolite) {
-            await reply('👶 *Modo Lite ativado!* O conteúdo inapropriado para crianças será filtrado neste grupo.');
+            await reply(`👶 *Modo Lite ligado!* Escondo o que não é pra criança aqui no grupo ♡`);
           } else {
-            await reply('🔞 *Modo Lite desativado!* O conteúdo do menu de brincadeiras será exibido completamente.');
+            await reply(`🔞 *Modo Lite desligado!* As brincadeiras aparecem completinhas.`);
           }
         } catch (e) {
           console.error(e);
@@ -28828,9 +28828,9 @@ Exemplos:
           }
           fs.writeFileSync(modoLiteFile, JSON.stringify(modoLiteGlobal, null, 2));
           if (modoLiteGlobal.status) {
-            await reply('👶 *Modo Lite ativado globalmente!* O conteúdo inapropriado para crianças será filtrado em todos os grupos (a menos que seja explicitamente desativado em algum grupo).');
+            await reply('👶 *Modo Lite ligado globalmente!* O conteúdo inapropriado pra crianças será filtrado em todos os grupos (a menos que seja explicitamente desligado em algum grupo).');
           } else {
-            await reply('🔞 *Modo Lite desativado globalmente!* O conteúdo do menu de brincadeiras será exibido completamente (a menos que seja explicitamente ativado em algum grupo).');
+            await reply('🔞 *Modo Lite desligado globalmente!* O conteúdo do menu de brincadeiras será exibido completamente (a menos que seja explicitamente ligado em algum grupo).');
           }
         } catch (e) {
           console.error(e);
@@ -28926,7 +28926,7 @@ Exemplos:
               'Anti-Documentos 📄', 'Anti-Localização 🗺️', 'Anti-Botões 🚫', 'Anti-Status 📲'
             ];
           } else {
-            return reply(`❌ Categoria inválida! Escolha uma das opções:\n• *links*\n• *midia*\n• *seguranca*\n• *todos*`);
+            return reply(`💎 Hmm, Categoria não deu certo! Escolha uma das opções:\n• *links*\n• *midia*\n• *seguranca*\n• *todos*`);
           }
 
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
@@ -28937,7 +28937,7 @@ Exemplos:
             `\n\n🛡️ O grupo agora está protegido.`);
         } catch (e) {
           console.error(e);
-          await reply("Ocorreu um erro ao ativar a categoria (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui ligar a categoria... (╥﹏╥)`);
         }
         break;
 
@@ -29112,7 +29112,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
           groupData.autoSticker = !groupData.autoSticker;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply(`✅ Auto figurinhas ${groupData.autoSticker ? 'ativadas' : 'desativadas'}! ${groupData.autoSticker ? 'Todas as imagens e vídeos serão convertidos em figurinhas.' : ''}`);
+          reply(`✿ Auto figurinhas ${groupData.autoSticker ? 'ativadas' : 'desativadas'}! ${groupData.autoSticker ? 'Todas as imagens e vídeos serão convertidos em figurinhas.' : ''}`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -29130,7 +29130,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
           groupData.autotranscrever = !groupData.autotranscrever;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply(`✅ Auto transcrever ${groupData.autotranscrever ? 'ativado' : 'desativado'}! ${groupData.autotranscrever ? 'Todos os áudios com ppt true serão convertidos em texto.' : ''}`);
+          reply(`✿ Auto transcrever ${groupData.autotranscrever ? 'ativado' : 'desativado'}! ${groupData.autotranscrever ? 'Todos os áudios com ppt true serão convertidos em texto.' : ''}`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -29147,7 +29147,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
           groupData.autorepo = !groupData.autorepo;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
-          reply(`✅ Auto resposta ${groupData.autorepo ? 'ativada' : 'desativada'}!`);
+          reply(`✿ Respostas automáticas ${groupData.autorepo ? 'ligadas' : 'desligadas'} ♡`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -29257,7 +29257,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
       case 'criarpers':
       case 'novapers':
         try {
-          if (!isOwner) return reply("❌ Apenas o dono do bot pode usar esse comando.");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const persFile = pathz.join(DATABASE_DIR, 'customPersonalidades.json');
           let persData = fs.existsSync(persFile)
@@ -29307,7 +29307,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
             const delId = args.slice(4).trim().toLowerCase().replace(/\s+/g, '_');
 
             if (!persData[delId]) {
-              return reply(`❌ Personalidade *${delId}* não encontrada.`);
+              return reply(`💎 Não achei a personalidade *${delId}* (・・ ) ?`);
             }
 
             delete persData[delId];
@@ -29317,14 +29317,14 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
               JSON.stringify(persData, null, 2)
             );
 
-            return reply(`🗑️ Personalidade *${delId}* deletada com sucesso!`);
+            return reply(`🗑️ Personalidade *${delId}* apagada ♡`);
           }
 
           if (args.startsWith('ver ')) {
             const verId = args.slice(4).trim().toLowerCase().replace(/\s+/g, '_');
 
             if (!persData[verId]) {
-              return reply(`❌ Personalidade *${verId}* não encontrada.`);
+              return reply(`💎 Não achei a personalidade *${verId}* (・・ ) ?`);
             }
 
             return reply(
@@ -29361,23 +29361,23 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
             .trim();
 
           if (!rawId || rawId.length < 2) {
-            return reply(`❌ O ID deve ter pelo menos 2 caracteres.`);
+            return reply(`💎 O ID precisa ter pelo menos 2 letras ♡`);
           }
 
           if (rawId.length > 30) {
-            return reply(`❌ O ID deve ter no máximo 30 caracteres.`);
+            return reply(`💎 O ID pode ter no máximo 30 letras ♡`);
           }
 
           if (['nazuna', 'opala', 'humana', 'ia', 'pro'].includes(rawId)) {
-            return reply(`❌ Esse ID é reservado pelo sistema.`);
+            return reply(`💎 Esse ID é meu, escolhe outro ♡`);
           }
 
           if (prompt.length < 10) {
-            return reply(`❌ O prompt é muito curto.`);
+            return reply(`💎 A descrição da personalidade tá curtinha demais ♡`);
           }
 
           if (prompt.length > 2000) {
-            return reply(`❌ O prompt é muito longo. Máximo de 2000 caracteres.`);
+            return reply(`💎 A descrição tá grande demais! No máximo 2000 letras ♡`);
           }
 
           const isEdit = !!persData[rawId];
@@ -29415,7 +29415,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
 
         } catch (e) {
           console.error(e);
-          reply("Ocorreu um erro ao gerenciar personalidades (｡•́︿•̀｡)");
+          reply(`💎 Eita, não consegui mexer nas personalidades... (╥﹏╥)`);
         }
         break;
       case 'antigore':
@@ -29448,7 +29448,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
 
           groupData.textbv = q;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-          reply(`✅ *Mensagem de boas-vindas configurada com sucesso!*\n\n📌 Nova mensagem:\n"${groupData.textbv}"`);
+          reply(`✿ *Mensagem de boas-vindas configurada !*\n\n📌 Nova mensagem:\n"${groupData.textbv}"`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -29468,7 +29468,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
 
           groupData.textbv2 = q;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-          reply(`✅ *Mensagem de boas-vindas configurada com sucesso!*\n\n📌 Nova mensagem:\n"${groupData.textbv}"\n\n*Esse bem vindo não tem foto!*`);
+          reply(`✿ *Mensagem de boas-vindas configurada !*\n\n📌 Nova mensagem:\n"${groupData.textbv}"\n\n*Esse bem vindo não tem foto!*`);
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -29495,7 +29495,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           }
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
           await nazu.sendMessage(from, {
-            text: `✅ @${getUserName(menc_os2)} foi mutado. Se enviar mensagens, será banido.`,
+            text: `✿ @${getUserName(menc_os2)} foi mutado. Se enviar mensagens, será banido.`,
             mentions: [menc_os2]
           }, {
             quoted: info
@@ -29523,13 +29523,13 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           if (removed) {
             fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
             await nazu.sendMessage(from, {
-              text: `✅ @${getUserName(menc_os2)} foi desmutado e pode enviar mensagens novamente.`,
+              text: `✿ @${getUserName(menc_os2)} foi desmutado e pode enviar mensagens novamente.`,
               mentions: [menc_os2]
             }, {
               quoted: info
             });
           } else {
-            reply('❌ Este usuário não está mutado.');
+            reply(`💎 Essa pessoa não tá mutada ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -29555,7 +29555,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           }
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
           await nazu.sendMessage(from, {
-            text: `✅ @${getUserName(menc_os2)} foi mutado. Suas mensagens serão apagadas automaticamente.`,
+            text: `✿ @${getUserName(menc_os2)} foi mutado. Suas mensagens serão apagadas automaticamente.`,
             mentions: [menc_os2]
           }, {
             quoted: info
@@ -29583,13 +29583,13 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           if (removed) {
             fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
             await nazu.sendMessage(from, {
-              text: `✅ @${getUserName(menc_os2)} foi desmutado e pode enviar mensagens novamente.`,
+              text: `✿ @${getUserName(menc_os2)} foi desmutado e pode enviar mensagens novamente.`,
               mentions: [menc_os2]
             }, {
               quoted: info
             });
           } else {
-            reply('❌ Este usuário não está mutado.');
+            reply(`💎 Essa pessoa não tá mutada ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -29600,7 +29600,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q) return reply(`❌ Digite o comando que deseja bloquear. Exemplo: ${prefix}blockcmd sticker`);
+          if (!q) return reply(`💎 Qual comando bloquear? Ex.: ${prefix}blockcmd sticker ♡`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             blockedCommands: {}
@@ -29610,7 +29610,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
 
           groupData.blockedCommands[q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replaceAll(prefix, '')] = true;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-          reply(`✅ O comando *${q.trim()}* foi bloqueado e só pode ser usado por administradores.`);
+          reply(`🔒 Prontinho! *${q.trim()}* agora é só pros admins.`);
         } catch (e) {
           console.error(e);
           reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -29620,7 +29620,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q) return reply(`❌ Digite o comando que deseja desbloquear. Exemplo: ${prefix}unblockcmd sticker`);
+          if (!q) return reply(`💎 Qual comando liberar? Ex.: ${prefix}unblockcmd sticker ♡`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             blockedCommands: {}
@@ -29630,9 +29630,9 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           if (groupData.blockedCommands[q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replaceAll(prefix, '')]) {
             delete groupData.blockedCommands[q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replaceAll(prefix, '')];
             fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-            reply(`✅ O comando *${q.trim()}* foi desbloqueado e pode ser usado por todos.`);
+            reply(`🔓 Prontinho! *${q.trim()}* liberado pra todo mundo ♡`);
           } else {
-            reply('❌ Este comando não está bloqueado.');
+            reply(`💎 Esse comando não tá bloqueado ♡`);
           }
         } catch (e) {
           console.error(e);
@@ -29647,7 +29647,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (!tictactoe || typeof tictactoe.invitePlayer !== 'function') {
             console.warn('[TICTACTOE] invitePlayer not available');
-            return reply("Sistema de jogo da velha temporariamente indisponível.");
+            return reply(`💎 O jogo da velha tá descansando agora... tenta daqui a pouco ♡`);
           }
           const result = await tictactoe.invitePlayer(from, sender, menc_os2);
           await nazu.sendMessage(from, {
@@ -29666,9 +29666,9 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
         {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!connect4 || typeof connect4.invitePlayer !== 'function') {
-            return reply("Sistema Connect4 temporariamente indisponível.");
+            return reply(`💎 O Connect4 tá descansando agora... tenta daqui a pouco ♡`);
           }
-          if (!menc_os2) return reply(`❌ Marque alguém para desafiar!\n\nUso: ${prefix}connect4 @usuario`);
+          if (!menc_os2) return reply(`💎 Marca alguém pra desafiar ♡\n\nUso: ${prefix}connect4 @usuario`);
           const result = await connect4.invitePlayer(from, sender, menc_os2);
           await nazu.sendMessage(from, { text: result.message, mentions: result.mentions });
           break;
@@ -29679,7 +29679,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
       // ═══════════════════════════════════════════════════════════════
       case 'uno':
         if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-        if (!uno) return reply("Sistema UNO temporariamente indisponível.");
+        if (!uno) return reply(`💎 O UNO tá descansando agora... tenta daqui a pouco ♡`);
 
         const subCmdUno = normalizeCommand(args[0]);
 
@@ -29746,14 +29746,14 @@ ${prefix}uno sair - Sair da partida
           case 'jogar':
           case 'play': {
             const cartaArg = args.slice(1).join(' ').trim();
-            if (!cartaArg) return reply(`❌ Especifique a carta!\n\nUso: ${prefix}uno jogar <número>\nExemplo: ${prefix}uno jogar 3\n\nUse "mão" no PV para ver suas cartas numeradas.`);
+            if (!cartaArg) return reply(`💎 Especifique a carta!\n\nUso: ${prefix}uno jogar <número>\nExemplo: ${prefix}uno jogar 3\n\nUse "mão" no PV pra ver suas cartas numeradas.`);
 
             // Parse: pode ser só número ou número + cor (para coringas)
             const parts = cartaArg.split(/\s+/);
             const cardIndex = parseInt(parts[0]);
             const chosenColor = parts[1]?.toLowerCase();
 
-            if (isNaN(cardIndex)) return reply(`❌ Use o número da carta!\n\nExemplo: ${prefix}uno jogar 3`);
+            if (isNaN(cardIndex)) return reply(`💎 Use o número da carta!\n\nExemplo: ${prefix}uno jogar 3`);
 
             const result = uno.playCard(from, sender, cardIndex, chosenColor);
             if (result.success) {
@@ -29800,12 +29800,12 @@ ${prefix}uno sair - Sair da partida
             if (hand) {
               try {
                 await nazu.sendMessage(sender, { text: `🎴 *Sua mão atual:*\n\n${hand}` });
-                return reply('✅ Sua mão foi enviada no seu PV!');
+                return reply(`🃏 Mandei suas cartas no privado ♡`);
               } catch (e) {
-                return reply('❌ Não consegui enviar no seu PV. Você me bloqueou?');
+                return reply(`💎 Não consegui mandar no seu privado... você me bloqueou? (｡•́︿•̀｡)`);
               }
             } else {
-              return reply('❌ Você não está em uma partida de UNO!');
+              return reply(`🃏 Você não tá em nenhuma partida de UNO ♡`);
             }
           }
           case 'sair':
@@ -29825,10 +29825,10 @@ ${prefix}uno sair - Sair da partida
             if (result) {
               return reply(result.message, result.mentions ? { mentions: result.mentions } : undefined);
             }
-            return reply('✅ Nenhum timeout detectado.');
+            return reply(`✿ Ninguém demorou demais, tá tudo certo ♡`);
           }
           default:
-            return reply(`❌ Subcomando desconhecido. Use ${prefix}uno ajuda`);
+            return reply(`💎 Não conheço essa opção. Manda ${prefix}uno ajuda ♡`);
         }
         break;
 
@@ -29838,7 +29838,7 @@ ${prefix}uno sair - Sair da partida
       case 'memoria':
       case 'memory':
         if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-        if (!memoria) return reply("Sistema de memória temporariamente indisponível.");
+        if (!memoria) return reply(`💎 O jogo da memória tá descansando agora... tenta daqui a pouco ♡`);
 
         const subCmdMemory = args[0]?.toLowerCase();
 
@@ -29855,7 +29855,7 @@ ${prefix}uno sair - Sair da partida
             const result = memoria.makeMove(from, sender, pos);
             return reply(result.message);
           }
-          return reply(`🎮 Jogo em andamento! Use um número de 1-16 para revelar uma carta.\nOu ${prefix}memoria sair para desistir.`);
+          return reply(`🎮 Jogo em andamento! Use um número de 1-16 pra revelar uma carta.\nOu ${prefix}memoria sair pra desistir.`);
         }
 
         if (subCmdMemory === 'sair') {
@@ -29874,7 +29874,7 @@ ${prefix}uno sair - Sair da partida
       case 'conquistasbn':
       case 'achievementsbn':
       case 'medalhasbn':
-        if (!achievements) return reply("Sistema de conquistas temporariamente indisponível.");
+        if (!achievements) return reply(`💎 As conquistas tão descansando agora... tenta daqui a pouco ♡`);
         const list = achievements.formatAchievementsList(sender);
         return reply(list);
         break;
@@ -29884,7 +29884,7 @@ ${prefix}uno sair - Sair da partida
       // ═══════════════════════════════════════════════════════════════
       case 'caixa':
       case 'box':
-        if (!gifts) return reply("Sistema de presentes temporariamente indisponível.");
+        if (!gifts) return reply(`💎 Os presentes tão descansando agora... tenta daqui a pouco ♡`);
 
         const tipoBox = args[0]?.toLowerCase();
         if (!tipoBox) {
@@ -29904,21 +29904,21 @@ Use ${prefix}inventario para ver seus itens!`);
         if (tipoBox === 'diaria' || tipoBox === 'daily') {
           resultBox = gifts.openDailyBox(sender);
         } else if (tipoBox === 'rara' || tipoBox === 'rare') {
-          if (userEco.gold < 500) return reply("❌ Você precisa de 500 gold para abrir uma caixa rara!");
+          if (userEco.gold < 500) return reply(`💰 A caixa rara custa 500 de gold ♡`);
           resultBox = gifts.openBox(sender, 'rara');
           if (resultBox.success) {
             userEco.gold -= 500;
             saveEconomy();
           }
         } else if (tipoBox === 'lendaria' || tipoBox === 'legendary') {
-          if (userEco.gold < 2000) return reply("❌ Você precisa de 2000 gold para abrir uma caixa lendária!");
+          if (userEco.gold < 2000) return reply(`💰 A caixa lendária custa 2000 de gold ♡`);
           resultBox = gifts.openBox(sender, 'lendaria');
           if (resultBox.success) {
             userEco.gold -= 2000;
             saveEconomy();
           }
         } else {
-          return reply(`❌ Tipo inválido! Use: diaria, rara ou lendaria`);
+          return reply(`💎 Esse tipo não existe! Escolhe: diaria, rara ou lendaria ♡`);
         }
 
         return reply(resultBox.message);
@@ -29926,8 +29926,8 @@ Use ${prefix}inventario para ver seus itens!`);
 
       case 'presentebn':
       case 'giftbn':
-        if (!gifts) return reply("Sistema de presentes temporariamente indisponível.");
-        if (!menc_os2) return reply(`❌ Marque alguém para enviar um presente!\n\nUso: ${prefix}presente @user <tipo>\nTipos: rosa, chocolate, anel, coracao, estrela...`);
+        if (!gifts) return reply(`💎 Os presentes tão descansando agora... tenta daqui a pouco ♡`);
+        if (!menc_os2) return reply(`💎 Marca alguém pra enviar um presente ♡\n\nUso: ${prefix}presente @user <tipo>\nTipos: rosa, chocolate, anel, coracao, estrela...`);
 
         const tipoGift = args[1]?.toLowerCase();
         if (!tipoGift) {
@@ -29945,7 +29945,7 @@ Use ${prefix}inventario para ver seus itens!`);
 
       case 'inventario':
       case 'inventory':
-        if (!gifts) return reply("Sistema de presentes temporariamente indisponível.");
+        if (!gifts) return reply(`💎 Os presentes tão descansando agora... tenta daqui a pouco ♡`);
         const inv = gifts.getInventory(sender);
         return reply(inv);
         break;
@@ -29980,7 +29980,7 @@ Use ${prefix}inventario para ver seus itens!`);
           return reply(resultRepMinus.message);
         }
 
-        return reply(`❌ Uso: ${prefix}rep + @user ou ${prefix}rep - @user`);
+        return reply(`💎 Usa assim: ${prefix}rep + @user ou ${prefix}rep - @user ♡`);
         break;
 
       case 'toprep':
@@ -29993,10 +29993,10 @@ Use ${prefix}inventario para ver seus itens!`);
       case 'denunciar':
       case 'report':
         if (!reputation) return reply(`💎 A reputação tá descansando agora... tenta daqui a pouco ♡`);
-        if (!menc_os2) return reply(`❌ Marque quem você quer denunciar!\n\nUso: ${prefix}denunciar @user <motivo>`);
+        if (!menc_os2) return reply(`💎 Marque quem você quer denunciar!\n\nUso: ${prefix}denunciar @user <motivo>`);
 
         const motivoDenuncia = args.slice(1).join(' ');
-        if (!motivoDenuncia) return reply("❌ Informe o motivo da denúncia!");
+        if (!motivoDenuncia) return reply(`💎 Me conta o motivo da denúncia ♡`);
 
         const resultReport = reputation.reportUser(sender, menc_os2, from, motivoDenuncia);
         return reply(resultReport.message);
@@ -30005,7 +30005,7 @@ Use ${prefix}inventario para ver seus itens!`);
       case 'denuncias':
       case 'reports':
         if (!reputation) return reply(`💎 A reputação tá descansando agora... tenta daqui a pouco ♡`);
-        if (!isGroupAdmin && !isOwnerOrSub) return reply("❌ Apenas admins podem ver denúncias!");
+        if (!isGroupAdmin && !isOwnerOrSub) return reply(`💎 Só os admins veem as denúncias ♡`);
 
         const reportsData = reputation.getReports(from);
         return reply(reportsData);
@@ -30016,8 +30016,8 @@ Use ${prefix}inventario para ver seus itens!`);
       // ═══════════════════════════════════════════════════════════════
       case 'qrcodebn':
       case 'gerarqrbn':
-        if (!qrcode) return reply("Sistema de QR Code temporariamente indisponível.");
-        if (!q) return reply(`❌ Digite o texto/link para gerar o QR Code!\n\nUso: ${prefix}qrcode <texto ou link>`);
+        if (!qrcode) return reply(`💎 O QR code tá descansando agora... tenta daqui a pouco ♡`);
+        if (!q) return reply(`💎 Escreve o texto/link pra gerar o QR Code!\n\nUso: ${prefix}qrcode <texto ou link>`);
 
         const resultQRCode = await qrcode.generateQRCode(q, 300, prefix);
         if (resultQRCode.success) {
@@ -30033,12 +30033,12 @@ Use ${prefix}inventario para ver seus itens!`);
       case 'lerqr':
       case 'readqr':
       case 'scanqr':
-        if (!qrcode) return reply("Sistema de QR Code temporariamente indisponível.");
+        if (!qrcode) return reply(`💎 O QR code tá descansando agora... tenta daqui a pouco ♡`);
 
         const quotedMsgQR = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasImageQR = type === 'imageMessage' || quotedMsgQR?.imageMessage;
 
-        if (!hasImageQR) return reply("❌ Responda a uma imagem com QR Code para ler!");
+        if (!hasImageQR) return reply(`💎 Responde uma imagem com QR code que eu leio ♡`);
 
         try {
           const mediaMsgQR = quotedMsgQR?.imageMessage || info.message?.imageMessage;
@@ -30051,7 +30051,7 @@ Use ${prefix}inventario para ver seus itens!`);
           return reply(resultQR.message);
         } catch (e) {
           console.error('Erro ao ler QR:', e);
-          return reply("❌ Erro ao processar a imagem!");
+          return reply(`💎 Não consegui ler essa imagem... (╥﹏╥)`);
         }
         break;
 
@@ -30060,7 +30060,7 @@ Use ${prefix}inventario para ver seus itens!`);
       // ═══════════════════════════════════════════════════════════════
       case 'nota':
       case 'note':
-        if (!notes) return reply("Sistema de notas temporariamente indisponível.");
+        if (!notes) return reply(`💎 As notas tão descansando agora... tenta daqui a pouco ♡`);
 
         const subCmdNote = args[0]?.toLowerCase();
 
@@ -30079,14 +30079,14 @@ ${prefix}nota buscar <termo> - Busca nas notas`);
           case 'add':
           case 'criar': {
             const texto = args.slice(1).join(' ');
-            if (!texto) return reply("❌ Digite o texto da nota!");
+            if (!texto) return reply(`💎 Escreve o texto da nota ♡`);
             const resultNoteAdd = notes.addNote(sender, texto, null, prefix);
             return reply(resultNoteAdd.message);
           }
           case 'ver':
           case 'view': {
             const id = parseInt(args[1]);
-            if (isNaN(id)) return reply("❌ Informe o ID da nota!");
+            if (isNaN(id)) return reply(`💎 Me fala o número da nota ♡`);
             const resultNoteView = notes.getNote(sender, id, prefix);
             return reply(resultNoteView.message);
           }
@@ -30094,32 +30094,32 @@ ${prefix}nota buscar <termo> - Busca nas notas`);
           case 'deletar':
           case 'delete': {
             const id = parseInt(args[1]);
-            if (isNaN(id)) return reply("❌ Informe o ID da nota!");
+            if (isNaN(id)) return reply(`💎 Me fala o número da nota ♡`);
             const resultNoteDel = notes.deleteNote(sender, id);
             return reply(resultNoteDel.message);
           }
           case 'fixar':
           case 'pin': {
             const id = parseInt(args[1]);
-            if (isNaN(id)) return reply("❌ Informe o ID da nota!");
+            if (isNaN(id)) return reply(`💎 Me fala o número da nota ♡`);
             const resultNotePin = notes.togglePin(sender, id);
             return reply(resultNotePin.message);
           }
           case 'buscar':
           case 'search': {
             const termo = args.slice(1).join(' ');
-            if (!termo) return reply("❌ Digite o termo de busca!");
+            if (!termo) return reply(`💎 O que você quer procurar? ♡`);
             const resultNoteSearch = notes.searchNotes(sender, termo);
             return reply(resultNoteSearch.message);
           }
           default:
-            return reply(`❌ Subcomando desconhecido. Use ${prefix}nota para ver ajuda.`);
+            return reply(`💎 Não conheço essa opção. Manda ${prefix}nota pra ver a ajuda ♡`);
         }
         break;
 
       case 'notas':
       case 'notes':
-        if (!notes) return reply("Sistema de notas temporariamente indisponível.");
+        if (!notes) return reply(`💎 As notas tão descansando agora... tenta daqui a pouco ♡`);
         const pageNotes = parseInt(args[0]) || 1;
         const resultNotes = notes.listNotes(sender, pageNotes, 10, prefix);
         return reply(resultNotes.message);
@@ -30131,7 +30131,7 @@ ${prefix}nota buscar <termo> - Busca nas notas`);
       case 'calc':
       case 'calcular':
       case 'calculadora':
-        if (!calculator) return reply("Sistema de calculadora temporariamente indisponível.");
+        if (!calculator) return reply(`💎 A calculadora tá descansando agora... tenta daqui a pouco ♡`);
 
         if (!q) {
           return reply(`🧮 *Calculadora Científica*
@@ -30156,7 +30156,7 @@ ${prefix}calc converter 100 km mi`);
           const de = args[2]?.toLowerCase();
           const para = args[3]?.toLowerCase();
           if (isNaN(valor) || !de || !para) {
-            return reply(`❌ Uso: ${prefix}calc converter <valor> <de> <para>\nExemplo: ${prefix}calc converter 100 km mi`);
+            return reply(`💎 Usa assim: ${prefix}calc converter <valor> <de> <pra>\nExemplo: ${prefix}calc converter 100 km mi`);
           }
           const result = calculator.convert(valor, de, para);
           return reply(result.message);
@@ -30176,11 +30176,11 @@ ${prefix}calc converter 100 km mi`);
         const quotedMsgCut = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioCut = type === 'audioMessage' || quotedMsgCut?.audioMessage;
 
-        if (!hasAudioCut) return reply("❌ Responda a um áudio para cortar!");
+        if (!hasAudioCut) return reply(`💎 Responde o áudio que você quer cortar ♡`);
 
         const inicioCut = args[0];
         const fimCut = args[1];
-        if (!inicioCut || !fimCut) return reply(`❌ Informe início e fim!\n\nUso: ${prefix}cortaraudio <inicio> <fim>\nExemplo: ${prefix}cortaraudio 0:10 0:30`);
+        if (!inicioCut || !fimCut) return reply(`💎 Me fala início e fim!\n\nUso: ${prefix}cortaraudio <inicio> <fim>\nExemplo: ${prefix}cortaraudio 0:10 0:30`);
 
         try {
           const mediaMsgCut = quotedMsgCut?.audioMessage || info.message?.audioMessage;
@@ -30212,10 +30212,10 @@ ${prefix}calc converter 100 km mi`);
         const quotedMsgSpeed = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioSpeed = type === 'audioMessage' || quotedMsgSpeed?.audioMessage;
 
-        if (!hasAudioSpeed) return reply("❌ Responda a um áudio para alterar velocidade!");
+        if (!hasAudioSpeed) return reply(`💎 Responde o áudio que vai mudar de velocidade ♡`);
 
         const vel = parseFloat(args[0]);
-        if (isNaN(vel) || vel < 0.5 || vel > 3) return reply(`❌ Velocidade inválida!\n\nUso: ${prefix}velocidade <0.5-3.0>\nExemplo: ${prefix}velocidade 1.5`);
+        if (isNaN(vel) || vel < 0.5 || vel > 3) return reply(`💎 Hmm, Velocidade não deu certo!\n\nUso: ${prefix}velocidade <0.5-3.0>\nExemplo: ${prefix}velocidade 1.5`);
 
         try {
           const mediaMsgSpeed = quotedMsgSpeed?.audioMessage || info.message?.audioMessage;
@@ -30247,7 +30247,7 @@ ${prefix}calc converter 100 km mi`);
         const quotedMsgReverse = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioReverse = type === 'audioMessage' || quotedMsgReverse?.audioMessage;
 
-        if (!hasAudioReverse) return reply("❌ Responda a um áudio para reverter!");
+        if (!hasAudioReverse) return reply(`💎 Responde o áudio que vai tocar ao contrário ♡`);
 
         try {
           const mediaMsgReverse = quotedMsgReverse?.audioMessage || info.message?.audioMessage;
@@ -30279,10 +30279,10 @@ ${prefix}calc converter 100 km mi`);
         const quotedMsgBass = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioBass = type === 'audioMessage' || quotedMsgBass?.audioMessage;
 
-        if (!hasAudioBass) return reply("❌ Responda a um áudio para adicionar bass!");
+        if (!hasAudioBass) return reply(`💎 Responde o áudio que vai ganhar grave ♡`);
 
         const levelBass = parseInt(args[0]) || 10;
-        if (levelBass < 1 || levelBass > 20) return reply(`❌ Nível de bass inválido!\n\nUso: ${prefix}bass <1-20>\nExemplo: ${prefix}bass 15`);
+        if (levelBass < 1 || levelBass > 20) return reply(`💎 Hmm, Nível de bass não deu certo!\n\nUso: ${prefix}bass <1-20>\nExemplo: ${prefix}bass 15`);
 
         try {
           const mediaMsgBass = quotedMsgBass?.audioMessage || info.message?.audioMessage;
@@ -30314,7 +30314,7 @@ ${prefix}calc converter 100 km mi`);
         const quotedMsgNorm = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioNorm = type === 'audioMessage' || quotedMsgNorm?.audioMessage;
 
-        if (!hasAudioNorm) return reply("❌ Responda a um áudio para normalizar!");
+        if (!hasAudioNorm) return reply(`💎 Responde o áudio que vai ter o volume igualado ♡`);
 
         try {
           const mediaMsgNorm = quotedMsgNorm?.audioMessage || info.message?.audioMessage;
@@ -30349,15 +30349,15 @@ ${prefix}calc converter 100 km mi`);
           const quotedMsgVideoCut = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
           const hasVideoCut = type === 'videoMessage' || quotedMsgVideoCut?.videoMessage;
 
-          if (!hasVideoCut) return reply("❌ Responda a um vídeo para cortar!");
+          if (!hasVideoCut) return reply(`💎 Responde o vídeo que você quer cortar ♡`);
 
           const inicioVid = args[0];
           const fimVid = args[1];
           if (!inicioVid || !fimVid) {
-            return reply(`❌ Informe início e fim!\n\nUso: ${prefix}cortarvideo <inicio> <fim>\nExemplo: ${prefix}cortarvideo 0:10 0:30`);
+            return reply(`💎 Me fala início e fim!\n\nUso: ${prefix}cortarvideo <inicio> <fim>\nExemplo: ${prefix}cortarvideo 0:10 0:30`);
           }
 
-          await reply('🎬 Cortando vídeo... Por favor, aguarde alguns segundos.');
+          await reply(`🎬 Cortando o vídeo... só uns segundinhos ⋆｡˚`);
 
           const encmediaVideoCut = quotedMsgVideoCut?.videoMessage || info.message.videoMessage;
           const raneVideoCut = __dirname + `/../database/tmp/${Math.random()}.mp4`;
@@ -30372,7 +30372,7 @@ ${prefix}calc converter 100 km mi`);
             await fs.unlinkSync(raneVideoCut);
             if (err) {
               console.error('FFMPEG Error (Cortar Vídeo):', err);
-              return reply('❌ Erro ao cortar vídeo! Verifique o formato de tempo (HH:MM:SS ou MM:SS).');
+              return reply(`💎 Não consegui cortar... confere o tempo (HH:MM:SS ou MM:SS) ♡`);
             }
 
             const bufferVideoCut = fs.readFileSync(ranVideoCut);
@@ -30384,7 +30384,7 @@ ${prefix}calc converter 100 km mi`);
           });
         } catch (e) {
           console.error('Erro ao cortar vídeo:', e);
-          return reply("❌ Erro ao processar o vídeo!");
+          return reply(`💎 Não consegui mexer no vídeo... (╥﹏╥)`);
         }
         break;
 
@@ -30474,11 +30474,11 @@ Use ${prefix}horoscopo <signo> para ver a previsão!`);
       // ═══════════════════════════════════════════════════════════════
       case 'debater':
       case 'debate':
-        if (!iaExpanded) return reply("Sistema de debate temporariamente indisponível.");
-        if (!ia || !KeyCog) return reply("❌ Sistema de IA não disponível no momento.");
+        if (!iaExpanded) return reply(`💎 O debate tá descansando agora... tenta daqui a pouco ♡`);
+        if (!ia || !KeyCog) return reply(`🤖 Minha cabecinha de IA tá descansando agora... tenta daqui a pouco ♡`);
         if (!q) return reply(`💬 *Debater*\n\nUso: ${prefix}debater <tema>\n\nExemplo: ${prefix}debater redes sociais fazem bem ou mal`);
 
-        reply("💬 Analisando argumentos...");
+        reply(`💬 Pesando os argumentos... ⋆｡˚`);
 
         // Função wrapper para a IA
         const aiFunctionDebate = (prompt) => {
@@ -30489,7 +30489,7 @@ Use ${prefix}horoscopo <signo> para ver a previsão!`);
         iaExpanded.generateDebate(q, aiFunctionDebate, prefix).then(resultDebate => {
           reply(resultDebate.message);
         }).catch(err => {
-          reply('❌ Erro ao gerar debate. Tente novamente!');
+          reply(`💎 Não consegui montar o debate... tenta de novo? (╥﹏╥)`);
         });
         break;
 
@@ -30499,8 +30499,8 @@ Use ${prefix}horoscopo <signo> para ver a previsão!`);
       case 'historiainterativa':
       case 'storyinteractive':
       case 'aventura':
-        if (!iaExpanded) return reply("Sistema de história temporariamente indisponível.");
-        if (!ia || !KeyCog) return reply("❌ Sistema de IA não disponível no momento.");
+        if (!iaExpanded) return reply(`💎 As histórias tão descansando agora... tenta daqui a pouco ♡`);
+        if (!ia || !KeyCog) return reply(`🤖 Minha cabecinha de IA tá descansando agora... tenta daqui a pouco ♡`);
 
         const subCmdStory = args[0]?.toLowerCase();
 
@@ -30526,13 +30526,13 @@ ${prefix}aventura sair - Abandona a história
           case 'choice': {
             const escolha = parseInt(args[1]);
             if (isNaN(escolha) || escolha < 1 || escolha > 3) {
-              return reply("❌ Escolha inválida! Use 1, 2 ou 3.");
+              return reply(`💎 Escolhe 1, 2 ou 3 ♡`);
             }
-            reply("📖 Continuando a história...");
+            reply(`📖 Continuando a história... ⋆｡˚`);
             iaExpanded.continueStory(sender, escolha, aiFunctionStory).then(resultStory => {
               reply(resultStory.message);
             }).catch(err => {
-              reply('❌ Erro ao continuar história. Tente novamente!');
+              reply(`💎 Não consegui continuar a história... tenta de novo? (╥﹏╥)`);
             });
             break;
           }
@@ -30550,13 +30550,13 @@ ${prefix}aventura sair - Abandona a história
             const generos = ['fantasia', 'terror', 'romance', 'aventura', 'ficção', 'ficcao', 'mistério', 'misterio'];
             const genero = subCmdStory;
             if (!generos.some(g => g.startsWith(genero))) {
-              return reply(`❌ Gênero inválido!\n\nGêneros: fantasia, terror, romance, aventura, ficção, mistério`);
+              return reply(`💎 Hmm, Gênero não deu certo!\n\nGêneros: fantasia, terror, romance, aventura, ficção, mistério`);
             }
-            reply("📖 Criando sua história...");
+            reply(`📖 Criando sua história... ⋆｡˚`);
             iaExpanded.startStory(sender, genero, aiFunctionStory, prefix).then(resultStory => {
               reply(resultStory.message);
             }).catch(err => {
-              reply('❌ Erro ao criar história. Tente novamente!');
+              reply(`💎 Não consegui criar a história... tenta de novo? (╥﹏╥)`);
             });
             break;
           }
@@ -30569,8 +30569,8 @@ ${prefix}aventura sair - Abandona a história
       case 'antitoxic':
       case 'antitóxico':
         if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-        if (!isGroupAdmin) return reply("❌ Apenas admins podem configurar o antitoxic!");
-        if (!antitoxic) return reply("Sistema antitoxic temporariamente indisponível.");
+        if (!isGroupAdmin) return reply(`💎 Só os admins mexem no antitoxic, tá? ♡`);
+        if (!antitoxic) return reply(`💎 O antitoxic tá descansando agora... tenta daqui a pouco ♡`);
 
         const subCmdToxic = args[0]?.toLowerCase();
 
@@ -30587,7 +30587,7 @@ ${prefix}aventura sair - Abandona a história
         if (subCmdToxic === 'config') {
           const acao = args[1]?.toLowerCase();
           if (!acao || !['avisar', 'apagar', 'mute'].includes(acao)) {
-            return reply(`❌ Ação inválida!\n\nUso: ${prefix}antitoxic config <avisar/apagar/mute>`);
+            return reply(`💎 Hmm, Ação não deu certo!\n\nUso: ${prefix}antitoxic config <avisar/apagar/mute>`);
           }
           const result = antitoxic.setAntitoxicAction(from, acao);
           return reply(result.message);
@@ -30596,7 +30596,7 @@ ${prefix}aventura sair - Abandona a história
         if (subCmdToxic === 'sensibilidade' || subCmdToxic === 'threshold') {
           const nivel = parseInt(args[1]);
           if (isNaN(nivel) || nivel < 0 || nivel > 100) {
-            return reply(`❌ Nível inválido!\n\nUso: ${prefix}antitoxic sensibilidade <0-100>\nMenor = mais sensível`);
+            return reply(`💎 Hmm, Nível não deu certo!\n\nUso: ${prefix}antitoxic sensibilidade <0-100>\nMenor = mais sensível`);
           }
           const result = antitoxic.setAntitoxicThreshold(from, nivel);
           return reply(result.message);
@@ -30618,8 +30618,8 @@ ${prefix}antitoxic sensibilidade <0-100> - Define sensibilidade
       case 'antipalavra':
       case 'antiword':
         if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-        if (!isGroupAdmin) return reply("❌ Apenas administradores podem usar este comando!");
-        if (!antipalavra) return reply("❌ Sistema antipalavra temporariamente indisponível.");
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+        if (!antipalavra) return reply(`💎 O antipalavra tá descansando agora... tenta daqui a pouco ♡`);
 
         const subCmdAntipalavra = args[0]?.toLowerCase();
 
@@ -30639,7 +30639,7 @@ ${prefix}antitoxic sensibilidade <0-100> - Define sensibilidade
         if (subCmdAntipalavra === 'add' || subCmdAntipalavra === 'adicionar') {
           const palavra = args.slice(1).join(' ').trim();
           if (!palavra) {
-            return reply(`❌ Você precisa especificar a palavra!\n\nUso: ${prefix}antipalavra add <palavra>`);
+            return reply(`💎 Você precisa especificar a palavra!\n\nUso: ${prefix}antipalavra add <palavra>`);
           }
           const result = antipalavra.addPalavraBlacklist(from, palavra);
           return reply(result.message);
@@ -30649,7 +30649,7 @@ ${prefix}antitoxic sensibilidade <0-100> - Define sensibilidade
         if (subCmdAntipalavra === 'del' || subCmdAntipalavra === 'remover' || subCmdAntipalavra === 'remove') {
           const palavra = args.slice(1).join(' ').trim();
           if (!palavra) {
-            return reply(`❌ Você precisa especificar a palavra!\n\nUso: ${prefix}antipalavra del <palavra>`);
+            return reply(`💎 Você precisa especificar a palavra!\n\nUso: ${prefix}antipalavra del <palavra>`);
           }
           const result = antipalavra.removePalavraBlacklist(from, palavra);
           return reply(result.message);
@@ -30835,7 +30835,7 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
 
       case 'chance':
         try {
-          if (!isGroup) return reply("🎮 Ops! Esse comando só funciona em grupos! Chama a galera! 👥 ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!q) return reply(`🎲 Me conta algo para eu calcular as chances! 📊
 
@@ -30857,12 +30857,12 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
 ${chance >= 80 ? '🚀 Uau! Apostaria minhas fichas nisso!' : chance >= 60 ? '😎 Chances promissoras!' : chance >= 40 ? '🤔 Meio termo, pode rolar!' : chance >= 20 ? '😅 Hmm... complicado!' : '😂 Melhor sonhar com outra coisa!'}`);
         } catch (e) {
           console.error(e);
-          await reply("😵 Minha bola de cristal bugou! Tenta de novo! 🔮 ");
+          await reply(`🔮 Minha bola de cristal embaçou! Pergunta de novo? ♡`);
         }
         break;
       case 'quando':
         try {
-          if (!isGroup) return reply("🕰️ Esse comando só funciona em grupos! Vem com a galera!  ✨");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!q) return reply(`🔮 Me conta o que você quer que eu preveja! 🌠
 
@@ -30891,24 +30891,24 @@ ${chance >= 80 ? '🚀 Uau! Apostaria minhas fichas nisso!' : chance >= 60 ? '�
 ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' : '🍀 Boa sorte na espera!'}`);
         } catch (e) {
           console.error(e);
-          await reply("🔮 Minha máquina do tempo pifou! Tenta de novo! ⏰ ");
+          await reply(`⏰ Meu relógio mágico travou! Pergunta de novo? ♡`);
         }
         break;
       case 'brincadeira': {
         if (!isGroup) {
-          await reply('⚠️ Esse pedido só pode ser feito em grupos.');
+          await reply(`💎 Opa! Esse pedido só funciona em grupo, tá? ♡`);
           break;
         }
         if (!isModoBn) {
-          await reply('❌ O modo brincadeira está desligado neste grupo.');
+          await reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           break;
         }
         if (!menc_os2) {
-          await reply('❌ Marque a pessoa que você quer chamar para uma brincadeira.');
+          await reply(`💎 Marca quem você quer chamar pra brincadeira ♡`);
           break;
         }
         if (menc_os2 === sender) {
-          await reply('❌ Você não pode enviar um pedido para você mesmo.');
+          await reply(`💎 Mandar pedido pra você mesmo? Não vale ( ˘ ³˘)`);
           break;
         }
         const requestResult = relationshipManager.createRequest('brincadeira', from, sender, menc_os2);
@@ -30932,19 +30932,19 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
       case 'namoro':
       case 'namorar': {
         if (!isGroup) {
-          await reply('⚠️ Esse pedido só pode ser feito em grupos.');
+          await reply(`💎 Opa! Esse pedido só funciona em grupo, tá? ♡`);
           break;
         }
         if (!isModoBn) {
-          await reply('❌ O modo brincadeira está desligado neste grupo.');
+          await reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           break;
         }
         if (!menc_os2) {
-          await reply('❌ Marque a pessoa que você quer pedir em namoro.');
+          await reply(`💌 Marca quem você quer pedir em namoro ♡`);
           break;
         }
         if (menc_os2 === sender) {
-          await reply('❌ Você não pode enviar um pedido para você mesmo.');
+          await reply(`💎 Mandar pedido pra você mesmo? Não vale ( ˘ ³˘)`);
           break;
         }
         const requestResult = relationshipManager.createRequest('namoro', from, sender, menc_os2);
@@ -30968,19 +30968,19 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
       case 'casamento':
       case 'casar': {
         if (!isGroup) {
-          await reply('⚠️ Esse pedido só pode ser feito em grupos.');
+          await reply(`💎 Opa! Esse pedido só funciona em grupo, tá? ♡`);
           break;
         }
         if (!isModoBn) {
-          await reply('❌ O modo brincadeira está desligado neste grupo.');
+          await reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           break;
         }
         if (!menc_os2) {
-          await reply('❌ Marque a pessoa que você quer pedir em casamento.');
+          await reply(`💍 Marca quem você quer pedir em casamento ♡`);
           break;
         }
         if (menc_os2 === sender) {
-          await reply('❌ Você não pode enviar um pedido para você mesmo.');
+          await reply(`💎 Mandar pedido pra você mesmo? Não vale ( ˘ ³˘)`);
           break;
         }
         const requestResult = relationshipManager.createRequest('casamento', from, sender, menc_os2);
@@ -31016,14 +31016,14 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         if (!userOne || !userTwo) {
           const activePair = relationshipManager.getActivePairForUser(sender);
           if (!activePair) {
-            await reply('❌ Você não marcou ninguém e não possui relacionamento ativo no momento.');
+            await reply(`💎 Você não marcou ninguém e tá solteirinho(a) agora ♡`);
             break;
           }
           userOne = sender;
           userTwo = activePair.partnerId;
         }
         if (userOne === userTwo) {
-          await reply('❌ Selecione pessoas diferentes para consultar.');
+          await reply(`💎 Escolhe duas pessoas diferentes ♡`);
           break;
         }
 
@@ -31102,7 +31102,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         } else {
           const activePair = relationshipManager.getActivePairForUser(sender);
           if (!activePair) {
-            await reply('❌ Você não marcou ninguém e não possui relacionamento ativo para encerrar.');
+            await reply(`💎 Você não marcou ninguém e não tem relacionamento pra terminar ♡`);
             break;
           }
           userOne = sender;
@@ -31110,19 +31110,19 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         }
 
         if (!userOne || !userTwo) {
-          await reply('❌ Informe o casal que deseja encerrar.');
+          await reply(`💎 Me fala qual casal vai terminar ♡`);
           break;
         }
 
         if (userOne === userTwo) {
-          await reply('❌ Selecione pessoas diferentes para encerrar o relacionamento.');
+          await reply(`💎 Escolhe duas pessoas diferentes ♡`);
           break;
         }
 
         const participants = [userOne, userTwo];
         const isParticipant = participants.includes(sender);
         if (!isParticipant && !isGroupAdmin && !isOwner) {
-          await reply('🚫 Apenas os envolvidos ou um administrador podem encerrar o relacionamento de terceiros.');
+          await reply(`💎 Só o casal ou um admin pode terminar o relacionamento dos outros ♡`);
           break;
         }
 
@@ -31156,7 +31156,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         }
 
         if (menc_os2 === sender) {
-          await reply('❌ Você não pode trair a si mesmo... isso não faz sentido! 🤨');
+          await reply(`🤨 Trair você mesmo? Isso nem faz sentido!`);
           break;
         }
 
@@ -31198,7 +31198,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         } else {
           const activePair = relationshipManager.getActivePairForUser(sender);
           if (!activePair) {
-            await reply('❌ Você não marcou ninguém e não possui relacionamento ativo para consultar o histórico.');
+            await reply(`💎 Você não marcou ninguém e não tem relacionamento pra ver o histórico ♡`);
             break;
           }
           userOne = sender;
@@ -31206,7 +31206,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         }
 
         if (userOne === userTwo) {
-          await reply('❌ Selecione pessoas diferentes para consultar o histórico.');
+          await reply(`💎 Escolhe duas pessoas diferentes ♡`);
           break;
         }
 
@@ -31227,7 +31227,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
-          if (AllgroupMembers.length < 2) return reply('❌ Preciso de pelo menos 2 membros no grupo!');
+          if (AllgroupMembers.length < 2) return reply(`💎 Preciso de pelo menos 2 pessoas no grupo ♡`);
           let path = buildGroupFilePath(from);
           // Otimização: Usar cache para leitura de arquivo
           let data = await optimizer.loadJsonWithCache(path, { mark: {} });
@@ -31284,7 +31284,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
 │ ${prefix}shipo @fulano
 │
 ╰━━━━━━━━━━━━━━━━━━━━╯`);
-          if (AllgroupMembers.length < 2) return reply('❌ Preciso de pelo menos 2 membros no grupo!');
+          if (AllgroupMembers.length < 2) return reply(`💎 Preciso de pelo menos 2 pessoas no grupo ♡`);
           let path = buildGroupFilePath(from);
           // Otimização: Usar cache para leitura de arquivo
           let data = await optimizer.loadJsonWithCache(path, { mark: {} });
@@ -31334,7 +31334,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         break;
       case 'sn':
         try {
-          if (!isGroup) return reply("🎱 Esse comando só funciona em grupos! Chama todo mundo!  ✨");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!q) return reply(`🎱 Faça uma pergunta para o oráculo! 🔮
 
@@ -31370,13 +31370,13 @@ ${emoji} **Resposta:** *${resposta}*
 ${isPositive ? '🎉 O destino sorri para você!' : '😅 Mas não desista dos seus sonhos!'}`);
         } catch (e) {
           console.error(e);
-          await reply("🎱 A bola 8 travou! Tenta de novo!  ");
+          await reply(`🎱 A bola 8 rolou pra longe! Pergunta de novo? ♡`);
         }
         break;
       case 'sorte':
         try {
-          if (!isGroup) return reply("🍀 Esse comando só funciona em grupos! Chama a galera pra testar a sorte! ✨👥");
-          if (!isModoBn) return reply('❌ O modo brincadeira está desativado nesse grupo! Hora de liberar a diversão! 🎉🎲');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
 
           const usuario = menc_os2 || sender;
           const nome = menc_os2 ? getUserName(menc_os2) : pushname;
@@ -31417,7 +31417,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           });
         } catch (e) {
           console.error(e);
-          await reply("🍀 O trevo de 4 folhas fugiu! Tenta de novo! 🏃‍♂️💨");
+          await reply(`🍀 O trevo de 4 folhas fugiu! Tenta de novo? ♡`);
         }
         break;
       case 'admins':
@@ -31482,14 +31482,14 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await nazu.sendMessage(from, { image: { url: profilePic }, caption: perfilText, mentions: [target] }, { quoted: info });
         } catch (error) {
           console.error('Erro ao processar comando perfil:', error);
-          await reply('Ocorreu um erro ao gerar o perfil (｡•́︿•̀｡)');
+          await reply(`💎 Eita, não consegui montar o perfil... (╥﹏╥)`);
         }
         break;
       case 'ppt':
         try {
           if (!q) return reply(`🎮 *Pedra, Papel ou Tesoura*\n\n💡 *Como jogar:*\n• Escolha sua jogada após o comando\n• Ex: ${prefix}ppt pedra\n• Ex: ${prefix}ppt papel\n• Ex: ${prefix}ppt tesoura\n\n🎲 Vamos ver quem ganha!`);
           const escolhas = ['pedra', 'papel', 'tesoura'];
-          if (!escolhas.includes(q.toLowerCase())) return reply('Escolha inválida! Use: pedra, papel ou tesoura.');
+          if (!escolhas.includes(q.toLowerCase())) return reply(`💎 Escolhe pedra, papel ou tesoura ♡`);
           const botEscolha = escolhas[Math.floor(Math.random() * 3)];
           const usuarioEscolha = q.toLowerCase();
           let resultado;
@@ -31606,7 +31606,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`💡 *Conselho do dia:*\n\n${conselho}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar o conselho.");
+          await reply(`💎 Fiquei sem conselho agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'conselhobiblico':
@@ -31618,7 +31618,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`📖 *Conselho Bíblico:*\n\n${conselhoBiblico}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar o versículo.");
+          await reply(`💎 Não achei o versículo agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'cantada':
@@ -31629,7 +31629,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`💘 *Cantada:*\n\n${cantada}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar a cantada.");
+          await reply(`💎 Fiquei sem cantada agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'piada':
@@ -31640,7 +31640,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`😂 *Piada:*\n\n${piada}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar a piada.");
+          await reply(`💎 Fiquei sem piada agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'charada':
@@ -31651,7 +31651,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`🧩 *Charada:*\n\n${charada}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar a charada.");
+          await reply(`💎 Fiquei sem charada agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'motivacional':
@@ -31663,7 +31663,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`🚀 *Frase Motivacional:*\n\n${motivacional}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar a frase.");
+          await reply(`💎 Fiquei sem frase agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'elogio':
@@ -31674,7 +31674,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`🌟 *Elogio:*\n\n${elogio}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar o elogio.");
+          await reply(`💎 Fiquei sem elogio agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'reflexao':
@@ -31685,7 +31685,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`🤔 *Reflexão:*\n\n${reflexao}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar a reflexão.");
+          await reply(`💎 Fiquei sem reflexão agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'fato':
@@ -31697,7 +31697,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`🔬 *Fato Curioso:*\n\n${fato}`);
         } catch (e) {
           console.error(e);
-          await reply("❌ Ocorreu um erro ao buscar o fato.");
+          await reply(`💎 Fiquei sem curiosidade agora... tenta de novo? (╥﹏╥)`);
         }
         break;
       case 'surubao':
@@ -31706,10 +31706,10 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           if (isModoLite) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply(`Apenas em grupos`);
-          if (!isModoBn) return reply('O modo brincadeira nao esta ativo no grupo');
-          if (!q) return reply(`Eita, coloque o número de pessoas após o comando.`);
-          if (Number(q) > 15) return reply("Coloque um número menor, ou seja, abaixo de *15*.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
+          if (!q) return reply(`💎 Coloca quantas pessoas depois do comando ♡`);
+          if (Number(q) > 15) return reply(`💎 Escolhe um número menor que *15* ♡`);
           var emojiskk;
           emojiskk = ["🥵", "😈", "🫣", "😏"];
           var emojis2;
@@ -31746,13 +31746,13 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         }
         break;
       case 'suicidio':
-        if (isGroupAdmin) return reply("❌ Awn, admin, você é precioso demais para isso. Fica aqui com a gente, tá? <3");
-        if (!isBotAdmin) return reply("❌ Preciso ser admin para fazer isso.");
-        reply(`*É uma pena que tenha tomado essa decisão ${pushname}, vamos sentir saudades... 😕*`).then(() => {
+        if (isGroupAdmin) return reply(`💎 Awn, admin, você é precioso demais pra isso. Fica aqui com a gente, tá? ♡`);
+        if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
+        reply(`*Que pena, ${pushname}... vamos sentir saudade (｡•́︿•̀｡)*`).then(() => {
           setTimeout(() => {
             nazu.groupParticipantsUpdate(from, [sender], "remove").then(() => {
               setTimeout(() => {
-                reply(`*Ainda bem que morreu, não aguentava mais essa praga kkkkkk*`);
+                reply(`*Ufa, foi embora! Agora o grupo respira kkkkk*`);
               }, 1000);
             });
           }, 2000);
@@ -32129,7 +32129,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
             mark: {}
           };
           let membros = AllgroupMembers.filter(m => !['0', 'marca'].includes(data.mark[m]));
-          if (membros.length < 5) return reply('❌ Membros insuficientes para formar um ranking.');
+          if (membros.length < 5) return reply(`💎 Não tem gente suficiente pro ranking ♡`);
           let top5 = membros.sort(() => Math.random() - 0.5).slice(0, 5);
           let cleanedCommand = command.endsWith('s') ? command.slice(0, -1) : command;
           let ranksData = fs.existsSync(__dirname + '/funcs/json/ranks.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/ranks.json')) : {
@@ -32211,7 +32211,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
             mark: {}
           };
           let membros = AllgroupMembers.filter(m => !['0', 'marca'].includes(data.mark[m]));
-          if (membros.length < 5) return reply('❌ Membros insuficientes para formar um ranking.');
+          if (membros.length < 5) return reply(`💎 Não tem gente suficiente pro ranking ♡`);
           let top5 = membros.sort(() => Math.random() - 0.5).slice(0, 5);
           let cleanedCommand = command.endsWith('s') ? command.slice(0, -1) : command;
           let ranksData = fs.existsSync(__dirname + '/funcs/json/ranks.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/ranks.json')) : {
@@ -32280,7 +32280,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           });
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
-          if (!menc_os2) return reply('Marque um usuário.');
+          if (!menc_os2) return reply(`💎 Marca alguém pra mim! (・・ ) ?`);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games2: {}
           };
@@ -32333,7 +32333,7 @@ Motivo: ${reason}`;
           await reply(afkSetMessage);
         } catch (e) {
           console.error('Erro no comando afk:', e);
-          await reply("Ocorreu um erro ao definir AFK (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui marcar você como ausente... (╥﹏╥)`);
         }
         break;
       case 'voltei':
@@ -32342,20 +32342,20 @@ Motivo: ${reason}`;
           if (groupData.afkUsers && groupData.afkUsers[sender]) {
             delete groupData.afkUsers[sender];
             fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-            await reply(`👋 Bem-vindo(a) de volta! Seu status AFK foi removido.`);
+            await reply(`👋 Que bom que voltou! Tirei seu modo ausente ♡`);
           } else {
-            await reply("Você não estava AFK.");
+            await reply(`💎 Você nem tava ausente ♡`);
           }
         } catch (e) {
           console.error('Erro no comando voltei:', e);
-          await reply("Ocorreu um erro ao remover AFK (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui tirar seu modo ausente... (╥﹏╥)`);
         }
         break;
       case 'regras':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!groupData.rules || groupData.rules.length === 0) {
-            return reply("📜 Nenhuma regra definida para este grupo ainda.");
+            return reply(`📜 Esse grupo ainda não tem regras ♡`);
           }
           let rulesMessage = `📜 *Regras do Grupo ${groupName}* 📜
 
@@ -32367,15 +32367,15 @@ Motivo: ${reason}`;
           await reply(rulesMessage);
         } catch (e) {
           console.error('Erro no comando regras:', e);
-          await reply("Ocorreu um erro ao buscar as regras (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui ver as regras... (╥﹏╥)`);
         }
         break;
       case 'addregra':
       case 'addrule':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem adicionar regras.");
-          if (!q) return reply(`📝 Por favor, forneça o texto da regra. Ex: ${prefix}addregra Proibido spam.`);
+          if (!isGroupAdmin) return reply(`💎 Só os admins criam regras, tá? ♡`);
+          if (!q) return reply(`📝 Escreve a regra. Ex.: ${prefix}addregra Proibido spam. ♡`);
 
           groupData.rules = groupData.rules || [];
           groupData.rules.push(q);
@@ -32384,70 +32384,70 @@ Motivo: ${reason}`;
 ${groupData.rules.length}. ${q}`);
         } catch (e) {
           console.error('Erro no comando addregra:', e);
-          await reply("Ocorreu um erro ao adicionar a regra (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui adicionar a regra... (╥﹏╥)`);
         }
         break;
       case 'delregra':
       case 'delrule':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem remover regras.");
-          if (!q || isNaN(parseInt(q))) return reply(`🔢 Por favor, forneça o número da regra a ser removida. Ex: ${prefix}delregra 3`);
+          if (!isGroupAdmin) return reply(`💎 Só os admins apagam regras, tá? ♡`);
+          if (!q || isNaN(parseInt(q))) return reply(`🔢 Qual regra apagar? Ex.: ${prefix}delregra 3 ♡`);
 
           groupData.rules = groupData.rules || [];
           const ruleNumber = parseInt(q);
           if (ruleNumber < 1 || ruleNumber > groupData.rules.length) {
-            return reply(`❌ Número de regra inválido. Use ${prefix}regras para ver a lista. Atualmente existem ${groupData.rules.length} regras.`);
+            return reply(`💎 Número de regra inválido. Usa ${prefix}regras pra ver a lista. Atualmente existem ${groupData.rules.length} regras.`);
           }
           const removedRule = groupData.rules.splice(ruleNumber - 1, 1);
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`🗑️ Regra "${removedRule}" removida com sucesso!`);
+          await reply(`🗑️ A regra "${removedRule}" saiu ♡`);
         } catch (e) {
           console.error('Erro no comando delregra:', e);
-          await reply("Ocorreu um erro ao remover a regra (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui apagar a regra... (╥﹏╥)`);
         }
         break;
       case 'addmod':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem adicionar moderadores.");
-          if (!menc_os2) return reply(`Marque o usuário que deseja promover a moderador. Ex: ${prefix}addmod @usuario`);
+          if (!isGroupAdmin) return reply(`💎 Só os admins criam moderadores, tá? ♡`);
+          if (!menc_os2) return reply(`💎 Marca quem vai virar moderador. Ex.: ${prefix}addmod @usuario ♡`);
           const modToAdd = menc_os2;
           if (groupData.moderators.includes(modToAdd)) {
-            return reply(`@${getUserName(modToAdd)} já é um moderador.`, {
+            return reply(`💎 @${getUserName(modToAdd)} já é moderador ♡`, {
               mentions: [modToAdd]
             });
           }
           groupData.moderators.push(modToAdd);
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ @${getUserName(modToAdd)} foi promovido a moderador do grupo!`, {
+          await reply(`🛡️ Prontinho! @${getUserName(modToAdd)} agora é moderador do grupo ♡`, {
             mentions: [modToAdd]
           });
         } catch (e) {
           console.error('Erro no comando addmod:', e);
-          await reply("Ocorreu um erro ao adicionar moderador (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui criar o moderador... (╥﹏╥)`);
         }
         break;
       case 'delmod':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem remover moderadores.");
-          if (!menc_os2) return reply(`Marque o usuário que deseja remover de moderador. Ex: ${prefix}delmod @usuario`);
+          if (!isGroupAdmin) return reply(`💎 Só os admins tiram moderadores, tá? ♡`);
+          if (!menc_os2) return reply(`💎 Marca quem vai deixar de ser moderador. Ex.: ${prefix}delmod @usuario ♡`);
           const modToRemove = menc_os2;
           const modIndex = groupData.moderators.indexOf(modToRemove);
           if (modIndex === -1) {
-            return reply(`@${getUserName(modToRemove)} não é um moderador.`, {
+            return reply(`💎 @${getUserName(modToRemove)} não é moderador ♡`, {
               mentions: [modToRemove]
             });
           }
           groupData.moderators.splice(modIndex, 1);
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ @${getUserName(modToRemove)} não é mais um moderador do grupo.`, {
+          await reply(`✿ Prontinho! @${getUserName(modToRemove)} não é mais moderador.`, {
             mentions: [modToRemove]
           });
         } catch (e) {
           console.error('Erro no comando delmod:', e);
-          await reply("Ocorreu um erro ao remover moderador (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui tirar o moderador... (╥﹏╥)`);
         }
         break;
       case 'listmods':
@@ -32455,7 +32455,7 @@ ${groupData.rules.length}. ${q}`);
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (groupData.moderators.length === 0) {
-            return reply("🛡️ Não há moderadores definidos para este grupo.");
+            return reply(`🛡️ Esse grupo ainda não tem moderadores ♡`);
           }
           let modsMessage = `🛡️ *Moderadores do Grupo ${groupName}* 🛡️\n\n`;
           const mentionedUsers = [];
@@ -32468,7 +32468,7 @@ ${groupData.rules.length}. ${q}`);
           });
         } catch (e) {
           console.error('Erro no comando listmods:', e);
-          await reply("Ocorreu um erro ao listar moderadores (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar os moderadores... (╥﹏╥)`);
         }
         break;
       case 'grantmodcmd':
@@ -32476,17 +32476,17 @@ ${groupData.rules.length}. ${q}`);
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q) return reply(`Por favor, especifique o comando para permitir aos moderadores. Ex: ${prefix}grantmodcmd ban`);
+          if (!q) return reply(`💎 Qual comando liberar pros moderadores? Ex.: ${prefix}grantmodcmd ban ♡`);
           const cmdToAllow = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
           if (groupData.allowedModCommands.includes(cmdToAllow)) {
-            return reply(`Comando "${cmdToAllow}" já está permitido para moderadores.`);
+            return reply(`💎 O comando "${cmdToAllow}" já tá liberado pros moderadores ♡`);
           }
           groupData.allowedModCommands.push(cmdToAllow);
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Moderadores agora podem usar o comando: ${prefix}${cmdToAllow}`);
+          await reply(`✿ Prontinho! Os moderadores agora podem usar ${prefix}${cmdToAllow} ♡`);
         } catch (e) {
           console.error('Erro no comando grantmodcmd:', e);
-          await reply("Ocorreu um erro ao permitir comando para moderadores (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui liberar o comando... (╥﹏╥)`);
         }
         break;
       case 'revokemodcmd':
@@ -32494,25 +32494,25 @@ ${groupData.rules.length}. ${q}`);
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!q) return reply(`Por favor, especifique o comando para proibir aos moderadores. Ex: ${prefix}revokemodcmd ban`);
+          if (!q) return reply(`💎 Qual comando tirar dos moderadores? Ex.: ${prefix}revokemodcmd ban ♡`);
           const cmdToDeny = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
           const cmdIndex = groupData.allowedModCommands.indexOf(cmdToDeny);
           if (cmdIndex === -1) {
-            return reply(`Comando "${cmdToDeny}" não estava permitido para moderadores.`);
+            return reply(`💎 O comando "${cmdToDeny}" não tava liberado pros moderadores ♡`);
           }
           groupData.allowedModCommands.splice(cmdIndex, 1);
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-          await reply(`✅ Moderadores não podem mais usar o comando: ${prefix}${cmdToDeny}`);
+          await reply(`✿ Prontinho! Os moderadores não usam mais ${prefix}${cmdToDeny}`);
         } catch (e) {
           console.error('Erro no comando revokemodcmd:', e);
-          await reply("Ocorreu um erro ao proibir comando para moderadores (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui tirar o comando... (╥﹏╥)`);
         }
         break;
       case 'listmodcmds':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (groupData.allowedModCommands.length === 0) {
-            return reply("🔧 Nenhum comando específico permitido para moderadores neste grupo.");
+            return reply(`🔧 Nenhum comando extra liberado pros moderadores aqui ♡`);
           }
           let cmdsMessage = `🔧 *Comandos Permitidos para Moderadores em ${groupName}* 🔧\n\n`;
           groupData.allowedModCommands.forEach(cmd => {
@@ -32521,7 +32521,7 @@ ${groupData.rules.length}. ${q}`);
           await reply(cmdsMessage);
         } catch (e) {
           console.error('Erro no comando listmodcmds:', e);
-          await reply("Ocorreu um erro ao listar comandos de moderadores (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui listar os comandos dos moderadores... (╥﹏╥)`);
         }
         break;
 
@@ -32530,7 +32530,7 @@ ${groupData.rules.length}. ${q}`);
       case 'addwhitelist':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem adicionar usuários à whitelist.");
+          if (!isGroupAdmin) return reply(`💎 Só os admins mexem na lista de liberados, tá? ♡`);
 
           if (!menc_os2) {
             const availableAntis = ['antilink', 'antilinkgp', 'antilinkhard', 'antilinksoft', 'antiporn', 'antistatus', 'antibtn', 'antidoc', 'antiloc', 'antifig'];
@@ -32559,14 +32559,14 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           const antis = antisString.split(',').map(a => a.trim().toLowerCase()).filter(a => a.length > 0 && !a.includes('@'));
 
           if (antis.length === 0) {
-            return reply('⚠️ Nenhum anti válido foi especificado. Use o formato: antilink,antistatus,antiporn');
+            return reply(`💎 Não reconheci nenhuma proteção. Usa assim: antilink,antistatus,antiporn ♡`);
           }
 
           const validAntis = ['antilink', 'antilinkgp', 'antilinkhard', 'antilinksoft', 'antiporn', 'antistatus', 'antibtn', 'antidoc', 'antiloc', 'antifig'];
           const invalidAntis = antis.filter(a => !validAntis.includes(a));
 
           if (invalidAntis.length > 0) {
-            return reply(`❌ Antis inválidos: ${invalidAntis.join(', ')}\n\n*Válidos:* ${validAntis.join(', ')}`);
+            return reply(`💎 Antis inválidos: ${invalidAntis.join(', ')}\n\n*Válidos:* ${validAntis.join(', ')}`);
           }
 
           groupData.adminWhitelist[userId] = {
@@ -32582,7 +32582,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           });
         } catch (e) {
           console.error('Erro no comando wl.add:', e);
-          await reply("❌ Ocorreu um erro ao adicionar à whitelist.");
+          await reply(`💎 Eita, não consegui liberar a pessoa... (╥﹏╥)`);
         }
         break;
 
@@ -32591,16 +32591,16 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
       case 'removewhitelist':
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isGroupAdmin) return reply("Apenas administradores podem remover usuários da whitelist.");
+          if (!isGroupAdmin) return reply(`💎 Só os admins mexem na lista de liberados, tá? ♡`);
 
           if (!menc_os2) {
-            return reply(`⚠️ Marque o usuário que deseja remover da whitelist.\n\nEx: ${prefix}wl.remove @usuario`);
+            return reply(`💎 Marque o usuário que deseja remover da whitelist.\n\nEx: ${prefix}wl.remove @usuario`);
           }
 
           const userId = menc_os2;
 
           if (!groupData.adminWhitelist[userId]) {
-            return reply(`@${getUserName(userId)} não está na whitelist.`, {
+            return reply(`💎 @${getUserName(userId)} não tá na lista de liberados ♡`, {
               mentions: [userId]
             });
           }
@@ -32608,12 +32608,12 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           delete groupData.adminWhitelist[userId];
           persistGroupData();
 
-          await reply(`✅ @${getUserName(userId)} removido da whitelist!`, {
+          await reply(`✿ Prontinho! @${getUserName(userId)} saiu da lista de liberados.`, {
             mentions: [userId]
           });
         } catch (e) {
           console.error('Erro no comando wl.remove:', e);
-          await reply("❌ Ocorreu um erro ao remover da whitelist.");
+          await reply(`💎 Eita, não consegui tirar da lista de liberados... (╥﹏╥)`);
         }
         break;
 
@@ -32627,7 +32627,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           const whitelistEntries = Object.entries(groupData.adminWhitelist || {});
 
           if (whitelistEntries.length === 0) {
-            return reply('📋 Não há usuários na whitelist deste grupo.');
+            return reply(`📋 Ninguém na lista de liberados deste grupo ♡`);
           }
 
           let message = `📋 *Whitelist do Grupo*\n`;
@@ -32651,7 +32651,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           await reply(message, { mentions });
         } catch (e) {
           console.error('Erro no comando wl.lista:', e);
-          await reply("❌ Ocorreu um erro ao listar whitelist.");
+          await reply(`💎 Eita, não consegui mostrar a lista de liberados... (╥﹏╥)`);
         }
         break;
 
@@ -32659,24 +32659,24 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
         try {
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
-          if (!args[0]) return reply(`Uso: ${prefix}minmessage <mínimo de dígitos> <ban/adv> ou ${prefix}minmessage off`);
+          if (!args[0]) return reply(`💎 Usa assim: ${prefix}minmessage <mínimo de letras> <ban/adv> ou ${prefix}minmessage off ♡`);
           if (args[0].toLowerCase() === 'off') {
             delete groupData.minMessage;
             fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-            await reply(`✅ Sistema de legenda mínima desativado.`);
+            await reply(`✿ Legenda mínima desligada ♡`);
           } else {
             const minDigits = parseInt(args[0]);
             const action = args[1]?.toLowerCase();
             if (isNaN(minDigits) || minDigits < 1 || !['ban', 'adv'].includes(action)) {
-              return reply(`Formato inválido. Use: ${prefix}minmessage <número positivo> <ban/adv>`);
+              return reply(`💎 Hmm, não deu certo. Usa: ${prefix}minmessage <número positivo> <ban/adv> ♡`);
             }
             groupData.minMessage = { minDigits, action };
             fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
-            await reply(`✅ Configurado: Mínimo de ${minDigits} caracteres em legendas de fotos/vídeos. Ação em violação: ${action === 'ban' ? 'banir' : 'advertir'}.`);
+            await reply(`✿ Configurado: Mínimo de ${minDigits} caracteres em legendas de fotos/vídeos. Ação em violação: ${action === 'ban' ? 'banir' : 'advertir'}.`);
           }
         } catch (e) {
           console.error('Erro no comando minmessage:', e);
-          await reply("Ocorreu um erro ao configurar (｡•́︿•̀｡)");
+          await reply(`💎 Eita, não consegui configurar... (╥﹏╥)`);
         }
         break;
 
@@ -32684,13 +32684,13 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
         try {
           if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
-          if (!isBotAdmin) return reply('Preciso ser admin para isso.');
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const membersToBan = AllgroupMembers.filter(m => m !== nazu.user.id && m !== sender);
-          if (membersToBan.length === 0) return reply('Nenhum membro para banir.');
+          if (membersToBan.length === 0) return reply(`💎 Não tem ninguém pra remover ♡`);
           await nazu.groupParticipantsUpdate(from, membersToBan, 'remove');
         } catch (e) {
           console.error('Erro no nuke:', e);
-          await reply('Ocorreu um erro ao banir (｡•́︿•̀｡)');
+          await reply(`💎 Eita, não consegui remover... (╥﹏╥)`);
         }
         break;
 
@@ -32702,7 +32702,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           if (saveMsgPrefix(newMsg)) {
             await reply(newMsg ? `✅ Mensagem prefix configurada: ${newMsg.replace('#prefixo#', prefix)}` : '✅ Mensagem prefix desativada.');
           } else {
-            await reply('Erro ao salvar.');
+            await reply(`💎 Eita, não consegui guardar... (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no msgprefix:', e);
@@ -32712,7 +32712,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'msgboton':
         try {
-          if (!isOwner) return reply('🚫 Apenas o dono pode alterar esta configuração!');
+          if (!isOwner) return reply(`💎 Só o meu dono pode mudar isso ♡`);
 
           const currentConfig = loadMsgBotOn();
           const newStatus = !currentConfig.enabled;
@@ -32721,7 +32721,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
             const statusText = newStatus ? '✅ ativada' : '❌ desativada';
             await reply(`🔔 *Mensagem de inicialização ${statusText}!*\n\nAgora, quando o bot ligar, ${newStatus ? 'você receberá' : 'NÃO receberá'} uma mensagem de boas-vindas no seu privado.`);
           } else {
-            await reply('❌ Erro ao salvar configuração.');
+            await reply(`💎 Eita, não consegui guardar a configuração... (╥﹏╥)`);
           }
         } catch (e) {
           console.error('Erro no msgboton:', e);
@@ -32731,7 +32731,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'addreact':
         try {
-          if (!isOwner) return reply('Apenas o dono pode adicionar reacts.');
+          if (!isOwner) return reply(`💎 Só o meu dono cria reações automáticas ♡`);
           if (args.length < 2) return reply('Uso: ' + prefix + 'addreact trigger emoji');
           const trigger = args[0];
           const emoji = args[1];
@@ -32745,7 +32745,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'delreact':
         try {
-          if (!isOwner) return reply('Apenas o dono pode remover reacts.');
+          if (!isOwner) return reply(`💎 Só o meu dono apaga reações automáticas ♡`);
           if (!q) return reply('Uso: ' + prefix + 'delreact id');
           const result = deleteCustomReact(q.trim());
           await reply(result.message);
@@ -32757,9 +32757,9 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'listreact':
         try {
-          if (!isOwner) return reply('Apenas o dono pode listar reacts.');
+          if (!isOwner) return reply(`💎 Só o meu dono vê as reações automáticas ♡`);
           const reacts = loadCustomReacts();
-          if (reacts.length === 0) return reply('Nenhum react configurado.');
+          if (reacts.length === 0) return reply(`📭 Nenhuma reação automática ainda ♡`);
           let listMsg = '📋 Lista de Reacts:\n\n';
           reacts.forEach(r => {
             listMsg += `ID: ${r.id} | Trigger: ${r.trigger} | Emoji: ${r.emoji}\n`;
@@ -32781,8 +32781,8 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'freetemu':
         try {
-          if (!q) return reply('❌ Por favor, digite um link da Temu.');
-          if (!q.includes('temu')) return reply('❌ Link inválido.');
+          if (!q) return reply(`💎 Manda um link da Temu, tá? ♡`);
+          if (!q.includes('temu')) return reply(`💎 Esse link não deu certo... confere pra mim? ♡`);
           const KKMeMamaTemu = await temuScammer.convertTemuLink(q);
           await reply(
             `🎉 Aqui está o link do produto no evento como GRATUITO:\n\n` +
@@ -32798,7 +32798,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
       case 'cachedebug':
       case 'debugcache':
         try {
-          if (!isOwnerOrSub) return reply('🚫 Apenas o dono e subdonos podem usar este comando.');
+          if (!isOwnerOrSub) return reply(`💎 Esse é só pro meu dono e os subdonos, tá? ( ˘ ³˘)♡`);
 
           const { saveJidLidCache } = await import('./utils/helpers.js');
           const cacheFilePath = JID_LID_CACHE_FILE;
@@ -32842,7 +32842,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           await reply(msg);
         } catch (e) {
           console.error('Erro no cachedebug:', e);
-          await reply('❌ Ocorreu um erro ao acessar o cache.');
+          await reply(`💎 Eita, não consegui ver o cache... (╥﹏╥)`);
         }
         break;
 
@@ -32940,12 +32940,12 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           await reply(responseText);
         } catch (e) {
           console.error('Erro no comando horarios:', e);
-          await reply('❌ Ocorreu um erro ao gerar os horários pagantes.');
+          await reply(`💎 Eita, não consegui gerar os horários pagantes... (╥﹏╥)`);
         }
         break;
 
       case 'autohorarios':
-        if (!isOwner && !isAdmins && !isGroupAdmins) return reply('⚠️ Este comando é apenas para administradores!');
+        if (!isOwner && !isAdmins && !isGroupAdmins) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
         try {
           const action = args[0]?.toLowerCase();
@@ -32996,13 +32996,13 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
             case 'on':
               autoSchedules[from].enabled = true;
               fs.writeFileSync(autoSchedulesPath, JSON.stringify(autoSchedules, null, 2));
-              await reply('✅ *Auto horários ativado!*\n\n📤 Os horários pagantes serão enviados automaticamente a cada hora.\n\n⚡ O primeiro envio será na próxima hora cheia.');
+              await reply('✿ *Auto horários ligado!*\n\n📤 Os horários pagantes serão enviados automaticamente a cada hora.\n\n⚡ O primeiro envio será na próxima hora cheia.');
               break;
 
             case 'off':
               autoSchedules[from].enabled = false;
               fs.writeFileSync(autoSchedulesPath, JSON.stringify(autoSchedules, null, 2));
-              await reply('🔴 *Auto horários desativado!*\n\n📴 Os envios automáticos foram interrompidos.');
+              await reply('🔴 *Auto horários desligado!*\n\n📴 Os envios automáticos foram interrompidos.');
               break;
 
             case 'status':
@@ -33031,21 +33031,21 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
               } else {
                 autoSchedules[from].link = linkUrl;
                 fs.writeFileSync(autoSchedulesPath, JSON.stringify(autoSchedules, null, 2));
-                await reply(`✅ *Link configurado!*\n\n🔗 *URL:* ${linkUrl}\n\n📝 Este link será incluído nos horários automáticos.`);
+                await reply(`✿ *Link configurado!*\n\n🔗 *URL:* ${linkUrl}\n\n📝 Este link será incluído nos horários automáticos.`);
               }
               break;
           }
 
         } catch (e) {
           console.error('Erro no comando autohorarios:', e);
-          await reply('❌ Ocorreu um erro ao configurar os horários automáticos.');
+          await reply(`💎 Eita, não consegui configurar os horários automáticos... (╥﹏╥)`);
         }
         break;
 
       // Rental expiration management commands
       case 'rentalstats':
         if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-        if (!rentalExpirationManager) return reply('❌ Sistema de gerenciamento de expiração de aluguel não está ativo.');
+        if (!rentalExpirationManager) return reply(`💎 O controle de vencimento dos aluguéis não tá ligado ♡`);
 
         const stats = rentalExpirationManager.getStats();
         const message = `
@@ -33083,57 +33083,57 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'rentaltest':
         if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-        if (!rentalExpirationManager) return reply('❌ Sistema de gerenciamento de expiração de aluguel não está ativo.');
+        if (!rentalExpirationManager) return reply(`💎 O controle de vencimento dos aluguéis não tá ligado ♡`);
 
-        await reply('🔄 Iniciando teste manual do sistema de expiração de aluguel...');
+        await reply(`🔄 Testando o vencimento dos aluguéis... ⋆｡˚`);
 
         try {
           await rentalExpirationManager.checkExpiredRentals();
-          await reply('✅ Teste concluído com sucesso! Verifique as estatísticas para mais detalhes.');
+          await reply(`✿ Teste feito! Dá uma olhada nas estatísticas pra ver os detalhes ♡`);
         } catch (error) {
           console.error('❌ Error during rental test:', error);
-          await reply(`❌ Ocorreu um erro durante o teste: ${error.message}`);
+          await reply(`💎 O teste deu erro: ${error.message}`);
         }
         break;
 
       case 'rentalconfig':
         if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-        if (!q) return reply(`Uso: ${prefix}rentalconfig <opção> <valor>\n\nOpções disponíveis:\n• interval <cron-expression>\n• warning <dias>\n• final <dias>\n• cleanup <horas>\n• notifications <on|off>\n• autocleanup <on|off>\n\nExemplo: ${prefix}rentalconfig warning 7`);
+        if (!q) return reply(`💎 Usa assim: ${prefix}rentalconfig <opção> <valor>\n\nOpções disponíveis:\n• interval <cron-expression>\n• warning <dias>\n• final <dias>\n• cleanup <horas>\n• notifications <on|off>\n• autocleanup <on|off>\n\nExemplo: ${prefix}rentalconfig warning 7`);
 
         const [option, value] = q.split(' ', 2);
 
-        if (!rentalExpirationManager) return reply('❌ Sistema de gerenciamento de expiração de aluguel não está ativo.');
+        if (!rentalExpirationManager) return reply(`💎 O controle de vencimento dos aluguéis não tá ligado ♡`);
 
         try {
           switch (option) {
             case 'interval':
               rentalExpirationManager.config.checkInterval = value;
-              await reply(`✅ Intervalo de verificação atualizado para: ${value}`);
+              await reply(`✿ Intervalo de verificação: ${value}`);
               break;
 
             case 'warning':
               rentalExpirationManager.config.warningDays = parseInt(value);
-              await reply(`✅ Dias para aviso inicial atualizados para: ${value}`);
+              await reply(`✿ Dias pro primeiro aviso: ${value}`);
               break;
 
             case 'final':
               rentalExpirationManager.config.finalWarningDays = parseInt(value);
-              await reply(`✅ Dias para aviso final atualizados para: ${value}`);
+              await reply(`✿ Dias pro último aviso: ${value}`);
               break;
 
             case 'cleanup':
               rentalExpirationManager.config.cleanupDelayHours = parseInt(value);
-              await reply(`✅ Atraso para limpeza automática atualizado para: ${value} horas`);
+              await reply(`✿ Espera antes da limpeza automática: ${value} horas`);
               break;
 
             case 'notifications':
               rentalExpirationManager.config.enableNotifications = value.toLowerCase() === 'on';
-              await reply(`✅ Notificações ${rentalExpirationManager.config.enableNotifications ? 'ativadas' : 'desativadas'}`);
+              await reply(`✿ Avisos ${rentalExpirationManager.config.enableNotifications ? 'ligados' : 'desligados'} ♡`);
               break;
 
             case 'autocleanup':
               rentalExpirationManager.config.enableAutoCleanup = value.toLowerCase() === 'on';
-              await reply(`✅ Limpeza automática ${rentalExpirationManager.config.enableAutoCleanup ? 'ativada' : 'desativada'}`);
+              await reply(`✿ Limpeza automática ${rentalExpirationManager.config.enableAutoCleanup ? 'ligada' : 'desligada'} ♡`);
               break;
               
 
@@ -33143,25 +33143,25 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
 
             default:
-              await reply(`❌ Opção inválida: ${option}\nUse ${prefix}rentalconfig para ver as opções disponíveis.`);
+              await reply(`💎 Opção inválida: ${option}\nUsa ${prefix}rentalconfig pra ver as opções disponíveis.`);
           }
         } catch (error) {
           console.error('❌ Error updating rental config:', error);
-          await reply(`❌ Ocorreu um erro ao atualizar a configuração: ${error.message}`);
+          await reply(`💎 Não consegui mudar a configuração: ${error.message}`);
         }
         break;
 
       case 'rentalclean':
         if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-        if (!rentalExpirationManager) return reply('❌ Sistema de gerenciamento de expiração de aluguel não está ativo.');
+        if (!rentalExpirationManager) return reply(`💎 O controle de vencimento dos aluguéis não tá ligado ♡`);
 
         try {
           const statsBefore = rentalExpirationManager.getStats();
           await rentalExpirationManager.resetStats();
-          await reply(`✅ Estatísticas resetadas com sucesso!\n\nAntes:\n• Verificações: ${statsBefore.totalChecks}\n• Avisos: ${statsBefore.warningsSent}\n• Erros: ${statsBefore.errors}\n\nDepois:\n• Verificações: 0\n• Avisos: 0\n• Erros: 0`);
+          await reply(`✿ Estatísticas resetadas !\n\nAntes:\n• Verificações: ${statsBefore.totalChecks}\n• Avisos: ${statsBefore.warningsSent}\n• Erros: ${statsBefore.errors}\n\nDepois:\n• Verificações: 0\n• Avisos: 0\n• Erros: 0`);
         } catch (error) {
           console.error('❌ Error cleaning rental stats:', error);
-          await reply(`❌ Ocorreu um erro ao limpar as estatísticas: ${error.message}`);
+          await reply(`💎 Não consegui limpar as estatísticas: ${error.message}`);
         }
         break;
 
