@@ -3,7 +3,7 @@
 // (!designmenu): cabeçalho, bordas e ícones.
 //
 // Item com descrição: ['play <música>', 'toca a música que você pedir']
-// Seção em lista curta (vários comandos por linha): { lista: ['burro', 'inteligente', ...] }
+// Seção só com nomes, um comando por linha: { lista: ['burro', 'inteligente', ...] }
 // adulto: true -> some quando o grupo está no Modo Lite.
 
 const CATALOGO = {
@@ -892,7 +892,6 @@ const CATALOGO = {
   },
 };
 
-const POR_LINHA = 3;
 
 function desenhar(chave, prefix, botName, userName, design = {}, opcoes = {}) {
   const menu = CATALOGO[chave];
@@ -919,10 +918,8 @@ function desenhar(chave, prefix, botName, userName, design = {}, opcoes = {}) {
         linhas.push(`${d.middleBorder}${d.menuItemIcon}${prefix}${cmd} — _${desc}_`);
       }
     } else {
-      const lista = [...new Set(secao.lista)];
-      for (let i = 0; i < lista.length; i += POR_LINHA) {
-        const grupo = lista.slice(i, i + POR_LINHA).map(c => prefix + c);
-        linhas.push(`${d.middleBorder}${d.menuItemIcon}${grupo.join(' · ')}`);
+      for (const cmd of new Set(secao.lista)) {
+        linhas.push(`${d.middleBorder}${d.menuItemIcon}${prefix}${cmd}`);
       }
     }
     linhas.push(d.bottomBorder, '');
