@@ -34,7 +34,7 @@ Figurinhas · músicas e downloads · jogos e brincadeiras · RPG · proteção 
 
 | Categoria | Exemplos |
 |---|---|
-| 🎵 Músicas e downloads | `!play`, `!tiktok`, `!instagram`, `!spotify`, `!pinterest` |
+| 🎵 Músicas e downloads | `!play`, `!playvid`, `!tiktok`, `!spotify`, `!soundcloud`, `!letra` |
 | ✨ Figurinhas | `!sticker`, `!ttp`, `!attp`, `!brat`, `!emojimix`, `!toimg` |
 | 🎧 Efeitos | voz grave, eco, acelerar, cortar áudio e vídeo, tirar fundo de imagem |
 | 🎮 Brincadeiras | jogo da velha, UNO, forca, quiz, wordle, casal do dia, testes de % |
@@ -55,7 +55,8 @@ Você vai precisar de:
 | 📱 **Um número de WhatsApp secundário** | O bot usa o número como se fosse uma pessoa. **Nunca use o seu número principal**: o WhatsApp pode banir números que agem como robô. |
 | 🟢 **Node.js 20 ou mais novo** | É o programa que roda o bot. |
 | 🎬 **FFmpeg** | Faz figurinhas animadas, efeitos de áudio e vídeo. |
-| 🔑 **Chave da Vex API** *(opcional, paga)* | Só para os comandos de download (`!play`, `!tiktok`...). Pegue em [vexapi.com.br](https://vexapi.com.br). Sem ela, o resto do bot funciona normalmente. |
+| ▶️ **yt-dlp** | Baixa músicas e vídeos do YouTube (`!play`, `!playvid`). O bot procura na pasta `bin/` ou no sistema. |
+| 🎧 **Chave grátis da Groq** *(opcional)* | Só para transformar áudio em texto. Crie em [console.groq.com](https://console.groq.com) → *API Keys*. |
 
 > 💡 **Quanto o bot consome:** cerca de 100 a 150 MB de memória parado e até uns 300 MB em uso pesado. Um plano de 400 MB já dá conta.
 
@@ -82,7 +83,8 @@ Em todos os caminhos, o fim é igual: você roda o bot, ele pergunta algumas coi
 
    ```bash
    pkg update -y && pkg upgrade -y
-   pkg install -y nodejs-lts git ffmpeg
+   pkg install -y nodejs-lts git ffmpeg python
+   pip install -U yt-dlp
    ```
 
 3. Baixe o Opala e entre na pasta:
@@ -116,12 +118,16 @@ Em todos os caminhos, o fim é igual: você roda o bot, ele pergunta algumas coi
 
 Os comandos abaixo são para **Ubuntu e Debian**. Em outras distribuições, troque o `apt` pelo instalador da sua (`dnf`, `pacman`...).
 
-1. Instale o Node.js 22, o Git e o FFmpeg:
+1. Instale o Node.js 22, o Git, o FFmpeg e o yt-dlp:
 
    ```bash
    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
    sudo apt install -y nodejs git ffmpeg
+   sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux -o /usr/local/bin/yt-dlp
+   sudo chmod a+rx /usr/local/bin/yt-dlp
    ```
+
+   No Raspberry Pi (ARM), troque `yt-dlp_linux` por `yt-dlp_linux_aarch64`.
 
 2. Baixe o Opala:
 
@@ -142,13 +148,14 @@ Os comandos abaixo são para **Ubuntu e Debian**. Em outras distribuições, tro
 
 ### 🪟 Windows
 
-1. Instale estes três programas (pode aceitar tudo no padrão):
+1. Instale estes programas (pode aceitar tudo no padrão):
    - **Node.js LTS** → [nodejs.org](https://nodejs.org)
    - **Git** → [git-scm.com](https://git-scm.com/download/win)
-   - **FFmpeg** → abra o **PowerShell** e rode:
+   - **FFmpeg** e **yt-dlp** → abra o **PowerShell** e rode:
 
      ```powershell
      winget install --id Gyan.FFmpeg -e
+     winget install --id yt-dlp.yt-dlp -e
      ```
 
 2. Feche e abra o PowerShell de novo (para ele achar os programas novos).
@@ -185,11 +192,11 @@ Painéis Pterodactyl são aquela tela com **Console**, **Files** (arquivos) e **
 - No painel, vá em **Files → Upload**, envie o `.zip`, clique nos três pontinhos dele e escolha **Unarchive** (descompactar).
 - Ao final, os arquivos `package.json` e `iniciar.sh` devem estar na **pasta principal** do servidor, e não dentro de outra pasta.
 
-**3. FFmpeg (a maioria dos painéis não tem)**
-- No seu PC, baixe o FFmpeg para Linux: [johnvansickle.com/ffmpeg](https://johnvansickle.com/ffmpeg/) → *release* → **amd64** (ou **arm64**, se o painel disser que a máquina é ARM).
-- Extraia o arquivo e pegue só dois arquivos de dentro: `ffmpeg` e `ffprobe`.
-- No painel, crie uma pasta chamada **`bin`** (em **Files → New Folder**) e envie os dois para dentro dela.
-- O `iniciar.sh` encontra essa pasta sozinho.
+**3. FFmpeg e yt-dlp (a maioria dos painéis não tem)**
+- No painel, crie uma pasta chamada **`bin`** (em **Files → New Folder**).
+- **FFmpeg:** no seu PC, baixe a versão para Linux em [johnvansickle.com/ffmpeg](https://johnvansickle.com/ffmpeg/) → *release* → **amd64** (ou **arm64**, se o painel disser que a máquina é ARM). Extraia e envie só `ffmpeg` e `ffprobe` para a pasta `bin`.
+- **yt-dlp:** baixe o [`yt-dlp_linux`](https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux) (ou o `yt-dlp_linux_aarch64`, se a máquina for ARM), renomeie para **`yt-dlp`**, sem extensão, e envie para a pasta `bin`.
+- O bot encontra essa pasta sozinho.
 
 **4. Comando de início**
 - Na aba **Startup**, procure o campo do comando de início (pode se chamar *Startup Command*, *SECOND_CMD*, *CMD*...):
@@ -214,7 +221,7 @@ Depois que tudo funcionar, troque o comando que roda `npm install` a cada iníci
 Qualquer lugar serve, desde que tenha:
 
 - ✅ **Node.js 20+**
-- ✅ **FFmpeg** (instalado ou na pasta `bin/`)
+- ✅ **FFmpeg** e **yt-dlp** (instalados ou na pasta `bin/`)
 - ✅ **Disco que não se apaga**: a pasta `dados/database/` guarda a sessão do WhatsApp. Se ela sumir a cada reinício, você vai ter que conectar o número de novo toda vez.
 - ✅ **Processo ligado o tempo todo**: planos que "dormem" quando ninguém acessa um site não servem para bot.
 - ✅ **Comando de início:** `sh iniciar.sh` (ou `npm start`)
@@ -223,7 +230,7 @@ Qualquer lugar serve, desde que tenha:
 |---|---|
 | **VPS** (Oracle Cloud, Google Cloud, Contabo, Hostinger...) | Siga o [guia do Linux](#-linux-pc-ou-vps). |
 | **Hospedagens de bot com painel próprio** (Discloud, Square Cloud...) | Envie a pasta `bot` em `.zip`. Use `sh iniciar.sh` (ou `npm start`) como comando e Node 20+ na configuração da hospedagem. |
-| **Raspberry Pi** | Siga o [guia do Linux](#-linux-pc-ou-vps). Para o FFmpeg portátil, use a versão **arm64**. |
+| **Raspberry Pi** | Siga o [guia do Linux](#-linux-pc-ou-vps). Para o FFmpeg e o yt-dlp portáteis, use as versões **arm64**/**aarch64**. |
 
 ---
 
@@ -261,7 +268,7 @@ Na primeira vez, o bot pergunta tudo isso e salva em `dados/src/config.json`. Se
 | `numerodono` | **Seu** número (o do dono, não o do bot), com código do país e DDD | `5511999998888` |
 | `nomebot` | Nome do bot | `Opala` |
 | `prefixo` | Símbolo antes dos comandos | `!` |
-| `apikey_vex` | Chave da Vex API (só para downloads) | `SUA_KEY` |
+| `groq_apikey` | Chave grátis da Groq, só para transformar áudio em texto *(opcional)* | `gsk_...` |
 
 ### 👑 Como o bot reconhece o dono
 
@@ -367,15 +374,23 @@ O número foi desconectado pelo celular, ou a pasta `dados/database/qr-code` foi
 </details>
 
 <details>
-<summary><b>"!play" e outros downloads não funcionam</b></summary>
+<summary><b>"!play" não funciona</b></summary>
 
-Esses comandos usam a Vex API, que é paga. Confira se a chave está no `config.json` (`apikey_vex`) e se o plano está ativo. O dono pode trocar a chave pelo WhatsApp.
+- Rode `yt-dlp --version`. Se der erro, falta o yt-dlp: instale (veja o guia do seu sistema). No painel, confira se o arquivo `yt-dlp` está dentro da pasta `bin/`.
+- O YouTube muda sempre: mantenha o yt-dlp atualizado com `yt-dlp -U` (no painel, envie o arquivo novo por cima).
+- Se aparecer *"Sign in to confirm you're not a bot"*, o YouTube bloqueou o endereço da sua hospedagem. Em casa (Termux ou PC) isso quase nunca acontece.
 </details>
 
 <details>
 <summary><b>A hospedagem reclama que o bot está gastando demais</b></summary>
 
 Use o `iniciar.sh` como comando de início: ele limita a memória do bot. No painel, troque o `npm install` do início por `echo ok` (veja o [passo 6 do Pterodactyl](#-pterodactyl-waifly-e-outras-hospedagens-com-painel)).
+</details>
+
+<details>
+<summary><b>"!totext" (áudio em texto) não funciona</b></summary>
+
+Essa função precisa de uma chave grátis da Groq. Crie em [console.groq.com](https://console.groq.com) → *API Keys*, coloque no campo `groq_apikey` do `config.json` e reinicie o bot.
 </details>
 
 <details>

@@ -1,6 +1,8 @@
 import https from 'https'
 import fs from 'fs'
 import verificarAPI from '../API.js'
+import * as gratis from '../gratis.js'
+import ytSearch from 'yt-search'
 
 const CONFIG_FILE = JSON.parse(
   fs.readFileSync(new URL('../../config.json', import.meta.url), 'utf8')
@@ -39,7 +41,7 @@ function downloadFile(url) {
   })
 }
 
-async function search(query) {
+async function searchVex(query) {
   const checkAPI = await verificarAPI()
   if (checkAPI !== true) return { ok: false, msg: checkAPI }
 
@@ -85,7 +87,7 @@ async function search(query) {
   }
 }
 
-async function mp3(url) {
+async function mp3Vex(url) {
   const checkAPI = await verificarAPI()
   if (checkAPI !== true) return { ok: false, msg: checkAPI }
 
@@ -120,7 +122,7 @@ async function mp3(url) {
   }
 }
 
-async function mp4(url) {
+async function mp4Vex(url) {
   const checkAPI = await verificarAPI()
   if (checkAPI !== true) return { ok: false, msg: checkAPI }
 
@@ -154,6 +156,56 @@ async function mp4(url) {
     return { ok: false, msg: err.message }
   }
 }
+
+// Pesquisa grátis com o yt-search (mesmos campos da Vex)
+async function search(query) {
+  try {
+    const r = await ytSearch(query)
+    const video = r?.videos?.[0]
+    if (video) {
+      return {
+        ok: true,
+        data: {
+          videoId: video.videoId,
+          url: video.url,
+          title: video.title,
+          description: video.description,
+          thumbnail: video.thumbnail,
+          seconds: video.seconds,
+          timestamp: video.timestamp,
+          views: video.views,
+          ago: video.ago,
+          author: video.author?.name
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[youtube] pesquisa grátis falhou:', err.message)
+  }
+  if (gratis.temVex()) return searchVex(query)
+  return { ok: false, msg: 'Nenhum vídeo encontrado' }
+}
+
+// Download com o yt-dlp (grátis, na pasta bin/ ou no sistema); a Vex só entra se ele falhar
+async function baixar(url, tipo, reserva) {
+  try {
+    const { buffer, title } = await gratis.baixarYoutube(url, tipo)
+    return {
+      ok: true,
+      buffer,
+      title,
+      thumbnail: '',
+      filename: `${(title || (tipo === 'mp3' ? 'audio' : 'video')).replace(/[^\w\s]/gi, '')}.${tipo}`
+    }
+  } catch (err) {
+    console.warn(`[youtube] yt-dlp falhou (${tipo}):`, err.message)
+  }
+  if (gratis.temVex()) return reserva(url)
+  return { ok: false, msg: 'não deu pra baixar agora... tenta de novo daqui a pouquinho? (╥﹏╥)' }
+}
+
+const mp3 = url => baixar(url, 'mp3', mp3Vex)
+const mp4 = url => baixar(url, 'mp4', mp4Vex)
 
 export { search, mp3, mp4 }
 export const ytmp3 = mp3

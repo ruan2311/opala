@@ -522,7 +522,7 @@ async function createGroupMessage(NazunaSock, groupMetadata, participants, setti
     );
 
     if (result?.ok) {
-      message.image = { url: result.url };
+      message.image = result.buffer || { url: result.url };
       message.caption = text;
       delete message.text;
     }

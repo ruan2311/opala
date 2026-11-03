@@ -1,6 +1,7 @@
 import https from 'https';
 import fs from 'fs';
 import verificarAPI from '../API.js';
+import * as gratis from '../gratis.js';
 
 const CONFIG_FILE = JSON.parse(
     fs.readFileSync(new URL('../../config.json', import.meta.url), 'utf8')
@@ -30,7 +31,7 @@ function setCache(key, val) {
 /**
  * Gera imagem estática Brat (Retorna a URL direta)
  */
-async function gerarbrat(query, bg, text_color, blur) {
+async function gerarbratVex(query, bg, text_color, blur) {
     const checkAPI = await verificarAPI();
     if (checkAPI !== true) return { ok: false, msg: checkAPI };
 
@@ -66,7 +67,7 @@ async function gerarbrat(query, bg, text_color, blur) {
 }
 
 
-async function gerarbratvid(query, bg, text_color, bpm, blur) {
+async function gerarbratvidVex(query, bg, text_color, bpm, blur) {
     const checkAPI = await verificarAPI();
     if (checkAPI !== true) return { ok: false, msg: checkAPI };
 
@@ -103,7 +104,7 @@ async function gerarbratvid(query, bg, text_color, bpm, blur) {
 }
 
 
-async function gerarwelcomecard(avatar, nome, texto, fundo, corMoldura, corLinhas, glow) {
+async function gerarwelcomecardVex(avatar, nome, texto, fundo, corMoldura, corLinhas, glow) {
     const checkAPI = await verificarAPI();
     if (checkAPI !== true) return { ok: false, msg: checkAPI };
 
@@ -141,8 +142,40 @@ async function gerarwelcomecard(avatar, nome, texto, fundo, corMoldura, corLinha
     }
 }
 
+// As três abaixo são feitas no próprio bot (sharp + fonte em dados/midias/fontes).
+// Devolvem "buffer"; a Vex (que devolve "url") só entra se a geração local falhar.
+async function gerarbrat(query, bg, text_color, blur) {
+    if (!query) return { ok: false, msg: 'O texto (query) é obrigatório' };
+    try {
+        const buffer = await gratis.brat(query, bg, text_color, blur);
+        return { ok: true, type: 'image', mime: 'image/webp', query, buffer };
+    } catch (err) {
+        console.warn('[brat] geração local falhou:', err.message);
+    }
+    return gratis.temVex() ? gerarbratVex(query, bg, text_color, blur) : { ok: false, msg: '💎 Não consegui fazer a figurinha brat... (╥﹏╥)' };
+}
 
+async function gerarbratvid(query, bg, text_color, bpm, blur) {
+    if (!query) return { ok: false, msg: 'O texto (query) é obrigatório' };
+    try {
+        const buffer = await gratis.bratAnimado(query, bg, text_color, bpm, blur);
+        return { ok: true, type: 'video', mime: 'image/webp', query, buffer };
+    } catch (err) {
+        console.warn('[bratvid] geração local falhou:', err.message);
+    }
+    return gratis.temVex() ? gerarbratvidVex(query, bg, text_color, bpm, blur) : { ok: false, msg: '💎 Não consegui fazer a figurinha brat animada... (╥﹏╥)' };
+}
 
+async function gerarwelcomecard(avatar, nome, texto, fundo, corMoldura, corLinhas, glow) {
+    if (!nome) return { ok: false, msg: 'Nome é obrigatório para o cartão' };
+    try {
+        const buffer = await gratis.cartaoBoasVindas(avatar, nome, texto, fundo, corMoldura, corLinhas);
+        return { ok: true, type: 'image', mime: 'image/png', nome, buffer };
+    } catch (err) {
+        console.warn('[boas-vindas] cartão local falhou:', err.message);
+    }
+    return gratis.temVex() ? gerarwelcomecardVex(avatar, nome, texto, fundo, corMoldura, corLinhas, glow) : { ok: false, msg: 'Não consegui gerar o cartão' };
+}
 
 export {
     gerarbrat,

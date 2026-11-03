@@ -10,16 +10,12 @@ async function verificarAPI(responseData = null) {
     const prefix = config.prefixo || '.';
     const apikey = config.apikey_vex;
 
-    const tutorial = `⚠️ *Apikey não configurada!*
+    const tutorial = `💎 Essa função ainda precisa de uma chave da Vex API (paga e opcional).
 
-• Vá no site ${site} 
-• crie sua conta se não tiver uma
-• ative um plano (preços a partir de 5 reais)
-• copie sua \`api-key\`
-• use o comando \`${prefix}apikey <suakey>\`
-
-Exemplo:
-\`${prefix}apikey 1a0b5879-bc22-4f4a\``;
+O resto do bot funciona sem ela ♡ Se quiser liberar esta também:
+• crie uma conta em ${site} e ative um plano
+• copie a sua \`api-key\`
+• manda \`${prefix}apikey <suakey>\``;
 
     const apiInvalida = `⚠️ *Api-key inválida!*
 
@@ -60,7 +56,7 @@ Exemplo:
         return '⚠️ `site_vex` não configurado no config.json';
     }
 
-    if (!apikey || apikey.trim() === '') {
+    if (!apikey || apikey.trim() === '' || apikey.trim() === 'SUA_KEY') {
         console.log("[API] ERRO: apikey não configurada");
         return tutorial;
     }

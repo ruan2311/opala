@@ -1,6 +1,7 @@
 import https from 'https'
 import fs from 'fs'
 import verificarAPI from '../API.js'
+import * as gratis from '../gratis.js'
 
 const CONFIG_FILE = JSON.parse(
   fs.readFileSync(new URL('../../config.json', import.meta.url), 'utf8')
@@ -46,7 +47,7 @@ function request(url) {
   })
 }
 
-async function search(query) {
+async function searchVex(query) {
 
   const checkAPI = await verificarAPI()
   if (checkAPI !== true) {
@@ -115,7 +116,7 @@ async function search(query) {
   }
 }
 
-async function dl(url) {
+async function dlVex(url) {
 
   const checkAPI = await verificarAPI()
   if (checkAPI !== true) {
@@ -166,6 +167,30 @@ async function dl(url) {
   } catch (err) {
     return { ok: false, msg: err.message }
   }
+}
+
+// Pesquisa: só com a Vex (a busca grátis do tikwm bloqueia robôs)
+async function search(query) {
+  if (!gratis.temVex()) {
+    return { ok: false, msg: '💎 Por enquanto eu só baixo TikTok pelo link. Manda o link do vídeo, tá? ♡' }
+  }
+  return searchVex(query)
+}
+
+// Download: tenta o tikwm (grátis) e usa a Vex só se ele falhar
+async function dl(url) {
+  if (!url) return { ok: false, msg: 'URL inválida' }
+  const cached = getCached(`download:${url}`)
+  if (cached) return { ok: true, ...cached, cached: true }
+  try {
+    const result = await gratis.tiktok(url)
+    setCache(`download:${url}`, result)
+    return { ok: true, ...result }
+  } catch (err) {
+    console.warn('[tiktok] tikwm falhou:', err.message)
+  }
+  if (gratis.temVex()) return dlVex(url)
+  return { ok: false, msg: '💎 Não consegui baixar esse TikTok agora... tenta de novo daqui a pouquinho? (╥﹏╥)' }
 }
 
 export { search, dl }

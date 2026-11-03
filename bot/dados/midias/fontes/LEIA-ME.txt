@@ -1,0 +1,3 @@
+Nimbus Sans Narrow (URW base35), usada na figurinha brat e no cartão de boas-vindas.
+Licença: AGPL-3 com exceção para fontes (pode ser embutida em documentos e imagens).
+Origem: https://github.com/ArtifexSoftware/urw-base35-fonts

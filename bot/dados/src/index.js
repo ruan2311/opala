@@ -644,7 +644,7 @@ async function createGroupMessage(NazunaSock, groupMetadata, participants, setti
     );
 
     if (result?.ok) {
-      message.image = { url: result.url };
+      message.image = result.buffer || { url: result.url };
       message.caption = text;
       delete message.text;
     }
@@ -20161,20 +20161,17 @@ ${prefix}addsubbot @152656307871952`
 
           if (!texto) {
             return reply(
-              `🧠 Como usar o comando brat:
+              `✨ *Figurinha brat* ♡
 
-brat texto | cor_fundo | cor_texto | blur
+📝 *Usa assim:*
+${prefix}brat texto | fundo | cor do texto | desfoque
 
-📌 Exemplos:
-${prefix}brat Vex API
-• ${prefix}brat Vex API | black
-• ${prefix}brat Vex API | black | white
-• ${prefix}brat Vex API | purple | white | 3
+📌 *Ex.:*
+• ${prefix}brat opala é demais
+• ${prefix}brat opala é demais | black | white
+• ${prefix}brat opala é demais | purple | white | 3
 
-⚡ Padrão:
-Se não definir cores:
-- fundo = branco
-- texto = preto`
+💡 Sem cores, sai fundo branco com letra preta.`
             );
           }
 
@@ -20194,7 +20191,7 @@ Se não definir cores:
           }
 
           await nazu.sendMessage(from, {
-            sticker: { url: datinha.url },
+            sticker: datinha.buffer || { url: datinha.url },
             mimetype: 'image/webp'
           }, { quoted: info });
 
@@ -20222,23 +20219,18 @@ Se não definir cores:
 
           if (!texto) {
             return reply(
-              `🧠 Como usar o bratvid:
+              `✨ *Figurinha brat animada* ♡
 
-bratvid texto | cor_fundo | cor_texto | bpm
+📝 *Usa assim:*
+${prefix}bratvid texto | fundo | cor do texto | ritmo
 
-📌 Exemplos:
-${prefix}bratvid vex api
-• ${prefix}bratvid vex api | purple
-• ${prefix}bratvid vex api | purple | white
-• ${prefix}bratvid vex api | black | white | 140
+📌 *Ex.:*
+• ${prefix}bratvid oi gente tudo bem
+• ${prefix}bratvid oi gente tudo bem | purple | white
+• ${prefix}bratvid oi gente tudo bem | black | white | 140
 
-🎨 Parâmetros:
-- bg = cor do fundo (ex: purple, %23FF0000)
-- text_color = cor do texto (ex: white, black)
-- bpm = velocidade da animação (padrão 120)
-
-⚡ Dica:
-Se não definir cores, a API usa padrão automaticamente.`
+🎨 Cores: nomes em inglês (purple, black...) ou código (#FF0000)
+🎵 Ritmo: quantas palavras por minuto (padrão 120)`
             );
           }
 
@@ -20259,7 +20251,7 @@ Se não definir cores, a API usa padrão automaticamente.`
           }
 
           await nazu.sendMessage(from, {
-            sticker: { url: datinha.url },
+            sticker: datinha.buffer || { url: datinha.url },
             mimetype: 'image/webp'
           }, { quoted: info });
 
@@ -22079,8 +22071,8 @@ Precisa de ajuda? Entre em contato:
               `⚙️ *Configuração do Nome do Dono*\n\n` +
               `📝 *Como usar:*\n` +
               `• Digite o novo nome após o comando\n` +
-              `• Ex: ${prefix}${command} Tokyo\n` +
-              `• Ex: ${prefix}${command} Vex Tech Solutions\n\n` +
+              `• Ex: ${prefix}${command} Ana\n` +
+              `• Ex: ${prefix}${command} Opala Bots\n\n` +
               `✅ O nome do dono será atualizado!`
             );
           }

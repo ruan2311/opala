@@ -1,6 +1,7 @@
 import https from 'https';
 import fs from 'fs';
 import verificarAPI from '../API.js';
+import * as gratis from '../gratis.js';
 
 const CONFIG_FILE = JSON.parse(
   fs.readFileSync(new URL('../../config.json', import.meta.url), 'utf8')
@@ -27,7 +28,7 @@ function request(url) {
   });
 }
 
-async function getLyrics(topic) {
+async function getLyricsVex(topic) {
 
   const checkAPI = await verificarAPI();
   if (checkAPI !== true) return checkAPI;
@@ -91,6 +92,21 @@ ${lyrics}
     throw new Error(`Erro: ${err.message}`);
   }
 
+}
+
+// Tenta lrclib/lyrics.ovh (grátis) e usa a Vex só se não achar
+async function getLyrics(topic) {
+  try {
+    const achada = await gratis.letra(topic);
+    if (achada) {
+      const text = `🎵 *${achada.titulo}* 🎵\n👤 Artista: ${achada.artista}\n\n📜 *Letra:*\n\n${achada.letra}`;
+      return achada.imagem ? { text, image: achada.imagem } : { text };
+    }
+  } catch (err) {
+    console.warn('[letra] busca grátis falhou:', err.message);
+  }
+  if (gratis.temVex()) return getLyricsVex(topic);
+  return '💎 Não achei essa letra... tenta escrever o nome da música e do artista ♡';
 }
 
 export default getLyrics;

@@ -1,6 +1,7 @@
 import https from 'https'
 import fs from 'fs'
 import verificarAPI from '../API.js'
+import * as gratis from '../gratis.js'
 
 const CONFIG_FILE = JSON.parse(
   fs.readFileSync(new URL('../../config.json', import.meta.url), 'utf8')
@@ -54,7 +55,7 @@ function request(url) {
   })
 }
 
-async function totext(url) {
+async function totextVex(url) {
 
   const checkAPI = await verificarAPI()
 
@@ -127,6 +128,24 @@ async function totext(url) {
       msg: err.message
     }
 
+  }
+}
+
+// Groq (chave grátis em console.groq.com, campo "groq_apikey" do config.json); Vex só como reserva
+async function totext(url) {
+  if (!url) return { ok: false, msg: 'URL inválida' }
+  if (gratis.temGroq()) {
+    try {
+      const texto = await gratis.transcrever(url)
+      if (texto) return { ok: true, texto, codigo: 200, message: 'sucesso' }
+    } catch (err) {
+      console.warn('[totext] Groq falhou:', err.message)
+    }
+  }
+  if (gratis.temVex()) return totextVex(url)
+  return {
+    ok: false,
+    msg: '💎 Pra eu transcrever áudio, o dono precisa colocar uma chave grátis da Groq (console.groq.com) no campo "groq_apikey" do config.json ♡'
   }
 }
 

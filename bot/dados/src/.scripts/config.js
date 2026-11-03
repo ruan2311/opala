@@ -63,7 +63,8 @@ const SystemInfo = {
 const DEPENDENCIES_CONFIG = [
     { name: 'Git', check: 'git --version', termux: 'pkg install git -y', win: 'winget install --id Git.Git -e', linux: 'apt install -y git || dnf install -y git || pacman -S --noconfirm git', mac: 'brew install git' },
     { name: 'Yarn', check: 'yarn --version', termux: 'npm i -g yarn', win: 'npm i -g yarn', linux: 'sudo npm i -g yarn', mac: 'npm i -g yarn' },
-    { name: 'FFmpeg', check: 'ffmpeg -version', termux: 'pkg install ffmpeg -y', win: 'winget install --id Gyan.FFmpeg -e || choco install ffmpeg', linux: 'apt install -y ffmpeg || dnf install -y ffmpeg || pacman -S --noconfirm ffmpeg', mac: 'brew install ffmpeg' }
+    { name: 'FFmpeg', check: 'ffmpeg -version', termux: 'pkg install ffmpeg -y', win: 'winget install --id Gyan.FFmpeg -e || choco install ffmpeg', linux: 'apt install -y ffmpeg || dnf install -y ffmpeg || pacman -S --noconfirm ffmpeg', mac: 'brew install ffmpeg' },
+    { name: 'yt-dlp', check: 'yt-dlp --version', termux: 'pkg install -y python && pip install -U yt-dlp', win: 'winget install --id yt-dlp.yt-dlp -e', linux: 'curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux -o /usr/local/bin/yt-dlp && chmod a+rx /usr/local/bin/yt-dlp', mac: 'brew install yt-dlp' }
 ];
 
 async function runCommandWithSpinner(command, message) {
@@ -250,12 +251,13 @@ async function main() {
         nomebot: '',
         prefixo: '!',
         site_vex: 'https://vexapi.com.br',
-        apikey_vex: 'SUAKEY',
+        apikey_vex: '',
+        groq_apikey: '',
 
         github_ofc: 'https://projectgems.github.io',
         autor: 'DevTokyoVx',
         repositorio: 'opala',
-        modoaluguel: off,
+        modoaluguel: false,
 
         WA_WEB_VERSION: {
             aviso: 'Não mexa aqui, pode afetar o funcionamento do BOT.',
@@ -276,7 +278,8 @@ async function main() {
     config.nomebot = await promptInput(rl, '🤖 Nome do bot', config.nomebot);
     config.prefixo = await promptInput(rl, '🔣 Prefixo do bot (1 caractere)', config.prefixo, (v) => v.length === 1);
 
-    config.apikey_vex = await promptInput(rl, '🔑 Api-key do site https://vexapi.com.br', config.apikey_vex);
+    config.groq_apikey = await promptInput(rl, '🎧 Chave grátis da Groq para transcrever áudio (opcional: crie em console.groq.com ou aperte Enter)', config.groq_apikey || '');
+    config.apikey_vex = await promptInput(rl, '🔑 Chave da Vex API, só para Instagram, logos e efeitos de foto (opcional e paga: aperte Enter para pular)', config.apikey_vex || '');
 
     await fs.mkdir(path.dirname(CONFIG_FILE), { recursive: true });
     await fs.writeFile(CONFIG_FILE, JSON.stringify(config, null, 2));

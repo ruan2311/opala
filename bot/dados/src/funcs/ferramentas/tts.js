@@ -1,6 +1,7 @@
 import https from 'https'
 import fs from 'fs'
 import verificarAPI from '../API.js'
+import * as gratis from '../gratis.js'
 
 const CONFIG_FILE = JSON.parse(
   fs.readFileSync(new URL('../../config.json', import.meta.url), 'utf8')
@@ -8,7 +9,7 @@ const CONFIG_FILE = JSON.parse(
 
 const MODELOS_VALIDOS = ['masculino', 'feminino', 'robo', 'alien']
 
-async function tts(query, modelo = 'feminino') {
+async function ttsVex(query, modelo = 'feminino') {
   const checkAPI = await verificarAPI()
 
   if (checkAPI !== true) {
@@ -112,6 +113,20 @@ async function tts(query, modelo = 'feminino') {
       msg: err.message
     }
   }
+}
+
+// Voz do Google (grátis), com efeitos do ffmpeg para os outros modelos; Vex só se falhar
+async function tts(query, modelo = 'feminino') {
+  if (!query || typeof query !== 'string') return { ok: false, msg: 'Texto inválido' }
+  if (!MODELOS_VALIDOS.includes(modelo)) return { ok: false, msg: `Modelo inválido. Use: ${MODELOS_VALIDOS.join(', ')}` }
+  try {
+    const audio = await gratis.voz(query, modelo)
+    return { ok: true, audio, contentType: 'audio/mpeg', codigo: 200, modelo, message: 'sucesso' }
+  } catch (err) {
+    console.warn('[tts] voz grátis falhou:', err.message)
+  }
+  if (gratis.temVex()) return ttsVex(query, modelo)
+  return { ok: false, msg: '💎 Não consegui gravar o áudio agora... tenta de novo daqui a pouquinho? (╥﹏╥)' }
 }
 
 export { tts, MODELOS_VALIDOS }
