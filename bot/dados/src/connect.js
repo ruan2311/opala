@@ -10,6 +10,17 @@ import { readFile } from 'fs/promises';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
+
+// A criptografia do WhatsApp (libsignal) escreve sessões inteiras, com chaves, no console a cada troca.
+// Isso só gasta processador e expõe chaves no log do painel: silencia essas linhas.
+const SIGNAL_BARULHO = /^(Closing session|Closing open session|Removing old closed session|Session already closed|Session already open|Opening session|Migrating session)/;
+for (const nivel of ['log', 'info', 'warn']) {
+    const original = console[nivel].bind(console);
+    console[nivel] = (...args) => {
+        if (typeof args[0] === 'string' && SIGNAL_BARULHO.test(args[0])) return;
+        original(...args);
+    };
+}
 import axios from 'axios';
 import util from 'util';
 import PerformanceOptimizer from './utils/performanceOptimizer.js';
@@ -248,7 +259,7 @@ class MessageQueue {
     }
 }
 
-const messageQueue = new MessageQueue(8, 10, 2); 
+const messageQueue = new MessageQueue(4, 3, 2); // 6 mensagens por vez: cabe no plano de 400 MB / 40% de CPU
 
 const configPath = path.join(__dirname, "config.json");
 let config;
@@ -349,6 +360,9 @@ async function initializeOptimizedCaches(NazunaSock) {
 }
 const codeMode = process.argv.includes('--code') || process.env.NAZUNA_CODE_MODE === '1';
 
+
+// Mensagens guardadas para o antidelete e o reenvio; mais que isso só gasta memória
+const MAX_MENSAGENS_GUARDADAS = 800;
 
 let cacheCleanupInterval = null;
 const setupMessagesCacheCleanup = () => {
@@ -1503,6 +1517,10 @@ async function createBotSocket(authDir) {
 
                 const cacheKey = `${info.key.remoteJid}_${info.key.id}`;
                 messagesCache.set(cacheKey, info);
+                // Guarda só as mensagens mais recentes (o Map mantém a ordem de chegada)
+                while (messagesCache.size > MAX_MENSAGENS_GUARDADAS) {
+                    messagesCache.delete(messagesCache.keys().next().value);
+                }
             }
 
 
