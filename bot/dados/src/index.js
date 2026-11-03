@@ -5797,7 +5797,7 @@ Entre em contato com o dono do bot:
       case 'listaroles': {
         try {
           if (!isGroup) {
-            await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+            await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
             break;
           }
 
@@ -5832,7 +5832,7 @@ Entre em contato com o dono do bot:
       case 'role.criar': {
         try {
           if (!isGroup) {
-            await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+            await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
             break;
           }
           if (!isGroupAdmin) {
@@ -5955,7 +5955,7 @@ Entre em contato com o dono do bot:
       case 'role.alterar': {
         try {
           if (!isGroup) {
-            await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+            await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
             break;
           }
           if (!isGroupAdmin) {
@@ -6076,7 +6076,7 @@ Entre em contato com o dono do bot:
       case 'role.excluir': {
         try {
           if (!isGroup) {
-            await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+            await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
             break;
           }
           if (!isGroupAdmin) {
@@ -6125,7 +6125,7 @@ Entre em contato com o dono do bot:
       case 'role.vou': {
         try {
           if (!isGroup) {
-            await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+            await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
             break;
           }
 
@@ -6167,7 +6167,7 @@ Entre em contato com o dono do bot:
       case 'role.nvou': {
         try {
           if (!isGroup) {
-            await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+            await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
             break;
           }
 
@@ -6211,7 +6211,7 @@ Entre em contato com o dono do bot:
       case 'role.info': {
         try {
           if (!isGroup) {
-            await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+            await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
             break;
           }
           const code = sanitizeRoleCode(args[0] || '');
@@ -6384,8 +6384,8 @@ Entre em contato com o dono do bot:
 
       case 'modorpg':
       case 'rpgmode': {
-        if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-        if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
         groupData.modorpg = !groupData.modorpg;
         writeJsonFile(groupFile, groupData);
         // Otimização: Invalida cache quando groupData é salvo
@@ -6482,7 +6482,7 @@ Entre em contato com o dono do bot:
       case 'daily':
       case 'resetrpg':
         {
-          if (!isGroup) return reply('⚔️ Os comandos RPG funcionam apenas em grupos.');
+          if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
           if (!groupData.modorpg) return reply(`⚔️ *Modo RPG desativado!*\n\n🔒 Este recurso está disponível apenas quando o Modo RPG está ativado.\n🔐 *Administradores* podem ativar com: ${prefix}modorpg\n\n💡 Use ${prefix}menurpg para ver todos os comandos!`);
           const econ = loadEconomy();
           const changedEconomy = ensureEconomyDefaults(econ);
@@ -6497,7 +6497,7 @@ Entre em contato com o dono do bot:
           if (['ranklevel', 'ranklvl', 'rankinglevel', 'levels', 'toplevels'].includes(sub)) {
             // Se estiver em grupo, usamos o ranking do grupo (RPG)
             if (isGroup) {
-              if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+              if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
               const levelingData = loadLevelingSafe();
               const userEntries = Object.entries(levelingData.users || {});
               const groupUsers = userEntries.filter(([id, data]) => AllgroupMembers.includes(id));
@@ -7006,7 +7006,7 @@ Entre em contato com o dono do bot:
             if (Date.now() < cdBet) return reply(`⏳ Aguarde ${timeLeft(cdBet)} para apostar novamente.`);
             const amount = parseAmount(args[0], me.wallet);
             if (!isFinite(amount) || amount <= 0) return reply('Valor inválido.');
-            if (amount > me.wallet) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+            if (amount > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             // CASSINO NERFADO: 3% de chance de ganhar (era 47%)
             const win = Math.random() < 0.03;
             if (win) {
@@ -7025,7 +7025,7 @@ Entre em contato com o dono do bot:
             if (Date.now() < cdSlots) return reply(`⏳ Aguarde ${timeLeft(cdSlots)} para jogar slots novamente.`);
             const amount = parseAmount(args[0] || '100', me.wallet);
             if (!isFinite(amount) || amount <= 0) return reply('Valor inválido.');
-            if (amount > me.wallet) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+            if (amount > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             // SLOTS NERFADO: símbolos com pesos para quase nunca combinar
             const symbols = ['🍒', '🍋', '🍉', '⭐', '🔔', '🍇', '🍊', '🍓']; // mais símbolos = menos chance
             // Cada slot é independente e viciado para não combinar
@@ -7881,7 +7881,7 @@ Entre em contato com o dono do bot:
             if (!ofr) return reply('Anúncio não encontrado.');
             if (ofr.seller === sender) return reply('Você não pode comprar seu próprio anúncio.');
             const tax = Math.floor(ofr.price * 0.05);
-            if (me.wallet < ofr.price) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+            if (me.wallet < ofr.price) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             const seller = getEcoUser(econ, ofr.seller);
             me.wallet -= ofr.price;
             seller.wallet += (ofr.price - tax); // taxa de 5%
@@ -7917,7 +7917,7 @@ Entre em contato com o dono do bot:
             const key = (args[0] || '').toLowerCase(); if (!key) return reply(`Use: ${prefix}comprarpropriedade <tipo>`);
             const prop = (econ.propertiesCatalog || {})[key]; if (!prop) return reply('Propriedade inexistente.');
             if (me.properties?.[key]?.owned) return reply('Você já possui essa propriedade.');
-            if (me.wallet < prop.price) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+            if (me.wallet < prop.price) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
             me.wallet -= prop.price;
             me.properties[key] = { owned: true, lastCollect: Date.now() };
             saveEconomy(econ);
@@ -8129,8 +8129,8 @@ Entre em contato com o dono do bot:
       case 'equipamentos':
       case 'gear':
       case 'equip': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8167,8 +8167,8 @@ Entre em contato com o dono do bot:
       case 'conquistas':
       case 'achievements':
       case 'medalhas': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8218,8 +8218,8 @@ Entre em contato com o dono do bot:
       // Sistema de Pets
       case 'pets':
       case 'meuspets': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8319,8 +8319,8 @@ Entre em contato com o dono do bot:
 
       case 'adotar':
       case 'adopt': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8398,8 +8398,8 @@ Entre em contato com o dono do bot:
 
       case 'alimentar':
       case 'feed': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8450,8 +8450,8 @@ Entre em contato com o dono do bot:
 
       case 'treinar':
       case 'train': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8463,7 +8463,7 @@ Entre em contato com o dono do bot:
 
         const index = parseInt(q) - 1;
         if (isNaN(index) || index < 0 || index >= me.pets.length) {
-          return reply(`❌ Pet inválido! Use ${prefix}pets para ver seus pets.`);
+          return reply(`🐾 Não achei esse pet... confere em ${prefix}pets ♡`);
         }
 
         const pet = me.pets[index];
@@ -8528,8 +8528,8 @@ Entre em contato com o dono do bot:
 
       case 'evoluirpet':
       case 'evolve': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8539,7 +8539,7 @@ Entre em contato com o dono do bot:
 
         const index = parseInt(q) - 1;
         if (isNaN(index) || index < 0 || index >= me.pets.length) {
-          return reply(`❌ Pet inválido! Use ${prefix}pets para ver seus pets.`);
+          return reply(`🐾 Não achei esse pet... confere em ${prefix}pets ♡`);
         }
 
         const pet = me.pets[index];
@@ -8649,13 +8649,13 @@ Entre em contato com o dono do bot:
 
       case 'renomearpet':
       case 'renamepet': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
 
         const args = q.split(' ');
         const index = parseInt(args[0]) - 1;
@@ -8691,8 +8691,8 @@ Entre em contato com o dono do bot:
 
       case 'batalhapet':
       case 'petbattle': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8710,7 +8710,7 @@ Entre em contato com o dono do bot:
 
         const opponent = getEcoUser(econ, target);
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
         if (!opponent.pets || opponent.pets.length === 0) {
           return reply('❌ Seu oponente não tem pets!');
         }
@@ -8910,8 +8910,8 @@ Entre em contato com o dono do bot:
       // Apostar com Pets
       case 'apostarpet':
       case 'petbet': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8930,11 +8930,11 @@ Entre em contato com o dono do bot:
         const opponent = getEcoUser(econ, target);
         if (betAmount > opponent.wallet) return reply('❌ Seu oponente não tem dinheiro suficiente!');
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
         if (!opponent.pets || opponent.pets.length === 0) return reply('❌ Seu oponente não tem pets!');
 
         if (isNaN(petIndex) || petIndex < 0 || petIndex >= me.pets.length) {
-          return reply(`❌ Pet inválido! Use ${prefix}pets para ver seus pets.`);
+          return reply(`🐾 Não achei esse pet... confere em ${prefix}pets ♡`);
         }
 
         const myPet = me.pets[petIndex];
@@ -8978,8 +8978,8 @@ Entre em contato com o dono do bot:
       // Equipar item no Pet
       case 'equippet':
       case 'equiparpet': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8990,7 +8990,7 @@ Entre em contato com o dono do bot:
         const petIndex = parseInt(argsArr[0]) - 1;
         const itemId = argsArr.slice(1).join('_').toLowerCase();
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
         if (isNaN(petIndex) || petIndex < 0 || petIndex >= me.pets.length) {
           return reply(`❌ Pet inválido!\n\n💡 Uso: ${prefix}equippet <nº pet> <item>`);
         }
@@ -9050,15 +9050,15 @@ Entre em contato com o dono do bot:
       // Desequipar item do Pet
       case 'unequippet':
       case 'desequiparpet': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
         const petIndex = parseInt(q) - 1;
 
-        if (!me.pets || me.pets.length === 0) return reply('🐾 Você não tem pets!');
+        if (!me.pets || me.pets.length === 0) return reply(`🐾 Você ainda não tem pet... adota um com ${prefix}adotar ♡`);
         if (isNaN(petIndex) || petIndex < 0 || petIndex >= me.pets.length) {
           return reply(`❌ Pet inválido!\n\n💡 Uso: ${prefix}unequippet <nº pet>`);
         }
@@ -9080,8 +9080,8 @@ Entre em contato com o dono do bot:
       // Equipar item para o Jogador
       case 'equipar':
       case 'equip': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9143,8 +9143,8 @@ Entre em contato com o dono do bot:
       // Desequipar item do Jogador
       case 'desequipar':
       case 'unequip': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9194,8 +9194,8 @@ Entre em contato com o dono do bot:
       case 'masmorrasolo':
       case 'dungeonsolo':
       case 'dg': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9325,8 +9325,8 @@ Entre em contato com o dono do bot:
       case 'cheferpg':
       case 'bossrpg':
       case 'bossfight': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9412,8 +9412,8 @@ Entre em contato com o dono do bot:
       case 'eventos':
       case 'events':
       case 'eventosrpg': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const now = new Date();
         const dayOfWeek = now.getDay();
@@ -9471,8 +9471,8 @@ Entre em contato com o dono do bot:
       case 'duelarrpg':
       case 'duelorpg':
       case 'duelrpg': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9603,8 +9603,8 @@ Entre em contato com o dono do bot:
 
       // Sistema de Arena
       case 'arena': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9710,8 +9710,8 @@ Entre em contato com o dono do bot:
       // Sistema de Encantamento
       case 'encantar':
       case 'enchant': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9788,8 +9788,8 @@ Entre em contato com o dono do bot:
       // Sistema de Desmontar
       case 'desmontar':
       case 'dismantle': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9856,8 +9856,8 @@ Entre em contato com o dono do bot:
       case 'classe':
       case 'class':
       case 'profissao': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9917,8 +9917,8 @@ Entre em contato com o dono do bot:
       case 'casa':
       case 'house':
       case 'lar': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10063,8 +10063,8 @@ Entre em contato com o dono do bot:
       case 'dungeon':
       case 'masmorra':
       case 'raid': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10273,8 +10273,8 @@ Entre em contato com o dono do bot:
       case 'mercadoplayer':
       case 'auction':
       case 'leilaoplayer': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10423,8 +10423,8 @@ Entre em contato com o dono do bot:
       case 'missoes':
       case 'quests':
       case 'missao': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10500,8 +10500,8 @@ Entre em contato com o dono do bot:
       case 'guerra':
       case 'war':
       case 'guerracla': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10532,8 +10532,8 @@ Entre em contato com o dono do bot:
       // Criar clã
       case 'criarcla':
       case 'criarclã': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10569,8 +10569,8 @@ Entre em contato com o dono do bot:
       // Info de Clã
       case 'cla':
       case 'claninfo': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10612,8 +10612,8 @@ Entre em contato com o dono do bot:
       case 'convidar':
       case 'invite':
       case 'convite': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10647,11 +10647,11 @@ Entre em contato com o dono do bot:
       // Remover convite pendente (apenas líder)
       case 'rmconvite':
       case 'removerconvite': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
         const econ2 = loadEconomy();
         const me2 = getEcoUser(econ2, sender);
-        if (!me2.clan) return reply('❌ Você não faz parte de nenhum clã.');
+        if (!me2.clan) return reply(`🛡️ Você ainda não tá em nenhum clã ♡`);
         const clan2 = econ2.clans[me2.clan];
         if (!clan2) { me2.clan = null; saveEconomy(econ2); return reply('❌ Seu clã não foi encontrado.'); }
         if (clan2.leader !== sender) return reply('👑 Apenas o líder pode remover convites.');
@@ -10667,13 +10667,13 @@ Entre em contato com o dono do bot:
 
       // Sair do clã
       case 'sair': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
-        if (!me.clan) return reply('❌ Você não faz parte de nenhum clã.');
+        if (!me.clan) return reply(`🛡️ Você ainda não tá em nenhum clã ♡`);
 
         const clan = econ.clans[me.clan];
         if (!clan) {
@@ -10723,7 +10723,7 @@ Entre em contato com o dono do bot:
       case 'aceitarconvite':
       case 'aceitarrpg': {
         if (!isGroup) return reply('⚔️ Comandos de clã só funcionam em grupos com Modo RPG.');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10754,7 +10754,7 @@ Entre em contato com o dono do bot:
       case 'recusarconvite':
       case 'recusar': {
         if (!isGroup) return reply('⚔️ Comandos de clã só funcionam em grupos com Modo RPG.');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
         const clansWithInvite = Object.values(econ.clans || {}).filter(c => Array.isArray(c.pendingInvites) && c.pendingInvites.includes(sender));
@@ -10776,11 +10776,11 @@ Entre em contato com o dono do bot:
       // Expulsar membro do clã (apenas líder)
       case 'expulsar':
       case 'kickcla': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
-        if (!me.clan) return reply('❌ Você não faz parte de nenhum clã.');
+        if (!me.clan) return reply(`🛡️ Você ainda não tá em nenhum clã ♡`);
         const clan = econ.clans[me.clan];
         if (!clan) { me.clan = null; saveEconomy(econ); return reply('❌ Seu clã não foi encontrado.'); }
         if (clan.leader !== sender) return reply('👑 Apenas o líder pode expulsar membros.');
@@ -10802,8 +10802,8 @@ Entre em contato com o dono do bot:
       // Sistema de Família
       case 'familia':
       case 'family': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10894,8 +10894,8 @@ Entre em contato com o dono do bot:
 
       case 'adotaruser':
       case 'adotarfilho': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10960,8 +10960,8 @@ Entre em contato com o dono do bot:
       case 'deserdar':
       case 'desherdar':
       case 'removerfilho': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11013,8 +11013,8 @@ Entre em contato com o dono do bot:
 
       case 'arvore':
       case 'familytree': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11116,8 +11116,8 @@ Entre em contato com o dono do bot:
       // Sistema de Torneio
       case 'torneio':
       case 'tournament': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11235,8 +11235,8 @@ Entre em contato com o dono do bot:
       // Interações Sociais RPG
       case 'abracarrpg':
       case 'hugrpg': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❌ Marque alguém para abraçar!\n\n💡 Exemplo: ${prefix}abracar @user`);
@@ -11255,8 +11255,8 @@ Entre em contato com o dono do bot:
 
       case 'beijarrpg':
       case 'kissrpg': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❌ Marque alguém para beijar!\n\n💡 Exemplo: ${prefix}beijarrpg @user`);
@@ -11276,8 +11276,8 @@ Entre em contato com o dono do bot:
       case 'baterrpg':
       case 'taparpg':
       case 'slaprpg': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❌ Marque alguém para dar um tapa!\n\n💡 Exemplo: ${prefix}baterrpg @user`);
@@ -11296,8 +11296,8 @@ Entre em contato com o dono do bot:
 
       case 'proteger':
       case 'protect': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11335,8 +11335,8 @@ Entre em contato com o dono do bot:
       case 'reputacao':
       case 'rep':
       case 'reputation': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11374,8 +11374,8 @@ Entre em contato com o dono do bot:
 
       case 'votar':
       case 'vote': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11681,8 +11681,8 @@ Entre em contato com o dono do bot:
       case 'lojapremium':
       case 'premiumshop':
       case 'lojadeluxo': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const premiumItems = [
           { id: 'titulo_lendario', name: '🏅 Título Lendário', price: 500000, desc: 'Título exclusivo no perfil' },
@@ -11714,8 +11714,8 @@ Entre em contato com o dono do bot:
       // Comprar item premium
       case 'comprarpremium':
       case 'buypremium': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const rawItemId = (args[0] || '');
         if (!rawItemId) return reply(`❌ Informe o item!\n\n💡 Uso: ${prefix}comprarpremium <item>\n🛒 Veja a loja: ${prefix}lojapremium`);
@@ -11763,8 +11763,8 @@ Entre em contato com o dono do bot:
       // Cassino Roleta - NERFADO
       case 'roleta':
       case 'roulette': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11839,8 +11839,8 @@ Entre em contato com o dono do bot:
       case 'blackjack':
       case 'bj':
       case '21': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11851,7 +11851,7 @@ Entre em contato com o dono do bot:
 
         const bet = parseInt(args[0]) || 0;
         if (bet <= 0) return reply(`🃏 *BLACKJACK*\n\n💡 Uso: ${prefix}blackjack <valor>\n\n📜 Regras: Chegue mais perto de 21 sem passar!`);
-        if (bet > me.wallet) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+        if (bet > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // BLACKJACK NERFADO: Dealer tem cartas viciadas
         const getPlayerCard = () => {
@@ -11937,8 +11937,8 @@ Entre em contato com o dono do bot:
       case 'slots':
       case 'slotmachine':
       case 'cacaniquel': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11949,7 +11949,7 @@ Entre em contato com o dono do bot:
 
         const bet = parseInt(args[0]) || 0;
         if (bet <= 0) return reply(`🎰 *CAÇA-NÍQUEIS*\n\n💡 Uso: ${prefix}slots <valor>\n\n🎲 Alinhe 3 símbolos iguais para ganhar!`);
-        if (bet > me.wallet) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+        if (bet > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // SLOTS NERFADO: Cada posição tem preferência por símbolos diferentes
         const symbols = ['🍒', '🍋', '🍊', '🍇', '⭐', '💎', '7️⃣'];
@@ -12012,8 +12012,8 @@ Entre em contato com o dono do bot:
       case 'loteria':
       case 'lottery':
       case 'mega': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12076,8 +12076,8 @@ Entre em contato com o dono do bot:
       case 'corrida':
       case 'horserace':
       case 'cavalos': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12098,7 +12098,7 @@ Entre em contato com o dono do bot:
           return reply(text);
         }
 
-        if (bet > me.wallet) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+        if (bet > me.wallet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         const horses = [
           { name: '🟤 Trovão', odds: 1.5, chance: 35 },
@@ -12143,8 +12143,8 @@ Entre em contato com o dono do bot:
       case 'leilao':
       case 'leilaorpg':
       case 'leiloar': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12222,7 +12222,7 @@ Entre em contato com o dono do bot:
           }
 
           if (me.wallet < bidAmount) {
-            return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+            return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
           }
 
           // Devolver dinheiro ao lance anterior
@@ -12276,8 +12276,8 @@ Entre em contato com o dono do bot:
       case 'boost':
       case 'buff':
       case 'impulsionar': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12345,8 +12345,8 @@ Entre em contato com o dono do bot:
       case 'tributos':
       case 'impostos':
       case 'taxes': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12443,8 +12443,8 @@ Entre em contato com o dono do bot:
       case 'doar':
       case 'donate':
       case 'doacao': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12452,7 +12452,7 @@ Entre em contato com o dono do bot:
         const amount = parseInt(args[0]) || 0;
         if (amount < 1000) return reply(`💝 *DOAÇÃO*\n\n💡 Uso: ${prefix}doar <valor>\n\n📌 Mínimo: 1.000 moedas\n✨ Ganhe karma e reputação por doar!`);
 
-        if (me.wallet < amount) return reply('✿ Saldo insuficiente... (｡•́︿•̀｡)');
+        if (me.wallet < amount) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         me.wallet -= amount;
 
@@ -12479,8 +12479,8 @@ Entre em contato com o dono do bot:
       // Sistema de Presente
       case 'presente':
       case 'gift': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12514,8 +12514,8 @@ Entre em contato com o dono do bot:
       case 'meustats':
       case 'mystats':
       case 'statsrpg': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12574,8 +12574,8 @@ Entre em contato com o dono do bot:
       case 'evoluir':
       case 'evolucao':
       case 'prestige': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12717,8 +12717,8 @@ Entre em contato com o dono do bot:
       // Sistema de Investimentos
       case 'investir':
       case 'invest': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12818,8 +12818,8 @@ Entre em contato com o dono do bot:
 
       case 'vender':
       case 'sell': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12859,15 +12859,15 @@ Entre em contato com o dono do bot:
       // Sistema de Apostas/Cassino - NERFADO
       case 'dados':
       case 'dice': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
         const bet = parseInt(q) || 0;
-        if (bet < 100) return reply('💰 Aposta mínima: 100 moedas');
-        if (me.wallet < bet) return reply('💰 Você não tem moedas suficientes!');
+        if (bet < 100) return reply(`💰 A aposta mínima é 100 moedas ♡`);
+        if (me.wallet < bet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // Cooldown de 8 minutos
         const cdDados = me.cooldowns?.dados || 0;
@@ -12928,8 +12928,8 @@ Entre em contato com o dono do bot:
 
       case 'coinflip':
       case 'moeda': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12945,8 +12945,8 @@ Entre em contato com o dono do bot:
           return reply(`💡 Use ${prefix}coinflip <cara|coroa> <valor>\n\n📝 Aceita: cara, coroa, heads, tails`);
         }
 
-        if (bet < 100) return reply('💰 Aposta mínima: 100 moedas');
-        if (me.wallet < bet) return reply('💰 Você não tem moedas suficientes!');
+        if (bet < 100) return reply(`💰 A aposta mínima é 100 moedas ♡`);
+        if (me.wallet < bet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // Cooldown de 8 minutos
         const cdCoin = me.cooldowns?.coinflip || 0;
@@ -12982,15 +12982,15 @@ Entre em contato com o dono do bot:
       }
 
       case 'crash': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
         const bet = parseInt(q) || 0;
-        if (bet < 100) return reply('💰 Aposta mínima: 100 moedas');
-        if (me.wallet < bet) return reply('💰 Você não tem moedas suficientes!');
+        if (bet < 100) return reply(`💰 A aposta mínima é 100 moedas ♡`);
+        if (me.wallet < bet) return reply(`💰 Hmm, falta moedinha pra isso... (｡•́︿•̀｡)`);
 
         // Cooldown de 10 minutos
         const cdCrash = me.cooldowns?.crash || 0;
@@ -13038,8 +13038,8 @@ Entre em contato com o dono do bot:
       // Sistema de Streaks
       case 'streak':
       case 'serie': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13121,8 +13121,8 @@ Entre em contato com o dono do bot:
 
       case 'reivindicar':
       case 'claim': {
-        if (!isGroup) return reply('⚔︎ Esse comando só funciona em grupos com o Modo RPG ligado ♡');
-        if (!groupData.modorpg) return reply(`⚔︎ O Modo RPG tá desligado! Usa ${prefix}modorpg pra ligar ♡`);
+        if (!isGroup) return reply(`⚔︎ O RPG só acontece em grupo com o Modo RPG ligado, tá? ♡`);
+        if (!groupData.modorpg) return reply(`⚔︎ O RPG tá dormindo nesse grupo... um admin acorda ele com ${prefix}modorpg ♡`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13340,7 +13340,7 @@ Entre em contato com o dono do bot:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'videorapido':
@@ -13432,7 +13432,7 @@ Entre em contato com o dono do bot:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -13444,7 +13444,7 @@ Entre em contato com o dono do bot:
       case 'resumirgrupo':
       case 'resumirconversa': {
         if (!isGroup) {
-          return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+          return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         }
 
 
@@ -15511,7 +15511,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       case 'niver':
       case 'birthday': {
         if (!isGroup) {
-          return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+          return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         }
 
         // Carregar dados de aniversários do grupo
@@ -15609,7 +15609,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       case 'estatisticas':
       case 'statsgrupo': {
         if (!isGroup) {
-          return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+          return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         }
 
         await reply('📊 Calculando estatísticas do grupo... ⏳');
@@ -15667,7 +15667,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           }
           const idioma = partes[0].trim();
           const texto = partes.slice(1).join('|').trim();
-          reply('✿ Só um momentinho... ⋆｡˚ ☁︎').then(() => {
+          reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`).then(() => {
             const prompt = `Traduza o seguinte texto para ${idioma}:\n\n${texto}\n\nForneça apenas a tradução, sem explicações adicionais.`;
             ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null).then((bahz) => {
               reply(`🌐✨ *Prontinho! Sua tradução para ${idioma.toUpperCase()} está aqui:*\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
@@ -15681,7 +15681,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         break;
       case 'qrcode':
         if (!q) return reply(`📲 *Gerador de QR Code*\n\n💡 *Como usar:*\n• Envie o texto ou link após o comando\n• Ex: ${prefix}qrcode https://exemplo.com\n• Ex: ${prefix}qrcode Seu texto aqui\n\n✨ O QR Code será gerado instantaneamente!`);
-        reply('✿ Só um momentinho... ⋆｡˚ ☁︎').then(() => {
+        reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`).then(() => {
           const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(q)}`;
           return nazu.sendMessage(from, {
             image: { url: qrUrl },
@@ -16443,7 +16443,7 @@ ${prefix}addsubbot @152656307871952`
           await cmdLimitAdd(nazu, from, q, reply, prefix, isOwnerOrSub);
         } catch (error) {
           console.error('Error in cmdlimitar:', error);
-          await reply('❌ Erro interno!');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -16455,7 +16455,7 @@ ${prefix}addsubbot @152656307871952`
           await cmdLimitRemove(nazu, from, q, reply, prefix, isOwnerOrSub);
         } catch (error) {
           console.error('Error in cmddeslimitar:', error);
-          await reply('❌ Erro interno!');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -16467,7 +16467,7 @@ ${prefix}addsubbot @152656307871952`
           await cmdLimitList(nazu, from, q, reply, prefix, isOwnerOrSub);
         } catch (error) {
           console.error('Error in cmdlimites:', error);
-          await reply('❌ Erro interno!');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -16518,7 +16518,7 @@ ${prefix}addsubbot @152656307871952`
           }
         } catch (e) {
           console.error("Erro no comando modoaluguel:", e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -16615,8 +16615,8 @@ ${prefix}addsubbot @152656307871952`
         }
         break;
       case 'leveling':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
         groupData.levelingEnabled = !groupData.levelingEnabled;
         writeJsonFile(groupFile, groupData);
         // Otimização: Invalida cache quando groupData é salvo
@@ -16663,7 +16663,7 @@ ${prefix}addsubbot @152656307871952`
         await reply(levelText);
         break;
       case 'addxp':
-        if (!isOwner) return reply("Apenas o dono pode usar este comando.");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         if (!menc_os2 || !q) return reply("Marque um usuário e especifique a quantidade de XP.");
         const xpToAdd = parseInt(args[args.length - 1]);
         if (isNaN(xpToAdd)) return reply("Quantidade de XP inválida.");
@@ -16677,7 +16677,7 @@ ${prefix}addsubbot @152656307871952`
         });
         break;
       case 'delxp':
-        if (!isOwner) return reply("Apenas o dono pode usar este comando.");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         if (!menc_os2 || !q) return reply("Marque um usuário e especifique a quantidade de XP.");
         const xpToRemove = parseInt(args[args.length - 1]);
         if (isNaN(xpToRemove)) return reply("Quantidade de XP inválida.");
@@ -16748,7 +16748,7 @@ ${prefix}addsubbot @152656307871952`
 
         if (!isGroup) {
           console.log('🚫 Bloqueado: comando não foi usado em grupo');
-          return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         }
 
         try {
@@ -17422,8 +17422,8 @@ ${prefix}addsubbot @152656307871952`
       case 'addautoadm':
       case 'addautoadmin':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q || !q.includes('/')) return reply(`Por favor, forneça a mensagem recebida e a resposta separadas por /. Ex: ${groupPrefix}addautoadm oi/Olá! Como posso ajudar?`);
           const [received, response] = q.split('/').map(s => s.trim());
           if (!received || !response) return reply("Formato inválido. Use: mensagem recebida/mensagem do bot");
@@ -17447,8 +17447,8 @@ ${prefix}addsubbot @152656307871952`
       case 'addautoadmidia':
       case 'addautoadmmidia':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`📝 Como usar:\n\n1️⃣ ${groupPrefix}addautoadmidia [trigger]\n2️⃣ Responda uma mídia (imagem, vídeo, áudio ou sticker)\n3️⃣ Opcionalmente adicione uma legenda\n\nExemplo: ${groupPrefix}addautoadmidia bemvindo (respondendo uma imagem)`);
 
           const trigger = q.trim();
@@ -17542,8 +17542,8 @@ ${prefix}addsubbot @152656307871952`
       case 'listautoadm':
       case 'listautoadmin':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           const autoResponses = loadGroupAutoResponses(from);
           if (autoResponses.length === 0) return reply("📜 Nenhuma auto-resposta do grupo definida.");
@@ -17600,8 +17600,8 @@ ${prefix}addsubbot @152656307871952`
       case 'delautoadm':
       case 'delautoadmin':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q || isNaN(parseInt(q))) return reply(`Por favor, forneça o número da auto-resposta a ser removida. Ex: ${groupPrefix}delautoadm 1`);
           const index = parseInt(q) - 1;
           const autoResponses = loadGroupAutoResponses(from);
@@ -17621,8 +17621,8 @@ ${prefix}addsubbot @152656307871952`
       case 'autoresponses':
       case 'autorespostas':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           const globalResponses = loadCustomAutoResponses();
           const groupResponses = loadGroupAutoResponses(from);
@@ -18655,7 +18655,7 @@ ${prefix}addsubbot @152656307871952`
           reply(`✅ *Link encurtado com sucesso!*\n\n🔗 *Link curto:* ${shortResponse.data.short_url}\n📎 *Link original:* ${shortResponse.data.long_url}`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'nick':
@@ -18668,7 +18668,7 @@ ${prefix}addsubbot @152656307871952`
           await reply(datzn.join('\n'));
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'printsite':
@@ -18684,7 +18684,7 @@ ${prefix}addsubbot @152656307871952`
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'upload':
@@ -18711,7 +18711,7 @@ ${prefix}addsubbot @152656307871952`
           await reply(`${linkz}`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -18982,7 +18982,7 @@ ${prefix}addsubbot @152656307871952`
 
           if (q.includes('youtube.com') || q.includes('youtu.be')) {
             videoUrl = q;
-            await reply('✿ Só um momentinho... ⋆｡˚ ☁︎');
+            await reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
 
             youtube.mp3(videoUrl, 128)
               .then(async (dlRes) => {
@@ -19004,7 +19004,7 @@ ${prefix}addsubbot @152656307871952`
                     }, { quoted: info });
                   } else {
                     console.error('Erro ao enviar áudio (link direto):', audioError);
-                    nazu.sendMessage(from, { text: '❌ Ocorreu um erro ao enviar o áudio.' }, { quoted: info });
+                    nazu.sendMessage(from, { text: `💎 Não consegui mandar o áudio... tenta de novo? (╥﹏╥)` }, { quoted: info });
                   }
                 }
               })
@@ -19072,7 +19072,7 @@ ${prefix}addsubbot @152656307871952`
                       }, { quoted: info });
                     } else {
                       console.error('Erro ao enviar áudio (busca):', audioError);
-                      nazu.sendMessage(from, { text: '❌ Ocorreu um erro ao enviar o áudio.' }, { quoted: info });
+                      nazu.sendMessage(from, { text: `💎 Não consegui mandar o áudio... tenta de novo? (╥﹏╥)` }, { quoted: info });
                     }
                   }
                 })
@@ -19101,7 +19101,7 @@ ${prefix}addsubbot @152656307871952`
           if (String(error).includes("age"))
             return reply(`🔞 Este conteúdo possui restrição de idade e não pode ser processado.`);
 
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -19151,7 +19151,7 @@ ${prefix}addsubbot @152656307871952`
             }, { quoted: info });
           } catch (audioError) {
             if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
-              await reply('📦 Arquivo muito grande, enviando como documento...');
+              await reply(`💎 Ficou grandão, vou mandar como documento ♡`);
               await nazu.sendMessage(from, {
                 document: downloadResult.buffer,
                 fileName: downloadResult.filename,
@@ -19159,13 +19159,13 @@ ${prefix}addsubbot @152656307871952`
               }, { quoted: info });
             } else {
               console.error('Erro ao enviar áudio do Spotify:', audioError);
-              reply('❌ Ocorreu um erro ao enviar o áudio.');
+              reply(`💎 Não consegui mandar o áudio... tenta de novo? (╥﹏╥)`);
             }
           }
 
         } catch (error) {
           console.error('Erro no comando spotifydl:', error);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -19241,7 +19241,7 @@ ${prefix}addsubbot @152656307871952`
 
           if (q.includes('youtube.com') || q.includes('youtu.be')) {
             videoUrl = q;
-            await reply('✿ Só um momentinho... ⋆｡˚ ☁︎');
+            await reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
 
             youtube.mp3(videoUrl, 128)
               .then(async (dlRes) => {
@@ -19263,7 +19263,7 @@ ${prefix}addsubbot @152656307871952`
                     }, { quoted: info });
                   } else {
                     console.error('Erro ao enviar áudio (link direto):', audioError);
-                    nazu.sendMessage(from, { text: '❌ Ocorreu um erro ao enviar o áudio.' }, { quoted: info });
+                    nazu.sendMessage(from, { text: `💎 Não consegui mandar o áudio... tenta de novo? (╥﹏╥)` }, { quoted: info });
                   }
                 }
               })
@@ -19324,7 +19324,7 @@ ${prefix}addsubbot @152656307871952`
                       }, { quoted: info });
                     } else {
                       console.error('Erro ao enviar áudio (busca):', audioError);
-                      nazu.sendMessage(from, { text: '❌ Ocorreu um erro ao enviar o áudio.' }, { quoted: info });
+                      nazu.sendMessage(from, { text: `💎 Não consegui mandar o áudio... tenta de novo? (╥﹏╥)` }, { quoted: info });
                     }
                   }
                 })
@@ -19353,7 +19353,7 @@ ${prefix}addsubbot @152656307871952`
           if (String(error).includes("age"))
             return reply(`🔞 Este conteúdo possui restrição de idade e não pode ser processado.`);
 
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'soundclouddl':
@@ -19405,7 +19405,7 @@ ${prefix}addsubbot @152656307871952`
                 }, { quoted: info });
               } catch (audioError) {
                 if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
-                  await reply('📦 Arquivo muito grande, enviando como documento...');
+                  await reply(`💎 Ficou grandão, vou mandar como documento ♡`);
                   await nazu.sendMessage(from, {
                     document: result.buffer,
                     fileName: result.filename,
@@ -19413,7 +19413,7 @@ ${prefix}addsubbot @152656307871952`
                   }, { quoted: info });
                 } else {
                   console.error('Erro ao enviar áudio do SoundCloud:', audioError);
-                  reply('❌ Ocorreu um erro ao enviar o áudio.');
+                  reply(`💎 Não consegui mandar o áudio... tenta de novo? (╥﹏╥)`);
                 }
               }
             })
@@ -19424,7 +19424,7 @@ ${prefix}addsubbot @152656307871952`
 
         } catch (error) {
           console.error('Erro no comando soundclouddl:', error);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -19496,7 +19496,7 @@ ${prefix}addsubbot @152656307871952`
                 }, { quoted: info });
               } catch (audioError) {
                 if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
-                  await reply('📦 Arquivo muito grande, enviando como documento...');
+                  await reply(`💎 Ficou grandão, vou mandar como documento ♡`);
                   await nazu.sendMessage(from, {
                     document: result.buffer,
                     fileName: result.filename,
@@ -19504,7 +19504,7 @@ ${prefix}addsubbot @152656307871952`
                   }, { quoted: info });
                 } else {
                   console.error('Erro ao enviar áudio do SoundCloud:', audioError);
-                  reply('❌ Ocorreu um erro ao enviar o áudio.');
+                  reply(`💎 Não consegui mandar o áudio... tenta de novo? (╥﹏╥)`);
                 }
               }
             })
@@ -19519,7 +19519,7 @@ ${prefix}addsubbot @152656307871952`
 
         } catch (error) {
           console.error('Erro no comando play3:', error);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -19532,7 +19532,7 @@ ${prefix}addsubbot @152656307871952`
 
           if (q.includes('youtube.com') || q.includes('youtu.be')) {
             videoUrl = q;
-            reply('✿ Só um momentinho... ⋆｡˚ ☁︎');
+            reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
             youtube.mp4(videoUrl, 360)
               .then(async (dlRes) => {
                 if (!dlRes.ok) return reply(dlRes.msg);
@@ -19562,7 +19562,7 @@ ${prefix}addsubbot @152656307871952`
               })
               .catch((e) => {
                 console.error('Erro ao baixar/enviar vídeo direto (promise):', e);
-                reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+                reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
               });
             return;
           } else {
@@ -19606,7 +19606,7 @@ ${prefix}addsubbot @152656307871952`
               })
               .catch((e) => {
                 console.error('Erro no download/playvid:', e);
-                reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+                reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
               });
 
             return;
@@ -19616,7 +19616,7 @@ ${prefix}addsubbot @152656307871952`
         } catch (e) {
           console.error('Erro no comando playvid/ytmp4:', e);
 
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'letra':
@@ -19625,7 +19625,7 @@ ${prefix}addsubbot @152656307871952`
 
           if (!q) return reply('cade o nome da musica?');
 
-          await reply('✿ Só um momentinho... ⋆｡˚ ☁︎');
+          await reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
 
           const res = await Lyrics(q);
 
@@ -19646,7 +19646,7 @@ ${prefix}addsubbot @152656307871952`
 
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -19660,7 +19660,7 @@ ${prefix}addsubbot @152656307871952`
         try {
           if (!q) return reply(`Digite um nome ou o link de um vídeo.\n> Ex: ${prefix}${command} Gato`);
 
-          reply('✿ Só um momentinho... ⋆｡˚ ☁︎');
+          reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
           const isTikTokUrl = q.includes('tiktok.com');
           const tiktokPromise = isTikTokUrl ? tiktok.dl(q) : tiktok.search(q);
 
@@ -19685,14 +19685,14 @@ ${prefix}addsubbot @152656307871952`
             })
             .catch(async (e) => {
               console.error('Erro no comando TikTok (promise):', e);
-              reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+              reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
             });
 
           return;
         } catch (e) {
           console.error('Erro no comando TikTok:', e);
 
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'facebook':
@@ -19768,7 +19768,7 @@ ${prefix}addsubbot @152656307871952`
 
         } catch (error) {
           console.error('Erro no comando facebook:', error);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -19780,7 +19780,7 @@ ${prefix}addsubbot @152656307871952`
         try {
           if (!q) return reply(`Digite um link do Instagram.\n> Ex: ${prefix}${command} https://www.instagram.com/reel/DFaq_X7uoiT/?igsh=M3Q3N2ZyMWU1M3Bo`);
 
-          reply('✿ Só um momentinho... ⋆｡˚ ☁︎');
+          reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
 
           igdl.dl(q)
             .then(async (datinha) => {
@@ -19804,7 +19804,7 @@ ${prefix}addsubbot @152656307871952`
 
               console.error('Erro no comando Instagram (promise):', e);
 
-              reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+              reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
 
             });
 
@@ -19814,7 +19814,7 @@ ${prefix}addsubbot @152656307871952`
 
           console.error('Erro no comando Instagram:', e);
 
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
 
         }
         break;
@@ -19823,7 +19823,7 @@ ${prefix}addsubbot @152656307871952`
           if (!q) return reply(`Digite um link do kwai.\n> Ex: ${prefix}${command} https://kwai-video.com/p/q0fr2CRm`);
 
 
-          reply('✿ Só um momentinho... ⋆｡˚ ☁︎');
+          reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`);
           kwai.dl(q)
             .then(async (datinha) => {
               if (!datinha.ok) return reply(datinha.msg);
@@ -19838,12 +19838,12 @@ ${prefix}addsubbot @152656307871952`
             })
             .catch(async (e) => {
               console.error('Erro no comando Kwai (promise):', e);
-              reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+              reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
             });
           return;
         } catch (e) {
           console.error('Erro no comando Kwai:', e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'gdrive':
@@ -19923,7 +19923,7 @@ ${prefix}addsubbot @152656307871952`
             }, { quoted: info });
           }
 
-          reply('✅ Download concluído!');
+          reply(`💎 Prontinho, tá aqui ✿`);
         } catch (e) {
           console.error('Erro no comando gdrive:', e);
 
@@ -20021,7 +20021,7 @@ ${prefix}addsubbot @152656307871952`
             }, { quoted: info });
           }
 
-          reply('✅ Download concluído!');
+          reply(`💎 Prontinho, tá aqui ✿`);
         } catch (e) {
           console.error('Erro no comando mediafire:', e);
 
@@ -20095,7 +20095,7 @@ ${prefix}addsubbot @152656307871952`
             }
           }
 
-          reply('✅ Download concluído!');
+          reply(`💎 Prontinho, tá aqui ✿`);
         } catch (e) {
           console.error('Erro no comando twitter:', e);
 
@@ -21235,35 +21235,35 @@ Precisa de ajuda? Entre em contato:
         }
       case 'antipv3':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv3' ? null : 'antipv3';
           writeJsonFile(ANTIPV_FILE, antipvData);
           await reply(`✅ Antipv3 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'bloqueia usuários que usam comandos no privado' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antipv2':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv2' ? null : 'antipv2';
           writeJsonFile(ANTIPV_FILE, antipvData);
           await reply(`✅ Antipv2 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'avisa que comandos só funcionam em grupos no privado' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antipv4':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv4' ? null : 'antipv4';
           writeJsonFile(ANTIPV_FILE, antipvData);
           await reply(`✅ Antipv4 ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'avisa que o bot so funciona em grupos' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antipvmessage':
@@ -21286,20 +21286,20 @@ Precisa de ajuda? Entre em contato:
         break;
       case 'antipv':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           antipvData.mode = antipvData.mode === 'antipv' ? null : 'antipv';
           writeJsonFile(ANTIPV_FILE, antipvData);
           await reply(`✅ Antipv ${antipvData.mode ? 'ativado' : 'desativado'}! O bot agora ${antipvData.mode ? 'ignora mensagens no privado' : 'responde normalmente no privado'}.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'similaridade':
         try {
           if (!isOwner) {
-            return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+            return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           }
 
           geral.ativacoes.similaridade = !geral.ativacoes.similaridade;
@@ -21318,7 +21318,7 @@ Precisa de ajuda? Entre em contato:
           );
         } catch (e) {
           console.error('Erro ao alterar similaridade:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -21326,7 +21326,7 @@ Precisa de ajuda? Entre em contato:
 
       case 'entrar':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q || !q.includes('chat.whatsapp.com')) return reply('Digite um link de convite válido! Exemplo: ' + prefix + 'entrar https://chat.whatsapp.com/...');
           const code = q.split('https://chat.whatsapp.com/')[1];
           await nazu.groupAcceptInvite(code).then(res => {
@@ -21336,12 +21336,12 @@ Precisa de ajuda? Entre em contato:
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'sairgp':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           let groupId = null;
 
@@ -21382,12 +21382,12 @@ Precisa de ajuda? Entre em contato:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'tm':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q && !isImage && !isVideo && !isQuotedImage && !isQuotedVideo) return reply('Digite uma mensagem ou marque uma imagem/vídeo! Exemplo: ' + prefix + 'tm Olá a todos!');
 
           const cabecalho = `╔══════════════════════\n║  📡 *TRANSMISSÃO DA BOT* 📡\n╚══════════════════════\n\n`;
@@ -21473,7 +21473,7 @@ Precisa de ajuda? Entre em contato:
           await reply(`✅ Transmissão enviada para ${enviados}/${totalGroups} grupos!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -21516,13 +21516,13 @@ Precisa de ajuda? Entre em contato:
           reply(`✅ *Inscrição cancelada!*\n\nVocê não receberá mais as transmissões.\n\n💡 Para se inscrever novamente, use: ${prefix}inscrevertm`);
         } catch (e) {
           console.error('[DESINSCREVER ERROR]', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'tm2':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q && !isImage && !isVideo && !isQuotedImage && !isQuotedVideo) return reply('Digite uma mensagem ou marque uma imagem/vídeo! Exemplo: ' + prefix + 'tm2 Olá inscritos!');
 
           // Obtém lista de inscritos
@@ -21635,7 +21635,7 @@ Precisa de ajuda? Entre em contato:
       case 'statustm':
       case 'statustm2':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const stats = transmissao.getStats();
           const subscribers = transmissao.getSubscribers();
@@ -21668,7 +21668,7 @@ Precisa de ajuda? Entre em contato:
         break;
 
       case 'reviverqr':
-        if (!isOwner) return reply('🚫 Este comando é exclusivo para o proprietário!');
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         const qrcodeDir = pathz.join(__dirname, '..', 'database', 'qr-code');
         const filePatterns = ['pre-key', 'sender', 'session'];
         let totalDeleted = 0;
@@ -21709,7 +21709,7 @@ Precisa de ajuda? Entre em contato:
         }
         break;
       case 'cases':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
           const indexContent = fs.readFileSync(__dirname + '/index.js', 'utf-8');
           const caseRegex = /case\s+'([^']+)'\s*:/g;
@@ -21727,11 +21727,11 @@ Precisa de ajuda? Entre em contato:
           await reply(`📜 *Lista de Comandos (Cases)*:\n\n${caseList.join('\n')}\n\nTotal: ${caseList.length} comandos`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'getcase':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
           if (!q) return reply('❌ Digite o nome do comando. Exemplo: ' + prefix + 'getcase menu');
           var caseCode;
@@ -21745,12 +21745,12 @@ Precisa de ajuda? Entre em contato:
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'boton':
       case 'botoff':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
           const botStateFile = pathz.join(DATABASE_DIR, 'botState.json');
           const isOn = botState.status === 'on';
@@ -21766,11 +21766,11 @@ Precisa de ajuda? Entre em contato:
           await reply(message);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'blockcmdg':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
           const cmdToBlock = q?.toLowerCase().split(' ')[0];
           const reason = q?.split(' ').slice(1).join(' ') || 'Sem motivo informado';
@@ -21785,11 +21785,11 @@ Precisa de ajuda? Entre em contato:
           await reply(`✅ Comando *${cmdToBlock}* bloqueado globalmente!\nMotivo: ${reason}`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'unblockcmdg':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
           const cmdToUnblock = q?.toLowerCase().split(' ')[0];
           if (!cmdToUnblock) return reply('❌ Informe o comando a desbloquear! Ex.: ' + prefix + 'unblockcmd sticker');
@@ -21802,13 +21802,13 @@ Precisa de ajuda? Entre em contato:
           await reply(`✅ Comando *${cmdToUnblock}* desbloqueado globalmente!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
 
       case 'addcmd-subdono':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
         try {
           const cmdToAdd = q?.toLowerCase().trim();
@@ -21842,13 +21842,13 @@ Precisa de ajuda? Entre em contato:
           await reply(`✅ Comando *${cmdToAdd}* adicionado para subdonos!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
 
       case 'removecmd-subdono':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
         try {
           const cmdToRemove = q?.toLowerCase().trim();
@@ -21884,13 +21884,13 @@ Precisa de ajuda? Entre em contato:
           await reply(`✅ Comando *${cmdToRemove}* removido dos subdonos!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
 
       case 'listcmd-subdono':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
         try {
           const subOwnerFile = pathz.join(DATABASE_DIR, 'subOwnerCommands.json');
@@ -21915,13 +21915,13 @@ Precisa de ajuda? Entre em contato:
 
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'blockuserg':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           var reason = q ? (q.includes('@') || !menc_os2) ? (q.includes(' ') ? q.split(' ').slice(1).join(' ') : "Não informado") : q.trim() : 'Não informado';
           var menc_os3;
           menc_os3 = (menc_os2 && menc_os2.includes(' ')) ? menc_os2.split(' ')[0] : menc_os2;
@@ -21938,13 +21938,13 @@ Precisa de ajuda? Entre em contato:
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'unblockuserg':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           const blockFile = pathz.join(DATABASE_DIR, 'globalBlocks.json');
           if (!globalBlocks.users) {
             return reply(`ℹ️ Não há usuários bloqueados globalmente.`);
@@ -21963,11 +21963,11 @@ Precisa de ajuda? Entre em contato:
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'listblocks':
-        if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
         try {
           const blockFile = pathz.join(DATABASE_DIR, 'globalBlocks.json');
           const blockedCommands = globalBlocks.commands ? Object.entries(globalBlocks.commands).map(([cmd, data]) => `🔧 *${cmd}* - Motivo: ${data.reason}`).join('\n') : 'Nenhum comando bloqueado.';
@@ -21978,31 +21978,31 @@ Precisa de ajuda? Entre em contato:
           await reply(message);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'seradm':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           await nazu.groupParticipantsUpdate(from, [sender], "promote");
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'sermembro':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           await nazu.groupParticipantsUpdate(from, [sender], "demote");
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'prefixo':
       case 'prefix':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`⚙️ *Configuração de Prefixo*\n\n📝 *Como usar:*\n• Digite o novo prefixo após o comando\n• Ex: ${prefix}${command} /\n• Ex: ${prefix}${command} !\n\n✅ O prefixo do bot será atualizado para o valor especificado!`);
 
           let newPrefix = q.trim();
@@ -22023,7 +22023,7 @@ Precisa de ajuda? Entre em contato:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22033,7 +22033,7 @@ Precisa de ajuda? Entre em contato:
         try {
 
           if (!isOwner) {
-            return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+            return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           }
 
           if (!q) {
@@ -22087,7 +22087,7 @@ Precisa de ajuda? Entre em contato:
       case 'numerodono':
       case 'numero-dono':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Por favor, digite o novo número do dono.\nExemplo: ${prefix}${command} +553285076326`);
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
           config.numerodono = q;
@@ -22095,7 +22095,7 @@ Precisa de ajuda? Entre em contato:
           await reply(`Número do dono salvo\n\nAgora pelo número do novo dono\n- utilize o comando ${prefix}verificardono\n- Para gerar o lid e terminar a configuração!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22154,7 +22154,7 @@ Precisa de ajuda? Entre em contato:
       case 'apikey':
       case 'setkey':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!q) {
             return reply(`Por favor, digite a nova apikey
@@ -22180,7 +22180,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
 
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22188,7 +22188,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'botname':
       case 'nome-bot':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Por favor, digite o novo nome do bot.\nExemplo: ${prefix}${command} Opala`);
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
           config.nomebot = q;
@@ -22196,7 +22196,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(`Nome do bot alterado com sucesso para "${q}"!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'fotomenu':
@@ -22204,7 +22204,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'mediamenu':
       case 'midiamenu':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (fs.existsSync(__dirname + '/../midias/menu.jpg')) fs.unlinkSync(__dirname + '/../midias/menu.jpg');
           if (fs.existsSync(__dirname + '/../midias/menu.mp4')) fs.unlinkSync(__dirname + '/../midias/menu.mp4');
           var RSM = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
@@ -22217,7 +22217,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply('✅ Mídia do menu atualizada com sucesso.');
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22225,7 +22225,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'menuaudio':
       case 'setmenuaudio':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           // Verifica se é para remover
           if (q && (q.toLowerCase() === 'off' || q.toLowerCase() === 'del' || q.toLowerCase() === 'delete' || q.toLowerCase() === 'remover')) {
@@ -22279,7 +22279,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'lermaismenus':
       case 'menulermais':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const currentState = isMenuLerMaisEnabled();
           const newState = setMenuLerMais(!currentState);
@@ -22305,12 +22305,12 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'perfilbot':
       case 'avatarbot':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!isQuotedImage && !isImage) return reply('❌ Envie ou marque uma imagem para definir como foto de perfil do bot.\n\n📝 *Uso:* Envie uma imagem com o comando ou responda uma imagem com ' + prefix + 'fotobot');
 
           const messageToUse = isQuotedImage ? quotedMessageContent : info.message;
           const mediaInfo = getMediaInfo(messageToUse);
-          if (!mediaInfo || mediaInfo.type !== 'image') return reply('❌ Mídia inválida. Envie uma imagem.');
+          if (!mediaInfo || mediaInfo.type !== 'image') return reply(`💎 Manda uma imagem pra mim, tá? ♡`);
 
           const imageBuffer = await getFileBuffer(mediaInfo.media, 'image');
 
@@ -22333,7 +22333,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'personalizargrupo':
       case 'ativarperso':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const currentState = isGroupCustomizationEnabled();
           const newState = setGroupCustomizationEnabled(!currentState);
@@ -22350,15 +22350,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(statusMsg);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'fotomenugrupo':
       case 'setmenupic':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           if (!isGroupCustomizationEnabled()) {
             return reply("⚠️ O sistema de personalização está desativado. Peça ao dono do bot para ativar com o comando: " + prefix + "personalizargrupo");
@@ -22372,7 +22372,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
 
           const messageToUse = isQuotedImage ? quotedMessageContent : info.message;
           const mediaInfo = getMediaInfo(messageToUse);
-          if (!mediaInfo || mediaInfo.type !== 'image') return reply('❌ Mídia inválida. Envie uma imagem.');
+          if (!mediaInfo || mediaInfo.type !== 'image') return reply(`💎 Manda uma imagem pra mim, tá? ♡`);
 
           const imageBuffer = await getFileBuffer(mediaInfo.media, 'image');
 
@@ -22393,8 +22393,8 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'removerfotomenu':
       case 'resetfotomenu':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           if (!isGroupCustomizationEnabled()) {
             return reply("⚠️ O sistema de personalização está desativado.");
@@ -22409,7 +22409,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply("✅ Foto personalizada removida! O menu voltará a usar a foto padrão.");
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22417,8 +22417,8 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'nomebotgrupo':
       case 'setbotname':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           if (!isGroupCustomizationEnabled()) {
             return reply("⚠️ O sistema de personalização está desativado. Peça ao dono do bot para ativar com o comando: " + prefix + "personalizargrupo");
@@ -22450,8 +22450,8 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'removernome':
       case 'resetnome':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           if (!isGroupCustomizationEnabled()) {
             return reply("⚠️ O sistema de personalização está desativado.");
@@ -22466,14 +22466,14 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply("✅ Nome personalizado removido! O bot voltará a usar o nome padrão.");
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'infoperso':
       case 'personalizacao':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           if (!isGroupCustomizationEnabled()) {
             return reply("⚠️ O sistema de personalização está desativado.");
@@ -22505,7 +22505,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(msg);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22517,7 +22517,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setbordatopo':
       case 'settopborder':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╭─⊰`);
 
           const currentDesign = loadMenuDesign();
@@ -22530,7 +22530,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22538,7 +22538,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setbottomborder':
       case 'setbordabaixo':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`);
 
           const currentDesign = loadMenuDesign();
@@ -22551,7 +22551,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22559,7 +22559,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setmiddleborder':
       case 'setbordamiddle':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ┊`);
 
           const currentDesign = loadMenuDesign();
@@ -22572,7 +22572,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22580,7 +22580,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'seticoneitem':
       case 'setitem':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} •.̇𖥨֗🍓⭟`);
 
           const currentDesign = loadMenuDesign();
@@ -22593,7 +22593,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22601,7 +22601,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setseparatoricon':
       case 'seticoneseparador':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ❁`);
 
           const currentDesign = loadMenuDesign();
@@ -22614,7 +22614,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22622,7 +22622,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'seticonetitulo':
       case 'settitulo':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} 🍧ฺꕸ▸`);
 
           const currentDesign = loadMenuDesign();
@@ -22635,7 +22635,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22643,7 +22643,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'setcabecalho':
       case 'setheadermenu':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply(`Uso: ${prefix + command} <texto>\n\nExemplo: ${prefix + command} ╭┈⊰ 🌸 『 *{botName}* 』\\n┊Olá, {userName}!\\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯\n\n*Placeholders disponíveis:*\n{botName} - Nome do bot\n{userName} - Nome do usuário`);
 
           const currentDesign = loadMenuDesign();
@@ -22657,7 +22657,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22665,7 +22665,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'resetarmenu':
       case 'resetdesignmenu':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const defaultDesign = {
             header: `╭┈⊰ 🌸 『 *{botName}* 』\n┊Olá, {userName}!\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`,
@@ -22684,7 +22684,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22692,7 +22692,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'verdesign':
       case 'configmenu':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const currentDesign = loadMenuDesign();
           const designText = `╭─⊰ 🎨 *CONFIGURAÇÕES DO DESIGN* 🎨 ⊱─╮
@@ -22722,14 +22722,14 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(designText);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'listagp':
       case 'listgp':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           const getGroups = await nazu.groupFetchAllParticipating();
           const groups = Object.entries(getGroups).slice(0).map(entry => entry[1]);
           const sortedGroups = groups.sort((a, b) => a.subject.localeCompare(b.subject));
@@ -22741,12 +22741,12 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(teks);
         } catch (e) {
           console.log(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'listbangp':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const bannedGroups = Object.keys(banGpIds || {}).filter(id => banGpIds[id]);
           if (bannedGroups.length === 0) {
@@ -22774,15 +22774,15 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           await reply(teks);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'bangp':
       case 'unbangp':
       case 'desbangp':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           banGpIds[from] = !banGpIds[from];
           if (banGpIds[from]) {
             await reply('🚫 Grupo banido, apenas usuarios premium ou meu dono podem utilizar o bot aqui agora.');
@@ -22792,14 +22792,14 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           fs.writeFileSync(__dirname + `/../database/dono/bangp.json`, JSON.stringify(banGpIds));
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'addpremium':
       case 'addvip':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (!!premiumListaZinha[menc_os2]) return reply('O usuário ja esta na lista premium.');
           premiumListaZinha[menc_os2] = true;
           await nazu.sendMessage(from, {
@@ -22811,7 +22811,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           fs.writeFileSync(__dirname + `/../database/dono/premium.json`, JSON.stringify(premiumListaZinha));
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'delpremium':
@@ -22819,8 +22819,8 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'rmpremium':
       case 'rmvip':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (!premiumListaZinha[menc_os2]) return reply('O usuário não esta na lista premium.');
           delete premiumListaZinha[menc_os2];
           await nazu.sendMessage(from, {
@@ -22832,14 +22832,14 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           fs.writeFileSync(__dirname + `/../database/dono/premium.json`, JSON.stringify(premiumListaZinha));
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'addpremiumgp':
       case 'addvipgp':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!!premiumListaZinha[from]) return reply('O grupo ja esta na lista premium.');
           premiumListaZinha[from] = true;
           await nazu.sendMessage(from, {
@@ -22850,7 +22850,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           fs.writeFileSync(__dirname + `/../database/dono/premium.json`, JSON.stringify(premiumListaZinha));
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'delpremiumgp':
@@ -22858,8 +22858,8 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'rmpremiumgp':
       case 'rmvipgp':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!premiumListaZinha[from]) return reply('O grupo não esta na lista premium.');
           delete premiumListaZinha[from];
           await nazu.sendMessage(from, {
@@ -22870,7 +22870,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           fs.writeFileSync(__dirname + `/../database/dono/premium.json`, JSON.stringify(premiumListaZinha));
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'listapremium':
@@ -22879,7 +22879,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'listpremium':
       case 'listprem':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           const premiumList = premiumListaZinha || {};
           const usersPremium = Object.keys(premiumList).filter(id => isUserId(id));
           const groupsPremium = Object.keys(premiumList).filter(id => id.includes('@g.us'));
@@ -22926,8 +22926,8 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
         break;
       case 'resetgold':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
-          if (!menc_os2) return reply('✿ Marca alguém pra mim! (・・ ) ?');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
 
           const econ = loadEconomy();
           const targetData = getEcoUser(econ, menc_os2);
@@ -22944,7 +22944,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
           });
         } catch (e) {
           console.error(e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -22979,7 +22979,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'addvipcommand':
       case 'adicionarcmdvip':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!q) {
             return reply(`📝 *Como adicionar comandos VIP:*
@@ -23178,7 +23178,7 @@ ${prefix}addcmdvip menudown all`);
       case 'rmcmdvip':
       case 'delcmdvip':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!q) {
             return reply(`📝 *Como remover comandos VIP:*
@@ -23226,7 +23226,7 @@ ${prefix}removecmdvip premium_ia`);
       case 'ativarcmdvip':
       case 'desativarcmdvip':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!args[0] || !args[1]) {
             return reply(`📝 *Como ativar/desativar comandos VIP:*
@@ -23264,7 +23264,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'vipstats':
       case 'estatisticasvip':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const stats = vipCommandsManager.getVipStats();
 
@@ -23302,7 +23302,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'addindicar':
       case 'addindica':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!menc_os2) return reply("❌ Você precisa marcar alguém para adicionar uma indicação!\n\n💡 Exemplo: " + prefix + "addindicacao @usuario");
 
@@ -23387,7 +23387,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'rmindicacao':
       case 'removerindicacao':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!menc_os2) return reply("❌ Você precisa marcar alguém para remover a indicação!\n\n💡 Exemplo: " + prefix + "delindicacao @usuario");
 
@@ -23485,7 +23485,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
         } catch (e) {
           console.error(`Erro no comando ${command}:`, e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'pornhub':
@@ -23527,7 +23527,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
         } catch (e) {
           console.error(`Erro no comando ${command}:`, e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       //comandos de edits
@@ -23580,7 +23580,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
         } catch (e) {
           console.error(`Erro no comando ${command}:`, e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -23627,7 +23627,7 @@ ${prefix}togglecmdvip premium_ia off`);
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'limpardb':
@@ -23655,8 +23655,8 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'mantercontador':
       case 'preservarcontador':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("Apenas administradores podem configurar esta opção.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           // Inicializa a configuração se não existir
           if (groupData.preservarContador === undefined) {
@@ -23683,7 +23683,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'limparrank':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem limpar o rank de atividade.");
 
           // Verifica se a preservação do contador está ativada
@@ -23757,7 +23757,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'resetrank':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem resetar o rank de atividade.");
           const oldCount = (groupData.contador || []).length;
           groupData.contador = [];
@@ -23919,7 +23919,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'rankativos':
       case 'rankativo':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           // Verifica se a preservação do contador está ativada
           const preservarContadorRankativo = groupData.preservarContador === true;
@@ -23980,13 +23980,13 @@ ${prefix}togglecmdvip premium_ia off`);
           });
         } catch (e) {
           console.error('[RANKATIVO] Erro:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'rankinativos':
       case 'rankinativo':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           // Verifica se a preservação do contador está ativada
           const preservarContador = groupData.preservarContador === true;
@@ -24051,12 +24051,12 @@ ${prefix}togglecmdvip premium_ia off`);
           });
         } catch (e) {
           console.error('[RANKINATIVO] Erro:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'checkativo':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           const mentionedJids = info.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
           let targetUser = sender;
@@ -24114,7 +24114,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'atividade':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           // Verifica membros atuais do grupo
           const currentMembers = AllgroupMembers;
@@ -24184,7 +24184,7 @@ ${prefix}togglecmdvip premium_ia off`);
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'meustatus':
@@ -24246,7 +24246,7 @@ ${prefix}togglecmdvip premium_ia off`);
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'infoserver':
@@ -24475,7 +24475,7 @@ ${prefix}togglecmdvip premium_ia off`);
           await reply(lines);
         } catch (e) {
           console.error("Erro em statusbot:", e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'iaclear':
@@ -24514,7 +24514,7 @@ ${prefix}togglecmdvip premium_ia off`);
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'cmdinfo':
@@ -24543,13 +24543,13 @@ ${prefix}togglecmdvip premium_ia off`);
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'statusgp':
       case 'dadosgp':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           const meta = await getCachedGroupMetadata(from);
           const subject = meta.subject || "—";
           const desc = meta.desc?.toString() || "Sem descrição";
@@ -24657,7 +24657,7 @@ ${prefix}togglecmdvip premium_ia off`);
           await reply(fullCaption, { mentions: ownerJid !== "Desconhecido" ? [ownerJid] : [] });
         } catch (e) {
           console.error("Erro em statusgp:", e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'dono':
@@ -24672,30 +24672,29 @@ ${prefix}togglecmdvip premium_ia off`);
           await reply(TextinDonoInfo);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'criador':
         try {
-          const TextinCriadorInfo = `╭━━━⊱ 👨‍💻 *CRIADOR* 👨‍💻 ⊱━━━╮
+          const TextinCriadorInfo = `╭─── ⋆｡˚ 💎 *Opala* 💎 ˚｡⋆ ───╮
 │
-│ 💎 *Nome:* DevTokyo
-│ 📱 *WhatsApp:* wa.me/5532985076326
-│ 🌐 *GitHub:* github.com/DevTokyoVx
+│ Feito com carinho pelo *Ruan Amaral* ♡
+│ 🌐 projectgems.github.io
 │
-╰━━━━━━━━━━━━━━━━━━━━━━━━╯`;
+╰──────────────────────╯`;
           await reply(TextinCriadorInfo);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'diagnosticrpg':
       case 'repairdb':
       case 'fixdb': {
-        if (!isOwner && !isCreator) return reply('⚠️ Apenas o dono pode usar este comando!');
+        if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
         try {
           const econ = loadEconomy();
@@ -24823,7 +24822,7 @@ ${prefix}togglecmdvip premium_ia off`);
             quoted: info
           });
         } catch (error) {
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -25131,7 +25130,7 @@ break;
           return nazu.sendMessage(from, { image: { url: resultUrl } }, { quoted: info });
         } catch (e) {
           console.error(e);
-          return reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          return reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'qc':
@@ -25179,7 +25178,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'emojimix':
@@ -25202,7 +25201,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'ttp':
@@ -25250,7 +25249,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'attp':
@@ -25381,7 +25380,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'st2':
@@ -25405,7 +25404,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'figualeatoria':
@@ -25420,7 +25419,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'rename':
@@ -25431,7 +25430,7 @@ break;
           let author = "";
           let packname = "";
           if (!q) {
-            return reply(`Formato errado, utilize:\n${prefix}${command} Autor/Pack\nEx: ${prefix}${command} By:/Hiudy`);
+            return reply(`💎 Usa assim: ${prefix}${command} autor/pacote\nEx.: ${prefix}${command} Opala/Figurinhas ♡`);
           }
           if (q.includes("/")) {
             author = q.split("/")[0] || "";
@@ -25441,7 +25440,7 @@ break;
             author = "";
           }
           if (!packname) {
-            return reply(`Formato errado, utilize:\n${prefix}${command} Autor/Pack\nEx: ${prefix}${command} By:/Hiudy`);
+            return reply(`💎 Usa assim: ${prefix}${command} autor/pacote\nEx.: ${prefix}${command} Opala/Figurinhas ♡`);
           }
           const encmediats = await getFileBuffer(
             info.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage,
@@ -25457,7 +25456,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'rgtake':
@@ -25465,7 +25464,7 @@ break;
           let author = "";
           let pack = "";
           if (!q) {
-            return reply(`Formato errado, utilize:\n${prefix}${command} Autor/Pack\nEx: ${prefix}${command} By:/Hiudy`);
+            return reply(`💎 Usa assim: ${prefix}${command} autor/pacote\nEx.: ${prefix}${command} Opala/Figurinhas ♡`);
           }
           if (q.includes("/")) {
             author = q.split("/")[0] || "";
@@ -25475,7 +25474,7 @@ break;
             author = "";
           }
           if (!pack) {
-            return reply(`Formato errado, utilize:\n${prefix}${command} Autor/Pack\nEx: ${prefix}${command} By:/Hiudy`);
+            return reply(`💎 Usa assim: ${prefix}${command} autor/pacote\nEx.: ${prefix}${command} Opala/Figurinhas ♡`);
           }
           const filePath = pathz.join(USERS_DIR, 'take.json');
           const dataTake = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf-8')) : {};
@@ -25484,7 +25483,7 @@ break;
           reply(`Autor e pacote salvos com sucesso!\nAutor: ${author || "(vazio)"}\nPacote: ${pack}`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'take':
@@ -25509,7 +25508,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -25588,7 +25587,7 @@ break;
 
       case 'mention':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!q) return reply(`📢 *Configuração de Marcações*\n\n🔧 Escolha como deseja ser mencionado:\n\n✅ *${prefix}mention all* → Marcado em tudo (marcações e jogos).\n📢 *${prefix}mention marca* → Apenas em marcações de administradores.\n🎮 *${prefix}mention games* → Somente em jogos do bot.\n🚫 *${prefix}mention 0* → Não será mencionado em nenhuma ocasião.`);
           let options = {
             all: '✨ Você agora será mencionado em todas as interações do bot, incluindo marcações de administradores e os jogos!',
@@ -25607,14 +25606,14 @@ break;
           reply(`❌ Opção inválida! Use *${prefix}mention* para ver as opções.`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'deletar':
       case 'delete':
       case 'del':
       case 'd':
-        if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
+        if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
         if (!menc_prt) return reply("Marque uma mensagem.");
         let stanzaId, participant;
         if (info.message.extendedTextMessage) {
@@ -25634,14 +25633,14 @@ break;
             }
           });
         } catch (error) {
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'blockuser':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
         try {
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           var reason = q ? (q.includes('@') || !menc_os2) ? (q.includes(' ') ? q.split(' ').slice(1).join(' ') : "Não informado") : q.trim() : 'Não informado';
           var menc_os3;
           menc_os3 = (menc_os2 && menc_os2.includes(' ')) ? menc_os2.split(' ')[0] : menc_os2;
@@ -25657,14 +25656,14 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'unblockuser':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
         try {
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (!groupData.blockedUsers) {
             return reply(`ℹ️ Não há usuários bloqueados neste grupo.`);
           }
@@ -25682,7 +25681,7 @@ break;
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -25692,11 +25691,11 @@ break;
         try {
 
           if (!isGroup) {
-            return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+            return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           }
 
           if (!isGroupAdmin) {
-            return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
+            return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
           }
 
           if (!q) {
@@ -25750,15 +25749,15 @@ break;
         break;
       case 'listblocksgp':
       case 'blocklist':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
         try {
           const blockedUsers = groupData.blockedUsers ? Object.entries(groupData.blockedUsers).map(([user, data]) => `👤 *${getUserName(user)}* - Motivo: ${data.reason}`).join('\n') : 'Nenhum usuário bloqueado no grupo.';
           const message = `🔒 *Usuários Bloqueados no Grupo - ${groupName}* 🔒\n\n${blockedUsers}`;
           await reply(message);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'banir':
@@ -25766,11 +25765,11 @@ break;
       case 'b':
       case 'kick':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
-          if (menc_os2 === nmrdn) return reply("❌ Não posso banir o dono do bot.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
+          if (menc_os2 === nmrdn) return reply(`💎 Banir meu dono? Nem pensar! (๑•̀ㅂ•́)و`);
           if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover (｡•́︿•̀｡)");
           await nazu.groupParticipantsUpdate(from, [menc_os2], 'remove');
 
@@ -25786,18 +25785,18 @@ break;
           reply(`✅ Usuário banido com sucesso!${q && q.length > 0 ? '\n\nMotivo: ' + q : ''}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'ban2':
       case 'banir2':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
-          if (menc_os2 === nmrdn) return reply("❌ Não posso banir o dono do bot.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
+          if (menc_os2 === nmrdn) return reply(`💎 Banir meu dono? Nem pensar! (๑•̀ㅂ•́)و`);
           if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover (｡•́︿•̀｡)");
 
           // Aviso com contagem regressiva
@@ -25827,16 +25826,16 @@ break;
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'bam':
       case 'banfake':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-        if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
-        if (menc_os2 === nmrdn) return reply("❌ Não posso banir o dono do bot.");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+        if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
+        if (menc_os2 === nmrdn) return reply(`💎 Banir meu dono? Nem pensar! (๑•̀ㅂ•́)و`);
         if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover (｡•́︿•̀｡)");
 
         try {
@@ -25856,14 +25855,14 @@ break;
           });
         } catch (e) {
           console.error('Erro no bam:', e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'setbammsg':
       case 'editarbam':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
         if (!q) {
           return reply(`📝 *Configurar Mensagem do Bam*\n\nUse: ${prefix}setbammsg <mensagem>\n\n*Variável disponível:*\n#user# - Será substituído pelo nome do usuário\n\n*Exemplo:*\n${prefix}setbammsg 😂 Era só uma pegadinha #user#!\n\nPara ver a mensagem atual: ${prefix}verbammsg\nPara resetar: ${prefix}resetbammsg`);
@@ -25875,13 +25874,13 @@ break;
           await reply(`✅ *Mensagem do bam configurada!*\n\n📝 Nova mensagem:\n${q}\n\n💡 Use #user# para mencionar o usuário marcado.`);
         } catch (e) {
           console.error('Erro no setbammsg:', e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'verbammsg':
       case 'verbam':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
         try {
           const defaultMsg = `😂 *ERA MEME!*\n\n#user#, relaxa, era só uma brincadeira! 🤣\n\nVocê não vai ser banido... dessa vez! 😎`;
@@ -25889,14 +25888,14 @@ break;
           await reply(`📝 *Mensagem Atual do Bam:*\n\n${currentMsg}\n\n${!groupData.bamMessage ? '⚠️ Usando mensagem padrão\n\n' : ''}Para editar: ${prefix}setbammsg <nova_mensagem>`);
         } catch (e) {
           console.error('Erro no verbammsg:', e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'resetbammsg':
       case 'resetarbam':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
         try {
           delete groupData.bamMessage;
@@ -25904,31 +25903,31 @@ break;
           await reply(`✅ Mensagem do bam resetada para o padrão!\n\nUse ${prefix}verbammsg para ver a mensagem padrão.`);
         } catch (e) {
           console.error('Erro no resetbammsg:', e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'linkgp':
       case 'linkgroup':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           var linkgc;
           linkgc = await nazu.groupInviteCode(from);
           await reply('https://chat.whatsapp.com/' + linkgc);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'solicitacoes':
       case 'pendentes':
       case 'requests':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           // Função para obter solicitações pendentes (compatível com versões antigas do Baileys)
           let requests = [];
@@ -25987,9 +25986,9 @@ break;
       case 'aceitar':
       case 'approve':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           // Verificar se é "all" para aceitar todos
           if (q && q.toLowerCase().trim() === 'all') {
@@ -26096,9 +26095,9 @@ break;
       case 'recusarsolicitacao':
       case 'reject':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           if (!menc_jid2 || menc_jid2.length === 0) {
             return reply(`❌ Marque alguém ou mencione números.\n\n💡 Exemplo: ${prefix}recusarsolic @usuario\n\nUse ${prefix}solicitacoes para ver pendentes.`);
@@ -26146,8 +26145,8 @@ break;
       case 'autoaprovar':
       case 'autoacceptr':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           groupData.autoAcceptRequests = !groupData.autoAcceptRequests;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
@@ -26178,8 +26177,8 @@ break;
       case 'captcha':
       case 'captcharequests':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           groupData.captchaEnabled = !groupData.captchaEnabled;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
@@ -26233,10 +26232,10 @@ break;
       case 'promover':
       case 'promote':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           await nazu.groupParticipantsUpdate(from, [menc_os2], 'promote');
 
 
@@ -26244,16 +26243,16 @@ break;
           reply(`✅ Usuário promovido a administrador!`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'rebaixar':
       case 'demote':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           await nazu.groupParticipantsUpdate(from, [menc_os2], 'demote');
 
 
@@ -26261,7 +26260,7 @@ break;
           reply(`✅ Usuário rebaixado com sucesso!`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'setname':
@@ -26270,9 +26269,9 @@ break;
       case 'alterarnome':
       case 'renomeargrupo':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const newName = q.trim();
           if (!newName) return reply('❌ Digite um novo nome para o grupo.\n\n📝 *Uso:* ' + groupPrefix + 'nomegp Nome do Grupo');
 
@@ -26290,7 +26289,7 @@ break;
           reply(`✅ Nome do grupo alterado para: *${newName}*`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'setdesc':
@@ -26299,9 +26298,9 @@ break;
       case 'alterardesc':
       case 'descricao':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const newDesc = q.trim();
           if (!newDesc) return reply('❌ Digite uma nova descrição para o grupo.\n\n📝 *Uso:* ' + groupPrefix + 'descgrupo Descrição do grupo aqui');
           await nazu.groupUpdateDescription(from, newDesc);
@@ -26317,7 +26316,7 @@ break;
           reply(`✅ Descrição do grupo alterada!`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'setfoto':
@@ -26326,14 +26325,14 @@ break;
       case 'alterarfoto':
       case 'fotogp':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           if (!isQuotedImage && !isImage) return reply('❌ Envie ou marque uma imagem para definir como foto do grupo.\n\n📝 *Uso:* Envie uma imagem com o comando ou responda uma imagem com ' + groupPrefix + 'fotogrupo');
 
           const messageToUse = isQuotedImage ? quotedMessageContent : info.message;
           const mediaInfo = getMediaInfo(messageToUse);
-          if (!mediaInfo || mediaInfo.type !== 'image') return reply('❌ Mídia inválida. Envie uma imagem.');
+          if (!mediaInfo || mediaInfo.type !== 'image') return reply(`💎 Manda uma imagem pra mim, tá? ♡`);
 
           const imageBuffer = await getFileBuffer(mediaInfo.media, 'image');
 
@@ -26356,9 +26355,9 @@ break;
         break;
       case 'marcar':
       case 'mark':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-        if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+        if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
         try {
           // Proteção Anti-Ban: Verifica rate limit para grupos grandes
           const massMentionCheck = checkMassMentionLimit(from, AllgroupMembers.length);
@@ -26388,16 +26387,16 @@ break;
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'grupo':
       case 'gp':
       case 'group':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           if (q.toLowerCase() === 'a' || q.toLowerCase() === 'o' || q.toLowerCase() === 'open' || q.toLowerCase() === 'abrir') {
             await nazu.groupSettingUpdate(from, 'not_announcement');
 
@@ -26425,14 +26424,14 @@ break;
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'opengp':
       case 'abrirgp':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 07:00 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
           const argLower = rawArg.toLowerCase();
@@ -26489,8 +26488,8 @@ break;
       case 'closegp':
       case 'fechargp':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 22:30 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
           const argLower = rawArg.toLowerCase();
@@ -26546,8 +26545,8 @@ break;
         break;
       case 'automsg':
         try {
-          if (!isGroup) return reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
-          if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           const subCommand = args[0]?.toLowerCase();
 
@@ -26820,7 +26819,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
         break;
       case 'chaveamento':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           let participantes = [];
           if (q) {
             participantes = q.split(',').map(n => n.trim()).filter(n => n);
@@ -26867,7 +26866,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await reply(mensagem);
         } catch (e) {
           console.error('Erro no comando chaveamento:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'sorteionum':
@@ -26879,7 +26878,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await reply(`🎲 *Sorteio de Número* 🎲\n\nNúmero sorteado: *${numeroSorteado}*`);
         } catch (e) {
           console.error('Erro no comando sorteionum:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'sorteionome':
@@ -26926,13 +26925,13 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await reply(resultado);
         } catch (e) {
           console.error('Erro no comando sorteionome:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'sorteio':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           let path = pathz.join(GRUPOS_DIR, `${from}.json`);
           // Otimização: Usar cache para leitura de arquivo
           let data = await optimizer.loadJsonWithCache(path, { mark: {} });
@@ -26955,7 +26954,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           });
         } catch (e) {
           console.error('Erro no comando sorteio:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -26963,15 +26962,15 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
         try {
 
           if (!isGroup) {
-            return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+            return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           }
 
           if (!isGroupAdmin) {
-            return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
+            return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
           }
 
           if (!isBotAdmin) {
-            return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+            return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           }
 
           let path = pathz.join(GRUPOS_DIR, `${from}.json`);
@@ -27031,9 +27030,9 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
       case 'cita':
       case 'hidetag':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só admins ou moderadores com permissão podem usar isso! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Só admins ou moderadores liberados podem usar esse, tá? (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           // Proteção Anti-Ban: Verifica rate limit para grupos grandes
           const massMentionCheckHidetag = checkMassMentionLimit(from, AllgroupMembers.length);
@@ -27217,41 +27216,41 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await nazu.sendMessage(from, DFC4).catch(error => { });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antilinkhard':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           groupData.antilinkhard = !groupData.antilinkhard;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           await reply(`✅ Antilinkhard ${groupData.antilinkhard ? 'ativado' : 'desativado'}! Qualquer link enviado resultará em banimento.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
 
       case 'x9':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           groupData.x9 = !groupData.x9;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           await reply(`✅ X9 ${groupData.x9 ? 'ativado' : 'desativado'}! Vou contar toda a verdade agora.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'divdono':
         try {
-          if (!isOwner) return reply("Apenas o dono do bot pode usar este comando.");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const sub = (args[0] || '').toLowerCase();
           const rest = args.slice(1).join(' ').trim();
@@ -27405,7 +27404,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
 
       case 'setdiv':
         try {
-          if (!isOwner) return reply("Apenas o dono do bot pode usar este comando.");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           if (!q) {
             // Otimização: Cache de divulgacao
@@ -27434,8 +27433,8 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
       case 'div':
       case 'divulgar':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isOwner) return reply("Apenas o dono do bot pode usar este comando.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
 
           const delay = 500;
           const maxCount = 50;
@@ -27498,50 +27497,50 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
       case 'antibotao':
       case 'antibtn':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           groupData.antibtn = !groupData.antibtn;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           await reply(`✅ Anti Botão ${groupData.antibtn ? 'ativado' : 'desativado'}!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antistatus':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           groupData.antistatus = !groupData.antistatus;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           await reply(`✅ Anti Status ${groupData.antistatus ? 'ativado' : 'desativado'}!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antidelete':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           groupData.antidel = !groupData.antidel;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           await reply(`✅ Antidelete ${groupData.antidel ? 'ativado' : 'desativado'}!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'autodl':
       case 'autodown':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           groupData.autodl = !groupData.autodl;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
@@ -27563,27 +27562,27 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await reply(statusMsg);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antidoc':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           groupData.antidoc = !groupData.antidoc;
           fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
           await reply(`✅ Antidoc ${groupData.antidoc ? 'ativado' : 'desativado'}! Documentos enviados resultarão em banimento.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'limitmessage':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando 🚫");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) {
             return reply(`📝 Configure o limite de mensagens! Exemplo: ${prefix}limitmessage 5 1m ban\n` + `Formato: ${prefix}limitmessage <quantidade> <tempo> <ação>\n` + `Tempo: s (segundos), m (minutos), h (horas)\n` + `Ação: ban (banimento direto) ou adv (advertências)`);
           }
@@ -27627,13 +27626,13 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await reply(`✅ Limite de mensagens configurado: ${limit} mensagens a cada ${timeInput} com ${actionText}!`);
         } catch (e) {
           console.error('Erro no comando limitmessage:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'dellimitmessage':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando 🚫");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!groupData.messageLimit?.enabled) {
             return reply("📴 O limite de mensagens não está ativo neste grupo.");
           }
@@ -27642,12 +27641,12 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await reply("🗑️ Sistema de limite de mensagens desativado com sucesso!");
         } catch (e) {
           console.error('Erro no comando dellimitmessage:', e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'setprefix':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem alterar o prefixo.");
           if (!q) return reply(`Por favor, forneça o novo prefixo. Exemplo: ${groupPrefix}setprefix !`);
           let newPrefix = q.trim();
@@ -27679,8 +27678,8 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
         break;
       case 'antiflood':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`Digite o intervalo em segundos ou "off" para desativar.\nExemplo: ` + prefix + `antiflood 5`);
           antifloodData[from] = antifloodData[from] || {
             users: {}
@@ -27698,12 +27697,12 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
           await reply(`✅ Antiflood ${antifloodData[from].enabled ? `ativado com intervalo de ${antifloodData[from].interval} segundos` : 'desativado'}!`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antispamcmd':
         try {
-          if (!isOwner) return reply('Somente o dono pode usar este comando.');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           const filePath = DATABASE_DIR + '/antispam.json';
           const cfg = antiSpamGlobal || {};
           const usage = `Uso:
@@ -27757,9 +27756,9 @@ Exemplos:
         break;
       case 'antiloc':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           groupData.antiloc = !groupData.antiloc;
           writeJsonFile(groupFile, groupData);
@@ -27770,7 +27769,7 @@ Exemplos:
           await reply(`✅ Antiloc ${groupData.antiloc ? 'ativado' : 'desativado'}! Localizações enviadas resultarão em banimento.`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'modobrincadeira':
@@ -27778,8 +27777,8 @@ Exemplos:
       case 'modobn':
       case 'gamemode':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.modobrincadeira || groupData.modobrincadeira === undefined) {
 
@@ -27796,7 +27795,7 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'bemvindo':
@@ -27804,8 +27803,8 @@ Exemplos:
       case 'boasvindas':
       case 'welcome':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.bemvindo || groupData.bemvindo === undefined) {
 
@@ -27822,7 +27821,7 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -27830,8 +27829,8 @@ Exemplos:
       case 'bemvindo2':
       case 'welcome2':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.bemvindo2 || groupData.bemvindo2 === undefined) {
 
@@ -27848,14 +27847,14 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'banghost':  //corrigido por kauan revil
         try {
-          if (!isGroup) return reply("❌ Só pode ser usado em grupos.");
-          if (!isGroupAdmin) return reply("❌ Apenas administradores.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!isBotAdmin) return reply("❌ Preciso ser administrador.");
           const limite = parseInt(q);
           if (isNaN(limite) || limite < 0) return reply("⚠️ Use um número válido. Ex: " + prefix + "banghost 1");
@@ -27915,8 +27914,8 @@ Exemplos:
       case 'fotobv':
       case 'welcomeimg':
         {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           try {
             const action = q.toLowerCase().trim();
@@ -27953,7 +27952,7 @@ Exemplos:
 
           } catch (error) {
             console.error(error);
-            reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+            reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
           }
         }
         break;
@@ -27961,8 +27960,8 @@ Exemplos:
 
       case 'set-fotobv':
         {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           try {
             const action = q.toLowerCase().trim();
@@ -28017,7 +28016,7 @@ Exemplos:
 
           } catch (error) {
             console.error(error);
-            reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+            reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
           }
         }
         break;
@@ -28027,8 +28026,8 @@ Exemplos:
 
       case 'set-bannerbv':
       case 'set-bannnerbv': {
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-        if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+        if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
         try {
 
@@ -28078,7 +28077,7 @@ Exemplos:
 
         } catch (error) {
           console.error(error);
-          return reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          return reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
       }
         break;
@@ -28089,8 +28088,8 @@ Exemplos:
       case 'imgsaiu':
       case 'exitimg':
         {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           try {
             const action = (q || '').toLowerCase().trim();
@@ -28141,16 +28140,16 @@ Exemplos:
 
           } catch (error) {
             console.error(error);
-            reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+            reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
           }
         }
         break;
       case 'limpar':
       case 'clean':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const linhasEmBranco = Array(500).fill('‎ ').join('\n');
           const mensagem = `${linhasEmBranco}\n🧹 Limpeza concluída!`;
           await reply(mensagem);
@@ -28163,7 +28162,7 @@ Exemplos:
       case 'protecaomarcar':
         try {
           if (!isOwner) return reply(OWNER_ONLY_MESSAGE);
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           const config = loadMassMentionConfig();
           const args = q.split(' ');
@@ -28207,7 +28206,7 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'removerfotobv':
@@ -28215,8 +28214,8 @@ Exemplos:
       case 'delfotobv':
       case 'rmwelcomeimg':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             welcome: {}
@@ -28227,7 +28226,7 @@ Exemplos:
           reply("✅ A imagem de boas-vindas foi removida com sucesso!");
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'removerfotosaiu':
@@ -28235,8 +28234,8 @@ Exemplos:
       case 'delfotosaiu':
       case 'rmexitimg':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             exit: {}
@@ -28247,7 +28246,7 @@ Exemplos:
           reply("✅ A imagem de saída foi removida com sucesso!");
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'configsaida':
@@ -28255,8 +28254,8 @@ Exemplos:
       case 'legendasaiu':
       case 'exitmsg':
         {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`📝 Para configurar a mensagem de saída, use:\n${prefix}${command} <mensagem>\n\nVocê pode usar:\n#numerodele# - Menciona quem saiu\n#nomedogp# - Nome do grupo\n#membros# - Total de membros\n#desc# - Descrição do grupo`);
           try {
             if (!groupData.exit) {
@@ -28271,15 +28270,15 @@ Exemplos:
             await reply('✅ Mensagem de saída configurada com sucesso!\n\n📝 Mensagem definida como:\n' + q);
           } catch (error) {
             console.error(error);
-            await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+            await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
           }
         }
         break;
       case 'saida':
       case 'exit':
         {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           try {
             if (!groupData.exit) {
 
@@ -28291,15 +28290,15 @@ Exemplos:
             await reply(groupData.exit.enabled ? '✅ Mensagens de saída ativadas!' : '❌ Mensagens de saída desativadas!');
           } catch (error) {
             console.error(error);
-            await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+            await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
           }
         }
         break;
       case 'parcerias':
       case 'partnerships':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!parceriasData.active) {
             return reply("O sistema de parcerias não está ativo neste grupo.");
           }
@@ -28322,8 +28321,8 @@ Exemplos:
       case 'addparceria':
       case 'addpartnership':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`Uso: ${prefix}addparceria @usuário limite ou marcando uma mensagem com ${prefix}addparceria limite`);
           let userId, limit;
           if (menc_os2) {
@@ -28365,8 +28364,8 @@ Exemplos:
       case 'delparceria':
       case 'delpartnership':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           let userId;
           if (menc_os2) {
             userId = menc_os2;
@@ -28394,8 +28393,8 @@ Exemplos:
         break;
       case 'modoparceria':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           parceriasData.active = !parceriasData.active;
           saveParceriasData(from, parceriasData);
           await reply(`✅ Sistema de parcerias ${parceriasData.active ? 'ativado' : 'desativado'} com sucesso!`);
@@ -28406,7 +28405,7 @@ Exemplos:
         break;
       case 'antifig':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar o antifig.");
 
           groupData.antifig = groupData.antifig || {};
@@ -28423,8 +28422,8 @@ Exemplos:
       case 'addblacklist':
       case 'blacklist':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           let targetUser = menc_os2 || null;
           if (!targetUser && q && q.trim()) {
             const firstArg = q.trim().split(/\s+/)[0];
@@ -28470,14 +28469,14 @@ Exemplos:
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'delblacklist':
       case 'unblacklist':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           let targetUser = menc_os2 || null;
           if (!targetUser && q && q.trim()) {
             const firstArg = q.trim().split(/\s+/)[0];
@@ -28518,13 +28517,13 @@ Exemplos:
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'listblacklist':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             blacklist: {}
@@ -28541,15 +28540,15 @@ Exemplos:
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'adv':
       case 'advertir':
       case 'warning':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!menc_os2) return reply("Marque um usuário 🙄");
           if (menc_os2 === botNumber) return reply("❌ Não posso advertir a mim mesma!");
           const reason = q ? (q.includes('@') || !menc_os2) ? (args.length > 1 ? args.slice(1).join(' ') : 'Motivo não informado') : q.trim() : 'Motivo não informado';
@@ -28582,15 +28581,15 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'removeradv':
       case 'rmadv':
       case 'unwarning':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!menc_os2) return reply("Marque um usuário 🙄");
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -28607,14 +28606,14 @@ Exemplos:
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'listadv':
       case 'warninglist':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             warnings: {}
@@ -28641,7 +28640,7 @@ Exemplos:
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'suporte':
@@ -28656,13 +28655,13 @@ Exemplos:
           const disableActions = ['off', 'desativar', 'desligar', 'disable'];
 
           if (enableActions.includes(action)) {
-            if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+            if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
             setSupportMode(from, true);
             return reply('✅ *Modo suporte ativado!* Agora membros podem solicitar tickets.');
           }
 
           if (disableActions.includes(action)) {
-            if (!isGroupAdmin) return reply('✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)');
+            if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
             setSupportMode(from, false);
             return reply('⚠️ *Modo suporte desativado!*');
           }
@@ -28705,7 +28704,7 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'ticketaceitar':
@@ -28756,15 +28755,15 @@ Exemplos:
           );
         } catch (e) {
           console.error(e);
-          reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'soadm':
       case 'onlyadm':
       case 'soadmin':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.soadm || groupData.soadm === undefined) {
 
@@ -28781,14 +28780,14 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'modolite':
       case 'litemode':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.modolite) {
 
@@ -28814,12 +28813,12 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'modoliteglobal':
         try {
-          if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           const modoLiteFile = MODO_LITE_FILE;
           modoLiteGlobal.status = !modoLiteGlobal.status;
           if (!modoLiteGlobal.status) {
@@ -28835,14 +28834,14 @@ Exemplos:
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antilinkgp':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antilinkgp: false
@@ -28854,16 +28853,16 @@ Exemplos:
           reply(`${message}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'anticategoria':
       case 'setcategoria':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           if (!q) {
             return reply(`💡 *Como usar:* ${prefix}${command} [nome da categoria]\n\n` +
@@ -28946,9 +28945,9 @@ Exemplos:
 
       case 'modoadv':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             modoADV: false
@@ -28962,16 +28961,16 @@ Exemplos:
           reply(`${message}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
 
       case 'antistickerplus':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
 
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
 
@@ -29043,16 +29042,16 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'antilinkcanal':
       case 'antilinkch':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antilinkcanal: false
@@ -29064,13 +29063,13 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           reply(`${message}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antilinksoft':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antilinksoft: false
@@ -29082,14 +29081,14 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           reply(`${message}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'antiporn':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antiporn: false
@@ -29101,13 +29100,13 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           reply(`${message}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'autosticker':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {};
 
@@ -29116,7 +29115,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           reply(`✅ Auto figurinhas ${groupData.autoSticker ? 'ativadas' : 'desativadas'}! ${groupData.autoSticker ? 'Todas as imagens e vídeos serão convertidos em figurinhas.' : ''}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -29124,8 +29123,8 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
       case 'autototext':
       case 'autotranscrever':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {};
 
@@ -29134,15 +29133,15 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           reply(`✅ Auto transcrever ${groupData.autotranscrever ? 'ativado' : 'desativado'}! ${groupData.autotranscrever ? 'Todos os áudios com ppt true serão convertidos em texto.' : ''}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'autorepo':
       case 'autoresposta':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {};
 
@@ -29151,7 +29150,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           reply(`✅ Auto resposta ${groupData.autorepo ? 'ativada' : 'desativada'}!`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -29159,8 +29158,8 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
       case 'assistent':
         try {
 
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
 
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {};
@@ -29250,7 +29249,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -29421,9 +29420,9 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
         break;
       case 'antigore':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antigore: false
@@ -29435,15 +29434,15 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           reply(`${message}`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'legendabv':
       case 'textbv':
       case 'welcomemsg':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           if (!q) return reply(`📝 *Configuração da Mensagem de Boas-Vindas*\n\nPara definir uma mensagem personalizada, digite o comando seguido do texto desejado. Você pode usar as seguintes variáveis:\n\n- *#numerodele#* → Marca o novo membro.\n- *#nomedogp#* → Nome do grupo.\n- *#desc#* → Descrição do grupo.\n- *#membros#* → Número total de membros no grupo.\n\n📌 *Exemplo:*\n${prefixo}legendabv Bem-vindo(a) #numerodele# ao grupo *#nomedogp#*! Agora somos #membros# membros. Leia a descrição: #desc#`);
 
@@ -29452,7 +29451,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           reply(`✅ *Mensagem de boas-vindas configurada com sucesso!*\n\n📌 Nova mensagem:\n"${groupData.textbv}"`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -29462,8 +29461,8 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
       case 'textbv2':
       case 'welcomemsg2':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           if (!q) return reply(`*Esse bem vindo não tem foto!*\n\n📝 *Configuração da Mensagem de Boas-Vindas*\n\nPara definir uma mensagem personalizada, digite o comando seguido do texto desejado. Você pode usar as seguintes variáveis:\n\n- *#numerodele#* → Marca o novo membro.\n- *#nomedogp#* → Nome do grupo.\n- *#desc#* → Descrição do grupo.\n- *#membros#* → Número total de membros no grupo.\n\n📌 *Exemplo:*\n${prefixo}legendabv2 Bem-vindo(a) #numerodele# ao grupo *#nomedogp#*! Agora somos #membros# membros. Leia a descrição: #desc#`);
 
@@ -29472,17 +29471,17 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           reply(`✅ *Mensagem de boas-vindas configurada com sucesso!*\n\n📌 Nova mensagem:\n"${groupData.textbv}"\n\n*Esse bem vindo não tem foto!*`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'mute':
       case 'mutar':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!isBotAdmin) return reply("✿ Preciso ser admin do grupo pra fazer isso! (っ˘̩╭╮˘̩)っ");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!isBotAdmin) return reply(`💎 Me dá admin no grupo que eu faço isso rapidinho! (っ˘̩╭╮˘̩)っ`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             mutedUsers: {}
@@ -29503,16 +29502,16 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'desmute':
       case 'desmutar':
       case 'unmute':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             mutedUsers: {}
@@ -29534,15 +29533,15 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           }
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'mute2':
       case 'mutar2':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             mutedUsers2: {}
@@ -29563,16 +29562,16 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'desmute2':
       case 'desmutar2':
       case 'unmute2':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             mutedUsers2: {}
@@ -29594,13 +29593,13 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           }
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'blockcmd':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`❌ Digite o comando que deseja bloquear. Exemplo: ${prefix}blockcmd sticker`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -29614,13 +29613,13 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           reply(`✅ O comando *${q.trim()}* foi bloqueado e só pode ser usado por administradores.`);
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'unblockcmd':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("✿ Só os admins podem usar isso, desculpa! (｡•́︿•̀｡)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`❌ Digite o comando que deseja desbloquear. Exemplo: ${prefix}unblockcmd sticker`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -29637,15 +29636,15 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
           }
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'ttt':
       case 'jogodavelha':
       case 'tictactoe':
         {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!menc_os2) return reply("✿ Marca alguém pra mim! (・・ ) ?");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!menc_os2) return reply(`💎 Marca alguém (ou responde a mensagem da pessoa) pra mim! (・・ ) ?`);
           if (!tictactoe || typeof tictactoe.invitePlayer !== 'function') {
             console.warn('[TICTACTOE] invitePlayer not available');
             return reply("Sistema de jogo da velha temporariamente indisponível.");
@@ -29665,7 +29664,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
       case 'c4':
       case 'ligue4':
         {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!connect4 || typeof connect4.invitePlayer !== 'function') {
             return reply("Sistema Connect4 temporariamente indisponível.");
           }
@@ -29679,7 +29678,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
       // UNO - Jogo de cartas
       // ═══════════════════════════════════════════════════════════════
       case 'uno':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         if (!uno) return reply("Sistema UNO temporariamente indisponível.");
 
         const subCmdUno = normalizeCommand(args[0]);
@@ -29838,7 +29837,7 @@ ${prefix}uno sair - Sair da partida
       // ═══════════════════════════════════════════════════════════════
       case 'memoria':
       case 'memory':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         if (!memoria) return reply("Sistema de memória temporariamente indisponível.");
 
         const subCmdMemory = args[0]?.toLowerCase();
@@ -29956,7 +29955,7 @@ Use ${prefix}inventario para ver seus itens!`);
       // ═══════════════════════════════════════════════════════════════
       case 'repbn':
       case 'reputacaobn':
-        if (!reputation) return reply("Sistema de reputação temporariamente indisponível.");
+        if (!reputation) return reply(`💎 A reputação tá descansando agora... tenta daqui a pouco ♡`);
 
         const actionRep = args[0]?.toLowerCase();
 
@@ -29986,14 +29985,14 @@ Use ${prefix}inventario para ver seus itens!`);
 
       case 'toprep':
       case 'rankrep':
-        if (!reputation) return reply("Sistema de reputação temporariamente indisponível.");
+        if (!reputation) return reply(`💎 A reputação tá descansando agora... tenta daqui a pouco ♡`);
         const ranking = reputation.getRepRanking(10);
         return reply(ranking);
         break;
 
       case 'denunciar':
       case 'report':
-        if (!reputation) return reply("Sistema de reputação temporariamente indisponível.");
+        if (!reputation) return reply(`💎 A reputação tá descansando agora... tenta daqui a pouco ♡`);
         if (!menc_os2) return reply(`❌ Marque quem você quer denunciar!\n\nUso: ${prefix}denunciar @user <motivo>`);
 
         const motivoDenuncia = args.slice(1).join(' ');
@@ -30005,7 +30004,7 @@ Use ${prefix}inventario para ver seus itens!`);
 
       case 'denuncias':
       case 'reports':
-        if (!reputation) return reply("Sistema de reputação temporariamente indisponível.");
+        if (!reputation) return reply(`💎 A reputação tá descansando agora... tenta daqui a pouco ♡`);
         if (!isGroupAdmin && !isOwnerOrSub) return reply("❌ Apenas admins podem ver denúncias!");
 
         const reportsData = reputation.getReports(from);
@@ -30172,7 +30171,7 @@ ${prefix}calc converter 100 km mi`);
       // ═══════════════════════════════════════════════════════════════
       case 'cortaraudio':
       case 'cutaudio':
-        if (!audioEdit) return reply("Sistema de edição de áudio temporariamente indisponível.");
+        if (!audioEdit) return reply(`💎 Os efeitos de áudio tão descansando agora... tenta daqui a pouco ♡`);
 
         const quotedMsgCut = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioCut = type === 'audioMessage' || quotedMsgCut?.audioMessage;
@@ -30202,13 +30201,13 @@ ${prefix}calc converter 100 km mi`);
           }
         } catch (e) {
           console.error('Erro ao cortar áudio:', e);
-          return reply("❌ Erro ao processar o áudio!");
+          return reply(`💎 Não consegui mexer nesse áudio... tenta com outro? (｡•́︿•̀｡)`);
         }
         break;
 
       case 'velocidade':
       case 'speed':
-        if (!audioEdit) return reply("Sistema de edição de áudio temporariamente indisponível.");
+        if (!audioEdit) return reply(`💎 Os efeitos de áudio tão descansando agora... tenta daqui a pouco ♡`);
 
         const quotedMsgSpeed = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioSpeed = type === 'audioMessage' || quotedMsgSpeed?.audioMessage;
@@ -30237,13 +30236,13 @@ ${prefix}calc converter 100 km mi`);
           }
         } catch (e) {
           console.error('Erro ao alterar velocidade:', e);
-          return reply("❌ Erro ao processar o áudio!");
+          return reply(`💎 Não consegui mexer nesse áudio... tenta com outro? (｡•́︿•̀｡)`);
         }
         break;
 
       case 'reversobn':
       case 'reversebn':
-        if (!audioEdit) return reply("Sistema de edição de áudio temporariamente indisponível.");
+        if (!audioEdit) return reply(`💎 Os efeitos de áudio tão descansando agora... tenta daqui a pouco ♡`);
 
         const quotedMsgReverse = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioReverse = type === 'audioMessage' || quotedMsgReverse?.audioMessage;
@@ -30269,13 +30268,13 @@ ${prefix}calc converter 100 km mi`);
           }
         } catch (e) {
           console.error('Erro ao reverter áudio:', e);
-          return reply("❌ Erro ao processar o áudio!");
+          return reply(`💎 Não consegui mexer nesse áudio... tenta com outro? (｡•́︿•̀｡)`);
         }
         break;
 
       case 'bassbn':
       case 'bassboostbn':
-        if (!audioEdit) return reply("Sistema de edição de áudio temporariamente indisponível.");
+        if (!audioEdit) return reply(`💎 Os efeitos de áudio tão descansando agora... tenta daqui a pouco ♡`);
 
         const quotedMsgBass = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioBass = type === 'audioMessage' || quotedMsgBass?.audioMessage;
@@ -30304,13 +30303,13 @@ ${prefix}calc converter 100 km mi`);
           }
         } catch (e) {
           console.error('Erro ao adicionar bass:', e);
-          return reply("❌ Erro ao processar o áudio!");
+          return reply(`💎 Não consegui mexer nesse áudio... tenta com outro? (｡•́︿•̀｡)`);
         }
         break;
 
       case 'normalizar':
       case 'normalize':
-        if (!audioEdit) return reply("Sistema de edição de áudio temporariamente indisponível.");
+        if (!audioEdit) return reply(`💎 Os efeitos de áudio tão descansando agora... tenta daqui a pouco ♡`);
 
         const quotedMsgNorm = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const hasAudioNorm = type === 'audioMessage' || quotedMsgNorm?.audioMessage;
@@ -30336,7 +30335,7 @@ ${prefix}calc converter 100 km mi`);
           }
         } catch (e) {
           console.error('Erro ao normalizar áudio:', e);
-          return reply("❌ Erro ao processar o áudio!");
+          return reply(`💎 Não consegui mexer nesse áudio... tenta com outro? (｡•́︿•̀｡)`);
         }
         break;
 
@@ -30569,7 +30568,7 @@ ${prefix}aventura sair - Abandona a história
       // ═══════════════════════════════════════════════════════════════
       case 'antitoxic':
       case 'antitóxico':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         if (!isGroupAdmin) return reply("❌ Apenas admins podem configurar o antitoxic!");
         if (!antitoxic) return reply("Sistema antitoxic temporariamente indisponível.");
 
@@ -30618,7 +30617,7 @@ ${prefix}antitoxic sensibilidade <0-100> - Define sensibilidade
       // ═══════════════════════════════════════════════════════════════
       case 'antipalavra':
       case 'antiword':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         if (!isGroupAdmin) return reply("❌ Apenas administradores podem usar este comando!");
         if (!antipalavra) return reply("❌ Sistema antipalavra temporariamente indisponível.");
 
@@ -30816,7 +30815,7 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
 
       case 'setletraaura':
         try {
-          if (!isOwner) return reply('✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           const arquivoLetra = __dirname + '/../database/dono/auraLetra.json';
           if (q && q.trim().toLowerCase() === 'reset') {
             if (fs.existsSync(arquivoLetra)) fs.unlinkSync(arquivoLetra);
@@ -30830,14 +30829,14 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
           await reply(`✿ Letra salva! Quando alguém tirar 80% ou mais, eu canto:\n\n${linhas.map((l, i) => `${i + 1}. ${l}`).join('\n')}`);
         } catch (e) {
           console.error('Erro no setletraaura:', e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
       case 'chance':
         try {
           if (!isGroup) return reply("🎮 Ops! Esse comando só funciona em grupos! Chama a galera! 👥 ");
-          if (!isModoBn) return reply('❌ O modo brincadeira está off nesse grupo! Pede pro admin ativar a diversão! 🎉');
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!q) return reply(`🎲 Me conta algo para eu calcular as chances! 📊
 
 📝 *Exemplo:* ${prefix}chance chover pizza hoje
@@ -30864,7 +30863,7 @@ ${chance >= 80 ? '🚀 Uau! Apostaria minhas fichas nisso!' : chance >= 60 ? '�
       case 'quando':
         try {
           if (!isGroup) return reply("🕰️ Esse comando só funciona em grupos! Vem com a galera!  ✨");
-          if (!isModoBn) return reply('❌ O modo brincadeira está dormindo nesse grupo! Acorda ele! 😴🎉');
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!q) return reply(`🔮 Me conta o que você quer que eu preveja! 🌠
 
 📝 *Exemplos:*
@@ -31045,7 +31044,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
       case 'couples':
       case 'listacasais': {
         if (!isGroup) {
-          await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+          await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           break;
         }
 
@@ -31087,7 +31086,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
       case 'termino':
       case 'terminarelacionamento': {
         if (!isGroup) {
-          await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+          await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           break;
         }
 
@@ -31143,11 +31142,11 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
       case 'trair':
       case 'traicao': {
         if (!isGroup) {
-          await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+          await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           break;
         }
         if (!isModoBn) {
-          await reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          await reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           break;
         }
 
@@ -31179,11 +31178,11 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
       case 'historicotraicoes':
       case 'historicodetraicao': {
         if (!isGroup) {
-          await reply('✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)');
+          await reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           break;
         }
         if (!isModoBn) {
-          await reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          await reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           break;
         }
 
@@ -31226,8 +31225,8 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
 
       case 'casal':
         try {
-          if (!isGroup) return reply("╭━━━⊱ (｡•́︿•̀｡) *ERRO* (｡•́︿•̀｡) ⊱━━━╮\n│\n│ ❌ Este comando só funciona\n│    em grupos!\n│\n╰━━━━━━━━━━━━━━━━━━━━╯");
-          if (!isModoBn) return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (AllgroupMembers.length < 2) return reply('❌ Preciso de pelo menos 2 membros no grupo!');
           let path = buildGroupFilePath(from);
           // Otimização: Usar cache para leitura de arquivo
@@ -31269,13 +31268,13 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'shipo':
         try {
-          if (!isGroup) return reply("╭━━━⊱ (｡•́︿•̀｡) *ERRO* (｡•́︿•̀｡) ⊱━━━╮\n│\n│ ❌ Este comando só funciona\n│    em grupos!\n│\n╰━━━━━━━━━━━━━━━━━━━━╯");
-          if (!isModoBn) return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!menc_os2) return reply(`╭━━━⊱ 💘 *SHIPO* 💘 ⊱━━━╮
 │
 │ ❌ Marque alguém para
@@ -31330,13 +31329,13 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'sn':
         try {
           if (!isGroup) return reply("🎱 Esse comando só funciona em grupos! Chama todo mundo!  ✨");
-          if (!isModoBn) return reply('❌ O modo brincadeira está pausado nesse grupo! Hora de ativar a diversão! 🎉');
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!q) return reply(`🎱 Faça uma pergunta para o oráculo! 🔮
 
 📝 *Exemplos:*
@@ -31425,7 +31424,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
       case 'admin':
       case 'adm':
       case 'adms':
-        if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+        if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
         try {
           let membros = groupAdmins;
           let msg = `📢 *Mencionando os admins do grupo:* ${q ? `\n💬 *Mensagem:* ${q}` : ''}\n\n`;
@@ -31435,7 +31434,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           });
         } catch (e) {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'perfil':
@@ -31504,7 +31503,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           await reply(`🖐️ *Pedra, Papel, Tesoura* 🖐️\n\nVocê: ${usuarioEscolha}\nEu: ${botEscolha}\n\n${resultado}`);
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -31513,11 +31512,11 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
 
           if (!isGroup) {
-            return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+            return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           }
 
           if (!isModoBn) {
-            return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+            return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           }
 
           const pergunta =
@@ -31559,11 +31558,11 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         try {
 
           if (!isGroup) {
-            return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+            return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           }
 
           if (!isModoBn) {
-            return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+            return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           }
 
           const vabs =
@@ -31743,7 +31742,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           });
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'suicidio':
@@ -31759,7 +31758,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }, 2000);
         }).catch((e) => {
           console.error(e);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         });
         break;
       case 'gay':
@@ -31909,8 +31908,8 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           if (isModoLite && ['pirocudo', 'pirokudo', 'gostoso', 'nazista', 'machista', 'homofobico', 'racista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isModoBn) return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games: {}
           };
@@ -31941,7 +31940,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'lesbica':
@@ -32033,8 +32032,8 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           if (isModoLite && ['bucetuda', 'cachorra', 'vagabunda', 'racista', 'nazista', 'gostosa', 'machista', 'homofobica'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isModoBn) return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games: {}
           };
@@ -32065,7 +32064,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'rankgay':
@@ -32120,8 +32119,8 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           if (isModoLite && ['rankgostoso', 'rankgostosos', 'ranknazista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isModoBn) return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           let path = buildGroupFilePath(from);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             ranks: {}
@@ -32163,7 +32162,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'ranklesbica':
@@ -32202,8 +32201,8 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           if (isModoLite && ['rankgostosa', 'rankgostosas', 'ranknazista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isModoBn) return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           let path = buildGroupFilePath(from);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             ranks: {}
@@ -32245,7 +32244,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'chute':
@@ -32279,8 +32278,8 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           if (isModoLite && comandosImpróprios.includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isModoBn) return reply('✿ O modo brincadeira não tá ligado nesse grupo! (｡•́︿•̀｡)');
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
           if (!menc_os2) return reply('Marque um usuário.');
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games2: {}
@@ -32311,12 +32310,12 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }
         } catch (e) {
           console.error(e);
-          await reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
       case 'afk':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           const reason = q.trim();
 
           groupData.afkUsers = groupData.afkUsers || {};
@@ -32339,7 +32338,7 @@ Motivo: ${reason}`;
         break;
       case 'voltei':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (groupData.afkUsers && groupData.afkUsers[sender]) {
             delete groupData.afkUsers[sender];
             fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
@@ -32354,7 +32353,7 @@ Motivo: ${reason}`;
         break;
       case 'regras':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!groupData.rules || groupData.rules.length === 0) {
             return reply("📜 Nenhuma regra definida para este grupo ainda.");
           }
@@ -32374,7 +32373,7 @@ Motivo: ${reason}`;
       case 'addregra':
       case 'addrule':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar regras.");
           if (!q) return reply(`📝 Por favor, forneça o texto da regra. Ex: ${prefix}addregra Proibido spam.`);
 
@@ -32391,7 +32390,7 @@ ${groupData.rules.length}. ${q}`);
       case 'delregra':
       case 'delrule':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem remover regras.");
           if (!q || isNaN(parseInt(q))) return reply(`🔢 Por favor, forneça o número da regra a ser removida. Ex: ${prefix}delregra 3`);
 
@@ -32410,7 +32409,7 @@ ${groupData.rules.length}. ${q}`);
         break;
       case 'addmod':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar moderadores.");
           if (!menc_os2) return reply(`Marque o usuário que deseja promover a moderador. Ex: ${prefix}addmod @usuario`);
           const modToAdd = menc_os2;
@@ -32431,7 +32430,7 @@ ${groupData.rules.length}. ${q}`);
         break;
       case 'delmod':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem remover moderadores.");
           if (!menc_os2) return reply(`Marque o usuário que deseja remover de moderador. Ex: ${prefix}delmod @usuario`);
           const modToRemove = menc_os2;
@@ -32454,7 +32453,7 @@ ${groupData.rules.length}. ${q}`);
       case 'listmods':
       case 'modlist':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (groupData.moderators.length === 0) {
             return reply("🛡️ Não há moderadores definidos para este grupo.");
           }
@@ -32475,8 +32474,8 @@ ${groupData.rules.length}. ${q}`);
       case 'grantmodcmd':
       case 'addmodcmd':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar permissões de moderador.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`Por favor, especifique o comando para permitir aos moderadores. Ex: ${prefix}grantmodcmd ban`);
           const cmdToAllow = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
           if (groupData.allowedModCommands.includes(cmdToAllow)) {
@@ -32493,8 +32492,8 @@ ${groupData.rules.length}. ${q}`);
       case 'revokemodcmd':
       case 'delmodcmd':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar permissões de moderador.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!q) return reply(`Por favor, especifique o comando para proibir aos moderadores. Ex: ${prefix}revokemodcmd ban`);
           const cmdToDeny = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
           const cmdIndex = groupData.allowedModCommands.indexOf(cmdToDeny);
@@ -32511,7 +32510,7 @@ ${groupData.rules.length}. ${q}`);
         break;
       case 'listmodcmds':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (groupData.allowedModCommands.length === 0) {
             return reply("🔧 Nenhum comando específico permitido para moderadores neste grupo.");
           }
@@ -32530,7 +32529,7 @@ ${groupData.rules.length}. ${q}`);
       case 'wladd':
       case 'addwhitelist':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar usuários à whitelist.");
 
           if (!menc_os2) {
@@ -32591,7 +32590,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
       case 'wlremove':
       case 'removewhitelist':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isGroupAdmin) return reply("Apenas administradores podem remover usuários da whitelist.");
 
           if (!menc_os2) {
@@ -32623,7 +32622,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
       case 'listawhitelist':
       case 'whitelistlista':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
 
           const whitelistEntries = Object.entries(groupData.adminWhitelist || {});
 
@@ -32658,8 +32657,8 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'minmessage':
         try {
-          if (!isGroup) return reply("✿ Esse comando só funciona em grupos, tá? (๑•́ ₃ •̀๑)");
-          if (!isGroupAdmin) return reply("Apenas administradores podem configurar isso.");
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
+          if (!isGroupAdmin) return reply(`💎 Esse aqui é só pros admins do grupo, desculpinha! (｡•́︿•̀｡)`);
           if (!args[0]) return reply(`Uso: ${prefix}minmessage <mínimo de dígitos> <ban/adv> ou ${prefix}minmessage off`);
           if (args[0].toLowerCase() === 'off') {
             delete groupData.minMessage;
@@ -32683,8 +32682,8 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'nuke':
         try {
-          if (!isOwner) return reply('Apenas o dono pode usar este comando.');
-          if (!isGroup) return reply('Apenas em grupos.');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
+          if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isBotAdmin) return reply('Preciso ser admin para isso.');
           const membersToBan = AllgroupMembers.filter(m => m !== nazu.user.id && m !== sender);
           if (membersToBan.length === 0) return reply('Nenhum membro para banir.');
@@ -32697,7 +32696,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'msgprefix':
         try {
-          if (!isOwner) return reply('Apenas o dono pode configurar isso.');
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
           if (!q) return reply('Uso: ' + prefix + 'msgprefix off ou ' + prefix + 'msgprefix texto aqui #prefixo#');
           const newMsg = q.trim().toLowerCase() === 'off' ? false : q;
           if (saveMsgPrefix(newMsg)) {
@@ -32707,7 +32706,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           }
         } catch (e) {
           console.error('Erro no msgprefix:', e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -32726,7 +32725,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           }
         } catch (e) {
           console.error('Erro no msgboton:', e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -32740,7 +32739,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           await reply(result.message);
         } catch (e) {
           console.error('Erro no addreact:', e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -32752,7 +32751,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           await reply(result.message);
         } catch (e) {
           console.error('Erro no delreact:', e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
 
@@ -32768,7 +32767,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           await reply(listMsg);
         } catch (e) {
           console.error('Erro no listreact:', e);
-          await reply('✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
         }
         break;
         
@@ -32788,11 +32787,10 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           await reply(
             `🎉 Aqui está o link do produto no evento como GRATUITO:\n\n` +
             `⚠️ Atenção: Nem todos os anúncios funcionam com esse método. Se não funcionar com este link, tente outro.\n\n` +
-            `💡 Esse sistema foi criado por mim (Hiudy) e, até hoje, não vi ninguém oferecendo algo assim. Aproveite!\n\n` +
             `${KKMeMamaTemu}`
           );
         } catch (e) {
-          await reply('❌ Ocorreu um erro inesperado 😢');
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
           console.error(e);
         }
         break;

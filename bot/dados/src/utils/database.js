@@ -133,7 +133,7 @@ ensureJsonFileExists(DONO_DIVULGACAO_FILE, {
   createdAt: new Date().toISOString()
 });
 ensureJsonFileExists(MENU_DESIGN_FILE, {
-  header: `╭─── ⋆｡˚ ☁︎ *{botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
+  header: `╭─── ⋆｡˚ 💎 *{botName}* 💎 ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
   menuTopBorder: "╭─ ",
   bottomBorder: "╰─────── ⋆｡˚ ✧ ───────",
   menuTitleIcon: "✧",
@@ -515,18 +515,13 @@ const loadMsgBotOn = () => {
 
   const data = loadJsonFile(MSGBOTON_FILE, {
     enabled: defaultEnabled,
-    message: `✨ *Oiiiii!* ✨
+    message: `💎 *Oiê, cheguei!* ♡
 
-Estou online e pronta para uso! 🤗💖
+Tô online e pronta pra brincar com vocês ✿
 
-Muito obrigada por ter me escolhido! Sou a nova versão desenvolvida pelo *Dev Tokyo* e são vocês usuários da bot que me motivam a seguir evoluindo! 🌸💕
+Manda *menu* com o meu prefixo pra ver tudo o que eu sei fazer (˶ᵔ ᵕ ᵔ˶)
 
-Espero que você goste da bot! ✨
-
-💬 *Considere entrar no meu canal para ficar por dentro das novidades:*
-https://whatsapp.com/channel/0029Vb7bjAK7j6gEdyp6g13D
-
-_Para desativar esta mensagem de inicialização, use o comando *msgboton*_`
+_Pra desligar este aviso, usa *msgboton*_`
   });
   return data;
 };
@@ -2797,7 +2792,7 @@ const loadMenuDesign = () => {
       return JSON.parse(fs.readFileSync(MENU_DESIGN_FILE, 'utf-8'));
     } else {
       return {
-        header: `╭─── ⋆｡˚ ☁︎ *{botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
+        header: `╭─── ⋆｡˚ 💎 *{botName}* 💎 ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
         menuTopBorder: "╭─ ",
         bottomBorder: "╰─────── ⋆｡˚ ✧ ───────",
         menuTitleIcon: "✧",
@@ -2809,7 +2804,7 @@ const loadMenuDesign = () => {
   } catch (error) {
     console.error(`❌ Erro ao carregar design do menu: ${error.message}`);
     return {
-      header: `╭─── ⋆｡˚ ☁︎ *{botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
+      header: `╭─── ⋆｡˚ 💎 *{botName}* 💎 ˚｡⋆ ───╮\n│ Oi, {userName}! ♡\n╰──────────────────────╯`,
       menuTopBorder: "╭─ ",
       bottomBorder: "╰─────── ⋆｡˚ ✧ ───────",
       menuTitleIcon: "✧",

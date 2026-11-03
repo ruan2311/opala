@@ -1,28 +1,6 @@
-export default async function menu(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭─── ⋆｡˚ ☁︎ *${botName}* ☁︎ ˚｡⋆ ───╮\n│ Oi, #user#! ♡\n╰──────────────────────╯`,
-    menuTopBorder = "╭─ ",
-    bottomBorder = "╰─────── ⋆｡˚ ✧ ───────",
-    menuTitleIcon = "✧",
-    menuItemIcon = " ♡ ",
-    separatorIcon = "✦",
-    middleBorder = "│"
-} = {}) {
-    const formattedHeader = header.replace(/#user#/g, userName);
-    return `${formattedHeader}
+// Menu montado a partir do catálogo (catalogo.js), com o design do dono.
+import { desenhar } from './catalogo.js';
 
-${menuTopBorder}${separatorIcon} *Menu Principal*
-${middleBorder}
-${middleBorder}${menuItemIcon}${prefix}menudown
-${middleBorder}${menuItemIcon}${prefix}menulogos
-${middleBorder}${menuItemIcon}${prefix}menuedits
-${middleBorder}${menuItemIcon}${prefix}menuadm
-${middleBorder}${menuItemIcon}${prefix}menubn
-${middleBorder}${menuItemIcon}${prefix}menudono
-${middleBorder}${menuItemIcon}${prefix}menumemb
-${middleBorder}${menuItemIcon}${prefix}ferramentas
-${middleBorder}${menuItemIcon}${prefix}menufig
-${middleBorder}${menuItemIcon}${prefix}alteradores
-${middleBorder}${menuItemIcon}${prefix}menurpg
-${middleBorder}${menuItemIcon}${prefix}menuvip
-${bottomBorder}`;
+export default async function menu(prefix, botName = "MeuBot", userName = "Usuário", design = {}) {
+  return desenhar('menu', prefix, botName, userName, design);
 }
