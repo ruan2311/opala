@@ -1743,7 +1743,7 @@ async function startNazu() {
     isReconnecting = true;
 
     try {
-        console.log('🚀 Iniciando Nazuna...');
+        console.log('🚀 Iniciando Opala...');
 
         await createBotSocket(AUTH_DIR);
 

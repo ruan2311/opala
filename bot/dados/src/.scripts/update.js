@@ -611,4 +611,7 @@ async function main() {
   }
 }
 
-main();
+// Opala: este atualizador baixava o bot original e apagaria as mudanças do Opala.
+// As atualizações chegam pelo GitHub do Opala (git pull), então ele só avisa e sai.
+console.log('✿ O Opala não usa atualização automática. Atualize pelo GitHub do Opala.');
+process.exit(0);

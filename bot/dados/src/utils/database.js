@@ -348,8 +348,6 @@ ensureJsonFileExists(MSGBOTON_FILE, {
 ✿ Tô online e prontinha pra usar (๑˃ᴗ˂)ﻭ
 ✿ Manda *!menu* pra ver tudo que eu sei fazer
 
-_Feita com carinho a partir da Nazuna, do Dev Tokyo ♡_
-
 _Pra desligar este aviso, usa o comando *msgboton*_`
 });
 ensureJsonFileExists(CUSTOM_REACTS_FILE, { reacts: [] });

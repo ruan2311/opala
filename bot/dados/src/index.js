@@ -15694,26 +15694,8 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         break;
 
       case 'updates':
-        try {
-          if (!isOwner || isOwner && isSubOwner) return reply("🚫 Apenas o Dono principal pode utilizar esse comando!");
-          if (!fs.existsSync(pathz.join(__dirname, '..', 'database', 'updateSave.json'))) return reply('❌ Sua versão não tem suporte a esse sistema ainda.');
-          const AtualCom = await axios.get('https://api.github.com/repos/devcrician/nazuna/commits?per_page=1', {
-            headers: {
-              Accept: 'application/vnd.github+json'
-            }
-          }).then(r => r.headers.link?.match(/page=(\d+)>;\s*rel="last"/)?.[1]);
-          const {
-            total
-          } = JSON.parse(fs.readFileSync(pathz.join(__dirname, '..', 'database', 'updateSave.json'), 'utf-8'));
-          if (AtualCom > total) {
-            const TextZin = await VerifyUpdate('devcrician/nazuna', AtualCom - total);
-            await reply(TextZin);
-          } else {
-            await reply('Você ja esta utilizando a versão mais recente da bot.');
-          }
-        } catch (e) {
-          console.error(e);
-        }
+        if (!isOwner || isOwner && isSubOwner) return reply("🚫 Apenas o Dono principal pode utilizar esse comando!");
+        await reply('✿ As atualizações do bot chegam pelo GitHub do Opala, sem atualização automática por aqui ♡');
         break;
       case 'addsubdono':
         if (!isOwner) return reply("🚫 Apenas o Dono principal pode adicionar subdonos!");
@@ -16544,204 +16526,8 @@ ${prefix}addsubbot @152656307871952`
       case 'update':
       case 'atualizarbot':
         if (!isOwner || isSubOwner) return reply("🚫 Apenas o Dono principal pode atualizar o bot!");
-
-        try {
-          const updateScriptPath = pathz.join(__dirname, '.scripts', 'update.js');
-
-          // Verifica se o script de atualização existe
-          if (!fs.existsSync(updateScriptPath)) {
-            return reply("❌ Script de atualização não encontrado!\n\n📂 Caminho esperado: dados/src/.scripts/update.js");
-          }
-
-          // Se não passou o parâmetro "sim", mostra o aviso
-          if (!q || q.toLowerCase() !== 'sim') {
-            const avisoMsg = `⚠️ *ATENÇÃO - ATUALIZAÇÃO DO BOT* ⚠️
-
-┏━━━━━━━━━━━━━━━━━━━━━
-┃ 📢 *AVISOS IMPORTANTES:*
-┣━━━━━━━━━━━━━━━━━━━━━
-┃
-┃ ⚠️ Edições manuais no código 
-┃    serão *PERDIDAS*
-┃
-┃ ✅ Banco de dados será 
-┃    *PRESERVADO*
-┃
-┃ ✅ Configurações (config.json)
-┃    serão *MANTIDAS*
-┃
-┃ ✅ Mídias serão *PRESERVADAS*
-┃
-┃ 🔒 Backup automático será criado
-┃
-┃ ⏸️ Processamento de mensagens
-┃    será *PAUSADO* durante update
-┃
-┣━━━━━━━━━━━━━━━━━━━━━
-┃ 💡 *RECOMENDAÇÃO:*
-┃ Faça um backup manual antes!
-┣━━━━━━━━━━━━━━━━━━━━━
-┃
-┃ 📝 Para confirmar, use:
-┃ ${prefix}atualizar sim
-┃
-┗━━━━━━━━━━━━━━━━━━━━━`;
-
-            return reply(avisoMsg);
-          }
-
-          // Confirmação recebida, iniciar atualização
-          await reply("🚀 *INICIANDO ATUALIZAÇÃO...*\n\n⏸️ Pausando processamento de mensagens...");
-
-          // Pausa o processamento de mensagens
-          const messageQueueModule = await import('./connect.js');
-          if (messageQueueModule.messageQueue && typeof messageQueueModule.messageQueue.pause === 'function') {
-            messageQueueModule.messageQueue.pause();
-            await reply("✅ Processamento pausado com sucesso!\n\n🔄 Iniciando script de atualização...");
-          }
-
-          // Cria o processo de atualização
-          const updateProcess = spawn('node', [updateScriptPath], {
-            cwd: pathz.join(__dirname, '..', '..'),
-            stdio: ['ignore', 'pipe', 'pipe'],
-            detached: false
-          });
-
-          let outputBuffer = '';
-          const messagesSent = new Set(); // Rastreia mensagens já enviadas para evitar duplicatas
-          const messageQueue = []; // Fila de mensagens pendentes
-          let isProcessingQueue = false;
-
-          // Mapeamento de triggers para mensagens
-          const updateMessages = {
-            'Verificando requisitos': '🔍 Verificando requisitos do sistema...',
-            'Criando backup': '📁 Criando backup dos arquivos importantes...',
-            'Backup salvo': '✅ Backup criado com sucesso!',
-            'Baixando a versão': '📥 Baixando atualização do GitHub...',
-            'Download concluído': '✅ Download concluído!\n\n🧹 Limpando arquivos antigos...',
-            'Limpeza concluída': '✅ Limpeza concluída!\n\n🚀 Aplicando atualização...',
-            'Atualização aplicada': '✅ Atualização aplicada!\n\n📂 Restaurando dados preservados...',
-            'Backup restaurado': '✅ Dados restaurados!\n\n📦 Instalando dependências...',
-            'Instalando dependências': '📦 Instalando/verificando dependências...\n⏳ Isso pode levar alguns minutos...',
-            'Dependências instaladas': '✅ Dependências instaladas com sucesso!'
-          };
-
-          // Processa a fila de mensagens sequencialmente
-          const processMessageQueue = async () => {
-            if (isProcessingQueue || messageQueue.length === 0) return;
-
-            isProcessingQueue = true;
-            while (messageQueue.length > 0) {
-              const message = messageQueue.shift();
-              try {
-                await reply(message);
-                await new Promise(resolve => setTimeout(resolve, 1500)); // Delay entre mensagens
-              } catch (e) {
-                console.error('Erro ao enviar update:', e);
-              }
-            }
-            isProcessingQueue = false;
-          };
-
-          // Adiciona mensagem à fila se não foi enviada ainda
-          const queueUpdate = (trigger, message) => {
-            if (!messagesSent.has(trigger)) {
-              messagesSent.add(trigger);
-              messageQueue.push(message);
-              processMessageQueue();
-            }
-          };
-
-          // Captura stdout
-          updateProcess.stdout.on('data', async (data) => {
-            const output = data.toString();
-            console.log('UPDATE:', output);
-            outputBuffer += output;
-
-            // Verifica cada trigger e enfileira a mensagem correspondente
-            for (const [trigger, message] of Object.entries(updateMessages)) {
-              if (output.includes(trigger)) {
-                queueUpdate(trigger, message);
-              }
-            }
-          });
-
-          // Captura stderr
-          updateProcess.stderr.on('data', (data) => {
-            const error = data.toString();
-            console.error('UPDATE ERROR:', error);
-          });
-
-          // Quando o processo terminar
-          updateProcess.on('close', async (code) => {
-            if (code === 0) {
-              await reply(`✅ *ATUALIZAÇÃO CONCLUÍDA COM SUCESSO!*
-
-🎉 O bot foi atualizado para a versão mais recente!
-
-🔄 Reiniciando automaticamente em 3 segundos...`);
-
-              // Aguarda 3 segundos antes de reiniciar
-              setTimeout(async () => {
-                await reply('🔄 Reiniciando agora...');
-
-                // Aguarda mais 1 segundo para garantir que a mensagem foi enviada
-                setTimeout(() => {
-                  console.log('[UPDATE] Reiniciando após atualização...');
-                  process.exit(0); // Exit code 0 indica sucesso, o gerenciador de processos deve reiniciar
-                }, 1000);
-              }, 3000);
-            } else {
-              await reply(`❌ *ERRO NA ATUALIZAÇÃO!*
-
-⚠️ O processo de atualização falhou com código: ${code}
-
-🔧 *O que fazer:*
-┃
-┃ 1️⃣ Verifique sua conexão com a internet
-┃ 2️⃣ Certifique-se de ter Git instalado
-┃ 3️⃣ Tente novamente em alguns minutos
-┃ 4️⃣ Se persistir, atualize manualmente:
-┃    cd dados/src/.scripts
-┃    node update.js
-┃
-┗━━━━━━━━━━━━━━━━━━━━━
-
-📂 Backup foi preservado para segurança.`);
-
-              // Retoma o processamento de mensagens
-              if (messageQueueModule.messageQueue && typeof messageQueueModule.messageQueue.resume === 'function') {
-                messageQueueModule.messageQueue.resume();
-              }
-            }
-          });
-
-          // Timeout de segurança (15 minutos)
-          setTimeout(async () => {
-            if (!updateProcess.killed) {
-              updateProcess.kill();
-              await reply("⏱️ Timeout na atualização (15min).\n\n❌ Processo cancelado por segurança.\n\n🔄 Retomando processamento de mensagens...");
-
-              if (messageQueueModule.messageQueue && typeof messageQueueModule.messageQueue.resume === 'function') {
-                messageQueueModule.messageQueue.resume();
-              }
-            }
-          }, 15 * 60 * 1000); // 15 minutos
-
-        } catch (e) {
-          console.error("Erro no comando atualizar:", e);
-          await reply(`❌ Erro ao executar atualização: ${e.message}\n\n🔄 Retomando processamento de mensagens...`);
-
-          // Garante retomar o processamento em caso de erro
-          try {
-            const messageQueueModule = await import('./connect.js');
-            if (messageQueueModule.messageQueue && typeof messageQueueModule.messageQueue.resume === 'function') {
-              messageQueueModule.messageQueue.resume();
-            }
-          } catch (resumeError) {
-            console.error('Erro ao retomar processamento:', resumeError);
-          }
-        }
+        // Opala: o atualizador antigo baixava o bot original e apagava as mudanças. As versões novas chegam pelo GitHub do Opala.
+        await reply('✿ O Opala não se atualiza sozinho: as versões novas chegam pelo GitHub do Opala ♡');
         break;
 
       case 'reiniciar':
@@ -18864,7 +18650,7 @@ ${prefix}addsubbot @152656307871952`
           if (!q) return reply(`❌️ *Forma incorreta, use está como exemplo:* ${prefix + command} https://instagram.com/hiudyyy_`);
           const shortResponse = await axios.post("https://spoo.me/api/v1/shorten", {
             long_url: q,
-            alias: `nazuna_${Math.floor(10000 + Math.random() * 90000)}`
+            alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
           });
           reply(`✅ *Link encurtado com sucesso!*\n\n🔗 *Link curto:* ${shortResponse.data.short_url}\n📎 *Link original:* ${shortResponse.data.long_url}`);
         } catch (e) {
@@ -18876,7 +18662,7 @@ ${prefix}addsubbot @152656307871952`
       case 'gerarnick':
       case 'nickgenerator':
         try {
-          if (!q) return reply(`🎮 *GERADOR DE NICK*\n\n📝 *Como usar:*\n• Digite o nick após o comando\n• Ex: ${prefix}nick nazuna`);
+          if (!q) return reply(`🎮 *GERADOR DE NICK*\n\n📝 *Como usar:*\n• Digite o nick após o comando\n• Ex: ${prefix}nick opala`);
           var datzn;
           datzn = await styleText(q);
           await reply(datzn.join('\n'));
@@ -20089,7 +19875,7 @@ ${prefix}addsubbot @152656307871952`
           if (fileSizeBytes > maxSize) {
             const shortLinkGdrive = await axios.post("https://spoo.me/api/v1/shorten", {
               long_url: downloadUrl,
-              alias: `nazuna_${Math.floor(10000 + Math.random() * 90000)}`
+              alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
             });
             return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}\n\n⚠️ *Arquivo muito grande para enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkGdrive.data.short_url}`);
           }
@@ -20186,7 +19972,7 @@ ${prefix}addsubbot @152656307871952`
           if (fileSizeBytes > maxSize) {
             const shortLinkMf = await axios.post("https://spoo.me/api/v1/shorten", {
               long_url: downloadUrl,
-              alias: `nazuna_${Math.floor(10000 + Math.random() * 90000)}`
+              alias: `opala_${Math.floor(10000 + Math.random() * 90000)}`
             });
             return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Upload:* ${uploadDate || 'N/A'}\n📋 *Tipo:* ${extension || mimetype}\n\n⚠️ *Arquivo muito grande para enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkMf.data.short_url}`);
           }
@@ -20447,189 +20233,6 @@ Se não definir cores, a API usa padrão automaticamente.`
         }
         break;
 
-      case 'zipbot':
-      case 'zip-bot':
-      case 'botzip':
-      case 'bot-zip':
-      case 'downloadbot':
-      case 'download-bot':
-        try {
-
-          await reply(
-            '📦 Baixando o código-fonte do bot... Aguarde!'
-          );
-
-          let githubUrl = config.github_ofc;
-
-          if (githubUrl.endsWith('.git')) {
-            githubUrl = githubUrl.replace('.git', '');
-          }
-
-          if (!githubUrl.includes('/archive/refs/heads/')) {
-            githubUrl += '/archive/refs/heads/main.zip';
-          }
-
-          console.log('[ZIPBOT] URL:', githubUrl);
-
-          const zipResponse = await axios.get(
-            githubUrl,
-            {
-              responseType: 'arraybuffer',
-              timeout: 60000,
-              headers: {
-                'User-Agent': 'Mozilla/5.0'
-              }
-            }
-          );
-
-          const zipBuffer = Buffer.from(zipResponse.data);
-
-          console.log(
-            '[ZIPBOT] Tamanho:',
-            zipBuffer.length
-          );
-
-          if (!zipBuffer || zipBuffer.length < 1000) {
-            throw new Error(
-              'Arquivo ZIP inválido ou vazio.'
-            );
-          }
-
-          await nazu.sendMessage(
-            from,
-            {
-              document: zipBuffer,
-              fileName: 'nazuna-bot.zip',
-              mimetype: 'application/zip',
-              caption:
-                `📦 *Código-fonte do ${nomebot}*\n\n` +
-                `📖 Leia a documentação no repositório para entender melhor como instalar:\n` +
-                `🔗 ${config.github_ofc}\n\n` +
-                `⚠️ *Importante:* Certifique-se de ter Node.js instalado e siga os passos do README.md!`
-            },
-            {
-              quoted: info
-            }
-          );
-
-        } catch (e) {
-
-          console.error(
-            'Erro ao baixar zip do bot:',
-            e
-          );
-
-          const errorMsg =
-            e.response?.status === 404
-              ? '❌ Repositório não encontrado.'
-              : e.code === 'ECONNABORTED' ||
-                e.code === 'ETIMEDOUT'
-                ? '❌ Tempo de conexão esgotado. Tente novamente.'
-                : '❌ Erro ao baixar o arquivo.';
-
-          await reply(
-            `${errorMsg}\n\nTente acessar diretamente:\n🔗 ${config.github_ofc}`
-          );
-
-        }
-        break;
-
-
-      case 'gitbot':
-      case 'git-bot':
-      case 'github':
-      case 'git-hub':
-      case 'repo':
-      case 'repositorio':
-      case 'source':
-      case 'sourcecode':
-      case 'source-code':
-        try {
-          reply('🔍 Buscando informações do repositório...').then(() => {
-            const githubHeaders = { 'Accept': 'application/vnd.github+json' };
-
-            Promise.all([
-              axios.get(`https://api.github.com/repos/${config.autor}/${config.repositorio}`, { headers: githubHeaders }),
-              axios.get(`https://api.github.com/repos/${config.autor}/${config.repositorio}/commits?per_page=1`, { headers: githubHeaders })
-            ]).then(([repoResponse, commitsResponse]) => {
-              const repo = repoResponse.data;
-
-              // Pegar total de commits do header Link
-              let totalCommits = 0;
-              const linkHeader = commitsResponse.headers.link;
-              if (linkHeader) {
-                const lastMatch = linkHeader.match(/page=(\d+)>;\s*rel="last"/);
-                if (lastMatch) totalCommits = parseInt(lastMatch[1]);
-              } else {
-                totalCommits = commitsResponse.data.length;
-              }
-
-              // Calcular tempo desde criação
-              const createdDate = new Date(repo.created_at);
-              const now = new Date();
-              const diffMs = now - createdDate;
-
-              const dias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-              const horas = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-              const minutos = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-              const segundos = Math.floor((diffMs % (1000 * 60)) / 1000);
-
-              const tempoAtivo = `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
-
-              const createdAt = createdDate.toLocaleDateString('pt-BR');
-              const updatedAt = new Date(repo.updated_at).toLocaleDateString('pt-BR');
-              const pushedAt = new Date(repo.pushed_at).toLocaleDateString('pt-BR');
-
-              const gitInfo = `╭━━━⊱ 🐙 *GITHUB INFO* ⊱━━━╮
-│
-│ 📦 *Repositório:* ${repo.name}
-│ 📝 *Descrição:* ${repo.description || 'Sem descrição'}
-│
-│ 👨‍💻 *Atualizado Por:* ${repo.owner.login}
-│ 🔗 *Perfil:* https://github.com/${repo.owner.login}
-│
-│ ⭐ *Stars:* ${repo.stargazers_count}
-│ 🍴 *Forks:* ${repo.forks_count}
-│ 👀 *Watchers:* ${repo.subscribers_count}
-│ 🐛 *Issues:* ${repo.open_issues_count}
-│ 📊 *Commits:* ${totalCommits}
-│
-│ 💻 *Linguagem:* ${repo.language || 'N/A'}
-│ 📜 *Licença:* ${repo.license?.name || 'Sem licença'}
-│
-│ 📅 *Criado em:* ${createdAt}
-│ 🔄 *Atualizado:* ${updatedAt}
-│ 📤 *Último push:* ${pushedAt}
-│
-│ ⏱️ *Nazuna vem sendo ativamente*
-│ *mantida há:* ${tempoAtivo}
-│
-│ 🔗 *Links:*
-│ • Repo: ${repo.html_url}
-│ • Clone: ${repo.clone_url}
-│
-│ ☁️ *Hospedagem oficial*
-│ Vex Hostinger: https://vexhost.com.br
-│
-│ 📞 *Suporte:* wa.me/vextechsolutions
-
-      
-││
-╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
-
-> Use *${prefix}zipbot* para baixar o código!`;
-
-              reply(gitInfo);
-            }).catch((e) => {
-              console.error('Erro ao buscar info do GitHub:', e);
-              reply(`❌ Erro ao buscar informações. Acesse diretamente:\n🔗 ${config.github_ofc}\n📞 Suporte: wa.me/553285076326`);
-            });
-          });
-        } catch (e) {
-          console.error('Erro no comando gitbot:', e);
-          reply('❌ Erro ao processar o comando. Tente novamente.');
-        }
-        break;
       case 'menu':
       case 'help':
       case 'comandos':
@@ -20743,54 +20346,6 @@ Se não definir cores, a API usa padrão automaticamente.`
         } catch (error) {
           console.error('Erro ao enviar menu de Logos:', error);
           await reply("❌ Ocorreu um erro ao carregar o menu de Logos");
-        }
-        break;
-
-      case 'nazuna':
-        try {
-          const lerMaisPrefix = getMenuLerMaisText();
-
-          const texto =
-            `🍓 *NAZUNA BOT*
-
-Nazuna é um bot de alta performance no whatsapp
-
-Um bot open source e de uso gratuito para todos usuários
-
-com atualização constante sempre inovando
-
-Desenvolvida e atualizada pelo DevTokyo${lerMaisPrefix}
-Repositorio: https://github.com/${config.autor}/${config.repositorio}
-${lerMaisPrefix}
-☁️ *Hospedagem oficial*
-https://vexhost.com.br
-${lerMaisPrefix}
-🔑 *API oficial da nazuna bot*
-https://vexapi.com.br
-${lerMaisPrefix}
-📞 *Dev Tokyo:*
-wa.me/vextechsolutions
-
-Responde em até 24 horas
-${lerMaisPrefix}
-
-
-`;
-
-          const imgPath = __dirname + '/../midias/menu.jpg';
-
-          if (!fs.existsSync(imgPath)) {
-            return reply("❌ Imagem do menu não encontrada. Defina ela primeiro.");
-          }
-
-          await nazu.sendMessage(from, {
-            image: fs.readFileSync(imgPath),
-            caption: texto
-          }, { quoted: info });
-
-        } catch (error) {
-          console.error('Erro ao enviar menu Nazuna:', error);
-          reply("✿ Ops, deu um errinho aqui... tenta de novo daqui a pouquinho? (╥﹏╥)");
         }
         break;
 
@@ -21053,7 +20608,7 @@ Exemplo: ${prefix}msgprefix Use #prefixo# antes do comando!
 
 🔹 *Nome do Bot*
 Use: ${prefix}nomebot <nome>
-Exemplo: ${prefix}nomebot Nazuna
+Exemplo: ${prefix}nomebot Opala
 • Altera o nome exibido nos menus
 • Use nomes curtos e memoráveis
 
@@ -22634,7 +22189,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'nome-bot':
         try {
           if (!isOwner) return reply("✿ Esse comando é só pro meu dono! ( ˘ ³˘)♡");
-          if (!q) return reply(`Por favor, digite o novo nome do bot.\nExemplo: ${prefix}${command} Nazuna`);
+          if (!q) return reply(`Por favor, digite o novo nome do bot.\nExemplo: ${prefix}${command} Opala`);
           let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
           config.nomebot = q;
           writeJsonFile(CONFIG_FILE, config);
@@ -23942,7 +23497,7 @@ ${prefix}togglecmdvip premium_ia off`);
         try {
           const [texto1, texto2] = q.split('/').map(i => i.trim());
           if (!texto1 || !texto2) {
-            return reply(`❌ Cadê os textos?\nExemplo: ${prefix + command} Nazuna/Bot`);
+            return reply(`❌ Cadê os textos?\nExemplo: ${prefix + command} Opala/Bot`);
           }
 
           await reply(`⏳ Gerando logotipo... aguarde! ☀️`);
@@ -29623,13 +29178,13 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
             const statusMsg = groupData.assistente
               ? `✅ *Assistente ativada com sucesso!*\n\n` +
-              `🤖 *Personalidade atual:* ${groupData.assistentePersonality === 'nazuna' ? 'Nazuna (Padrão)' :
+              `🤖 *Personalidade atual:* ${groupData.assistentePersonality === 'nazuna' ? 'Opala (Padrão)' :
                 groupData.assistentePersonality === 'humana' ? 'Humana' :
                   groupData.assistentePersonality === 'pro' ? 'Pro (Comandos)' :
                     'IA Normal'
               }\n\n` +
               `💡 *Trocar personalidade:*\n` +
-              `• ${prefix}assistente nazuna\n` +
+              `• ${prefix}assistente opala\n` +
               `• ${prefix}assistente humana\n` +
               `• ${prefix}assistente ia\n` +
               `• ${prefix}assistente pro\n\n` +
@@ -29639,7 +29194,8 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
             return reply(statusMsg);
           }
 
-          const personality = q.toLowerCase().trim().replace(/\s+/g, '_');
+          let personality = q.toLowerCase().trim().replace(/\s+/g, '_');
+          if (personality === 'opala') personality = 'nazuna';
 
           const builtinPersonalities = ['nazuna', 'humana', 'ia', 'pro'];
           let isValidPersonality = builtinPersonalities.includes(personality);
@@ -29658,7 +29214,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           if (!isValidPersonality) {
             return reply(`❌ *Personalidade inválida!*\n\n` +
               `Escolha uma das opções padrão:\n` +
-              `• ${prefix}assistente nazuna\n` +
+              `• ${prefix}assistente opala\n` +
               `• ${prefix}assistente humana\n` +
               `• ${prefix}assistente ia\n` +
               `• ${prefix}assistente pro\n\n` +
@@ -29670,7 +29226,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData, null, 2));
 
           const builtinNames = {
-            'nazuna': '🌙 *Nazuna* - Vampira tsundere',
+            'nazuna': '🌙 *Opala* - Vampira tsundere',
             'humana': '👤 *Humana* - Age como pessoa real',
             'ia': '🤖 *IA Normal* - Direta e objetiva',
             'pro': '⚡ *Pro* - Executa comandos'
@@ -29813,7 +29369,7 @@ ${prefix}setpersonalidade kuudere | Você é uma garota fria e inteligente chama
             return reply(`❌ O ID deve ter no máximo 30 caracteres.`);
           }
 
-          if (['nazuna', 'humana', 'ia', 'pro'].includes(rawId)) {
+          if (['nazuna', 'opala', 'humana', 'ia', 'pro'].includes(rawId)) {
             return reply(`❌ Esse ID é reservado pelo sistema.`);
           }
 

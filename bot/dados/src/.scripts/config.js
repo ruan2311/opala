@@ -31,7 +31,7 @@ const print = {
     separator: () => console.log(`${colors.blue}=================================================${colors.reset}`),
     header: () => {
         print.separator();
-        console.log(`${colors.bold}🚀 Configurador Gênesis Nazuna - Versão ${version}${colors.reset}`);
+        console.log(`${colors.bold}🚀 Configurador do Opala - Versão ${version}${colors.reset}`);
         console.log(`${colors.bold}👨‍💻 Criado por Hiudy${colors.reset}`);
         print.separator(); console.log();
     }
@@ -252,9 +252,9 @@ async function main() {
         site_vex: 'https://vexapi.com.br',
         apikey_vex: 'SUAKEY',
 
-        github_ofc: 'https://github.com/DevTokyoVx/nazuna',
+        github_ofc: 'https://projectgems.github.io',
         autor: 'DevTokyoVx',
-        repositorio: 'nazuna',
+        repositorio: 'opala',
         modoaluguel: off,
 
         WA_WEB_VERSION: {
@@ -297,7 +297,7 @@ async function main() {
         print.info('📝 Lembre-se de instalar com: npm run config:install');
     }
 
-    print.message(`🎉 Nazuna configurado e pronto para uso! Versão: ${version}`);
+    print.message(`🎉 Opala configurado e pronto para uso! Versão: ${version}`);
 }
 
 main().catch((error) => {
