@@ -4953,7 +4953,10 @@ Código: *${roleCode}*`,
     const _botShort = (nazu && nazu.user && (nazu.user.id || nazu.user.lid)) ? String((nazu.user.id || nazu.user.lid).split(':')[0]) : '';
     // Não processar pela assistente se a mensagem veio do PRO (evita loop infinito)
     if (!info.key.fromMe && isAssistente && !isCmd && !info._fromPro && ((_botShort && budy2.includes(_botShort)) || (menc_os2 && menc_os2 == botNumber))) {
-      if (budy2.replaceAll('@' + _botShort, '').length > 2) {
+      // Sem a chave da NVIDIA a IA não tem como responder: fica quieta e lembra o dono no privado.
+      if (!(ia && typeof ia.temChaveIA === 'function' && ia.temChaveIA())) {
+        avisarDonoChaveIA(nazu, ownerJid, prefix, isGroup ? groupName : '');
+      } else if (budy2.replaceAll('@' + _botShort, '').length > 2) {
         // Detectar tipo de mídia da mensagem atual
         const tipoMidiaAtual = info.message?.imageMessage ? 'imagem' :
           info.message?.videoMessage ? 'video' :
