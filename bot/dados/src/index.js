@@ -5283,6 +5283,14 @@ Código: *${roleCode}*`,
           }
 
           if (respAssist.resp && Array.isArray(respAssist.resp) && respAssist.resp.length > 0) {
+            // Como gente no zap: aparece "digitando..." e, da segunda mensagem em diante, uma pausa
+            // do tamanho do texto antes de mandar.
+            const responder = async (texto, index) => {
+              try { await nazu.sendPresenceUpdate('composing', from); } catch (_) { }
+              if (index > 0) await new Promise(r => setTimeout(r, Math.min(800 + texto.length * 35, 5000)));
+              try { await nazu.sendPresenceUpdate('paused', from); } catch (_) { }
+              return reply(texto);
+            };
             const processResponses = (index) => {
               if (index >= respAssist.resp.length) return;
               const msgza = respAssist.resp[index];
@@ -5293,20 +5301,20 @@ Código: *${roleCode}*`,
                   key: info.key
                 }).then(() => {
                   if (msgza.resp && typeof msgza.resp === 'string' && msgza.resp.length > 0) {
-                    reply(msgza.resp).then(processNext);
+                    responder(msgza.resp, index).then(processNext);
                   } else {
                     processNext();
                   }
                 }).catch(err => {
                   console.error('Erro ao reagir:', err);
                   if (msgza.resp && typeof msgza.resp === 'string' && msgza.resp.length > 0) {
-                    reply(msgza.resp).then(processNext);
+                    responder(msgza.resp, index).then(processNext);
                   } else {
                     processNext();
                   }
                 });
               } else if (msgza && msgza.resp && typeof msgza.resp === 'string' && msgza.resp.length > 0) {
-                reply(msgza.resp).then(processNext);
+                responder(msgza.resp, index).then(processNext);
               } else {
                 console.warn(`⚠️ [${personality}] Resposta inválida no índice ${index}:`, JSON.stringify(msgza));
                 processNext();
