@@ -4844,7 +4844,7 @@ Código: *${roleCode}*`,
         }
         if (antitoxic && antitoxic.isEnabled && antitoxic.isEnabled(from) && body && ia) {
           const aiFunction = (prompt) => {
-            return ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null)
+            return ia.makeCognimaRequest('google/gemma-4-31b-it', prompt, null)
               .then(response => response?.data?.choices?.[0]?.message?.content || '');
           };
 
@@ -13588,7 +13588,7 @@ ${conversaTexto.substring(0, 8000)}
 
 Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
 
-          return ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null);
+          return ia.makeCognimaRequest('google/gemma-4-31b-it', prompt, null);
 
         }).then(response => {
           return reply(`💬 *Resumo da Conversa* (últimas mensagens)\n\n${formatAIResponse(response.data.choices[0].message.content)}`);
@@ -13653,7 +13653,7 @@ Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
 
 Seja criativo e original. Não use clichês. A história deve ser envolvente do início ao fim.`;
 
-          const response = await ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null);
+          const response = await ia.makeCognimaRequest('google/gemma-4-31b-it', prompt, null);
 
           await reply(`📖✨ *Sua História*\n\n${formatAIResponse(response.data.choices[0].message.content)}`);
         } catch (e) {
@@ -13710,7 +13710,7 @@ Para cada recomendação, forneça:
 4. Nota de popularidade (de 1 a 10)
 
 Seja específico e recomende opções variadas (populares e menos conhecidas). Formate de forma clara e organizada.`;
-          const response = await ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null);
+          const response = await ia.makeCognimaRequest('google/gemma-4-31b-it', prompt, null);
 
           await reply(`${tipoInfo.emoji} *Recomendações de ${tipoInfo.nome.charAt(0).toUpperCase() + tipoInfo.nome.slice(1)}*\n\n${formatAIResponse(response.data.choices[0].message.content)}`);
         } catch (e) {
@@ -15739,7 +15739,7 @@ Ex.: ${prefix}tradutor espanhol | Olá mundo! ♡`);
           const texto = partes.slice(1).join('|').trim();
           reply(`💎 Só um instantinho, já tô fazendo... ⋆｡˚`).then(() => {
             const prompt = `Traduza o seguinte texto para ${idioma}:\n\n${texto}\n\nForneça apenas a tradução, sem explicações adicionais.`;
-            ia.makeCognimaRequest('meta/llama-3.3-70b-instruct', prompt, null).then((bahz) => {
+            ia.makeCognimaRequest('google/gemma-4-31b-it', prompt, null).then((bahz) => {
               reply(`🌐 *Prontinho! Em ${idioma.toUpperCase()} fica assim:* ♡\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
             }).catch((e) => {
               console.error("Erro ao traduzir texto:", e);
@@ -30543,7 +30543,7 @@ Use ${prefix}horoscopo <signo> para ver a previsão!`);
 
         // Função wrapper para a IA
         const aiFunctionDebate = (prompt) => {
-          return ia.makeCognimaRequest('qwen/qwen3-235b-a22b', prompt, null)
+          return ia.makeCognimaRequest('google/gemma-4-31b-it', prompt, null)
             .then(response => response?.data?.choices?.[0]?.message?.content || '');
         };
 
@@ -30567,7 +30567,7 @@ Use ${prefix}horoscopo <signo> para ver a previsão!`);
 
         // Função wrapper para a IA
         const aiFunctionStory = (prompt) => {
-          return ia.makeCognimaRequest('qwen/qwen3-235b-a22b', prompt, null)
+          return ia.makeCognimaRequest('google/gemma-4-31b-it', prompt, null)
             .then(response => response?.data?.choices?.[0]?.message?.content || '');
         };
 

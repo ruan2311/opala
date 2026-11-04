@@ -1899,7 +1899,7 @@ async function processUserMessages(data, nazu = null, ownerNumber = null, person
 
 
         const response = (await makeCognimaRequest(
-          'nvidia/nemotron-3-super-120b-a12b',
+          'google/gemma-4-31b-it',
           JSON.stringify(userInput),
           selectedPrompt,
           historico[userId] || []
