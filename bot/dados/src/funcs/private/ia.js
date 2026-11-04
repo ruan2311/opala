@@ -20,6 +20,12 @@ function temChaveIA() {
   return chaveIA() !== '';
 }
 
+// O Lightning responde em 1 a 2 s; o Gemma pensa melhor, mas no plano grátis às vezes leva
+// 30 s ou mais. Cada tentativa espera no máximo 20 s e, se falhar, a próxima vai pro outro.
+const MODELO_RAPIDO = 'nvidia/nemotron-3.5-lightning-30b-a3b';
+const MODELO_RESERVA = 'google/gemma-4-31b-it';
+const ESPERA_IA = 20000;
+
 // Função para obter data/hora no fuso horário do Brasil (GMT-3)
 function getBrazilDateTime() {
   const now = new Date();
@@ -891,19 +897,23 @@ async function makeCognimaRequest(modelo, texto, systemPrompt = null, historico 
     content: texto
   });
 
+  const modelos = [...new Set([modelo, MODELO_RESERVA, MODELO_RAPIDO])];
   for (let attempt = 0; attempt < retries; attempt++) {
+    const modeloDaVez = modelos[attempt % modelos.length];
     try {
-      console.log(`🤖 Modelo usado: ${modelo}`);
+      console.log(`🤖 Modelo usado: ${modeloDaVez}`);
       console.log(`📨 Mensagens enviadas: ${messages.length}`);
 
       const response = await axios.post(
         'https://integrate.api.nvidia.com/v1/chat/completions',
         {
-          model: modelo,
+          model: modeloDaVez,
           messages,
           temperature: 0.7,
           max_tokens: 1024,
-          stream: false
+          stream: false,
+          // Os Nemotron "pensam" antes de responder por padrão: desligado, a resposta sai na hora.
+          ...(modeloDaVez.includes('nemotron') ? { chat_template_kwargs: { enable_thinking: false } } : {})
         },
         {
           headers: {
@@ -911,7 +921,7 @@ async function makeCognimaRequest(modelo, texto, systemPrompt = null, historico 
             'Accept': 'application/json',
             'Authorization': `Bearer ${chaveIA()}`
           },
-          timeout: 120000
+          timeout: ESPERA_IA
         }
       );
 
@@ -947,10 +957,8 @@ async function makeCognimaRequest(modelo, texto, systemPrompt = null, historico 
         );
       }
 
-      // espera antes de tentar novamente
-      await new Promise(resolve =>
-        setTimeout(resolve, (attempt + 1) * 3000)
-      );
+      // espera um pouquinho antes de tentar de novo (já com o outro modelo)
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
   }
 }
@@ -1369,7 +1377,7 @@ async function processUserMessages(data, nazu = null, ownerNumber = null, person
 
 
         const response = (await makeCognimaRequest(
-          'google/gemma-4-31b-it',
+          MODELO_RAPIDO,
           JSON.stringify(userInput),
           selectedPrompt,
           historico[userId] || []
@@ -2623,6 +2631,7 @@ function getNazunaResponseDelay(grupoUserId) {
 
 export {
   processUserMessages as makeAssistentRequest,
+  MODELO_RAPIDO,
   temChaveIA,
   makeCognimaRequest,
   getHistoricoStats,
