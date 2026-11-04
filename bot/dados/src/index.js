@@ -5051,6 +5051,7 @@ Código: *${roleCode}*`,
 
         // Verificar se é personalidade customizada
         let customPrompt = null;
+        let semEmoji = false;
         if (!['nazuna', 'humana', 'ia', 'pro'].includes(personality)) {
           try {
             const persFile = pathz.join(DATABASE_DIR, 'customPersonalidades.json');
@@ -5058,6 +5059,8 @@ Código: *${roleCode}*`,
               const persData = JSON.parse(fs.readFileSync(persFile, 'utf-8'));
               if (persData[personality] && persData[personality].prompt) {
                 customPrompt = persData[personality].prompt;
+                // Personalidade que pede "sem emojis": o bot apaga os que escaparem (as carinhas kawaii ficam).
+                semEmoji = /\b(sem|nunca use|não use|nao use|nada de) emoji/i.test(customPrompt);
               }
             }
           } catch (_) { }
@@ -5285,7 +5288,10 @@ Código: *${roleCode}*`,
           if (respAssist.resp && Array.isArray(respAssist.resp) && respAssist.resp.length > 0) {
             // Como gente no zap: aparece "digitando..." e, da segunda mensagem em diante, uma pausa
             // do tamanho do texto antes de mandar.
+            const EMOJI = /[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}][\u{FE0F}\u{200D}\u{1F3FB}-\u{1F3FF}\p{Extended_Pictographic}]*/gu;
             const responder = async (texto, index) => {
+              if (semEmoji) texto = texto.replace(EMOJI, '').replace(/ {2,}/g, ' ').trim();
+              if (!texto) return;
               try { await nazu.sendPresenceUpdate('composing', from); } catch (_) { }
               if (index > 0) await new Promise(r => setTimeout(r, Math.min(800 + texto.length * 35, 5000)));
               try { await nazu.sendPresenceUpdate('paused', from); } catch (_) { }
@@ -5296,7 +5302,7 @@ Código: *${roleCode}*`,
               const msgza = respAssist.resp[index];
               const processNext = () => processResponses(index + 1);
 
-              if (msgza && msgza.react) {
+              if (msgza && typeof msgza.react === 'string' && !semEmoji && /^\p{Extended_Pictographic}/u.test(msgza.react.trim())) {
                 nazu.react(msgza.react.replaceAll(' ', '').replaceAll('\n', ''), {
                   key: info.key
                 }).then(() => {
