@@ -754,6 +754,7 @@ const CATALOGO = {
           ['prefixo <símbolo>', 'meu prefixo'],
           ['nomedono <nome>', 'o nome do dono'],
           ['numerodono <número>', 'o número do dono'],
+          ['chaveia <chave>', 'a chave grátis da IA (no privado)'],
           ['fotobot', 'minha foto'],
           ['fotomenu', 'a imagem do menu'],
           ['videomenu', 'vídeo no menu'],

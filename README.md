@@ -56,6 +56,7 @@ Você vai precisar de:
 | 🟢 **Node.js 20 ou mais novo** | É o programa que roda o bot. |
 | 🎬 **FFmpeg** | Faz figurinhas animadas, efeitos de áudio e vídeo. |
 | ▶️ **yt-dlp** | Baixa músicas e vídeos do YouTube (`!play`, `!playvid`). O bot procura na pasta `bin/` ou no sistema. |
+| 🤖 **Chave grátis da NVIDIA** *(opcional)* | Para a IA e o `!assistente`. Crie em [build.nvidia.com](https://build.nvidia.com) → foto de perfil → *API Keys* → *Generate API Key*. |
 | 🎧 **Chave grátis da Groq** *(opcional)* | Só para transformar áudio em texto. Crie em [console.groq.com](https://console.groq.com) → *API Keys*. |
 
 > 💡 **Quanto o bot consome:** cerca de 100 a 150 MB de memória parado e até uns 300 MB em uso pesado. Um plano de 400 MB já dá conta.
@@ -268,6 +269,7 @@ Na primeira vez, o bot pergunta tudo isso e salva em `dados/src/config.json`. Se
 | `numerodono` | **Seu** número (o do dono, não o do bot), com código do país e DDD | `5511999998888` |
 | `nomebot` | Nome do bot | `Opala` |
 | `prefixo` | Símbolo antes dos comandos | `!` |
+| `nvidia_apikey` | Chave grátis da NVIDIA, para a IA e o `!assistente` *(opcional)* | `nvapi-...` |
 | `groq_apikey` | Chave grátis da Groq, só para transformar áudio em texto *(opcional)* | `gsk_...` |
 
 ### 👑 Como o bot reconhece o dono
@@ -385,6 +387,12 @@ O número foi desconectado pelo celular, ou a pasta `dados/database/qr-code` foi
 <summary><b>A hospedagem reclama que o bot está gastando demais</b></summary>
 
 Use o `iniciar.sh` como comando de início: ele limita a memória do bot. No painel, troque o `npm install` do início por `echo ok` (veja o [passo 6 do Pterodactyl](#-pterodactyl-waifly-e-outras-hospedagens-com-painel)).
+</details>
+
+<details>
+<summary><b>O "!assistente" não liga ou a IA não responde</b></summary>
+
+A IA precisa de uma chave grátis da NVIDIA. Sem ela, o `!assistente` manda o passo a passo no privado do dono. Em resumo: entre em [build.nvidia.com](https://build.nvidia.com), toque na foto de perfil → *API Keys* → *Generate API Key*, copie a chave (começa com `nvapi-`) e mande `!chaveia nvapi-suachave` no **privado** do bot. Vale na hora, sem reiniciar.
 </details>
 
 <details>

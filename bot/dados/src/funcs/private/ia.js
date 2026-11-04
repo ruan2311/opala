@@ -6,8 +6,19 @@ import { fileURLToPath } from 'url';
 
 import userContextDB from '../../utils/userContextDB.js';
 
-// Chave de IA hardcoded
-const IA_API_KEY = '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';
+// Chave grátis da NVIDIA (build.nvidia.com), no campo "nvidia_apikey" do config.json.
+// Lida a cada pedido, então o !chaveia passa a valer sem reiniciar o bot.
+const CONFIG_IA = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'config.json');
+function chaveIA() {
+  try {
+    return String(JSON.parse(fs.readFileSync(CONFIG_IA, 'utf8')).nvidia_apikey || '').trim();
+  } catch {
+    return '';
+  }
+}
+function temChaveIA() {
+  return chaveIA() !== '';
+}
 
 // Função para obter data/hora no fuso horário do Brasil (GMT-3)
 function getBrazilDateTime() {
@@ -36,7 +47,7 @@ let conversationStates = {};
 let userPreferences = {};
 let userInteractions = {};
 
-// Funções de compatibilidade (no-op). Atribua/chame `IA_API_KEY` diretamente para requisições.
+// Funções de compatibilidade (no-op). A chave vem de chaveIA().
 function updateApiKeyStatus() { return true; }
 function getApiKeyStatus() { return { isValid: true }; }
 
@@ -1428,7 +1439,7 @@ async function makeCognimaRequest(modelo, texto, systemPrompt = null, historico 
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': `Bearer ${IA_API_KEY}`
+            'Authorization': `Bearer ${chaveIA()}`
           },
           timeout: 120000
         }
@@ -1806,7 +1817,7 @@ async function processUserMessages(data, nazu = null, ownerNumber = null, person
     if (!mensagens || !Array.isArray(mensagens)) {
       throw new Error('Mensagens são obrigatórias e devem ser um array');
     }
-    // NOTE: parâmetro `key` é ignorado aqui; `IA_API_KEY` é usado internamente nas requisições.
+    // NOTE: parâmetro `key` é ignorado aqui; a chave vem de chaveIA() (config.json).
 
     const mensagensValidadas = [];
     for (let i = 0; i < mensagens.length; i++) {
@@ -3142,6 +3153,7 @@ function getNazunaResponseDelay(grupoUserId) {
 
 export {
   processUserMessages as makeAssistentRequest,
+  temChaveIA,
   makeCognimaRequest,
   getHistoricoStats,
   clearOldHistorico,

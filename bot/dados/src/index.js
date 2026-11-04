@@ -403,6 +403,35 @@ const formatAIResponse = (text) => {
     .trim();
 };
 
+// Passo a passo da chave grátis da NVIDIA, que liga a assistente e os outros comandos de IA.
+const tutorialChaveIA = (prefix) => `💎 *Como ativar a IA do bot* ♡
+
+A chave é grátis e leva uns 5 minutinhos:
+
+*1.* Abra *build.nvidia.com* no navegador (celular ou PC).
+*2.* Toque em *Login* e entre com seu e-mail. Se ainda não tiver conta NVIDIA, crie uma (é grátis) e confirme o e-mail.
+*3.* Toque na sua foto de perfil, lá em cima, e escolha *API Keys*.
+*4.* Toque em *Generate API Key* (ou *+ New Key*), dê um nome como "bot" e confirme.
+*5.* Copie a chave que aparecer: ela começa com *nvapi-*. O site só mostra ela uma vez, então guarde bem.
+*6.* Aqui no meu privado, mande:
+${prefix}chaveia nvapi-suachave
+
+Pronto! A IA passa a funcionar na hora, sem reiniciar. Depois é só um admin ligar no grupo com ${prefix}assistente ✿
+
+⚠️ Nunca mande a chave num grupo: quem tiver ela usa a sua cota.`;
+let ultimoAvisoChaveIA = 0;
+const avisarDonoChaveIA = async (nazu, ownerJid, prefix, grupo) => {
+  if (Date.now() - ultimoAvisoChaveIA < 6 * 60 * 60 * 1000) return;
+  ultimoAvisoChaveIA = Date.now();
+  try {
+    await nazu.sendMessage(ownerJid, {
+      text: `💎 Alguém pediu o ${prefix}assistente${grupo ? ` no grupo *${grupo}*` : ''}, mas eu ainda não tenho a chave da IA (｡•́︿•̀｡)\n\n` + tutorialChaveIA(prefix)
+    });
+  } catch (e) {
+    console.log('Aviso: não deu para avisar o dono sobre a chave da IA:', e.message);
+  }
+};
+
 const writeJsonFile = (filePath, data) => {
   try {
     // Validação de entrada
@@ -22157,6 +22186,29 @@ Precisa de ajuda? Entre em contato:
 
 
 
+      case 'chaveia':
+      case 'chaveai':
+        try {
+          if (!isOwner) return reply(`💎 Esse é só pro meu dono, viu? ( ˘ ³˘)♡`);
+          if (isGroup) return reply(`💎 Opa! Manda a chave só no meu privado, tá? Aqui no grupo todo mundo veria ♡`);
+          if (!q) {
+            const temChave = ia && typeof ia.temChaveIA === 'function' && ia.temChaveIA();
+            return reply((temChave ? `✿ A IA já tem uma chave ligada! Pra trocar, siga os passos abaixo ♡\n\n` : '') + tutorialChaveIA(prefix));
+          }
+          const novaChave = q.trim();
+          if (!/^nvapi-[\w-]{20,}$/.test(novaChave)) {
+            return reply(`💎 Hmm, essa chave não parece certa... Ela começa com *nvapi-* e é bem comprida. Copia de novo no build.nvidia.com? ♡`);
+          }
+          let config = JSON.parse(fs.readFileSync(CONFIG_FILE));
+          config.nvidia_apikey = novaChave;
+          writeJsonFile(CONFIG_FILE, config);
+          await reply(`✿ Prontinho! A chave da IA tá guardada e já vale agora ♡\n\n💡 Pra ligar num grupo, um admin manda ${prefix}assistente lá.`);
+        } catch (e) {
+          console.error(e);
+          await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
+        }
+        break;
+
       case 'apikey':
       case 'setkey':
         try {
@@ -29163,6 +29215,12 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {};
+
+          // Sem a chave da NVIDIA a assistente não responde: o dono recebe o passo a passo no privado.
+          if (!groupData.assistente && !(ia && typeof ia.temChaveIA === 'function' && ia.temChaveIA())) {
+            await avisarDonoChaveIA(nazu, ownerJid, prefix, groupName);
+            return reply(`💎 A assistente ainda precisa de uma chave grátis de IA pra funcionar. Já mandei o passo a passo no privado do meu dono, tá? ♡`);
+          }
 
           if (!q) {
             groupData.assistente = !groupData.assistente;

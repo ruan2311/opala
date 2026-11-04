@@ -253,6 +253,7 @@ async function main() {
         site_vex: 'https://vexapi.com.br',
         apikey_vex: '',
         groq_apikey: '',
+        nvidia_apikey: '',
 
         github_ofc: 'https://projectgems.github.io',
         autor: 'DevTokyoVx',
@@ -278,6 +279,7 @@ async function main() {
     config.nomebot = await promptInput(rl, '🤖 Nome do bot', config.nomebot);
     config.prefixo = await promptInput(rl, '🔣 Prefixo do bot (1 caractere)', config.prefixo, (v) => v.length === 1);
 
+    config.nvidia_apikey = await promptInput(rl, '🤖 Chave grátis da NVIDIA para a IA e o !assistente (opcional: crie em build.nvidia.com → API Keys, ou aperte Enter)', config.nvidia_apikey || '');
     config.groq_apikey = await promptInput(rl, '🎧 Chave grátis da Groq para transcrever áudio (opcional: crie em console.groq.com ou aperte Enter)', config.groq_apikey || '');
     config.apikey_vex = await promptInput(rl, '🔑 Chave da Vex API, só para Instagram, logos e efeitos de foto (opcional e paga: aperte Enter para pular)', config.apikey_vex || '');
 

@@ -5,6 +5,7 @@
   "prefixo": "!",
   "site_vex": "https://vexapi.com.br",
   "groq_apikey": "",
+  "nvidia_apikey": "",
   "apikey_vex": "",
   "lidowner": "",
   "github_ofc": "https://projectgems.github.io",
