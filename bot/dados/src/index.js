@@ -420,6 +420,8 @@ Pronto! A IA passa a funcionar na hora, sem reiniciar. Depois é só um admin li
 
 ⚠️ Nunca mande a chave num grupo: quem tiver ela usa a sua cota.`;
 let ultimoAvisoChaveIA = 0;
+// O modelo rápido quer reagir em toda resposta: por grupo, no máximo uma reação a cada 4 respostas.
+const respostasDesdeReacao = new Map();
 const avisarDonoChaveIA = async (nazu, ownerJid, prefix, grupo) => {
   if (Date.now() - ultimoAvisoChaveIA < 6 * 60 * 60 * 1000) return;
   ultimoAvisoChaveIA = Date.now();
@@ -5302,7 +5304,10 @@ Código: *${roleCode}*`,
               const msgza = respAssist.resp[index];
               const processNext = () => processResponses(index + 1);
 
-              if (msgza && typeof msgza.react === 'string' && !semEmoji && /^\p{Extended_Pictographic}/u.test(msgza.react.trim())) {
+              const desdeReacao = (respostasDesdeReacao.get(from) ?? 3) + 1;
+              const podeReagir = desdeReacao >= 4;
+              respostasDesdeReacao.set(from, podeReagir && msgza?.react ? 0 : desdeReacao);
+              if (podeReagir && msgza && typeof msgza.react === 'string' && !semEmoji && /^\p{Extended_Pictographic}/u.test(msgza.react.trim())) {
                 nazu.react(msgza.react.replaceAll(' ', '').replaceAll('\n', ''), {
                   key: info.key
                 }).then(() => {
