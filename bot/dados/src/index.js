@@ -30436,6 +30436,11 @@ ${prefix}calc converter 100 km mi`);
           if (!inicioVid || !fimVid) {
             return reply(`💎 Me fala início e fim!\n\nUso: ${prefix}cortarvideo <inicio> <fim>\nExemplo: ${prefix}cortarvideo 0:10 0:30`);
           }
+          // Só tempos como 15, 0:10 ou 1:02:30: o texto vai para o ffmpeg pela linha de comando
+          const tempoValido = /^\d{1,2}(:\d{1,2}){0,2}(\.\d{1,3})?$/;
+          if (!tempoValido.test(inicioVid) || !tempoValido.test(fimVid)) {
+            return reply(`💎 Os tempos são assim: 0:10 ou 1:02:30 ♡\n\nExemplo: ${prefix}cortarvideo 0:10 0:30`);
+          }
 
           await reply(`🎬 Cortando o vídeo... só uns segundinhos ⋆｡˚`);
 
