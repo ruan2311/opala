@@ -1029,6 +1029,22 @@ function extractJSON(content) {
     }
   }
 
+  // A IA às vezes erra o JSON (uma chave fechada errado): aproveita só as frases dos campos "resp",
+  // em vez de mandar o pacote inteiro, cru, no WhatsApp.
+  const texto = m => { try { return JSON.parse('"' + m + '"'); } catch (_) { return m.replace(/\\n/g, '\n').replace(/\\"/g, '"'); } };
+  const frases = [];
+  for (const m of cleanContent.matchAll(/"resp"\s*:\s*"((?:[^"\\]|\\.)*)"/g)) {
+    const f = texto(m[1]).trim();
+    if (f && !/^[\[{]/.test(f)) frases.push(f);
+  }
+  if (frases.length) {
+    const react = cleanContent.match(/"react"\s*:\s*"((?:[^"\\]|\\.)*)"/);
+    console.warn('⚠️ JSON quebrado: aproveitei só o texto das respostas.');
+    return { resp: frases.map(f => ({ resp: f, react: react ? texto(react[1]) : undefined })) };
+  }
+  // Parece o pacote da IA, mas sem frase nenhuma: melhor não responder do que mandar código.
+  if (/^[\[{]/.test(cleanContent) && /"resp"|"aprender"/.test(cleanContent)) return { resp: [] };
+
   console.error('❌ Não foi possível extrair JSON válido da resposta.');
   console.error('Conteúdo recebido (primeiros 200 chars):', content.substring(0, 200) + '...');
 
