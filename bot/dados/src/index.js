@@ -31793,14 +31793,18 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           });
           if (!isGroup) return reply(`💎 Opa! Esse comando só funciona em grupo, tá? ♡`);
           if (!isModoBn) return reply(`💎 As brincadeiras tão desligadas aqui... um admin liga com ${prefix}modobn ♡`);
-          if (!q) return reply(`💎 Coloca quantas pessoas depois do comando ♡`);
-          if (Number(q) > 15) return reply(`💎 Escolhe um número menor que *15* ♡`);
+          // Quem foi marcado entra direto; sem marcação, sorteia a quantidade pedida
+          const marcadosSuru = [...new Set((menc_jid2 || []).filter(j => j && j !== sender))];
+          if (!marcadosSuru.length && !q) return reply(`💎 Marca a galera ou coloca quantas pessoas depois do comando ♡`);
+          if (!marcadosSuru.length && !(Number(q) > 0)) return reply(`💎 Marca a galera ou coloca um número, tipo ${prefix}${command} 3 ♡`);
+          const qtdSuru = marcadosSuru.length || Math.floor(Number(q));
+          if (qtdSuru > 15) return reply(`💎 Escolhe um número menor que *15* ♡`);
           var emojiskk;
           emojiskk = ["🥵", "😈", "🫣", "😏"];
           var emojis2;
           emojis2 = emojiskk[Math.floor(Math.random() * emojiskk.length)];
           var frasekk;
-          frasekk = [`tá querendo relações sexuais a ${q}, topa?`, `quer que *${q}* pessoas venham de *chicote, algema e corda de alpinista*.`, `quer que ${q} pessoas der tapa na cara, lhe chame de cachorra e fud3r bem gostosinho...`];
+          frasekk = [`tá querendo relações sexuais a ${qtdSuru}, topa?`, `quer que *${qtdSuru}* pessoas venham de *chicote, algema e corda de alpinista*.`, `quer que ${qtdSuru} pessoas der tapa na cara, lhe chame de cachorra e fud3r bem gostosinho...`];
           let path = buildGroupFilePath(from);
           // Otimização: Usar cache para leitura de arquivo
           let data = await optimizer.loadJsonWithCache(path, { mark: {} });
@@ -31811,9 +31815,9 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           ABC = `${emojis2} @${getUserName(sender)} ${context}\n\n`;
           var mencts;
           mencts = [sender];
-          for (var i = 0; i < q; i++) {
+          for (var i = 0; i < qtdSuru; i++) {
             var menb;
-            menb = membros[Math.floor(Math.random() * membros.length)];
+            menb = marcadosSuru.length ? marcadosSuru[i] : membros[Math.floor(Math.random() * membros.length)];
             var ABC;
             ABC += `@${menb.split("@")[0]}\n`;
             mencts.push(menb);
