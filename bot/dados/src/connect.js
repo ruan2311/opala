@@ -31,6 +31,29 @@ import { initCaptchaIndex, loadCaptchaJson, saveCaptchaJson } from './utils/capt
 import CaptchaIndex from './utils/captchaIndex.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Quem foi marcado nas mensagens recebidas (número → JID), usado para completar as menções
+const jidsMarcados = new Map();
+function guardarMarcados(info) {
+    try {
+        const procurar = (obj, nivel) => {
+            if (!obj || typeof obj !== 'object' || nivel > 4) return;
+            const lista = obj.contextInfo?.mentionedJid;
+            if (Array.isArray(lista)) {
+                for (const jid of lista) {
+                    if (typeof jid !== 'string' || !jid.includes('@')) continue;
+                    const num = jid.split('@')[0].split(':')[0];
+                    jidsMarcados.delete(num);
+                    jidsMarcados.set(num, jid);
+                }
+            }
+            for (const v of Object.values(obj)) if (v && typeof v === 'object' && !Array.isArray(v) && !ArrayBuffer.isView(v)) procurar(v, nivel + 1);
+        };
+        procurar(info?.message, 0);
+        while (jidsMarcados.size > 3000) jidsMarcados.delete(jidsMarcados.keys().next().value);
+    } catch (_) {}
+}
+
 const modules = await import('./funcs/exports.js');
 const {
     canvas
@@ -1362,6 +1385,27 @@ async function createBotSocket(authDir) {
             console.log('📲 Envie este código no WhatsApp para autenticar o bot.');
         }
 
+        // Menções: quando um comando repete o texto digitado (com @número), o WhatsApp só
+        // mostra o nome se a pessoa estiver em "mentions". Guarda quem foi marcado nas
+        // mensagens recebidas e completa as menções de tudo que o bot envia.
+        const _enviarOriginal = NazunaSock.sendMessage.bind(NazunaSock);
+        NazunaSock.sendMessage = async (jid, content, options) => {
+            try {
+                const texto = content && (typeof content.text === 'string' ? content.text : typeof content.caption === 'string' ? content.caption : '');
+                if (texto && texto.includes('@')) {
+                    const atuais = Array.isArray(content.mentions) ? content.mentions : [];
+                    const jaTem = new Set(atuais.map(j => String(j).split('@')[0].split(':')[0]));
+                    const extras = [];
+                    for (const [, num] of texto.matchAll(/@(\d{6,})/g)) {
+                        const conhecido = jidsMarcados.get(num);
+                        if (conhecido && !jaTem.has(num)) { extras.push(conhecido); jaTem.add(num); }
+                    }
+                    if (extras.length) content = { ...content, mentions: [...atuais, ...extras] };
+                }
+            } catch (_) {}
+            return _enviarOriginal(jid, content, options);
+        };
+
         NazunaSock.ev.on('creds.update', saveCreds);
 
         NazunaSock.ev.on('groups.update', async (updates) => {
@@ -1546,6 +1590,8 @@ async function createBotSocket(authDir) {
 
 
                 if (m.type !== 'notify' && m.type !== 'append') return;
+
+                for (const info of m.messages) guardarMarcados(info);
 
                 try {
 
