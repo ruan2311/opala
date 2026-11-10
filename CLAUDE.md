@@ -38,3 +38,19 @@ Bot de WhatsApp do Ruan. Os projetos dele têm nomes de pedras e gemas (Onix = l
 - Confira antes de afirmar (servidor, arquivos, documentação); nunca chute.
 - Prints para o usuário vão em `/sdcard/Download/Imagens para o claude`.
 - O projeto pode ser editado no celular (Termux) e no PC. Ao abrir a sessão, um hook roda `git pull --ff-only`; se falhar, avise antes de mexer em arquivos. Depois que existir um repositório no GitHub, rode `git push` ao terminar tarefas que geraram commits.
+
+<!-- Seção movida do ~/AGENTS.md global em 10/11/2026, para não ser lida em toda sessão. -->
+## Opala (bot de WhatsApp)
+
+- **Pasta:** `/root/opala`. **GitHub:** `ruan2311/opala` (**público** desde 03/11/2026; nunca coloque números de telefone, chaves ou senhas no repositório).
+- **O que é:** bot "A+ 3.0" baseado na Nazuna (Node.js + Baileys), prefixo `!`, rodando 24 h na
+  **Waifly** (plano grátis, painel Pterodactyl, servidor "Opala"). Servidor desligado por 3 dias
+  é suspenso.
+- **Publicar mudanças:** empacote só os arquivos alterados de `bot/` em `.tar.gz`, envie pela API
+  do painel, descompacte em `/` e reinicie (`kill` e depois `start`; o "stop" do painel trava).
+  Os arquivos de `dados/src` usam quebra de linha CRLF: mantenha assim.
+- **Segredos fora do GitHub:** `config.json`, `database/` (a sessão do WhatsApp dá acesso total
+  ao número) e `bin/` ficam só no servidor. As chaves ficam em `~/.config/opala/waifly.env`.
+- **Use sempre o número secundário** no bot, nunca o principal (risco de banimento).
+- No site do Project Gems tem a página `/opala/` (laranja, com estrelinhas), com o guia de instalação; sem detalhes do servidor.
+- Tem instruções próprias no `CLAUDE.md` da pasta. Trabalhe de dentro de `/root/opala`.
