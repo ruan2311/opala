@@ -24757,11 +24757,15 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
 
       case 'criador':
+      case 'desenvolvedor':
         try {
           const TextinCriadorInfo = `╭─── ⋆｡˚ 💎 *Opala* 💎 ˚｡⋆ ───╮
 │
-│ Feito com carinho pelo *Ruan Amaral* ♡
-│ 🌐 projectgems.github.io
+│ Esse projeto foi desenvolvido pelo
+│ *Ruan* (@ruan_amarl) ♡
+│
+│ 🌐 projectgems.github.io/opala
+│ 💻 github.com/ruan2311/opala
 │
 ╰──────────────────────╯`;
           await reply(TextinCriadorInfo);
