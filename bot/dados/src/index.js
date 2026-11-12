@@ -5879,6 +5879,17 @@ Entre em contato com o dono do bot:
 
 
 
+    const _figCmds = ['s','st','stk','sticker','st2','stk2','sticker2','s2','sbg','sfundo','qc','emojimix','ttp','attp','brat','bratvid','bratvideo'];
+    let _figFim = async () => {};
+    if (_figCmds.includes(command) && info?.key) {
+      const _figReact = (t) => nazu.sendMessage(from, { react: { text: t, key: info.key } }).catch(() => {});
+      await _figReact('⏳');
+      _figFim = async () => {
+        await _figReact('✅');
+        setTimeout(() => { _figReact(''); }, 5000);
+      };
+    }
+
     switch (command) {
 
       case 'roles':
@@ -20250,6 +20261,7 @@ ${prefix}brat texto | fundo | cor do texto | desfoque
             mimetype: 'image/webp'
           }, { quoted: info });
 
+          await _figFim();
           console.log(`[comando brat] ✅ Sticker enviado para: "${texto}"`);
 
         } catch (e) {
@@ -20310,6 +20322,7 @@ ${prefix}bratvid texto | fundo | cor do texto | ritmo
             mimetype: 'image/webp'
           }, { quoted: info });
 
+          await _figFim();
           console.log(`[comando bratvid] ✅ Sticker enviado: "${texto}"`);
 
         } catch (e) {
@@ -25139,7 +25152,7 @@ break;
               await response.arrayBuffer()
             );
 
-            return sendSticker(
+            await sendSticker(
               nazu,
               from,
               {
@@ -25152,6 +25165,8 @@ break;
                 quoted: info
               }
             );
+            await _figFim();
+            return;
 
           }
 
@@ -25255,6 +25270,7 @@ break;
           }, {
             quoted: info
           });
+          await _figFim();
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25278,6 +25294,7 @@ break;
           }, {
             quoted: info
           });
+          await _figFim();
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25326,6 +25343,7 @@ break;
           }, {
             quoted: info
           });
+          await _figFim();
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25423,6 +25441,7 @@ break;
           }, {
             quoted: info
           });
+          await _figFim();
 
           // Limpar arquivos temporários
           try {
@@ -25457,6 +25476,7 @@ break;
           }, {
             quoted: info
           });
+          await _figFim();
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
@@ -25481,6 +25501,7 @@ break;
           }, {
             quoted: info
           });
+          await _figFim();
         } catch (e) {
           console.error(e);
           await reply(`💎 Eita, algo deu errado do meu lado... tenta de novo daqui a pouquinho? (╥﹏╥)`);
